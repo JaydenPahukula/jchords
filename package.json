@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/tsc",
-    "watch": "./node_modules/.bin/tsc --watch",
-    "dev": "npm run watch & firebase serve",
+    "build": "vite build",
+    "dev": "vite",
     "deploy": "npm run build && firebase deploy"
   },
   "author": "",
   "description": "",
   "devDependencies": {
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4"
   },
   "dependencies": {
   }
