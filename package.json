@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/tsc"
+    "build": "./node_modules/.bin/tsc",
+    "watch": "./node_modules/.bin/tsc --watch",
+    "dev": "npm run watch & firebase serve",
+    "deploy": "npm run build && firebase deploy"
   },
   "author": "",
-  "license": "ISC",
   "description": "",
   "devDependencies": {
     "ts-node": "^10.9.2",
