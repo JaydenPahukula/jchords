@@ -1,11 +1,6 @@
-import {parseSong} from './songutils'
+import { registerCustomComponents } from "src/components/manifest";
+import { renderInitialContent } from "./pages/router";
 
-const root = document.getElementById('root');
-if (!(root instanceof HTMLDivElement)){
-    throw new Error("Could not find root div");
-}
+registerCustomComponents();
 
-fetch('./song.json').then(async (response) => {
-    const data = await response.json();
-    root.appendChild(parseSong(data) || document.createTextNode('invalid song format'));
-});
+renderInitialContent();

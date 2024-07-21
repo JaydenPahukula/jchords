@@ -1,7 +1,6 @@
 {
   "name": "jchords",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "build": "vite build",
     "dev": "vite",
@@ -13,7 +12,5 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
     "vite": "^5.3.4"
-  },
-  "dependencies": {
   }
 }
