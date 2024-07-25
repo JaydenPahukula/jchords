@@ -2,16 +2,8 @@ export abstract class JComponent extends HTMLElement {
 
     private readonly shadow = this.attachShadow({ mode: 'open' });;
 
-    private html: string;
-
-    constructor(template: string, style: string) {
+    constructor(private readonly customStyle: string) {
         super();
-        this.html = `
-            <style>
-                ${style}
-            </style>
-            ${template}
-        `;
     }
 
     private connectedCallback() {
@@ -19,7 +11,14 @@ export abstract class JComponent extends HTMLElement {
     }
 
     private render() {
-        this.shadow.innerHTML = this.html;
+        this.shadow.innerHTML = `
+            <style>
+                ${this.customStyle}
+            </style>
+            ${this.template}
+        `;;
     }
+
+    protected abstract get template(): string;
 
 };
