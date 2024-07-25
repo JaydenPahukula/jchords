@@ -1,11 +1,11 @@
-import { JHeader } from "./header/header";
+import { JHeaderComponent } from "./header/header";
 
 const componentManifest: {
     name: string,
     constructor: CustomElementConstructor,
     options?: ElementDefinitionOptions,
 }[] = [
-    { name: 'j-header', constructor: JHeader },
+    { name: 'j-header', constructor: JHeaderComponent },
 ];
 
 export function registerCustomComponents() {
