@@ -1,4 +1,4 @@
-export abstract class JComponent extends HTMLElement {
+export abstract class Component extends HTMLElement {
 
     private readonly shadow = this.attachShadow({ mode: 'open' });;
 

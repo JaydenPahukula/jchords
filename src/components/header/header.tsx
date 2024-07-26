@@ -1,8 +1,8 @@
-import { JComponent } from "src/components/JComponent";
+import { Component } from "src/components/Component";
 import style from './header.css?raw';
 import JSX from "src/pragma";
 
-export class JHeaderComponent extends JComponent {
+export class HeaderComponent extends Component {
 
     constructor(){
         super(style);
