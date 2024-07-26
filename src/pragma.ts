@@ -2,17 +2,17 @@
 declare global {
     namespace JSX {
 
-        type IntrinsicElements = {
-            [K in keyof HTMLElementTagNameMap]: {
-                [k: string]: any
-            }
+        interface IntrinsicElements {
+			[tag: string]: {
+                [key: string]: any
+            };
         }
-        
+
     }
 }
 
 // jsx factory
-export function JSX(name: string, props: { [id: string]: string } | null, ...content: string[]): string {
+export function JSX(tag: string, props: { [id: string]: string } | null, ...children: string[]): string {
     props = props || {};
     const propsstr = Object.keys(props)
         .map(key => {
@@ -21,6 +21,6 @@ export function JSX(name: string, props: { [id: string]: string } | null, ...con
             else return `${key}=${value}`;
         })
         .join(" ");
-    return `<${name} ${propsstr}> ${content.join("")}</${name}>`;
+    return `<${tag} ${propsstr}> ${children.join("")}</${tag}>`;
 }
 export default JSX;
