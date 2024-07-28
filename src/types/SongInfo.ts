@@ -4,12 +4,6 @@ export default interface SongInfo {
 }
 
 export function isSongInfo(obj: unknown): obj is SongInfo {
-  return (
-    !!obj &&
-    typeof obj === 'object' &&
-    'name' in obj &&
-    typeof obj.name === 'string' &&
-    'id' in obj &&
-    typeof obj.id === 'string'
-  );
+  const objAs = obj as SongInfo;
+  return typeof objAs.name === 'string' && typeof objAs.id === 'string';
 }

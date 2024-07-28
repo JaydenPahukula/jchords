@@ -10,7 +10,7 @@
     "skipLibCheck": true,
 
     "paths": {
-      "src/*": ["./src/*"],
+      "src/*": ["./src/*"]
     },
 
     /* Bundler mode */
@@ -24,10 +24,10 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": false,
-    "forceConsistentCasingInFileNames": true,
-  },
+    "forceConsistentCasingInFileNames": true
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderComponent from 'src/components/Header/Header';
 import SongListComponent from 'src/components/SongList/SongList';
-import './page.css';
+import './HomePage.css';
 
 export default function HomePage() {
   return (
