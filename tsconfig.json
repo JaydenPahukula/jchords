@@ -27,28 +27,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": false,
     "forceConsistentCasingInFileNames": true,
   },
 }
-// {
-//   "include": ["./src"],
-//   "compilerOptions": {
-//     "target": "es2016",
-//     "jsx": "react",
-//     "jsxFactory": "JSX",
-//     "module": "ESNext",
-//     "rootDir": "src",
-//     "moduleResolution": "node",
-//     "baseUrl": ".",
-//     "paths": {
-//       "src/*": ["./src/*"],
-//     },
-//     "types": ["vite/client"],
-//     "resolveJsonModule": true,
-//     "outDir": "./public/",
-//     "esModuleInterop": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "strict": true,
-//     "skipLibCheck": true
-//   }
-// }

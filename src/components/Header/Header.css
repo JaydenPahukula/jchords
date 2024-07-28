@@ -1,7 +1,6 @@
-
 #header-background {
-    background-color: lightgray;
-    overflow: auto;
-    display: flex;
-    flex-direction: row;
+  background-color: lightgray;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
 }

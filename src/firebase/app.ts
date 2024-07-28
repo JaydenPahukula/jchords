@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "./firebase.config.json";
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from './firebase.config.json';
 
 const app = initializeApp(firebaseConfig);
 
-export default app
+export default app;
