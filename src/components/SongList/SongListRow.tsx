@@ -5,12 +5,13 @@ interface SongListRowComponentProps {
   info: SongInfo;
 }
 
-export default function SongListRowComponent(props: SongListRowComponentProps) {
-  const song = props.info;
+export default function SongListRowComponent({
+  info,
+}: SongListRowComponentProps) {
   return (
-    <a key={song.id} href={`/song/${song.id}`} className="song-list-row">
+    <a key={info.id} href={`/song/${info.id}`} className="song-list-row">
       <p className="song-list-row-text">
-        <b>{song.name}</b> ({song.id})
+        <b>{info.name}</b> ({info.id})
       </p>
     </a>
   );

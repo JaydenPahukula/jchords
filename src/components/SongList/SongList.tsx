@@ -11,7 +11,7 @@ export default function SongListComponent() {
 
   useEffect(() => {
     let mounted = true;
-    DBManager.getSongs().then((list) => {
+    DBManager.getAllSongInfo().then((list) => {
       if (mounted) {
         setSongList(list);
         setIsLoading(false);
@@ -22,16 +22,14 @@ export default function SongListComponent() {
     };
   }, []);
 
-  if (isLoading) {
-    return <SongListLoadingComponent></SongListLoadingComponent>;
-  } else {
-    return (
-      <div className="song-list">
-        <h2>Song List:</h2>
-        {songList.map((song) => (
-          <SongListRowComponent info={song}></SongListRowComponent>
-        ))}
-      </div>
-    );
-  }
+  return isLoading ? (
+    <SongListLoadingComponent></SongListLoadingComponent>
+  ) : (
+    <div className="song-list">
+      <h2>Song List:</h2>
+      {songList.map((song) => (
+        <SongListRowComponent info={song}></SongListRowComponent>
+      ))}
+    </div>
+  );
 }

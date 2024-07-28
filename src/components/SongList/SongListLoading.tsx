@@ -1,3 +1,3 @@
 export default function SongListLoadingComponent() {
-  return <p>loading...</p>;
+  return <p>song list loading...</p>;
 }
