@@ -1,6 +1,15 @@
-#header-background {
+.header {
   background-color: lightgray;
   overflow: auto;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+}
+
+.header-title {
+  flex-grow: 1;
+  margin: 12px;
+}
+
+.header-link {
+  margin-right: 16px;
 }

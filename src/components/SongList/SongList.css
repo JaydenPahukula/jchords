@@ -1,0 +1,8 @@
+.song-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ededed;
+  width: 90%;
+  max-width: 750px;
+}

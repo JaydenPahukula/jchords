@@ -5,13 +5,13 @@ import { getFirestore } from 'firebase/firestore';
 
 const db = getFirestore(app);
 
+const songsRef = collection(db, 'songs');
+
 const DBManager = {
   async getSongs(): Promise<SongInfo[]> {
-    const querySnapshot = await getDocs(collection(db, 'testcollection'));
+    const querySnapshot = await getDocs(songsRef);
     return querySnapshot.docs
-      .map((doc) => {
-        return { id: doc.id, ...doc.data() };
-      })
+      .map((doc) => ({ id: doc.id, ...doc.data() }))
       .filter(isSongInfo);
   },
 };
