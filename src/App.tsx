@@ -2,7 +2,7 @@ import HomePage from "src/pages/Home"
 import TestPage from "./pages/Test";
 import NotFoundPage from "./pages/NotFound";
 
-function App() {
+export default function App() {
     switch (location.pathname) {
         case "/":
             return HomePage();
@@ -12,5 +12,3 @@ function App() {
             return NotFoundPage();
     }
 }
-
-export default App

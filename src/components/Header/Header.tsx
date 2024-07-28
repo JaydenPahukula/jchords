@@ -1,6 +1,6 @@
 import "./Header.css"
 
-function HeaderComponent() {
+export default function HeaderComponent() {
     return (
         <div id="header-background">
             <h1>
@@ -11,5 +11,3 @@ function HeaderComponent() {
         </div>
     );
 }
-
-export default HeaderComponent
