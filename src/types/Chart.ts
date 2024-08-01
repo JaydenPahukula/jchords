@@ -8,20 +8,17 @@ export default interface Chart {
   order: ChartOrder;
 }
 
-const invalidChart = Symbol.for('InvalidChart');
-export type InvalidChart = typeof invalidChart;
-
 export function isChart(obj: unknown): obj is Chart {
   const objAs = obj as Chart;
   return !!obj && isChartSections(objAs.sections) && isChartOrder(objAs.order);
 }
 
-export function parseChart(docs: QueryDocumentSnapshot[]): Chart | InvalidChart {
+export function parseChart(docs: QueryDocumentSnapshot[]): Chart | undefined {
   const maybeSections: ChartSections = {};
   let maybeOrder: ChartOrder | undefined;
   for (const doc of docs) {
     if (doc.id === '(order)') {
-      const data = doc.data();
+      const data = doc.data()?.order;
       if (isChartOrder(data)) {
         maybeOrder = data;
       }
@@ -36,5 +33,5 @@ export function parseChart(docs: QueryDocumentSnapshot[]): Chart | InvalidChart 
     sections: maybeSections,
     order: maybeOrder,
   };
-  return isChart(maybeChart) ? maybeChart : invalidChart;
+  return isChart(maybeChart) ? maybeChart : undefined;
 }

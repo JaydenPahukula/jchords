@@ -1,15 +1,16 @@
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 export default function HeaderComponent() {
   return (
     <div className="header">
       <h1 className="header-title">This is the header!</h1>
-      <a className="header-link" href="/">
+      <Link to="/" className="header-link">
         Home
-      </a>
-      <a className="header-link" href="/test">
+      </Link>
+      <Link to="/test" className="header-link">
         Test
-      </a>
+      </Link>
     </div>
   );
 }

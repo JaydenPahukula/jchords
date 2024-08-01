@@ -1,0 +1,20 @@
+.chart {
+  font-family: 'Courier New', monospace;
+  background-color: white;
+  padding: 48px;
+  overflow: auto;
+  border-radius: 8px;
+}
+
+.chart-header {
+  margin: 0 0 64px 0;
+}
+
+.chart-title {
+  font-size: 1.8em;
+  margin: 0px;
+}
+
+.chart-subtitle {
+  margin: 0.5em 0 0 0;
+}

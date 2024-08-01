@@ -1,10 +1,11 @@
 {
   "name": "jchords",
   "scripts": {
-    "format": "prettier --config .prettierrc --write 'src/**/*' index.html",
+    "dev": "vite",
+    "format": "prettier --write 'src/**/*' index.html",
     "lint": "eslint --ext js,ts,jsx,tsx ./src/",
     "build": "npm run format && npm run lint && tsc && vite build",
-    "dev": "vite",
+    "preview": "npm run build && vite preview",
     "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
   "dependencies": {
     "firebase": "^10.12.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.25.1"
   }
 }
