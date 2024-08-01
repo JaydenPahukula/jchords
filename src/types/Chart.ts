@@ -16,9 +16,7 @@ export function isChart(obj: unknown): obj is Chart {
   return !!obj && isChartSections(objAs.sections) && isChartOrder(objAs.order);
 }
 
-export function parseChart(
-  docs: QueryDocumentSnapshot[],
-): Chart | InvalidChart {
+export function parseChart(docs: QueryDocumentSnapshot[]): Chart | InvalidChart {
   const maybeSections: ChartSections = {};
   let maybeOrder: ChartOrder | undefined;
   for (const doc of docs) {

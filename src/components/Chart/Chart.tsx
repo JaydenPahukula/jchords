@@ -24,9 +24,5 @@ export default function ChartComponent({ songID }: ChartComponentProps) {
     };
   }, []);
 
-  return isLoading ? (
-    <ChartLoadingComponent></ChartLoadingComponent>
-  ) : (
-    <div>{songID}</div>
-  );
+  return isLoading ? <ChartLoadingComponent></ChartLoadingComponent> : <div>{songID}</div>;
 }

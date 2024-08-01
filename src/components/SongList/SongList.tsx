@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import SongListLoadingComponent from './SongListLoading';
 import DBManager from 'src/db/DBManager';
 import SongInfo from 'src/types/SongInfo';
 import './SongList.css';
+import SongListLoadingComponent from './SongListLoading';
 import SongListRowComponent from './SongListRow';
 
 export default function SongListComponent() {
