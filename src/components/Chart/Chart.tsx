@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DBManager from 'src/db/DBManager';
 import Chart from 'src/types/Chart';
 import SongInfo from 'src/types/SongInfo';
-import { isDef } from 'src/types/trivial';
+import { isDef } from 'src/types/guards';
 import './Chart.css';
 import ChartSectionComponent from './ChartSection';
 
@@ -17,16 +17,10 @@ export default function ChartComponent({ songId }: ChartComponentProps) {
   const [chart, setChart] = useState<Chart>();
 
   useEffect(() => {
-    // let mounted = true;
     DBManager.getSongInfo(songId).then((info) => {
-      // if (mounted) {
       setSongInfo(info);
       setIsSongInfoLoading(false);
-      // }
     });
-    // return () => {
-    //   mounted = false;
-    // };
   }, []);
 
   useEffect(() => {
@@ -59,7 +53,7 @@ export default function ChartComponent({ songId }: ChartComponentProps) {
             .map((sectionId) => chart.sections[sectionId])
             .filter(isDef)
             .map((section) => (
-              <ChartSectionComponent section={section}></ChartSectionComponent>
+              <ChartSectionComponent section={section} key={section.sectionname}></ChartSectionComponent>
             ))}
         </React.Fragment>
       )}
