@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/Home/HomePage';
-import NotFoundPage from './pages/NotFound/NotFoundPage';
-import SongPage from './pages/Song/SongPage';
-import TestPage from './pages/Test/TestPage';
+import HomePage from './pages/home/homepage';
+import NotFoundPage from './pages/notfound/notfoundpage';
+import SongPage from './pages/song/songpage';
+import TestPage from './pages/test/testpage';
 
 export default function App() {
   return (

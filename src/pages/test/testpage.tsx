@@ -1,5 +1,5 @@
 import React from 'react';
-import SongListComponent from 'src/components/SongList/SongList';
+import SongListComponent from 'src/components/songlist/songlist';
 
 export default function TestPage() {
   return (

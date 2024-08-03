@@ -1,7 +1,7 @@
 import { collection, doc, getDoc, getDocs, getFirestore, QueryDocumentSnapshot } from 'firebase/firestore';
 import app from 'src/firebase/app';
-import Chart, { parseChart } from 'src/types/Chart';
-import SongInfo, { isSongInfo } from 'src/types/SongInfo';
+import Chart, { parseChart } from 'src/types/chart';
+import SongInfo, { isSongInfo } from 'src/types/songinfo';
 
 const db = getFirestore(app);
 

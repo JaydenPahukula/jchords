@@ -1,8 +1,8 @@
 import React from 'react';
-import ChartChord from 'src/types/ChartChord';
-import ChartLine from 'src/types/ChartLine';
-import ChartSection from 'src/types/ChartSection';
-import './ChartSection.css';
+import ChartChord from 'src/types/chartchord';
+import ChartLine from 'src/types/chartline';
+import ChartSection from 'src/types/chartsection';
+import './chartsection.css';
 
 function getLines(line: ChartLine): [string, string] {
   if (line.chords.length === 0) return [line.lyrics, ''];

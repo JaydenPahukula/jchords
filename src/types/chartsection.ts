@@ -1,4 +1,4 @@
-import ChartLine, { isChartLine } from 'src/types/ChartLine';
+import ChartLine, { isChartLine } from 'src/types/chartline';
 
 type ChartSection = {
   sectionname: string;

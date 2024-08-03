@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
-import ChartComponent from 'src/components/Chart/Chart';
-import NotFoundPage from '../NotFound/NotFoundPage';
-import './SongPage.css';
+import ChartComponent from 'src/components/chart/chart';
+import NotFoundPage from '../notfound/notfoundpage';
+import './songpage.css';
 
 export default function SongPage() {
   const songId = useParams().id;

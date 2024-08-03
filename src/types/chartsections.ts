@@ -1,4 +1,4 @@
-import ChartSection, { isChartSection } from 'src/types/ChartSection';
+import ChartSection, { isChartSection } from 'src/types/chartsection';
 
 type ChartSections = {
   [key: string]: ChartSection;

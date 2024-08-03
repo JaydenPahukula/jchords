@@ -1,4 +1,4 @@
-import ChartChord, { isChartChord } from 'src/types/ChartChord';
+import ChartChord, { isChartChord } from 'src/types/chartchord';
 
 type ChartLine = {
   chords: ChartChord[];

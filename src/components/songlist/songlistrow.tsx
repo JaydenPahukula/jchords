@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import SongInfo from 'src/types/SongInfo';
-import './SongListRow.css';
+import SongInfo from 'src/types/songinfo';
+import './songlistrow.css';
 
 interface SongListRowComponentProps {
   info: SongInfo;
