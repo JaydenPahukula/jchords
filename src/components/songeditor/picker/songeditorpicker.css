@@ -1,0 +1,27 @@
+.song-editor-picker,
+.song-editor-picker-disabled {
+  height: 200px;
+  width: 500px;
+  border: 1px solid rgb(118, 118, 118);
+  overflow: hidden scroll;
+  resize: both;
+}
+
+.song-editor-picker-disabled {
+  border-color: rgb(118, 118, 118, 0.3);
+  color: rgb(84, 84, 84);
+  background-color: rgb(239, 239, 239, 0.3);
+}
+
+.song-editor-picker-row {
+  cursor: default;
+}
+
+.song-editor-picker-row:hover {
+  background-color: #eeeeee;
+}
+
+.song-editor-picker-row:active,
+.song-editor-picker-row-selected {
+  background-color: #dddddd;
+}

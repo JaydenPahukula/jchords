@@ -1,5 +1,12 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import SongEditorComponent from 'src/components/songeditor/songeditor';
+import './songeditorpage.css';
 
 export default function SongEditorPage() {
-  return <React.Fragment>Welcome to the song editor!</React.Fragment>;
+  return (
+    <div className="song-editor-page">
+      <Link to="/">&lt;- Home</Link>
+      <SongEditorComponent></SongEditorComponent>
+    </div>
+  );
 }

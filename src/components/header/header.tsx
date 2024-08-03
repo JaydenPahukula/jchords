@@ -8,8 +8,8 @@ export default function HeaderComponent() {
       <Link to="/" className="header-link">
         Home
       </Link>
-      <Link to="/test" className="header-link">
-        Test
+      <Link to="/songeditor" className="header-link">
+        Song Editor
       </Link>
     </div>
   );
