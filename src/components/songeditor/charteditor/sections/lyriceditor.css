@@ -1,0 +1,5 @@
+.lyric-editor-textarea {
+  white-space: pre;
+  resize: both;
+  overflow: auto;
+}

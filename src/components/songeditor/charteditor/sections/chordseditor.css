@@ -1,0 +1,27 @@
+.chords-editor {
+  font-family: 'Courier New', monospace;
+}
+
+.chords-editor-row {
+  display: flex;
+}
+
+.chords-editor-letter {
+  display: flex;
+  flex-direction: column-reverse;
+  cursor: default;
+  white-space: pre;
+}
+
+.chords-editor-letter:hover {
+  background-color: #dddddd;
+}
+
+.chords-editor-chord-input {
+  font-size: 0.6em;
+  min-width: 10px;
+}
+
+.chords-editor-chord-input:focus-visible {
+  font-size: 0.9em;
+}

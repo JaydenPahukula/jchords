@@ -1,0 +1,30 @@
+.chart-editor {
+  display: flex;
+  gap: 16px;
+}
+
+.chart-editor-sections-section,
+.chart-editor-inline-header {
+  flex-grow: 1;
+}
+
+.chart-editor-lyrics-section {
+  flex-grow: 3;
+}
+
+.chart-editor-chords-section {
+  flex-grow: 3;
+}
+
+.chart-editor-inline {
+  display: flex;
+}
+
+.chart-editor-section-input {
+  flex-grow: 1;
+  margin-left: 1em;
+}
+
+.chart-editor-update-button {
+  width: 100%;
+}

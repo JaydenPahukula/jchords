@@ -1,0 +1,32 @@
+.section-editor {
+  height: 200px;
+  border: 1px solid rgb(118, 118, 118);
+  overflow: hidden auto;
+}
+
+.section-editor-inline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-editor-inline-grow {
+  flex-grow: 1;
+}
+
+.section-editor-button {
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.section-editor-row {
+  cursor: default;
+}
+
+.section-editor-row:hover {
+  background-color: #eeeeee;
+}
+
+.section-editor-row:active,
+.section-editor-row-selected {
+  background-color: #dddddd;
+}

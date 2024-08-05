@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DBManager from 'src/db/dbmanager';
 import SongInfo, { emptySongInfo } from 'src/types/songinfo';
+import ChartEditorComponent from './charteditor/charteditor';
 import SongEditorPickerComponent from './picker/songeditorpicker';
 import './songeditor.css';
 
@@ -42,6 +43,7 @@ export default function SongEditorComponent() {
                 <h2>Artist:</h2>
                 <input defaultValue={songInfo.artist}></input>
               </div>
+              <ChartEditorComponent songId={selectedId} />
             </React.Fragment>
           )}
         </React.Fragment>

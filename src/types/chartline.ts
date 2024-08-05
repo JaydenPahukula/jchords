@@ -1,11 +1,9 @@
 import ChartChord, { isChartChord } from 'src/types/chartchord';
 
-type ChartLine = {
+export default interface ChartLine {
   chords: ChartChord[];
   lyrics: string;
-};
-
-export default ChartLine;
+}
 
 export function isChartLine(obj: unknown): obj is ChartLine {
   const objAs = obj as ChartLine;
