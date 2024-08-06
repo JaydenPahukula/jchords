@@ -4,17 +4,27 @@
 
 .chords-editor-row {
   display: flex;
+  height: 1em;
 }
 
-.chords-editor-letter {
+.chords-editor-inline {
   display: flex;
-  flex-direction: column-reverse;
-  cursor: default;
-  white-space: pre;
+  justify-content: space-between;
 }
 
-.chords-editor-letter:hover {
+.chords-editor-lyric-letter,
+.chords-editor-empty-letter,
+.chords-editor-chord-letter,
+.chords-editor-lyric-letter-selected {
+  cursor: default;
+}
+
+.chords-editor-lyric-letter:hover {
   background-color: #dddddd;
+}
+
+.chords-editor-lyric-letter-selected {
+  background-color: #cccccc;
 }
 
 .chords-editor-chord-input {

@@ -1,48 +1,96 @@
-import ChartChord from 'src/types/chartchord';
-import ChartLine from 'src/types/chartline';
+import { useState } from 'react';
+import renderLine from 'src/utils/renderline';
 import ChartEditorSectionProps from './charteditorsectionprops';
 import './chordseditor.css';
 
+const idk = '意';
+
 export default function ChordsEditorComponent(props: ChartEditorSectionProps) {
+  const [selectedRow, setSelectedRow] = useState<number>();
+  const [selectedCol, setSelectedCol] = useState<number>();
+
   const selectedId = props.selectedId || '';
   const sections = props.sections || {};
   const selectedSection = sections[selectedId];
+  const isRowAndColSelected = selectedSection && selectedRow !== undefined && selectedCol !== undefined;
 
-  function maxLineLength(line: ChartLine) {
-    return Math.max(line.lyrics.length, ...line.chords.map((chord) => chord.index + 1));
+  function setSelectedChord(newChord: string) {
+    if (isRowAndColSelected) {
+      if (newChord === '') {
+        delete sections[selectedId].lines[selectedRow].chords[selectedCol];
+      } else {
+        console.log(sections[selectedId].lines[selectedRow].chords);
+        sections[selectedId].lines[selectedRow].chords[selectedCol] = newChord;
+      }
+      console.log(sections);
+      props.setSections(sections);
+    }
   }
 
-  function createChord(lineNum: number, index: number) {
-    selectedSection.lines[lineNum].chords;
+  function getSelectedChord(): string {
+    if (isRowAndColSelected) {
+      return selectedSection.lines[selectedRow].chords[selectedCol] || '';
+    }
+    return '';
   }
 
   return (
     <section className="chords-editor-section">
       <h2>Chords:</h2>
+      <div className="chords-editor-inline">
+        <h3>Selected Chord:</h3>
+        <input
+          id="chord-input"
+          value={getSelectedChord()}
+          onChange={() => setSelectedChord((document.getElementById('chord-input') as HTMLInputElement).value)}
+        ></input>
+      </div>
       <div className="chords-editor">
         {sections[selectedId]?.lines.map((line, i) => {
-          const chordMap = line.chords.reduce((map: Map<number, string>, chord: ChartChord) => {
-            map.set(chord.index, chord.chord);
-            return map;
-          }, new Map<number, string>());
+          const [rawLyricsStr, chordsStr] = renderLine(line, idk);
+          let lyricsStr = rawLyricsStr;
+          while (
+            isRowAndColSelected &&
+            selectedSection.lines[selectedRow].chords[lyricsStr.length - lyricsStr.split(idk).length + 1] !== undefined
+          )
+            lyricsStr += ' ';
+          console.log(`(${lyricsStr})`, lyricsStr.length);
+          let offset = 0;
           return (
-            <div className="chords-editor-row" key={line.lyrics}>
-              {[...Array(maxLineLength(line) + 1).keys()].map((j) => {
-                const chord = chordMap.get(j);
-                return (
-                  <div className="chords-editor-letter" onClick={() => chord && createChord(i, j)}>
-                    <p>{line.lyrics[j] || ' '}</p>
-                    {chord ? (
-                      <span className="chords-editor-chord-input" contentEditable>
-                        {' ' || line.lyrics[j] || ' '}
-                      </span>
-                    ) : (
-                      <></>
-                    )}
+            <>
+              <div className="chords-editor-row" key={'c' + i + chordsStr}>
+                {Array.from(chordsStr).map((letter, j) => (
+                  <div className="chords-editor-chord-letter" key={'c' + j}>
+                    <pre>{letter}</pre>
                   </div>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+              <div className="chords-editor-row" key={'l' + i + lyricsStr}>
+                {Array.from(lyricsStr + ' ').map((letter, j) => {
+                  j -= offset;
+                  if (letter === idk) {
+                    offset += 1;
+                    return (
+                      <div className="chords-editor-empty-letter" key={'l' + (j + offset - 1)}>
+                        <pre> </pre>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div
+                      className={`chords-editor-lyric-letter${selectedRow === i && selectedCol === j ? '-selected' : ''}`}
+                      key={'l' + (j + offset)}
+                      onClick={() => {
+                        setSelectedRow(i);
+                        setSelectedCol(j);
+                      }}
+                    >
+                      <pre>{letter}</pre>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
           );
         })}
       </div>

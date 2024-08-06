@@ -19,7 +19,7 @@ export default function LyricEditorComponent(props: ChartEditorSectionProps) {
         } else {
           sections[selectedId].lines.push({
             lyrics: lines[i],
-            chords: [],
+            chords: {},
           });
         }
       }

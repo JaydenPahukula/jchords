@@ -19,14 +19,12 @@ export function parseChart(docs: QueryDocumentSnapshot[]): Chart | undefined {
   for (const doc of docs) {
     if (doc.id === '(order)') {
       const data = doc.data()?.order;
-      if (isChartOrder(data)) {
-        maybeOrder = data;
-      }
+      if (!isChartOrder(data)) return undefined;
+      maybeOrder = data;
     } else {
       const data = doc.data();
-      if (isChartSection(data)) {
-        maybeSections[doc.id] = data;
-      }
+      if (!isChartSection(data)) return undefined;
+      maybeSections[doc.id] = data;
     }
   }
   const maybeChart = {

@@ -26,7 +26,9 @@ const DBManager = {
   },
   async getSongChart(songId: string): Promise<Chart | undefined> {
     const querySnapshot = await getDocs(collection(db, `songs/${songId}/chart`));
-    return parseChart(querySnapshot.docs);
+    const result = parseChart(querySnapshot.docs);
+    if (result === undefined) console.error(`Invalid chart format! (song id: ${songId})`);
+    return result;
   },
 };
 

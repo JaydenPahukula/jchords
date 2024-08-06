@@ -10,16 +10,10 @@ export default function SongListComponent() {
   const [songList, setSongList] = useState<SongInfo[]>([]);
 
   useEffect(() => {
-    let mounted = true;
     DBManager.getAllSongInfo().then((list) => {
-      if (mounted) {
-        setSongList(list);
-        setIsLoading(false);
-      }
+      setSongList(list);
+      setIsLoading(false);
     });
-    return () => {
-      mounted = false;
-    };
   }, []);
 
   return isLoading ? (
@@ -28,7 +22,7 @@ export default function SongListComponent() {
     <div className="song-list">
       <h2>Song List:</h2>
       {songList.map((song) => (
-        <SongListRowComponent info={song}></SongListRowComponent>
+        <SongListRowComponent info={song} key={song.id}></SongListRowComponent>
       ))}
     </div>
   );
