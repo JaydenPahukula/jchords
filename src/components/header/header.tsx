@@ -8,7 +8,7 @@ export default function HeaderComponent() {
       <Link to="/" className="header-link">
         Home
       </Link>
-      <Link to="/songeditor" className="header-link">
+      <Link to="/editor" className="header-link">
         Song Editor
       </Link>
     </div>

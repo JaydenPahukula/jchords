@@ -9,7 +9,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-        <Route path="/songeditor" element={<SongEditorPage />}></Route>
+        <Route path="/editor" element={<SongEditorPage />}></Route>
         <Route path="/song/:id" element={<SongPage />}></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
