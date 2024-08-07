@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import DBManager from 'src/db/dbmanager';
+import Chart from 'src/types/chart';
 import SongInfo, { emptySongInfo } from 'src/types/songinfo';
 import ChartEditorComponent from './charteditor/charteditor';
 import SongEditorPickerComponent from './picker/songeditorpicker';
@@ -8,6 +9,7 @@ import './songeditor.css';
 export default function SongEditorComponent() {
   const [songList, setSongList] = useState<SongInfo[]>([]);
   const [selectedId, setSelectedId] = useState<string | undefined>();
+  const [chart, setChart] = useState<Chart | undefined>();
 
   const creatingNewSong = selectedId === '';
   const songInfo: SongInfo | undefined = creatingNewSong
@@ -15,40 +17,40 @@ export default function SongEditorComponent() {
     : songList.find((song) => song.id === selectedId);
 
   useEffect(() => {
-    DBManager.getAllSongInfo().then((list) => {
-      setSongList(list);
-    });
+    DBManager.getAllSongInfo().then(setSongList);
   }, []);
+
+  useEffect(() => {
+    if (selectedId !== undefined) {
+      DBManager.getSongChart(selectedId).then(setChart);
+    }
+  }, [selectedId]);
+
+  console.log(selectedId);
 
   return (
     <div className="song-editor">
       <h1>Welcome to the song editor!</h1>
       <p>Choose a song:</p>
       <SongEditorPickerComponent songs={songList} selectedId={selectedId} onIdSelected={setSelectedId} />
-      {selectedId !== undefined ? (
+      <div>
+        {creatingNewSong ? 'Creating a new song...  ' : `Selected song id: (${selectedId})  `}
+        <button onClick={() => setSelectedId(undefined)}>Choose a different song</button>
+      </div>
+      {songInfo === undefined ? (
+        <></>
+      ) : (
         <>
           <div>
-            {creatingNewSong ? 'Creating a new song...  ' : `Selected song id: (${selectedId})  `}
-            <button onClick={() => setSelectedId(undefined)}>Choose a different song</button>
+            <h2>Title:</h2>
+            <input defaultValue={songInfo.name}></input>
           </div>
-          {songInfo === undefined ? (
-            <p>Could not find song</p>
-          ) : (
-            <>
-              <div>
-                <h2>Title:</h2>
-                <input defaultValue={songInfo.name}></input>
-              </div>
-              <div>
-                <h2>Artist:</h2>
-                <input defaultValue={songInfo.artist}></input>
-              </div>
-              <ChartEditorComponent songId={selectedId} />
-            </>
-          )}
+          <div>
+            <h2>Artist:</h2>
+            <input defaultValue={songInfo.artist}></input>
+          </div>
+          <ChartEditorComponent chart={chart} setChart={setChart} />
         </>
-      ) : (
-        <></>
       )}
     </div>
   );

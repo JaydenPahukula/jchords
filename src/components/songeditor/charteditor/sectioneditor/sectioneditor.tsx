@@ -6,6 +6,7 @@ import './sectioneditor.css';
 export default function SectionEditorComponent(props: ChartEditorSectionProps) {
   const selectedId = props.selectedId || '';
   const sections = props.sections || {};
+  console.log(props);
 
   function defaultSectionId(): string {
     let i = 1;
@@ -56,16 +57,18 @@ export default function SectionEditorComponent(props: ChartEditorSectionProps) {
     <section className="section-editor-section">
       <div className="flex-row">
         <h2 className="flex-grow-1">Sections:</h2>
-        <span>
-          <button className="section-editor-button" onClick={newSection}>
-            +
-          </button>
-          <button className="section-editor-button" onClick={deleteSelectedSection} disabled={selectedId === ''}>
-            -
-          </button>
-        </span>
+        <button className="section-editor-button" onClick={newSection} disabled={props.sections === undefined}>
+          +
+        </button>
+        <button
+          className="section-editor-button"
+          onClick={deleteSelectedSection}
+          disabled={props.sections === undefined || selectedId === ''}
+        >
+          -
+        </button>
       </div>
-      <div className="section-list">
+      <div className={`section-list flex-grow-1${props.sections === undefined ? ' disabled' : ''}`}>
         {Object.keys(sections).map((sectionId) => (
           <div
             className={`section-list-row${sectionId === selectedId ? '-selected' : ''}`}

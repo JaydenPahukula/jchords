@@ -38,3 +38,7 @@ body {
 .preserve-white-space {
   white-space: pre;
 }
+
+.error-msg {
+  color: red;
+}

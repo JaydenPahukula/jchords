@@ -1,40 +1,38 @@
-import { useEffect, useState } from 'react';
-import DBManager from 'src/db/dbmanager';
-import ChartSections, { isChartSections } from 'src/types/chartsections';
+import { useState } from 'react';
+import Chart, { isChart } from 'src/types/chart';
+import ChartSections from 'src/types/chartsections';
 import './charteditor.css';
 import ChartEditorSectionProps from './charteditorsectionprops';
 import ChordsEditorComponent from './chordseditor/chordseditor';
 import LyricEditorComponent from './lyriceditor/lyriceditor';
+import OrderEditorComponent from './ordereditor/ordereditor';
 import SectionEditorComponent from './sectioneditor/sectioneditor';
 
 interface ChartEditorComponentProps {
-  songId: string;
+  chart: Chart | undefined;
+  setChart: (chart: Chart) => void;
+}
+
+function isChartOrUndefined(obj: unknown): obj is Chart | undefined {
+  return obj === undefined || isChart(obj);
 }
 
 export default function ChartEditorComponent(props: ChartEditorComponentProps) {
-  const [isChartLoading, setIsChartLoading] = useState(true);
-  const [oldSections, setSections] = useState<ChartSections>();
   const [selectedSectionId, setSelectedSectionId] = useState<string>();
 
-  useEffect(() => {
-    if (props.songId === '') {
-      setSections({});
-      setIsChartLoading(false);
-    } else {
-      DBManager.getSongChart(props.songId).then((chart) => {
-        setSections(chart?.sections);
-        setIsChartLoading(false);
-      });
-    }
-  }, []);
-
   // deep copy
-  const sections = JSON.parse(JSON.stringify(oldSections || ''));
-  if (isChartLoading) return <>loading...</>;
-  if (!isChartSections(sections)) return <>error loading chart</>;
+  const chart = props.chart === undefined ? undefined : JSON.parse(JSON.stringify(props.chart || ''));
+  if (!isChartOrUndefined(chart)) return <>error loading chart</>;
+
+  function setSections(sections: ChartSections | undefined) {
+    if (sections && chart) {
+      chart.sections = sections;
+      props.setChart(chart);
+    }
+  }
 
   const inputs: ChartEditorSectionProps = {
-    sections: sections,
+    sections: chart?.sections,
     setSections: setSections,
     selectedId: selectedSectionId,
     setSelectedId: setSelectedSectionId,
@@ -42,9 +40,13 @@ export default function ChartEditorComponent(props: ChartEditorComponentProps) {
 
   return (
     <div className="chart-editor">
-      <SectionEditorComponent {...inputs} />
-      <LyricEditorComponent {...inputs} />
-      <ChordsEditorComponent {...inputs} />
+      {props.chart === undefined ? <p className="error-msg">Chart format is invalid!</p> : <></>}
+      <div className="section-editor">
+        <SectionEditorComponent {...inputs} />
+        <LyricEditorComponent {...inputs} />
+        <ChordsEditorComponent {...inputs} />
+      </div>
+      <OrderEditorComponent />
     </div>
   );
 }

@@ -1,32 +1,8 @@
-.chart-editor {
+.section-editor {
   display: flex;
   width: 100%;
   max-width: 1200px;
+  height: 300px;
   gap: 16px;
-}
-
-.chart-editor-sections-section,
-.chart-editor-inline-header {
-  flex-grow: 1;
-}
-
-.chart-editor-lyrics-section {
-  flex-grow: 3;
-}
-
-.chart-editor-chords-section {
-  flex-grow: 3;
-}
-
-.chart-editor-inline {
-  display: flex;
-}
-
-.chart-editor-section-input {
-  flex-grow: 1;
-  margin-left: 1em;
-}
-
-.chart-editor-update-button {
-  width: 100%;
+  margin-bottom: 16px;
 }

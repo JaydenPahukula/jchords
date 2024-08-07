@@ -23,7 +23,7 @@ export default function SongEditorPickerComponent(props: SongEditorPickerCompone
         const selected = id === props.selectedId;
         return (
           <div
-            className={`song-editor-picker-row${selected ? ' selected' : ''}`}
+            className={`song-editor-picker-row${selected ? '-selected' : ''}`}
             key={id}
             onClick={() => optionClicked(id)}
           >

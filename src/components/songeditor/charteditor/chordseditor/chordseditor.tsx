@@ -40,6 +40,7 @@ export default function ChordsEditorComponent(props: ChartEditorSectionProps) {
         <input
           className="chord-input"
           id="chord-input"
+          disabled={selectedRow === undefined || selectedCol === undefined}
           value={getSelectedChord()}
           onChange={() => setSelectedChord((document.getElementById('chord-input') as HTMLInputElement).value)}
         ></input>
