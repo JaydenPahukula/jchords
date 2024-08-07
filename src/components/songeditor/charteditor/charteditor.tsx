@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import DBManager from 'src/db/dbmanager';
 import ChartSections, { isChartSections } from 'src/types/chartsections';
 import './charteditor.css';
-import ChartEditorSectionProps from './sections/charteditorsectionprops';
-import ChordsEditorComponent from './sections/chordseditor';
-import LyricEditorComponent from './sections/lyriceditor';
-import SectionEditorComponent from './sections/sectioneditor';
+import ChartEditorSectionProps from './charteditorsectionprops';
+import ChordsEditorComponent from './chordseditor/chordseditor';
+import LyricEditorComponent from './lyriceditor/lyriceditor';
+import SectionEditorComponent from './sectioneditor/sectioneditor';
 
 interface ChartEditorComponentProps {
   songId: string;

@@ -1,4 +1,4 @@
-import ChartEditorSectionProps from './charteditorsectionprops';
+import ChartEditorSectionProps from '../charteditorsectionprops';
 import './lyriceditor.css';
 
 export default function LyricEditorComponent(props: ChartEditorSectionProps) {

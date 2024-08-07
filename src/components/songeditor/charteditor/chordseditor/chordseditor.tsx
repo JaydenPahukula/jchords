@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import renderLine from 'src/utils/renderline';
-import ChartEditorSectionProps from './charteditorsectionprops';
+import ChartEditorSectionProps from '../charteditorsectionprops';
 import './chordseditor.css';
 
 const idk = '意';

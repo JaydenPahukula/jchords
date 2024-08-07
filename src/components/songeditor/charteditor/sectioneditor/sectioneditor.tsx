@@ -1,6 +1,6 @@
 import { emptyChartSection } from 'src/types/chartsection';
 import ChartSections from 'src/types/chartsections';
-import ChartEditorSectionProps from './charteditorsectionprops';
+import ChartEditorSectionProps from '../charteditorsectionprops';
 import './sectioneditor.css';
 
 export default function SectionEditorComponent(props: ChartEditorSectionProps) {
