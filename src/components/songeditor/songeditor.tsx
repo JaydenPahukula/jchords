@@ -48,6 +48,10 @@ export default function SongEditorComponent() {
             <input defaultValue={songInfo.artist}></input>
           </div>
           <ChartEditorComponent chart={chart} setChart={setChart} />
+          <div>
+            <h2>View Raw:</h2>
+            <pre>{JSON.stringify(chart, undefined, 2)}</pre>
+          </div>
         </>
       )}
     </div>
