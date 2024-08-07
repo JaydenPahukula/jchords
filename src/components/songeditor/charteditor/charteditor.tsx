@@ -17,10 +17,15 @@ export default function ChartEditorComponent(props: ChartEditorComponentProps) {
   const [selectedSectionId, setSelectedSectionId] = useState<string>();
 
   useEffect(() => {
-    DBManager.getSongChart(props.songId).then((chart) => {
-      setSections(chart?.sections);
+    if (props.songId === '') {
+      setSections({});
       setIsChartLoading(false);
-    });
+    } else {
+      DBManager.getSongChart(props.songId).then((chart) => {
+        setSections(chart?.sections);
+        setIsChartLoading(false);
+      });
+    }
   }, []);
 
   // deep copy

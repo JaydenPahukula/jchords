@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DBManager from 'src/db/dbmanager';
 import SongInfo, { emptySongInfo } from 'src/types/songinfo';
 import ChartEditorComponent from './charteditor/charteditor';
@@ -26,7 +26,7 @@ export default function SongEditorComponent() {
       <p>Choose a song:</p>
       <SongEditorPickerComponent songs={songList} selectedId={selectedId} onIdSelected={setSelectedId} />
       {selectedId !== undefined ? (
-        <React.Fragment>
+        <>
           <div>
             {creatingNewSong ? 'Creating a new song...  ' : `Selected song id: (${selectedId})  `}
             <button onClick={() => setSelectedId(undefined)}>Choose a different song</button>
@@ -34,7 +34,7 @@ export default function SongEditorComponent() {
           {songInfo === undefined ? (
             <p>Could not find song</p>
           ) : (
-            <React.Fragment>
+            <>
               <div>
                 <h2>Title:</h2>
                 <input defaultValue={songInfo.name}></input>
@@ -44,9 +44,9 @@ export default function SongEditorComponent() {
                 <input defaultValue={songInfo.artist}></input>
               </div>
               <ChartEditorComponent songId={selectedId} />
-            </React.Fragment>
+            </>
           )}
-        </React.Fragment>
+        </>
       ) : (
         <></>
       )}
