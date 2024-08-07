@@ -15,12 +15,8 @@
   width: 100%;
 }
 
-.section-editor-button {
-  height: 1.5em;
-  width: 1.5em;
-}
-
-.section-list-row {
+.section-list-row,
+.section-list-row-selected {
   cursor: default;
 }
 

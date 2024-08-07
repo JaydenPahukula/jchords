@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Chart, { isChart } from 'src/types/chart';
+import ChartOrder from 'src/types/chartorder';
 import ChartSections from 'src/types/chartsections';
 import './charteditor.css';
 import ChartEditorSectionProps from './charteditorsectionprops';
@@ -31,6 +32,13 @@ export default function ChartEditorComponent(props: ChartEditorComponentProps) {
     }
   }
 
+  function setOrder(order: ChartOrder) {
+    if (chart) {
+      chart.order = order;
+      props.setChart(chart);
+    }
+  }
+
   const inputs: ChartEditorSectionProps = {
     sections: chart?.sections,
     setSections: setSections,
@@ -46,7 +54,11 @@ export default function ChartEditorComponent(props: ChartEditorComponentProps) {
         <LyricEditorComponent {...inputs} />
         <ChordsEditorComponent {...inputs} />
       </div>
-      <OrderEditorComponent />
+      <OrderEditorComponent
+        sectionIds={chart === undefined ? undefined : Object.keys(chart?.sections)}
+        order={chart?.order}
+        setOrder={setOrder}
+      />
     </div>
   );
 }

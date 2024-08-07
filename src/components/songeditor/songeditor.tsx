@@ -26,8 +26,6 @@ export default function SongEditorComponent() {
     }
   }, [selectedId]);
 
-  console.log(selectedId);
-
   return (
     <div className="song-editor">
       <h1>Welcome to the song editor!</h1>
