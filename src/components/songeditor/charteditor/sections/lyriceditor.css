@@ -1,5 +1,13 @@
+.lyric-editor-section {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
 .lyric-editor-textarea {
+  width: 100%;
+  height: 100%;
   white-space: pre;
-  resize: both;
   overflow: auto;
+  resize: none;
 }

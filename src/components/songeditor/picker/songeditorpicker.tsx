@@ -17,13 +17,13 @@ export default function SongEditorPickerComponent(props: SongEditorPickerCompone
   }
 
   return (
-    <div className={`song-editor-picker${disabled ? '-disabled' : ''}`}>
+    <div className={`song-editor-picker${disabled ? ' disabled' : ''}`}>
       {[...props.songs, undefined].map((option) => {
         const id = option?.id || '';
         const selected = id === props.selectedId;
         return (
           <div
-            className={`song-editor-picker-row${selected ? '-selected' : ''}`}
+            className={`song-editor-picker-row${selected ? ' selected' : ''}`}
             key={id}
             onClick={() => optionClicked(id)}
           >

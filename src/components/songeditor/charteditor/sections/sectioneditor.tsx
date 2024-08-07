@@ -54,8 +54,8 @@ export default function SectionEditorComponent(props: ChartEditorSectionProps) {
 
   return (
     <section className="section-editor-section">
-      <div className="section-editor-inline">
-        <h2 className="section-editor-inline-grow">Sections:</h2>
+      <div className="flex-row">
+        <h2 className="flex-grow-1">Sections:</h2>
         <span>
           <button className="section-editor-button" onClick={newSection}>
             +
@@ -65,10 +65,10 @@ export default function SectionEditorComponent(props: ChartEditorSectionProps) {
           </button>
         </span>
       </div>
-      <div className="section-editor">
+      <div className="section-list">
         {Object.keys(sections).map((sectionId) => (
           <div
-            className={`section-editor-row${sectionId === selectedId ? '-selected' : ''}`}
+            className={`section-list-row${sectionId === selectedId ? '-selected' : ''}`}
             key={sectionId}
             onClick={() => props.setSelectedId(sectionId)}
           >
@@ -78,22 +78,26 @@ export default function SectionEditorComponent(props: ChartEditorSectionProps) {
       </div>
       {selectedId !== undefined ? (
         <>
-          <div className="section-editor-inline">
-            <h3>Section Id:</h3>
+          <div className="flex-row">
+            <h3 className="preserve-white-space">ID: </h3>
             <input
-              className="section-input"
+              className="width-100"
               id="section-id-input"
+              disabled={selectedId === ''}
+              onFocus={(e) => e.target.select()}
               value={selectedId}
               onChange={() =>
                 setSelectedSectionId((document.getElementById('section-id-input') as HTMLInputElement).value)
               }
             ></input>
           </div>
-          <div className="section-editor-inline">
-            <h3>Section Name:</h3>
+          <div className="flex-row">
+            <h3 className="preserve-white-space">Name: </h3>
             <input
-              className="section-input"
+              className="width-100"
               id="section-name-input"
+              disabled={selectedId === ''}
+              onFocus={(e) => e.target.select()}
               value={sections[selectedId]?.sectionname || ''}
               onChange={() =>
                 setSelectedSectionName((document.getElementById('section-name-input') as HTMLInputElement).value)

@@ -1,5 +1,7 @@
 .chart-editor {
   display: flex;
+  width: 100%;
+  max-width: 1200px;
   gap: 16px;
 }
 

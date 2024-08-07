@@ -1,16 +1,17 @@
-.section-editor {
+.section-editor-section {
+  width: 15%;
+  height: 100%;
+  min-width: 105px;
+}
+
+.section-list {
   height: 200px;
   border: 1px solid rgb(118, 118, 118);
   overflow: hidden auto;
 }
 
-.section-editor-inline {
-  display: flex;
-  justify-content: space-between;
-}
-
-.section-editor-inline-grow {
-  flex-grow: 1;
+.section-input {
+  width: 100%;
 }
 
 .section-editor-button {
@@ -18,15 +19,15 @@
   width: 1.5em;
 }
 
-.section-editor-row {
+.section-list-row {
   cursor: default;
 }
 
-.section-editor-row:hover {
+.section-list-row:hover {
   background-color: #eeeeee;
 }
 
-.section-editor-row:active,
-.section-editor-row-selected {
+.section-list-row:active,
+.section-list-row-selected {
   background-color: #dddddd;
 }

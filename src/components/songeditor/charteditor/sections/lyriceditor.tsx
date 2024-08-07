@@ -4,7 +4,7 @@ import './lyriceditor.css';
 export default function LyricEditorComponent(props: ChartEditorSectionProps) {
   const selectedId = props.selectedId || '';
   const sections = props.sections || {};
-  const lyrics: string[] = sections[selectedId || '']?.lines.map((line) => line.lyrics) || [];
+  const lyrics: string[] = sections[selectedId]?.lines.map((line) => line.lyrics) || [];
 
   function getInputValue() {
     return (document.getElementById('lyric-editor-input') as HTMLInputElement).value;
@@ -13,7 +13,8 @@ export default function LyricEditorComponent(props: ChartEditorSectionProps) {
   function handleChange() {
     const lines = getInputValue().split('\n');
     if (selectedId && sections?.[selectedId]) {
-      for (let i = 0; i < lines.length; i++) {
+      let i = 0;
+      for (; i < lines.length; i++) {
         if (i < sections[selectedId].lines.length) {
           sections[selectedId].lines[i].lyrics = lines[i];
         } else {
@@ -22,6 +23,10 @@ export default function LyricEditorComponent(props: ChartEditorSectionProps) {
             chords: {},
           });
         }
+      }
+      // handle deleted lines
+      for (; i < sections[selectedId].lines.length; i++) {
+        sections[selectedId].lines.pop();
       }
       props.setSections(sections);
     }
@@ -35,6 +40,7 @@ export default function LyricEditorComponent(props: ChartEditorSectionProps) {
         id="lyric-editor-input"
         value={lyrics.join('\n')}
         onChange={handleChange}
+        disabled={sections[selectedId] === undefined}
       ></textarea>
     </section>
   );

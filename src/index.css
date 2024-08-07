@@ -6,3 +6,35 @@ html,
 body {
   height: 100%;
 }
+
+.disabled {
+  border-color: rgb(118, 118, 118, 0.3);
+  color: rgb(84, 84, 84);
+  background-color: rgb(239, 239, 239, 0.3);
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.margin-bottom {
+  margin-bottom: 16px;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.preserve-white-space {
+  white-space: pre;
+}
