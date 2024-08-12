@@ -1,4 +1,13 @@
-import { collection, doc, getDoc, getDocs, getFirestore, QueryDocumentSnapshot } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  QueryDocumentSnapshot,
+  setDoc,
+} from 'firebase/firestore';
 import app from 'src/firebase/app';
 import Chart, { parseChart } from 'src/types/chart';
 import SongInfo, { isSongInfo } from 'src/types/songinfo';
@@ -7,7 +16,10 @@ const db = getFirestore(app);
 
 const allSongsRef = collection(db, 'songs');
 
-const docIdAndData = (document: QueryDocumentSnapshot) => ({ id: document.id, ...document.data() });
+const docIdAndData = (document: QueryDocumentSnapshot) => ({
+  id: document.id,
+  ...document.data(),
+});
 
 const DBManager = {
   async getAllSongInfo(): Promise<SongInfo[]> {
@@ -29,6 +41,23 @@ const DBManager = {
     const result = parseChart(querySnapshot.docs);
     if (result === undefined) console.error(`Invalid chart format! (song id: ${songId})`);
     return result;
+  },
+  async updateSongInfo(songId: string, songInfo: SongInfo): Promise<void> {
+    await setDoc(doc(db, 'songs', songId), songInfo);
+  },
+  async updateChart(songId: string, chart: Chart): Promise<void> {
+    const collectionPath = `songs/${songId}/chart`;
+    await Promise.all(
+      Object.keys(chart.sections).map((sectionId) =>
+        setDoc(doc(db, collectionPath, sectionId), chart.sections[sectionId]),
+      ),
+    );
+    await setDoc(doc(db, collectionPath, '(order)'), chart.order);
+  },
+  async createSong(songInfo: SongInfo, chart: Chart): Promise<string> {
+    const newDoc = await addDoc(collection(db, 'songs'), songInfo);
+    this.updateChart(newDoc.id, chart);
+    return newDoc.id;
   },
 };
 

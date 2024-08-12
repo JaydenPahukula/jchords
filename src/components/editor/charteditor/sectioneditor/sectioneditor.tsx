@@ -1,9 +1,15 @@
 import { emptyChartSection } from 'src/types/chartsection';
 import ChartSections from 'src/types/chartsections';
-import ChartEditorSectionProps from '../charteditorsectionprops';
 import './sectioneditor.css';
 
-export default function SectionEditorComponent(props: ChartEditorSectionProps) {
+interface SectionEditorComponentProps {
+  sections: ChartSections | undefined;
+  setSections: (sections: ChartSections) => void;
+  selectedId: string | undefined;
+  setSelectedId: (selectedId: string | undefined) => void;
+}
+
+export default function SectionEditorComponent(props: SectionEditorComponentProps) {
   const selectedId = props.selectedId || '';
   const sections = props.sections || {};
 
@@ -56,7 +62,11 @@ export default function SectionEditorComponent(props: ChartEditorSectionProps) {
     <section className="section-editor-section">
       <div className="flex-row">
         <h2 className="flex-grow-1">Sections:</h2>
-        <button className="square-button" onClick={newSection} disabled={props.sections === undefined}>
+        <button
+          className="square-button"
+          onClick={newSection}
+          disabled={props.sections === undefined}
+        >
           +
         </button>
         <button
@@ -78,38 +88,26 @@ export default function SectionEditorComponent(props: ChartEditorSectionProps) {
           </div>
         ))}
       </div>
-      {selectedId !== undefined ? (
-        <>
-          <div className="flex-row">
-            <h3 className="preserve-white-space">ID: </h3>
-            <input
-              className="width-100"
-              id="section-id-input"
-              disabled={selectedId === ''}
-              onFocus={(e) => e.target.select()}
-              value={selectedId}
-              onChange={() =>
-                setSelectedSectionId((document.getElementById('section-id-input') as HTMLInputElement).value)
-              }
-            ></input>
-          </div>
-          <div className="flex-row">
-            <h3 className="preserve-white-space">Name: </h3>
-            <input
-              className="width-100"
-              id="section-name-input"
-              disabled={selectedId === ''}
-              onFocus={(e) => e.target.select()}
-              value={sections[selectedId]?.sectionname || ''}
-              onChange={() =>
-                setSelectedSectionName((document.getElementById('section-name-input') as HTMLInputElement).value)
-              }
-            ></input>
-          </div>
-        </>
-      ) : (
-        <></>
-      )}
+      <div className="flex-row">
+        <h3 className="preserve-white-space">ID: </h3>
+        <input
+          className="width-100"
+          disabled={selectedId === ''}
+          onFocus={(e) => e.target.select()}
+          value={selectedId}
+          onChange={(e) => setSelectedSectionId(e.target.value)}
+        ></input>
+      </div>
+      <div className="flex-row">
+        <h3 className="preserve-white-space">Name: </h3>
+        <input
+          className="width-100"
+          disabled={selectedId === ''}
+          onFocus={(e) => e.target.select()}
+          value={sections[selectedId]?.sectionname || ''}
+          onChange={(e) => setSelectedSectionName(e.target.value)}
+        ></input>
+      </div>
     </section>
   );
 }

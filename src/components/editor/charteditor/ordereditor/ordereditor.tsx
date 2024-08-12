@@ -55,7 +55,9 @@ export default function OrderEditorComponent(props: OrderEditorComponentProps) {
       <div className="order-editor">
         <div className="flex-col">
           <h3>Sections:</h3>
-          <div className={`order-editor-list flex-grow-1${props.sectionIds === undefined ? ' disabled' : ''}`}>
+          <div
+            className={`order-editor-list flex-grow-1${props.sectionIds === undefined ? ' disabled' : ''}`}
+          >
             {(props.sectionIds || []).map((sectionId) => (
               <div
                 className={`order-editor-list-row${sectionId === selectedSectionId ? '-selected' : ''}`}
@@ -102,7 +104,9 @@ export default function OrderEditorComponent(props: OrderEditorComponentProps) {
         </div>
         <div className="flex-col">
           <h3>Order:</h3>
-          <div className={`order-editor-list flex-grow-1${props.sectionIds === undefined ? ' disabled' : ''}`}>
+          <div
+            className={`order-editor-list flex-grow-1${props.sectionIds === undefined ? ' disabled' : ''}`}
+          >
             {(props.order || []).map((sectionId, index) => (
               <div
                 className={`order-editor-list-row${index === selectedIndex ? '-selected' : ''}`}

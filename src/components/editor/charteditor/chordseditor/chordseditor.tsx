@@ -1,33 +1,35 @@
 import React, { useState } from 'react';
+import ChartSection from 'src/types/chartsection';
 import renderLine from 'src/utils/renderline';
-import ChartEditorSectionProps from '../charteditorsectionprops';
 import './chordseditor.css';
 
 const idk = '意';
 
-export default function ChordsEditorComponent(props: ChartEditorSectionProps) {
+interface ChordsEditorComponentProps {
+  section: ChartSection | undefined;
+  setSection: (section: ChartSection) => void;
+}
+
+export default function ChordsEditorComponent(props: ChordsEditorComponentProps) {
   const [selectedRow, setSelectedRow] = useState<number>();
   const [selectedCol, setSelectedCol] = useState<number>();
 
-  const selectedId = props.selectedId || '';
-  const sections = props.sections || {};
-  const selectedSection = sections[selectedId];
-  const isRowAndColSelected = selectedSection && selectedRow !== undefined && selectedCol !== undefined;
+  const isRowAndColSelected = selectedRow !== undefined && selectedCol !== undefined;
 
   function setSelectedChord(newChord: string) {
-    if (isRowAndColSelected) {
+    if (props.section !== undefined && isRowAndColSelected) {
       if (newChord === '') {
-        delete sections[selectedId].lines[selectedRow].chords[selectedCol];
+        delete props.section.lines[selectedRow].chords[selectedCol];
       } else {
-        sections[selectedId].lines[selectedRow].chords[selectedCol] = newChord;
+        props.section.lines[selectedRow].chords[selectedCol] = newChord;
       }
-      props.setSections(sections);
+      props.setSection(props.section);
     }
   }
 
   function getSelectedChord(): string {
     if (isRowAndColSelected) {
-      return selectedSection.lines[selectedRow]?.chords[selectedCol] || '';
+      return props.section?.lines[selectedRow]?.chords[selectedCol] ?? '';
     }
     return '';
   }
@@ -40,18 +42,20 @@ export default function ChordsEditorComponent(props: ChartEditorSectionProps) {
         <input
           className="chord-input"
           id="chord-input"
-          disabled={selectedRow === undefined || selectedCol === undefined}
+          disabled={!isRowAndColSelected}
           value={getSelectedChord()}
-          onChange={() => setSelectedChord((document.getElementById('chord-input') as HTMLInputElement).value)}
+          onChange={(e) => setSelectedChord(e.target.value)}
         ></input>
       </div>
       <div className="chords-editor">
-        {sections[selectedId]?.lines.map((line, i) => {
+        {props.section?.lines.map((line, i) => {
           const [rawLyricsStr, chordsStr] = renderLine(line, idk);
           let lyricsStr = rawLyricsStr;
           while (
             isRowAndColSelected &&
-            selectedSection.lines[selectedRow]?.chords[lyricsStr.length - lyricsStr.split(idk).length + 1] !== undefined
+            props.section?.lines[selectedRow]?.chords[
+              lyricsStr.length - lyricsStr.split(idk).length + 1
+            ] !== undefined
           )
             lyricsStr += ' ';
           let offset = 0;

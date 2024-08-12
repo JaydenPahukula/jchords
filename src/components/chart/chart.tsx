@@ -53,7 +53,10 @@ export default function ChartComponent({ songId }: ChartComponentProps) {
             .map((sectionId) => chart.sections[sectionId])
             .filter(isDef)
             .map((section) => (
-              <ChartSectionComponent section={section} key={section.sectionname}></ChartSectionComponent>
+              <ChartSectionComponent
+                section={section}
+                key={section.sectionname}
+              ></ChartSectionComponent>
             ))}
         </React.Fragment>
       )}

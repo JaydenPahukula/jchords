@@ -16,5 +16,10 @@ export function emptyChartSection(name: string = 'section'): ChartSection {
 
 export function isChartSection(obj: unknown): obj is ChartSection {
   const objAs = obj as ChartSection;
-  return !!obj && typeof objAs.sectionname === 'string' && Array.isArray(objAs.lines) && objAs.lines.every(isChartLine);
+  return (
+    !!obj &&
+    typeof objAs.sectionname === 'string' &&
+    Array.isArray(objAs.lines) &&
+    objAs.lines.every(isChartLine)
+  );
 }

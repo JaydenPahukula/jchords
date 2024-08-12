@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SongEditorPage from './pages/editor/editorpage';
 import HomePage from './pages/home/homepage';
 import NotFoundPage from './pages/notfound/notfoundpage';
 import SongPage from './pages/song/songpage';
-import SongEditorPage from './pages/songeditor/songeditorpage';
 
 export default function App() {
   return (

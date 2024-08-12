@@ -1,7 +1,5 @@
 .section-editor {
   display: flex;
-  width: 100%;
-  max-width: 1200px;
   height: 300px;
   gap: 16px;
   margin-bottom: 16px;

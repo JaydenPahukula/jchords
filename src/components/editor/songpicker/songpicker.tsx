@@ -1,16 +1,16 @@
 import SongInfo from 'src/types/songinfo';
-import './songeditorpicker.css';
+import './songpicker.css';
 
-interface SongEditorPickerComponentProps {
+interface SongPickerComponentProps {
   songs: SongInfo[];
   selectedId: string | undefined;
   onIdSelected: (id: string | undefined) => void;
 }
 
-export default function SongEditorPickerComponent(props: SongEditorPickerComponentProps) {
+export default function SongPickerComponent(props: SongPickerComponentProps) {
   const disabled = props.selectedId !== undefined;
 
-  function optionClicked(id: string) {
+  function onClick(id: string) {
     if (!disabled) {
       props.onIdSelected(id);
     }
@@ -20,12 +20,11 @@ export default function SongEditorPickerComponent(props: SongEditorPickerCompone
     <div className={`song-editor-picker${disabled ? ' disabled' : ''}`}>
       {[...props.songs, undefined].map((option) => {
         const id = option?.id || '';
-        const selected = id === props.selectedId;
         return (
           <div
-            className={`song-editor-picker-row${selected ? '-selected' : ''}`}
+            className={`song-editor-picker-row${id === props.selectedId ? '-selected' : ''}`}
             key={id}
-            onClick={() => optionClicked(id)}
+            onClick={() => onClick(id)}
           >
             {id === '' ? 'Create a new song...' : `${option?.name} (${id})`}
           </div>
