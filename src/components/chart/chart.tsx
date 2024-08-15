@@ -21,20 +21,14 @@ export default function ChartComponent({ songId }: ChartComponentProps) {
       setSongInfo(info);
       setIsSongInfoLoading(false);
     });
-  }, []);
+  }, [songId]);
 
   useEffect(() => {
-    let mounted = true;
     DBManager.getSongChart(songId).then((chart) => {
-      if (mounted) {
-        setChart(chart);
-        setIsChartLoading(false);
-      }
+      setChart(chart);
+      setIsChartLoading(false);
     });
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  }, [songId]);
 
   return (
     <div className="chart">
