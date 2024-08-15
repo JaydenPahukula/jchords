@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import SongListLoadingComponent from 'src/components/songlist/loading/songlistloading';
+import SongListRowComponent from 'src/components/songlist/row/songlistrow';
 import DBManager from 'src/db/dbmanager';
 import SongInfo from 'src/types/songinfo';
 import './songlist.css';
-import SongListLoadingComponent from './songlistloading';
-import SongListRowComponent from './songlistrow';
 
 export default function SongListComponent() {
   const [isLoading, setIsLoading] = useState(true);

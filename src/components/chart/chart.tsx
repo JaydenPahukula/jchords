@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import ChartSectionComponent from 'src/components/chart/section/chartsection';
 import DBManager from 'src/db/dbmanager';
 import Chart from 'src/types/chart';
 import { isDef } from 'src/types/guards';
 import SongInfo from 'src/types/songinfo';
 import './chart.css';
-import ChartSectionComponent from './chartsection';
 
 interface ChartComponentProps {
   songId: string;

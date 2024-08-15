@@ -1,7 +1,7 @@
 import { QueryDocumentSnapshot } from 'firebase/firestore';
 import ChartOrder, { isChartOrder } from 'src/types/chartorder';
+import { isChartSection } from 'src/types/chartsection';
 import ChartSections, { isChartSections } from 'src/types/chartsections';
-import { isChartSection } from './chartsection';
 
 export default interface Chart {
   sections: ChartSections;

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from 'src/pages/home/homepage';
+import NotFoundPage from 'src/pages/notfound/notfoundpage';
+import SongPage from 'src/pages/song/songpage';
 import './index.css';
-import HomePage from './pages/home/homepage';
-import NotFoundPage from './pages/notfound/notfoundpage';
-import SongPage from './pages/song/songpage';
 
 const root = document.getElementById('root');
 if (root !== null) {

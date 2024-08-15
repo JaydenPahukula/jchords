@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import ChartComponent from 'src/components/chart/chart';
-import NotFoundPage from '../notfound/notfoundpage';
+import NotFoundPage from 'src/pages/notfound/notfoundpage';
 import './songpage.css';
 
 export default function SongPage() {

@@ -1,4 +1,4 @@
-import { isNumeric } from './guards';
+import { isNumeric } from 'src/types/guards';
 
 export default interface ChartLine {
   chords: {

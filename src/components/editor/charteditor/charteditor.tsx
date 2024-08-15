@@ -1,13 +1,13 @@
 import { useState } from 'react';
+import ChordsEditorComponent from 'src/components/editor/charteditor/chordseditor/chordseditor';
+import LyricEditorComponent from 'src/components/editor/charteditor/lyriceditor/lyriceditor';
+import OrderEditorComponent from 'src/components/editor/charteditor/ordereditor/ordereditor';
+import SectionEditorComponent from 'src/components/editor/charteditor/sectioneditor/sectioneditor';
 import Chart from 'src/types/chart';
 import ChartOrder from 'src/types/chartorder';
 import ChartSection from 'src/types/chartsection';
 import ChartSections from 'src/types/chartsections';
 import './charteditor.css';
-import ChordsEditorComponent from './chordseditor/chordseditor';
-import LyricEditorComponent from './lyriceditor/lyriceditor';
-import OrderEditorComponent from './ordereditor/ordereditor';
-import SectionEditorComponent from './sectioneditor/sectioneditor';
 
 interface ChartEditorComponentProps {
   chart: Chart | undefined;

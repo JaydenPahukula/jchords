@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
+import ChartEditorComponent from 'src/components/editor/charteditor/charteditor';
+import InfoEditorComponent from 'src/components/editor/infoeditor/infoeditor';
+import SongPickerComponent from 'src/components/editor/songpicker/songpicker';
 import DBManager from 'src/db/dbmanager';
 import Chart from 'src/types/chart';
 import SongInfo from 'src/types/songinfo';
-import ChartEditorComponent from './charteditor/charteditor';
 import './editor.css';
-import InfoEditorComponent from './infoeditor/infoeditor';
-import SongPickerComponent from './songpicker/songpicker';
 
 export default function EditorComponent() {
   const [songList, setSongList] = useState<SongInfo[]>([]);

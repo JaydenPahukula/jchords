@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import EditorPage from 'src/pages/editor/editorpage';
 import './index.css';
-import EditorPage from './pages/editor/editorpage';
 
 const root = document.getElementById('root');
 if (root !== null) {
