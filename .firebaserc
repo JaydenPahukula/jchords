@@ -1,5 +1,19 @@
 {
   "projects": {
     "default": "jchords-467fa"
-  }
+  },
+  "targets": {
+    "jchords-467fa": {
+      "hosting": {
+        "main": [
+          "jchords-467fa"
+        ],
+        "editor": [
+          "jchords-467fa-editor"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
