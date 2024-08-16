@@ -51,7 +51,7 @@ export default function EditorComponent() {
           <ChartEditorComponent chart={chart} setChart={setChart}></ChartEditorComponent>
           <div>
             <h2>View Raw:</h2>
-            <pre>{JSON.stringify(chart, undefined, 2)}</pre>
+            <pre>{`songInfo: ${JSON.stringify(songInfo, undefined, 2)}\nchart: ${JSON.stringify(chart, undefined, 2)}`}</pre>
           </div>
         </>
       )}
