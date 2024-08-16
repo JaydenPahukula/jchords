@@ -7,7 +7,7 @@ type ChartSection = {
 
 export default ChartSection;
 
-export function emptyChartSection(name: string = 'section'): ChartSection {
+export function makeEmptyChartSection(name: string = 'section'): ChartSection {
   return {
     sectionname: name,
     lines: [],

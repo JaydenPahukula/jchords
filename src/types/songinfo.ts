@@ -4,7 +4,7 @@ export default interface SongInfo {
   artist: string;
 }
 
-export function emptySongInfo(): SongInfo {
+export function makeEmptySongInfo(): SongInfo {
   return {
     id: '',
     name: '',

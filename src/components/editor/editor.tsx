@@ -3,8 +3,8 @@ import ChartEditorComponent from 'src/components/editor/charteditor/charteditor'
 import InfoEditorComponent from 'src/components/editor/infoeditor/infoeditor';
 import SongPickerComponent from 'src/components/editor/songpicker/songpicker';
 import DBManager from 'src/db/dbmanager';
-import Chart from 'src/types/chart';
-import SongInfo from 'src/types/songinfo';
+import Chart, { makeEmptyChart } from 'src/types/chart';
+import SongInfo, { makeEmptySongInfo } from 'src/types/songinfo';
 import './editor.css';
 
 export default function EditorComponent() {
@@ -19,8 +19,13 @@ export default function EditorComponent() {
 
   useEffect(() => {
     if (selectedId !== undefined) {
-      DBManager.getSongChart(selectedId).then(setChart);
-      setSongInfo(songList.find((song) => song.id === selectedId));
+      if (selectedId === '') {
+        setChart(makeEmptyChart());
+        setSongInfo(makeEmptySongInfo());
+      } else {
+        DBManager.getSongChart(selectedId).then(setChart);
+        setSongInfo(songList.find((song) => song.id === selectedId));
+      }
     }
   }, [songList, selectedId]);
 

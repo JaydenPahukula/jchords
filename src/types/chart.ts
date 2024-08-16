@@ -1,20 +1,29 @@
 import { QueryDocumentSnapshot } from 'firebase/firestore';
-import ChartOrder, { isChartOrder } from 'src/types/chartorder';
-import { isChartSection } from 'src/types/chartsection';
-import ChartSections, { isChartSections } from 'src/types/chartsections';
+import ChartOrder, { isChartOrder, makeEmptyChartOrder } from 'src/types/chartorder';
+import ChartSection, { isChartSection } from 'src/types/chartsection';
+import ObjectOf, { isObjectOf } from './objectof';
 
 export default interface Chart {
-  sections: ChartSections;
+  sections: ObjectOf<ChartSection>;
   order: ChartOrder;
+}
+
+export function makeEmptyChart(): Chart {
+  return {
+    sections: {},
+    order: makeEmptyChartOrder(),
+  };
 }
 
 export function isChart(obj: unknown): obj is Chart {
   const objAs = obj as Chart;
-  return !!obj && isChartSections(objAs.sections) && isChartOrder(objAs.order);
+  return (
+    !!obj && isObjectOf<ChartSection>(objAs.sections, isChartSection) && isChartOrder(objAs.order)
+  );
 }
 
 export function parseChart(docs: QueryDocumentSnapshot[]): Chart | undefined {
-  const maybeSections: ChartSections = {};
+  const maybeSections: ObjectOf<ChartSection> = {};
   let maybeOrder: ChartOrder | undefined;
   for (const doc of docs) {
     if (doc.id === '(order)') {

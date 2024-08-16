@@ -6,7 +6,7 @@ import SectionEditorComponent from 'src/components/editor/charteditor/sectionedi
 import Chart from 'src/types/chart';
 import ChartOrder from 'src/types/chartorder';
 import ChartSection from 'src/types/chartsection';
-import ChartSections from 'src/types/chartsections';
+import ObjectOf from 'src/types/objectof';
 import './charteditor.css';
 
 interface ChartEditorComponentProps {
@@ -21,7 +21,7 @@ export default function ChartEditorComponent(props: ChartEditorComponentProps) {
   const chart: Chart | undefined =
     props.chart === undefined ? undefined : JSON.parse(JSON.stringify(props.chart || ''));
 
-  function setSections(newSections: ChartSections) {
+  function setSections(newSections: ObjectOf<ChartSection>) {
     if (chart) {
       chart.sections = newSections;
       props.setChart(chart);

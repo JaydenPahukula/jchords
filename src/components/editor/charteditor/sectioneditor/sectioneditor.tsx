@@ -1,10 +1,10 @@
-import { emptyChartSection } from 'src/types/chartsection';
-import ChartSections from 'src/types/chartsections';
+import ChartSection, { makeEmptyChartSection } from 'src/types/chartsection';
+import ObjectOf from 'src/types/objectof';
 import './sectioneditor.css';
 
 interface SectionEditorComponentProps {
-  sections: ChartSections | undefined;
-  setSections: (sections: ChartSections) => void;
+  sections: ObjectOf<ChartSection> | undefined;
+  setSections: (sections: ObjectOf<ChartSection>) => void;
   selectedId: string | undefined;
   setSelectedId: (selectedId: string | undefined) => void;
 }
@@ -21,8 +21,8 @@ export default function SectionEditorComponent(props: SectionEditorComponentProp
 
   function newSection() {
     const newId = defaultSectionId();
-    const newSection: ChartSections = {};
-    newSection[newId] = emptyChartSection(newId);
+    const newSection: ObjectOf<ChartSection> = {};
+    newSection[newId] = makeEmptyChartSection(newId);
     props.setSections({
       ...sections,
       ...newSection,
@@ -40,7 +40,7 @@ export default function SectionEditorComponent(props: SectionEditorComponentProp
 
   function setSelectedSectionId(newId: string) {
     if (sections[selectedId] && newId) {
-      const newSection: ChartSections = {};
+      const newSection: ObjectOf<ChartSection> = {};
       newSection[newId] = sections[selectedId];
       delete sections[selectedId];
       props.setSections({
