@@ -1,6 +1,24 @@
+import { useState } from 'react';
 import ChartSection, { makeEmptyChartSection } from 'src/types/chartsection';
 import ObjectOf from 'src/types/objectof';
 import './sectioneditor.css';
+
+enum ErrorState {
+  None,
+  Empty,
+  Taken,
+}
+
+function renderErrorState(errorState: ErrorState): JSX.Element {
+  switch (errorState) {
+    case ErrorState.Empty:
+      return <p className="error-msg">Section ID must not be empty!</p>;
+    case ErrorState.Taken:
+      return <p className="error-msg">Section ID must be unique!</p>;
+    default:
+      return <></>;
+  }
+}
 
 interface SectionEditorComponentProps {
   sections: ObjectOf<ChartSection> | undefined;
@@ -10,17 +28,21 @@ interface SectionEditorComponentProps {
 }
 
 export default function SectionEditorComponent(props: SectionEditorComponentProps) {
+  const [errorState, setErrorState] = useState(ErrorState.None);
+  const [idInputValue, setIdInputValue] = useState(props.selectedId ?? '');
+  const [lastIdInputValue, setLastIdInputValue] = useState('');
+
   const selectedId = props.selectedId || '';
   const sections = props.sections || {};
 
-  function defaultSectionId(): string {
+  function getDefaultSectionId(): string {
     let i = 1;
     while (sections[`section${i}`] !== undefined) i += 1;
     return `section${i}`;
   }
 
   function newSection() {
-    const newId = defaultSectionId();
+    const newId = getDefaultSectionId();
     const newSection: ObjectOf<ChartSection> = {};
     newSection[newId] = makeEmptyChartSection(newId);
     props.setSections({
@@ -28,6 +50,7 @@ export default function SectionEditorComponent(props: SectionEditorComponentProp
       ...newSection,
     });
     props.setSelectedId(newId);
+    setIdInputValue(newId);
   }
 
   function deleteSelectedSection() {
@@ -35,19 +58,29 @@ export default function SectionEditorComponent(props: SectionEditorComponentProp
       delete sections[selectedId];
       props.setSections(sections);
       props.setSelectedId(undefined);
+      setIdInputValue('');
     }
   }
 
   function setSelectedSectionId(newId: string) {
-    if (sections[selectedId] && newId) {
-      const newSection: ObjectOf<ChartSection> = {};
-      newSection[newId] = sections[selectedId];
-      delete sections[selectedId];
-      props.setSections({
-        ...props.sections,
-        ...newSection,
-      });
-      props.setSelectedId(newId);
+    if (sections[selectedId]) {
+      setIdInputValue(newId);
+      if (newId === '') {
+        setErrorState(ErrorState.Empty);
+      } else if (newId !== lastIdInputValue && sections[newId] !== undefined) {
+        setErrorState(ErrorState.Taken);
+      } else {
+        const newSection: ObjectOf<ChartSection> = {};
+        newSection[newId] = sections[selectedId];
+        delete sections[selectedId];
+        props.setSections({
+          ...props.sections,
+          ...newSection,
+        });
+        props.setSelectedId(newId);
+        if (errorState !== ErrorState.None) setErrorState(ErrorState.None);
+        setLastIdInputValue(newId);
+      }
     }
   }
 
@@ -82,19 +115,23 @@ export default function SectionEditorComponent(props: SectionEditorComponentProp
           <div
             className={`section-list-row${sectionId === selectedId ? '-selected' : ''}`}
             key={sectionId}
-            onClick={() => props.setSelectedId(sectionId)}
+            onClick={() => {
+              props.setSelectedId(sectionId);
+              setIdInputValue(sectionId);
+            }}
           >
             {sectionId}
           </div>
         ))}
       </div>
+      {renderErrorState(errorState)}
       <div className="flex-row">
         <h3 className="preserve-white-space">ID: </h3>
         <input
           className="width-100"
           disabled={selectedId === ''}
           onFocus={(e) => e.target.select()}
-          value={selectedId}
+          value={idInputValue}
           onChange={(e) => setSelectedSectionId(e.target.value)}
         ></input>
       </div>
