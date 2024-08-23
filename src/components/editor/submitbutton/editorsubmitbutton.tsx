@@ -18,32 +18,34 @@ export default function EditorSubmitButtonComponent(props: EditorSubmitButtonCom
   function submit() {
     if (props.chart !== undefined) {
       if (props.isNewSong) {
-        DBManager.createSong(props.songInfo, props.chart)
-          .then((newId) => {
+        DBManager.createSong(props.songInfo, props.chart).then(
+          (newId) => {
             setResultString(`Successfully created song! (id: ${newId})`);
             setSuccessful(true);
             props.onSuccess();
-          })
-          .catch((error) => {
+          },
+          (error) => {
             console.log(error);
             setResultString('Failed to create song');
             setSuccessful(false);
-          });
+          },
+        );
       } else {
         Promise.all([
           DBManager.updateSongInfo(props.songInfo),
           DBManager.updateChart(props.songInfo.id, props.chart),
-        ])
-          .then(() => {
+        ]).then(
+          () => {
             setResultString('Successfully update song!');
             setSuccessful(true);
             props.onSuccess();
-          })
-          .catch((error) => {
+          },
+          (error) => {
             console.log(error);
             setResultString('Failed to update song');
             setSuccessful(false);
-          });
+          },
+        );
       }
     }
   }
