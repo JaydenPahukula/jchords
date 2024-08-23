@@ -6,6 +6,7 @@ import DBManager from 'src/db/dbmanager';
 import Chart, { makeEmptyChart } from 'src/types/chart';
 import SongInfo, { makeEmptySongInfo } from 'src/types/songinfo';
 import './editor.css';
+import EditorSubmitButtonComponent from './submitbutton/editorsubmitbutton';
 
 export default function EditorComponent() {
   const [songList, setSongList] = useState<SongInfo[]>([]);
@@ -13,8 +14,12 @@ export default function EditorComponent() {
   const [chart, setChart] = useState<Chart | undefined>();
   const [songInfo, setSongInfo] = useState<SongInfo | undefined>();
 
-  useEffect(() => {
+  function refreshSongList() {
     DBManager.getAllSongInfo().then(setSongList);
+  }
+
+  useEffect(() => {
+    refreshSongList();
   }, []);
 
   useEffect(() => {
@@ -49,6 +54,12 @@ export default function EditorComponent() {
           </div>
           <InfoEditorComponent info={songInfo} setInfo={setSongInfo}></InfoEditorComponent>
           <ChartEditorComponent chart={chart} setChart={setChart}></ChartEditorComponent>
+          <EditorSubmitButtonComponent
+            chart={chart}
+            songInfo={songInfo}
+            isNewSong={selectedId === ''}
+            onSuccess={refreshSongList}
+          ></EditorSubmitButtonComponent>
           <div>
             <h2>View Raw:</h2>
             <pre>{`songInfo: ${JSON.stringify(songInfo, undefined, 2)}\nchart: ${JSON.stringify(chart, undefined, 2)}`}</pre>

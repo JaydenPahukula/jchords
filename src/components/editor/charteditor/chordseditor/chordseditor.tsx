@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ChartSection from 'src/types/chartsection';
-import renderLine from 'src/utils/renderline';
+import ChartSectionType from 'src/types/chartsectiontype';
+import { renderInlineLine, renderNormalLine } from 'src/utils/renderline';
 import './chordseditor.css';
 
 const idk = '意';
@@ -49,53 +50,89 @@ export default function ChordsEditorComponent(props: ChordsEditorComponentProps)
       </div>
       <div className="chords-editor">
         {props.section?.lines.map((line, i) => {
-          const [rawLyricsStr, chordsStr] = renderLine(line, idk);
-          let lyricsStr = rawLyricsStr;
-          while (
-            isRowAndColSelected &&
-            props.section?.lines[selectedRow]?.chords[
-              lyricsStr.length - lyricsStr.split(idk).length + 1
-            ] !== undefined
-          )
-            lyricsStr += ' ';
-          let offset = 0;
-          return (
-            <React.Fragment key={i + chordsStr}>
-              <div className="chords-editor-row">
-                {Array.from(chordsStr).map((letter, j) => (
-                  <div className="chords-editor-chord-letter" key={'c' + j}>
-                    <pre>{letter}</pre>
-                  </div>
-                ))}
-              </div>
-              <div className="chords-editor-row">
-                {Array.from(lyricsStr + ' ').map((letter, j) => {
-                  j -= offset;
-                  if (letter === idk) {
-                    offset += 1;
+          if (props.section?.type === ChartSectionType.Normal) {
+            const [rawLyricsStr, chordsStr] = renderNormalLine(line, idk);
+            let lyricsStr = rawLyricsStr;
+            while (
+              isRowAndColSelected &&
+              props.section?.lines[selectedRow]?.chords[
+                lyricsStr.length - lyricsStr.split(idk).length + 1
+              ] !== undefined
+            )
+              lyricsStr += ' ';
+            let offset = 0;
+            return (
+              <React.Fragment key={i}>
+                <div className="chords-editor-row">
+                  {Array.from(chordsStr).map((letter, j) => (
+                    <div className="chords-editor-chord-letter" key={'c' + j}>
+                      <pre>{letter}</pre>
+                    </div>
+                  ))}
+                </div>
+                <div className="chords-editor-row">
+                  {Array.from(lyricsStr + ' ').map((letter, j) => {
+                    j -= offset;
+                    if (letter === idk) {
+                      offset += 1;
+                      return (
+                        <div className="chords-editor-empty-letter" key={'l' + (j + offset - 1)}>
+                          <pre> </pre>
+                        </div>
+                      );
+                    }
                     return (
-                      <div className="chords-editor-empty-letter" key={'l' + (j + offset - 1)}>
-                        <pre> </pre>
+                      <div
+                        className={`chords-editor-lyric-letter${selectedRow === i && selectedCol === j ? '-selected' : ''}`}
+                        key={'l' + (j + offset)}
+                        onClick={() => {
+                          setSelectedRow(i);
+                          setSelectedCol(j);
+                          document.getElementById('chord-input')?.focus();
+                        }}
+                      >
+                        <pre>{letter}</pre>
                       </div>
                     );
+                  })}
+                </div>
+              </React.Fragment>
+            );
+          } else if (props.section?.type === ChartSectionType.Inline) {
+            const renderedLine = renderInlineLine(line);
+            let offset = 0;
+            let count = 0;
+            return (
+              <div className="chords-editor-row" key={i}>
+                {Array.from(renderedLine + ' ').map((letter, j) => {
+                  if (count > 0) {
+                    count--;
+                  } else if (j - offset - 1 in line.chords) {
+                    count = line.chords[j - offset - 1].length;
+                    offset += line.chords[j - offset - 1].length;
                   }
-                  return (
+                  const actual = j - offset;
+                  return count === 0 ? (
                     <div
-                      className={`chords-editor-lyric-letter${selectedRow === i && selectedCol === j ? '-selected' : ''}`}
-                      key={'l' + (j + offset)}
+                      className={`chords-editor-lyric-letter${selectedRow === i && selectedCol === j - offset ? '-selected' : ''}`}
+                      key={'l' + j}
                       onClick={() => {
                         setSelectedRow(i);
-                        setSelectedCol(j);
+                        setSelectedCol(actual);
                         document.getElementById('chord-input')?.focus();
                       }}
                     >
                       <pre>{letter}</pre>
                     </div>
+                  ) : (
+                    <div className="chords-editor-empty-letter" key={'l' + j}>
+                      <pre>{letter}</pre>
+                    </div>
                   );
                 })}
               </div>
-            </React.Fragment>
-          );
+            );
+          }
         })}
       </div>
     </section>

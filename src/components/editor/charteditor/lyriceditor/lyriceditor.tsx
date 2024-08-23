@@ -7,7 +7,7 @@ interface LyricEditorComponentProps {
 }
 
 export default function LyricEditorComponent(props: LyricEditorComponentProps) {
-  const lyrics: string[] = props.section?.lines.map((line) => line.lyrics) || [];
+  const lyrics: string[] = props.section?.lines.map((line) => line.text) || [];
 
   function handleChange(newValue: string) {
     const lines = newValue.split('\n');
@@ -15,10 +15,10 @@ export default function LyricEditorComponent(props: LyricEditorComponentProps) {
       let i = 0;
       for (; i < lines.length; i++) {
         if (i < props.section.lines.length) {
-          props.section.lines[i].lyrics = lines[i];
+          props.section.lines[i].text = lines[i];
         } else {
           props.section.lines.push({
-            lyrics: lines[i],
+            text: lines[i],
             chords: {},
           });
         }

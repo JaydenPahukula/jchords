@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ChartSection, { makeEmptyChartSection } from 'src/types/chartsection';
+import ChartSectionType from 'src/types/chartsectiontype';
 import ObjectOf from 'src/types/objectof';
 import './sectioneditor.css';
 
@@ -8,6 +9,8 @@ enum ErrorState {
   Empty,
   Taken,
 }
+
+const typeOptions = ['Normal', 'Inline'];
 
 function renderErrorState(errorState: ErrorState): JSX.Element {
   switch (errorState) {
@@ -91,6 +94,14 @@ export default function SectionEditorComponent(props: SectionEditorComponentProp
     }
   }
 
+  function setSelectedSectionType(option: string) {
+    const type = parseInt(option);
+    if (selectedId && props.sections?.[selectedId] && type in ChartSectionType) {
+      props.sections[selectedId].type = type;
+      props.setSections(props.sections);
+    }
+  }
+
   return (
     <section className="section-editor-section">
       <div className="flex-row">
@@ -144,6 +155,21 @@ export default function SectionEditorComponent(props: SectionEditorComponentProp
           value={sections[selectedId]?.sectionname || ''}
           onChange={(e) => setSelectedSectionName(e.target.value)}
         ></input>
+      </div>
+      <div className="flex-row">
+        <h3 className="preserve-white-space">Type: </h3>
+        <select
+          className="width-100"
+          disabled={selectedId === ''}
+          value={sections[selectedId]?.type}
+          onChange={(e) => setSelectedSectionType(e.target.value)}
+        >
+          {typeOptions.map((option, i) => (
+            <option value={i} key={i}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
     </section>
   );

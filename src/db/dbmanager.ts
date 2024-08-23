@@ -42,8 +42,9 @@ const DBManager = {
     if (result === undefined) console.error(`Invalid chart format! (song id: ${songId})`);
     return result;
   },
-  async updateSongInfo(songId: string, songInfo: SongInfo): Promise<void> {
-    await setDoc(doc(db, 'songs', songId), songInfo);
+  async updateSongInfo(newSongInfo: SongInfo): Promise<void> {
+    const { id, ...songInfo } = newSongInfo;
+    await setDoc(doc(db, 'songs', id), songInfo);
   },
   async updateChart(songId: string, chart: Chart): Promise<void> {
     const collectionPath = `songs/${songId}/chart`;
@@ -52,12 +53,14 @@ const DBManager = {
         setDoc(doc(db, collectionPath, sectionId), chart.sections[sectionId]),
       ),
     );
-    await setDoc(doc(db, collectionPath, '(order)'), chart.order);
+    await setDoc(doc(db, collectionPath, '(order)'), { order: chart.order });
   },
-  async createSong(songInfo: SongInfo, chart: Chart): Promise<string> {
+  async createSong(newSongInfo: SongInfo, chart: Chart): Promise<string> {
+    const { id, ...songInfo } = newSongInfo;
     const newDoc = await addDoc(collection(db, 'songs'), songInfo);
     this.updateChart(newDoc.id, chart);
     return newDoc.id;
+    id; // shut up eslint
   },
 };
 
