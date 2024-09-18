@@ -3,9 +3,7 @@
   "description": "common files shared between projects",
   "private": true,
   "exports": {
-    "./db/*": "./db/*.ts",
-    "./firebase/*": "./firebase/*.ts",
-    "./types/*": "./types/*.ts"
+    "./*": "./*.ts"
   },
   "dependencies": {
     "firebase": "^10.12.4"
