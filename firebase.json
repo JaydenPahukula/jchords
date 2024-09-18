@@ -1,24 +1,12 @@
 {
   "hosting": [
     {
-      "target": "main",
-      "public": "./dist/",
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "target": "jchords",
+      "public": "./jchords/dist"
     },
     {
-      "target": "editor",
-      "public": "./dist-editor/",
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "target": "jchords-editor",
+      "public": "./jchords-editor/dist/"
     }
   ]
 }

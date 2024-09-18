@@ -5,15 +5,13 @@
   "targets": {
     "jchords-467fa": {
       "hosting": {
-        "main": [
+        "jchords": [
           "jchords-467fa"
         ],
-        "editor": [
+        "jchords-editor": [
           "jchords-467fa-editor"
         ]
       }
     }
-  },
-  "etags": {},
-  "dataconnectEmulatorConfig": {}
+  }
 }
