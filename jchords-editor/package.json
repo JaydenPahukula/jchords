@@ -1,5 +1,7 @@
 {
   "name": "jchords",
+  "type": "module",
+  "private": true,
   "scripts": {
     "format": "prettier --config '../prettierrc' --write 'src/**/*' index.html",
     "dev": "vite",
