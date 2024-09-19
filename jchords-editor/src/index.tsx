@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import EditorComponent from 'src/components/editor/editor';
+import App from 'src/components/app/app';
 import './index.css';
 
 const root = document.getElementById('root');
 if (root !== null) {
   ReactDOM.createRoot(root).render(
     <React.StrictMode>
-      <div className="song-editor-page">
-        <EditorComponent></EditorComponent>
-      </div>
+      <App></App>
     </React.StrictMode>,
   );
 } else {

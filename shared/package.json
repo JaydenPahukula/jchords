@@ -1,6 +1,7 @@
 {
   "name": "jchords-shared",
   "description": "common files shared between projects",
+  "type": "module",
   "private": true,
   "exports": {
     "./*": "./*.ts"
