@@ -18,17 +18,23 @@ export default function SongList(props: SongListProps) {
   const [state, setState] = useState<States>(States.Loading);
   const [songList, setSongList] = useState<SongInfo[]>([]);
 
-  useEffect(() => {
+  function refreshSongList() {
     setState(States.Loading);
     DBManager.getAllSongInfo()
       .then((list) => {
-        setSongList(list);
-        setState(States.Ok);
+        if (list !== undefined) {
+          setSongList(list);
+          setState(States.Ok);
+        } else {
+          setState(States.Failed);
+        }
       })
       .catch(() => {
         setState(States.Failed);
       });
-  }, []);
+  }
+
+  useEffect(refreshSongList, []);
 
   return (
     <div className="song-list">

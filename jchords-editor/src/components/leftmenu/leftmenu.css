@@ -20,6 +20,11 @@
   margin: 4px 0;
 }
 
+.left-menu-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .left-menu-song-list-section {
   height: 300px;
 }
