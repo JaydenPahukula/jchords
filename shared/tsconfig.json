@@ -9,7 +9,7 @@
     "skipLibCheck": true,
 
     "paths": {
-      "@shared/*": ["./*"]
+      "shared/*": ["./*"]
     },
 
     /* Bundler mode */

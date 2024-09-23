@@ -1,3 +1,4 @@
+
 export default interface SongInfo {
   id: string;
   name: string;

@@ -1,12 +1,12 @@
 #left-menu {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   gap: 6px;
   align-items: stretch;
   background-color: #eeeeee;
   width: 280px;
   padding: 0 12px;
-  box-sizing: border-box;
 }
 
 .left-menu-title {
@@ -22,7 +22,6 @@
 
 .left-menu-input {
   width: 100%;
-  box-sizing: border-box;
 }
 
 .left-menu-song-list-section {
