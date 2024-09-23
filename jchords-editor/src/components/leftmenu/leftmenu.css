@@ -1,4 +1,25 @@
-.left-menu {
-  outline: black solid 2px;
-  width: 150px;
+#left-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
+  background-color: #eeeeee;
+  width: 280px;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.left-menu-title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.left-menu-header {
+  font-weight: normal;
+  font-size: 1em;
+  margin: 4px 0;
+}
+
+.left-menu-song-list-section {
+  height: 300px;
 }

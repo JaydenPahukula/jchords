@@ -21,8 +21,7 @@ export default function App() {
 
   return (
     <div id="app">
-      <LeftMenu></LeftMenu>
-      <div id="resize-bar"></div>
+      <LeftMenu selectedSongId={selectedSongId} setSelectedSongId={setSelectedSongId}></LeftMenu>
       <Editor></Editor>
     </div>
   );
