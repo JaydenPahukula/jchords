@@ -6,7 +6,8 @@
   align-items: stretch;
   background-color: #eeeeee;
   width: 280px;
-  padding: 0 12px;
+  padding: 12px;
+  padding-top: 0;
 }
 
 .left-menu-title {
@@ -26,4 +27,20 @@
 
 .left-menu-song-list-section {
   height: 300px;
+}
+
+.left-menu-spacer {
+  flex-grow: 1;
+}
+
+#left-menu-submit-button {
+  height: 3em;
+}
+
+.left-menu-submit-msg-success {
+  color: green;
+}
+
+.left-menu-submit-msg-failure {
+  color: red;
 }

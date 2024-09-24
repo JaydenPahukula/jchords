@@ -10,8 +10,8 @@ const enum States {
 }
 
 interface SongListProps {
-  selectedSongId: string | undefined;
-  setSelectedSongId: (id: string | undefined) => void;
+  songId: string | undefined;
+  setSongId: (id: string | undefined) => void;
 }
 
 export default function SongList(props: SongListProps) {
@@ -40,11 +40,7 @@ export default function SongList(props: SongListProps) {
     <div className="song-list">
       {state === States.Ok ? (
         songList.map((info: SongInfo) => (
-          <div
-            className="song-list-row"
-            onClick={() => props.setSelectedSongId(info.id)}
-            key={info.id}
-          >
+          <div className="song-list-row" onClick={() => props.setSongId(info.id)} key={info.id}>
             {info.name} ({info.id})
           </div>
         ))

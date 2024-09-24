@@ -1,38 +1,42 @@
-import { useEffect, useState } from 'react';
-import DBManager from 'shared/db/dbmanager';
-import SongInfo, { makeEmptySongInfo } from 'shared/types/songinfo';
+import SongChart from 'shared/types/songchart';
+import SongId from 'shared/types/songid';
+import SongInfo from 'shared/types/songinfo';
 import './leftmenu.css';
 import SongList from './songlist/songlist';
 
+export enum SubmitButtonStatus {
+  None,
+  Loading,
+  Created,
+  Updated,
+  Failed,
+}
+
 interface LeftMenuProps {
-  selectedSongId: string | undefined;
-  setSelectedSongId: (id: string | undefined) => void;
+  songId: SongId | undefined;
+  setSongId: (id: SongId | undefined) => void;
+  songInfo: SongInfo | undefined;
+  setSongInfo: (info: SongInfo | undefined) => void;
+  songChart: SongChart | undefined;
+  setSongChart: (chart: SongChart | undefined) => void;
+  submit: () => void;
+  submitStatus: SubmitButtonStatus;
 }
 
 export default function LeftMenu(props: LeftMenuProps) {
-  const [selectedSongInfo, setSelectedSongInfo] = useState<SongInfo | undefined>();
-
-  useEffect(() => {
-    if (props.selectedSongId === '') {
-      setSelectedSongInfo(makeEmptySongInfo());
-    } else if (props.selectedSongId !== undefined) {
-      DBManager.getSongInfo(props.selectedSongId).then(setSelectedSongInfo);
-    }
-  }, [props.selectedSongId]);
-
   function setSongName(newName: string) {
-    if (selectedSongInfo !== undefined) {
-      setSelectedSongInfo({
-        ...selectedSongInfo,
+    if (props.songInfo !== undefined) {
+      props.setSongInfo({
+        ...props.songInfo,
         name: newName,
       });
     }
   }
 
   function setSongArtist(newArtist: string) {
-    if (selectedSongInfo !== undefined) {
-      setSelectedSongInfo({
-        ...selectedSongInfo,
+    if (props.songInfo !== undefined) {
+      props.setSongInfo({
+        ...props.songInfo,
         artist: newArtist,
       });
     }
@@ -41,44 +45,62 @@ export default function LeftMenu(props: LeftMenuProps) {
   return (
     <div id="left-menu">
       <h1 className="left-menu-title">JChords Editor</h1>
-      {props.selectedSongId === undefined ? (
+      {props.songId === undefined ? (
         <div className="left-menu-song-list-section">
           <h2 className="left-menu-header">Select a song to edit:</h2>
-          <SongList
-            selectedSongId={props.selectedSongId}
-            setSelectedSongId={props.setSelectedSongId}
-          ></SongList>
+          <SongList songId={props.songId} setSongId={props.setSongId}></SongList>
         </div>
       ) : (
         <>
           <div>
-            <button onClick={() => props.setSelectedSongId(undefined)}>
-              &lt; Edit a different song
-            </button>
+            <button onClick={() => props.setSongId(undefined)}>&lt; Edit a different song</button>
           </div>
           <h2 className="left-menu-header">
-            {props.selectedSongId === ''
-              ? 'Creating a new song...'
-              : 'ID = ' + props.selectedSongId}
+            {props.songId === '' ? 'Creating a new song...' : 'ID = ' + props.songId}
           </h2>
           <div>
             <h2 className="left-menu-header">Title:</h2>
             <input
+              id="name-input"
               className="left-menu-input"
-              disabled={selectedSongInfo === undefined}
-              value={selectedSongInfo?.name}
+              disabled={props.songInfo === undefined}
+              value={props.songInfo?.name ?? ''}
               onChange={(e) => setSongName(e.target.value)}
             ></input>
           </div>
           <div>
             <h2 className="left-menu-header">Artist:</h2>
             <input
+              id="artist-input"
               className="left-menu-input"
-              disabled={selectedSongInfo === undefined}
-              value={selectedSongInfo?.artist}
+              disabled={props.songInfo === undefined}
+              value={props.songInfo?.artist ?? ''}
               onChange={(e) => setSongArtist(e.target.value)}
             ></input>
           </div>
+          <div className="left-menu-spacer"></div>
+          {props.submitStatus === SubmitButtonStatus.None ? (
+            <></>
+          ) : props.submitStatus === SubmitButtonStatus.Loading ? (
+            <p>Working...</p>
+          ) : props.submitStatus === SubmitButtonStatus.Created ? (
+            <p className="left-menu-submit-msg-success">Successfully created new song!</p>
+          ) : props.submitStatus === SubmitButtonStatus.Updated ? (
+            <p className="left-menu-submit-msg-success">Successfully updated song!</p>
+          ) : (
+            <p className="left-menu-submit-msg-failure">Something went wrong</p>
+          )}
+          <button
+            id="left-menu-submit-button"
+            disabled={
+              props.songId === undefined ||
+              props.songInfo === undefined ||
+              props.songChart === undefined
+            }
+            onClick={props.submit}
+          >
+            UPDATE SONG
+          </button>
         </>
       )}
     </div>
