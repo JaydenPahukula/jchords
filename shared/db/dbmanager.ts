@@ -44,7 +44,11 @@ const DBManager = {
         const data = combineDocIdAndData(document);
         if (isSongInfo(data)) {
           return data;
+        } else {
+          console.error(`invalid song info format (id: ${songId})`);
         }
+      } else {
+        console.error(`no song info available (id: ${songId})`);
       }
     } catch (e) {
       console.error(`failed to get song info (id: ${songId})`);
@@ -57,7 +61,11 @@ const DBManager = {
         const data = combineDocIdAndData(document);
         if (isSongChart(data)) {
           return data;
+        } else {
+          console.error(`invalid song chart format (id: ${songId})`);
         }
+      } else {
+        console.error(`no song chart available (id: ${songId})`);
       }
     } catch (e) {
       console.error(`failed to get song chart (id: ${songId})`);

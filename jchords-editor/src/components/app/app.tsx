@@ -4,16 +4,16 @@ import SongChart, { emptySongChart } from 'shared/types/songchart';
 import SongId from 'shared/types/songid';
 import SongInfo, { emptySongInfo } from 'shared/types/songinfo';
 import Editor from 'src/components/editor/editor';
-import LeftMenu, { SubmitButtonStatus } from 'src/components/leftmenu/leftmenu';
+import LeftMenu from 'src/components/leftmenu/leftmenu';
 import './app.css';
 
 export default function App() {
+  const [songId, setSongId] = useState<SongId | undefined>();
   const [songInfo, setSongInfo] = useState<SongInfo | undefined>();
   const [songInfoChanged, setSongInfoChanged] = useState<boolean>(false);
   const [songChart, setSongChart] = useState<SongChart | undefined>();
   const [songChartChanged, setSongChartChanged] = useState<boolean>(false);
-  const [songId, setSongId] = useState<SongId | undefined>();
-  const [submitStatus, setSubmitStatus] = useState(SubmitButtonStatus.None);
+  // const [newSong, setNewSong] = useState<boolean>(false); // not not rerender
 
   useEffect(() => {
     setSongInfoChanged(false);
@@ -24,7 +24,6 @@ export default function App() {
     } else if (songId === undefined) {
       setSongInfo(undefined);
       setSongChart(undefined);
-      setSubmitStatus(SubmitButtonStatus.None);
     } else {
       Promise.all([
         DBManager.getSongInfo(songId).then(setSongInfo),
@@ -43,31 +42,18 @@ export default function App() {
     setSongChart(chart);
   }
 
-  function submit() {
+  async function submit() {
     if (songId === undefined || songInfo === undefined || songChart === undefined) return;
-    setSubmitStatus(SubmitButtonStatus.Loading);
     if (songId === '') {
-      DBManager.createSong(songInfo, songChart)
-        .then((newId) => {
-          setSongId(newId);
-          setSubmitStatus(SubmitButtonStatus.Created);
-        })
-        .catch(() => {
-          setSubmitStatus(SubmitButtonStatus.Failed);
-        });
+      DBManager.createSong(songInfo, songChart).then(setSongId);
     } else {
       Promise.all([
         songInfoChanged && DBManager.setSongInfo(songInfo),
         songChartChanged && DBManager.setSongChart(songChart),
-      ])
-        .then(() => {
-          setSongInfoChanged(false);
-          setSongChartChanged(false);
-          setSubmitStatus(SubmitButtonStatus.Updated);
-        })
-        .catch(() => {
-          setSubmitStatus(SubmitButtonStatus.Failed);
-        });
+      ]).then(() => {
+        setSongInfoChanged(false);
+        setSongChartChanged(false);
+      });
     }
   }
 
@@ -81,7 +67,6 @@ export default function App() {
         songChart={songChart}
         setSongChart={updateSongChart}
         submit={submit}
-        submitStatus={submitStatus}
       ></LeftMenu>
       <Editor chart={songChart} setChart={updateSongChart}></Editor>
     </div>

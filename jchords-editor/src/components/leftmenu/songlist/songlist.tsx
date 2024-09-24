@@ -39,11 +39,16 @@ export default function SongList(props: SongListProps) {
   return (
     <div className="song-list">
       {state === States.Ok ? (
-        songList.map((info: SongInfo) => (
-          <div className="song-list-row" onClick={() => props.setSongId(info.id)} key={info.id}>
-            {info.name} ({info.id})
+        <>
+          {songList.map((info: SongInfo) => (
+            <div className="song-list-row" onClick={() => props.setSongId(info.id)} key={info.id}>
+              {info.name} ({info.id})
+            </div>
+          ))}
+          <div className="song-list-row" onClick={() => props.setSongId('')} key={'new-song'}>
+            Create a new song...
           </div>
-        ))
+        </>
       ) : state === States.Loading ? (
         <>loading...</>
       ) : (

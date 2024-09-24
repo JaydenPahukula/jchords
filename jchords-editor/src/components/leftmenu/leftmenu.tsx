@@ -3,14 +3,7 @@ import SongId from 'shared/types/songid';
 import SongInfo from 'shared/types/songinfo';
 import './leftmenu.css';
 import SongList from './songlist/songlist';
-
-export enum SubmitButtonStatus {
-  None,
-  Loading,
-  Created,
-  Updated,
-  Failed,
-}
+import LeftMenuSubmitButton from './submitbutton/leftmenusubmitbutton';
 
 interface LeftMenuProps {
   songId: SongId | undefined;
@@ -19,8 +12,7 @@ interface LeftMenuProps {
   setSongInfo: (info: SongInfo | undefined) => void;
   songChart: SongChart | undefined;
   setSongChart: (chart: SongChart | undefined) => void;
-  submit: () => void;
-  submitStatus: SubmitButtonStatus;
+  submit: () => Promise<void>;
 }
 
 export default function LeftMenu(props: LeftMenuProps) {
@@ -79,28 +71,11 @@ export default function LeftMenu(props: LeftMenuProps) {
             ></input>
           </div>
           <div className="left-menu-spacer"></div>
-          {props.submitStatus === SubmitButtonStatus.None ? (
-            <></>
-          ) : props.submitStatus === SubmitButtonStatus.Loading ? (
-            <p>Working...</p>
-          ) : props.submitStatus === SubmitButtonStatus.Created ? (
-            <p className="left-menu-submit-msg-success">Successfully created new song!</p>
-          ) : props.submitStatus === SubmitButtonStatus.Updated ? (
-            <p className="left-menu-submit-msg-success">Successfully updated song!</p>
-          ) : (
-            <p className="left-menu-submit-msg-failure">Something went wrong</p>
-          )}
-          <button
-            id="left-menu-submit-button"
-            disabled={
-              props.songId === undefined ||
-              props.songInfo === undefined ||
-              props.songChart === undefined
-            }
-            onClick={props.submit}
-          >
-            UPDATE SONG
-          </button>
+          <LeftMenuSubmitButton
+            creatingSong={props.songId === ''}
+            enabled={props.songInfo !== undefined && props.songChart !== undefined}
+            submit={props.submit}
+          ></LeftMenuSubmitButton>
         </>
       )}
     </div>

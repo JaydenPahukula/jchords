@@ -1,3 +1,0 @@
-Todo:
-- abstract submit button
-- stop unessecary rendering (react state something)

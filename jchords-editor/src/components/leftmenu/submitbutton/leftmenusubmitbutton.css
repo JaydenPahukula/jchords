@@ -1,0 +1,12 @@
+#left-menu-submit-button {
+  height: 3em;
+  width: 100%;
+}
+
+.left-menu-submit-msg-success {
+  color: green;
+}
+
+.left-menu-submit-msg-failure {
+  color: red;
+}
