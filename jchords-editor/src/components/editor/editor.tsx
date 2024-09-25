@@ -1,3 +1,5 @@
+// @ts-ignore
+import { parseSong, renderSong } from 'chord-mark/lib/chord-mark.js';
 import SongChart from 'shared/types/songchart';
 import './editor.css';
 
@@ -30,7 +32,12 @@ export default function Editor(props: EditorProps) {
       </div>
       <div id="editor-preview-section">
         <h2 className="editor-header">Preview</h2>
-        <div>preview</div>
+        <pre
+          className="editor-preview"
+          dangerouslySetInnerHTML={{
+            __html: props.chart === undefined ? '' : renderSong(parseSong(props.chart.text)),
+          }}
+        ></pre>
       </div>
     </div>
   );

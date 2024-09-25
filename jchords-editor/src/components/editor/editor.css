@@ -34,3 +34,7 @@
 #editor-input:disabled {
   background-color: #ffffff;
 }
+
+.editor-preview {
+  font-family: monospace;
+}
