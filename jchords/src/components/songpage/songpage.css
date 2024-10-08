@@ -1,0 +1,16 @@
+#song-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#song-page-content {
+  background-color: lightgray;
+  padding: 32px;
+  flex-grow: 1;
+  overflow: none scroll;
+  margin-top: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

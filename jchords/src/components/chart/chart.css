@@ -4,10 +4,12 @@
   padding: 48px;
   overflow: auto;
   border-radius: 8px;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .chart-header {
-  margin: 0 0 64px 0;
+  margin: 0 0 32px 0;
 }
 
 .chart-title {
@@ -17,4 +19,16 @@
 
 .chart-subtitle {
   margin: 0.5em 0 0 0;
+}
+
+.cmSectionLabel {
+  font-weight: bold;
+}
+
+.cmSong {
+  font-size: 1.2em;
+}
+
+.cmSection {
+  margin-bottom: 1.2em;
 }
