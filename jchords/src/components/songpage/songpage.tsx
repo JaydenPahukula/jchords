@@ -8,14 +8,22 @@ import NotFoundPage from 'src/components/notfoundpage/notfoundpage';
 import SongPageNavbar from 'src/components/songpagenavbar/songpagenavbar';
 import './songpage.css';
 
+// determines if chart content should take up the whole screen (for mobile)
+function shouldFullChart(): boolean {
+  const width = window.innerWidth > 0 ? window.innerWidth : screen.width;
+  return width < 800; //px
+}
+
 export default function SongPage() {
   const [isInfoLoading, setIsInfoLoading] = useState<boolean>(true);
   const [info, setInfo] = useState<SongInfo | undefined>(undefined);
   const [isChartLoading, setIsChartLoading] = useState<boolean>(true);
   const [chart, setChart] = useState<SongChart | undefined>(undefined);
+  const [isContentFull, setContentFull] = useState<boolean>(shouldFullChart());
 
   const songId: string | undefined = useParams().id;
 
+  // load song info
   useEffect(() => {
     if (songId !== undefined && songId !== '') {
       DBManager.getSongInfo(songId).then((info) => {
@@ -25,6 +33,7 @@ export default function SongPage() {
     }
   }, []);
 
+  // load song chart
   useEffect(() => {
     if (songId !== undefined && songId !== '') {
       DBManager.getSongChart(songId).then((chart) => {
@@ -32,18 +41,27 @@ export default function SongPage() {
         setIsChartLoading(false);
       });
     }
-  }, [songId]);
+  }, []);
+
+  // listen for resize
+  useEffect(() => {
+    const handleResize = () => {
+      setContentFull(shouldFullChart());
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return songId ? (
     <div id="song-page">
       <SongPageNavbar title={info?.name || ''}></SongPageNavbar>
-      <div id="song-page-content">
+      <div id={isContentFull ? 'song-page-content-full' : 'song-page-content'}>
         {isInfoLoading || isChartLoading ? (
           <>loading</>
         ) : info === undefined || chart === undefined ? (
           <>error</>
         ) : (
-          <Chart info={info} chart={chart}></Chart>
+          <Chart info={info} chart={chart} isFull={isContentFull}></Chart>
         )}
       </div>
     </div>

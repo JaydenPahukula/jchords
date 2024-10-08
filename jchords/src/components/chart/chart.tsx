@@ -11,6 +11,7 @@ import './chart.css';
 interface ChartProps {
   info: SongInfo;
   chart: SongChart;
+  isFull: boolean;
 }
 
 const defaultRenderOptions: cmRenderOptions = {
@@ -18,18 +19,20 @@ const defaultRenderOptions: cmRenderOptions = {
   simplifyChords: cmSimplifyChordsOptions.none,
 };
 
-export default function Chart({ info, chart }: ChartProps) {
+export default function Chart(props: ChartProps) {
   return (
-    <div className="chart">
+    <div id={props.isFull ? 'chart-full' : 'chart'}>
       <div className="chart-header">
-        <h1 className="chart-title">{info.name}</h1>
-        <p className="chart-subtitle">{info.artist}</p>
+        <h1 className="chart-title">{props.info.name}</h1>
+        <p className="chart-subtitle">{props.info.artist}</p>
         <p className="chart-subtitle">Key: C | 100 BPM | 4 / 4</p>
       </div>
       <pre
         dangerouslySetInnerHTML={{
           __html:
-            chart === undefined ? '' : renderSong(parseSong(chart.text), defaultRenderOptions),
+            props.chart === undefined
+              ? ''
+              : renderSong(parseSong(props.chart.text), defaultRenderOptions),
         }}
       ></pre>
     </div>

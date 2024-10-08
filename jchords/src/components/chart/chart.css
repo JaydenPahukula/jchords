@@ -1,11 +1,15 @@
-.chart {
+#chart,
+#chart-full {
   font-family: 'Courier New', monospace;
   background-color: white;
-  padding: 48px;
-  overflow: auto;
-  border-radius: 8px;
+  margin: 0;
   width: 100%;
-  max-width: 1000px;
+  max-width: 900px;
+  padding: 64px;
+}
+
+#chart {
+  border-radius: 12px;
 }
 
 .chart-header {
