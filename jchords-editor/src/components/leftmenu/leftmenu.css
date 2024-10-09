@@ -21,8 +21,12 @@
   margin: 4px 0;
 }
 
-.left-menu-input {
+.left-menu-string-input {
   width: 100%;
+}
+
+.left-menu-key-input {
+  width: 50px;
 }
 
 .left-menu-song-list-section {

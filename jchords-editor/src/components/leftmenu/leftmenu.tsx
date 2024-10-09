@@ -1,3 +1,4 @@
+import Key, { allKeys, keyToString, stringToKey } from 'shared/types/key';
 import SongChart from 'shared/types/songchart';
 import SongId from 'shared/types/songid';
 import SongInfo from 'shared/types/songinfo';
@@ -34,6 +35,17 @@ export default function LeftMenu(props: LeftMenuProps) {
     }
   }
 
+  function setSongKey(newKey: Key) {
+    if (props.songChart !== undefined) {
+      props.setSongChart({
+        ...props.songChart,
+        key: newKey,
+      });
+    }
+  }
+
+  const isInfoAndChartDefined = props.songInfo !== undefined && props.songChart !== undefined;
+
   return (
     <div id="left-menu">
       <h1 className="left-menu-title">JChords Editor</h1>
@@ -53,9 +65,8 @@ export default function LeftMenu(props: LeftMenuProps) {
           <div>
             <h2 className="left-menu-header">Title:</h2>
             <input
-              id="name-input"
-              className="left-menu-input"
-              disabled={props.songInfo === undefined}
+              className="left-menu-string-input"
+              disabled={!isInfoAndChartDefined}
               value={props.songInfo?.name ?? ''}
               onChange={(e) => setSongName(e.target.value)}
             ></input>
@@ -63,17 +74,35 @@ export default function LeftMenu(props: LeftMenuProps) {
           <div>
             <h2 className="left-menu-header">Artist:</h2>
             <input
-              id="artist-input"
-              className="left-menu-input"
-              disabled={props.songInfo === undefined}
+              className="left-menu-string-input"
+              disabled={!isInfoAndChartDefined}
               value={props.songInfo?.artist ?? ''}
               onChange={(e) => setSongArtist(e.target.value)}
             ></input>
           </div>
+          <div>
+            <h2 className="left-menu-header">Key:</h2>
+            <select
+              id="artist-input"
+              className="left-menu-key-input"
+              disabled={!isInfoAndChartDefined}
+              value={keyToString(props.songChart?.key ?? Key.None)}
+              onChange={(e) => setSongKey(stringToKey(e.target.value))}
+            >
+              {allKeys.map((key: Key) => {
+                const str = keyToString(key);
+                return (
+                  <option key={key} value={str}>
+                    {str}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
           <div className="left-menu-spacer"></div>
           <LeftMenuSubmitButton
             creatingSong={props.songId === ''}
-            enabled={props.songInfo !== undefined && props.songChart !== undefined}
+            enabled={isInfoAndChartDefined}
             submit={props.submit}
           ></LeftMenuSubmitButton>
         </>

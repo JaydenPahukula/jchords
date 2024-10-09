@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DBManager from 'shared/db/dbmanager';
 import SongChart from 'shared/types/songchart';
+import SongId from 'shared/types/songid';
 import SongInfo from 'shared/types/songinfo';
 import Chart from 'src/components/chart/chart';
 import NotFoundPage from 'src/components/notfoundpage/notfoundpage';
@@ -21,7 +22,7 @@ export default function SongPage() {
   const [chart, setChart] = useState<SongChart | undefined>(undefined);
   const [isContentFull, setContentFull] = useState<boolean>(shouldFullChart());
 
-  const songId: string | undefined = useParams().id;
+  const songId: SongId | undefined = useParams().id;
 
   // load song info
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function SongPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return songId ? (
+  return songId !== undefined ? (
     <div id="song-page">
       <SongPageNavbar title={info?.name || ''}></SongPageNavbar>
       <div id={isContentFull ? 'song-page-content-full' : 'song-page-content'}>
