@@ -2,11 +2,15 @@
   "hosting": [
     {
       "target": "jchords",
-      "public": "./jchords/dist"
+      "public": "jchords/dist",
+      "rewrites": [{
+        "source": "song/**",
+        "destination": "/index.html"
+      }]
     },
     {
       "target": "jchords-editor",
-      "public": "./jchords-editor/dist/"
+      "public": "jchords-editor/dist/"
     }
   ]
 }
