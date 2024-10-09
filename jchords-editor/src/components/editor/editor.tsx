@@ -1,5 +1,6 @@
 // @ts-ignore
 import { parseSong, renderSong } from 'chord-mark/lib/chord-mark.js';
+import { cmDefaultRenderOptions } from 'shared/chordmark/renderoptions';
 import SongChart from 'shared/types/songchart';
 import './editor.css';
 
@@ -25,6 +26,10 @@ export default function Editor(props: EditorProps) {
         <textarea
           id="editor-input"
           wrap="off"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
           disabled={props.chart === undefined}
           value={props.chart?.text ?? ''}
           onChange={(e) => setText(e.target.value)}
@@ -32,12 +37,17 @@ export default function Editor(props: EditorProps) {
       </div>
       <div id="editor-preview-section">
         <h2 className="editor-header">Preview</h2>
-        <pre
-          className="editor-preview"
-          dangerouslySetInnerHTML={{
-            __html: props.chart === undefined ? '' : renderSong(parseSong(props.chart.text)),
-          }}
-        ></pre>
+        <div className="editor-preview-container">
+          <pre
+            className="editor-preview"
+            dangerouslySetInnerHTML={{
+              __html:
+                props.chart === undefined
+                  ? ''
+                  : renderSong(parseSong(props.chart.text), cmDefaultRenderOptions),
+            }}
+          ></pre>
+        </div>
       </div>
     </div>
   );

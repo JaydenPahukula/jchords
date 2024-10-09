@@ -1,9 +1,6 @@
 // @ts-ignore
 import { parseSong, renderSong } from 'chord-mark/lib/chord-mark.js';
-import cmRenderOptions, {
-  cmPrintBarSeperatorsOptions,
-  cmSimplifyChordsOptions,
-} from 'shared/chordmark/renderoptions';
+import { cmDefaultRenderOptions } from 'shared/chordmark/renderoptions';
 import SongChart from 'shared/types/songchart';
 import SongInfo from 'shared/types/songinfo';
 import './chart.css';
@@ -13,11 +10,6 @@ interface ChartProps {
   chart: SongChart;
   isFull: boolean;
 }
-
-const defaultRenderOptions: cmRenderOptions = {
-  printBarSeparators: cmPrintBarSeperatorsOptions.grids,
-  simplifyChords: cmSimplifyChordsOptions.none,
-};
 
 export default function Chart(props: ChartProps) {
   return (
@@ -32,7 +24,7 @@ export default function Chart(props: ChartProps) {
           __html:
             props.chart === undefined
               ? ''
-              : renderSong(parseSong(props.chart.text), defaultRenderOptions),
+              : renderSong(parseSong(props.chart.text), cmDefaultRenderOptions),
         }}
       ></pre>
     </div>

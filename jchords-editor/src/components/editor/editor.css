@@ -35,6 +35,10 @@
   background-color: #ffffff;
 }
 
+.editor-preview-container {
+  overflow: auto;
+}
+
 .editor-preview {
   font-family: monospace;
 }

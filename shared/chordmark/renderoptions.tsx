@@ -11,6 +11,13 @@ export enum cmSimplifyChordsOptions {
 }
 
 export default interface cmRenderOptions {
+  autoRepeatChords: boolean;
   printBarSeparators: cmPrintBarSeperatorsOptions;
   simplifyChords: cmSimplifyChordsOptions;
 }
+
+export const cmDefaultRenderOptions: cmRenderOptions = {
+  autoRepeatChords: true,
+  printBarSeparators: cmPrintBarSeperatorsOptions.grids,
+  simplifyChords: cmSimplifyChordsOptions.none,
+};
