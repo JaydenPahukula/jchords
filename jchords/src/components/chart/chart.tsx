@@ -28,6 +28,7 @@ export default function Chart(props: ChartProps) {
         <p className="chart-subtitle">{metadata.join(' | ')}</p>
       </div>
       <pre
+        id="chart-content"
         dangerouslySetInnerHTML={{
           __html:
             props.chart === undefined

@@ -1,15 +1,26 @@
 #chart,
 #chart-full {
-  font-family: 'Courier New', monospace;
+  font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New',
+    monospace;
   background-color: white;
   margin: 0;
   width: 100%;
   max-width: 900px;
-  padding: 64px;
 }
 
 #chart {
   border-radius: 12px;
+  padding: 64px;
+  font-size: 1.2em;
+}
+
+#chart-full {
+  padding: 32px;
+  font-size: 1em;
+}
+
+#chart-content {
+  font-family: inherit;
 }
 
 .chart-header {
@@ -25,12 +36,9 @@
   margin: 0.5em 0 0 0;
 }
 
-.cmSectionLabel {
+.cmSectionLabel,
+.cmChordLine {
   font-weight: bold;
-}
-
-.cmSong {
-  font-size: 1.2em;
 }
 
 .cmSection {

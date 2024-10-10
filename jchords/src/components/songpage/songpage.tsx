@@ -7,20 +7,15 @@ import SongInfo from 'shared/types/songinfo';
 import Chart from 'src/components/chart/chart';
 import NotFoundPage from 'src/components/notfoundpage/notfoundpage';
 import SongPageNavbar from 'src/components/songpagenavbar/songpagenavbar';
+import { isOnMobile } from 'src/utils/responsiveness';
 import './songpage.css';
-
-// determines if chart content should take up the whole screen (for mobile)
-function shouldFullChart(): boolean {
-  const width = window.innerWidth > 0 ? window.innerWidth : screen.width;
-  return width < 800; //px
-}
 
 export default function SongPage() {
   const [isInfoLoading, setIsInfoLoading] = useState<boolean>(true);
   const [info, setInfo] = useState<SongInfo | undefined>(undefined);
   const [isChartLoading, setIsChartLoading] = useState<boolean>(true);
   const [chart, setChart] = useState<SongChart | undefined>(undefined);
-  const [isContentFull, setContentFull] = useState<boolean>(shouldFullChart());
+  const [isContentFull, setContentFull] = useState<boolean>(isOnMobile());
 
   const songId: SongId | undefined = useParams().id;
 
@@ -47,7 +42,7 @@ export default function SongPage() {
   // listen for resize
   useEffect(() => {
     const handleResize = () => {
-      setContentFull(shouldFullChart());
+      setContentFull(isOnMobile());
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
