@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import GearIcon32 from 'shared/icons/gear';
 import LeftArrowIcon32 from 'shared/icons/leftarrow';
-import MusicNoteIcon32 from 'shared/icons/musicnote';
 import TransposeMenu from 'src/components/transposemenu/transposemenu';
 import SongContext from 'src/pages/song/songcontext';
 import './songpagetoolbar.css';
@@ -27,7 +27,7 @@ export default function SongPageToolbar() {
       <div id="toolbar-right-buttons">
         <div className="toolbar-menu-wrapper">
           <button className="toolbar-button" onClick={toggleTransposeMenu}>
-            <MusicNoteIcon32 />
+            <GearIcon32 />
           </button>
           {isTransposeMenuOpen && <TransposeMenu />}
         </div>
