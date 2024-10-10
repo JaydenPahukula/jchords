@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import DBManager from 'shared/db/dbmanager';
 import SongChart from 'shared/types/songchart';
 import SongId from 'shared/types/songid';
 import SongInfo from 'shared/types/songinfo';
 import Chart from 'src/components/chart/chart';
-import NotFoundPage from 'src/components/notfoundpage/notfoundpage';
-import SongPageNavbar from 'src/components/songpagenavbar/songpagenavbar';
+import SongPageToolbar from 'src/components/songpagetoolbar/songpagetoolbar';
+import NotFoundPage from 'src/pages/notfound/notfound';
+import store from 'src/redux/store';
 import { isOnMobile } from 'src/utils/responsiveness';
-import './songpage.css';
+import './song.css';
+import SongContext from './songcontext';
 
 export default function SongPage() {
   const [isInfoLoading, setIsInfoLoading] = useState<boolean>(true);
@@ -49,18 +52,22 @@ export default function SongPage() {
   }, []);
 
   return songId !== undefined ? (
-    <div id="song-page">
-      <SongPageNavbar title={info?.name || ''}></SongPageNavbar>
-      <div id={isContentFull ? 'song-page-content-full' : 'song-page-content'}>
-        {isInfoLoading || isChartLoading ? (
-          <>loading</>
-        ) : info === undefined || chart === undefined ? (
-          <>error</>
-        ) : (
-          <Chart info={info} chart={chart} isFull={isContentFull}></Chart>
-        )}
-      </div>
-    </div>
+    <SongContext.Provider value={{ songInfo: info, songChart: chart }}>
+      <Provider store={store}>
+        <div id="song-page">
+          <SongPageToolbar></SongPageToolbar>
+          <div id={isContentFull ? 'song-page-content-full' : 'song-page-content'}>
+            {isInfoLoading || isChartLoading ? (
+              <>loading</>
+            ) : info === undefined || chart === undefined ? (
+              <>error</>
+            ) : (
+              <Chart isFull={isContentFull}></Chart>
+            )}
+          </div>
+        </div>
+      </Provider>
+    </SongContext.Provider>
   ) : (
     <NotFoundPage />
   );

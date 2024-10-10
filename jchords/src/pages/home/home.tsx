@@ -1,6 +1,6 @@
 import HeaderComponent from 'src/components/header/header';
 import SongListComponent from 'src/components/songlist/songlist';
-import './homepage.css';
+import './home.css';
 
 export default function HomePage() {
   return (
