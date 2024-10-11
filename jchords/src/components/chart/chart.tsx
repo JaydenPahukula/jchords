@@ -1,10 +1,10 @@
 // @ts-ignore
 import { parseSong, renderSong } from 'chord-mark/lib/chord-mark.js';
 import { useContext } from 'react';
-import cmRenderOptions from 'shared/cm/renderoptions';
+import cmRenderOptions from 'shared/types/cmrenderoptions';
 import Key, { keyToString } from 'shared/types/key';
 import Settings from 'shared/types/settings';
-import calculateCmRenderOptions from 'shared/utils/cmrenderoptions';
+import calcCmRenderOptions from 'shared/utils/cmrenderoptions';
 import SongContext from 'src/pages/song/songcontext';
 import { useAppSelector } from 'src/redux/hooks';
 import './chart.css';
@@ -17,14 +17,14 @@ export default function Chart(props: ChartProps) {
   const { songInfo, songChart } = useContext(SongContext);
 
   const settings: Settings = useAppSelector((state) => state.settings.value);
-  const renderOptions: cmRenderOptions = calculateCmRenderOptions({
+  const renderOptions: cmRenderOptions = calcCmRenderOptions({
     settings: settings,
     songChart: songChart,
   });
 
   const metadata = [];
-  if (songChart !== undefined && songChart?.key !== Key.None) {
-    metadata.push('Key: ' + keyToString(songChart?.key));
+  if (settings.key !== Key.None) {
+    metadata.push('Key: ' + keyToString(settings.key));
   }
 
   // filler data

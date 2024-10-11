@@ -28,11 +28,17 @@
   border-top: 1px solid lightgray;
 }
 
-.menu-row {
+.menu-row,
+.menu-row-indented {
   display: flex;
   flex-direction: row;
+  gap: 12px;
 }
 
-.menu-row-text {
-  flex-grow: 1;
+.menu-row-indented {
+  margin-left: 2em;
+}
+
+.menu-row-text-disabled {
+  color: rgb(170, 170, 170);
 }

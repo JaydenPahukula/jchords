@@ -1,5 +1,9 @@
+import { useContext, useEffect } from 'react';
 import Chart from 'src/components/chart/chart';
 import SongPageToolbar from 'src/components/songpagetoolbar/songpagetoolbar';
+import { useAppDispatch } from 'src/redux/hooks';
+import { updateSettings } from 'src/redux/slices/settings';
+import SongContext from './songcontext';
 import './songpage.css';
 import { DataState } from './songpagedatalayer';
 
@@ -9,6 +13,15 @@ interface SongPageContentProps {
 }
 
 export default function SongPageContent(props: SongPageContentProps) {
+  const { songChart } = useContext(SongContext);
+
+  // update the selected song key once the song is loaded
+  // (this is only here because it needs to be above the data layer)
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (songChart !== undefined) dispatch(updateSettings({ key: songChart.key }));
+  }, [songChart]);
+
   return (
     <div id="song-page">
       <SongPageToolbar></SongPageToolbar>

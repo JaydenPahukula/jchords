@@ -21,29 +21,29 @@ enum Key {
 
 export default Key;
 
-export function keyToString(key: Key): string {
-  return (
-    {
-      0: '',
-      1: 'C',
-      2: 'C#',
-      3: 'Db',
-      4: 'D',
-      5: 'D#',
-      6: 'Eb',
-      7: 'E',
-      8: 'F',
-      9: 'F#',
-      10: 'Gb',
-      11: 'G',
-      12: 'G#',
-      13: 'Ab',
-      14: 'A',
-      15: 'A#',
-      16: 'Bb',
-      17: 'B',
-    }[key] ?? ''
-  );
+export function keyToString(key: Key | undefined): string {
+  return key === undefined
+    ? ''
+    : ({
+        0: '',
+        1: 'C',
+        2: 'C#',
+        3: 'Db',
+        4: 'D',
+        5: 'D#',
+        6: 'Eb',
+        7: 'E',
+        8: 'F',
+        9: 'F#',
+        10: 'Gb',
+        11: 'G',
+        12: 'G#',
+        13: 'Ab',
+        14: 'A',
+        15: 'A#',
+        16: 'Bb',
+        17: 'B',
+      }[key] ?? '');
 }
 
 export function stringToKey(str: string): Key {

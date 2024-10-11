@@ -1,26 +1,26 @@
 import cmRenderOptions, {
-  cmAccidentalsTypeOptions,
   cmPrintBarSeperatorsOptions,
   cmSimplifyChordsOptions,
-} from '../cm/renderoptions';
-import Settings from '../types/settings';
+} from '../types/cmrenderoptions';
+import Settings, { defaultSettings } from '../types/settings';
 import SongChart from '../types/songchart';
-import calculateTransposeValue from './transposevalue';
+import calcCmAccidentalsType from './cmaccidentalstype';
+import calcTransposeValue from './transposevalue';
 
-interface calculateCmRenderOptionsArgs {
-  songChart?: SongChart;
-  settings?: Settings;
-}
-
-const calculateCmRenderOptions = ({
+export default function calcCmRenderOptions({
   songChart,
   settings,
-}: calculateCmRenderOptionsArgs): cmRenderOptions => ({
-  accidentalsType: cmAccidentalsTypeOptions.auto,
-  autoRepeatChords: true,
-  printBarSeparators: cmPrintBarSeperatorsOptions.grids,
-  simplifyChords: cmSimplifyChordsOptions.none,
-  transposeValue: calculateTransposeValue(songChart?.key, settings?.key),
-});
+}: {
+  songChart?: SongChart;
+  settings?: Settings;
+}): cmRenderOptions {
+  const set: Settings = { ...defaultSettings, ...settings };
 
-export default calculateCmRenderOptions;
+  return {
+    accidentalsType: calcCmAccidentalsType(set),
+    autoRepeatChords: true,
+    printBarSeparators: cmPrintBarSeperatorsOptions.grids,
+    simplifyChords: cmSimplifyChordsOptions.none,
+    transposeValue: calcTransposeValue(songChart?.key, settings?.key),
+  };
+}
