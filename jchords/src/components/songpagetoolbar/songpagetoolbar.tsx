@@ -1,18 +1,34 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import GearIcon32 from 'shared/icons/gear';
 import LeftArrowIcon32 from 'shared/icons/leftarrow';
-import TransposeMenu from 'src/components/transposemenu/transposemenu';
+import SongPageMenu from 'src/components/songpagemenu/songpagemenu';
 import SongContext from 'src/pages/song/songcontext';
 import './songpagetoolbar.css';
 
 export default function SongPageToolbar() {
-  const [isTransposeMenuOpen, setIsTransposeMenuOpen] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const { songInfo } = useContext(SongContext);
 
-  function toggleTransposeMenu() {
-    setIsTransposeMenuOpen(!isTransposeMenuOpen);
-  }
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  // close menu when clicked elsewhere
+  useEffect(() => {
+    let handler = (e: MouseEvent) => {
+      if (
+        isMenuOpen &&
+        !menuRef.current?.contains(e.target as Node) &&
+        !menuButtonRef.current?.contains(e.target as Node)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+    };
+  });
 
   return (
     <div id="toolbar">
@@ -26,10 +42,16 @@ export default function SongPageToolbar() {
       </div>
       <div id="toolbar-right-buttons">
         <div className="toolbar-menu-wrapper">
-          <button className="toolbar-button" onClick={toggleTransposeMenu}>
+          <button
+            className="toolbar-button"
+            ref={menuButtonRef}
+            onClick={() => {
+              setIsMenuOpen(!isMenuOpen);
+            }}
+          >
             <GearIcon32 />
           </button>
-          {isTransposeMenuOpen && <TransposeMenu />}
+          {isMenuOpen && <SongPageMenu ref={menuRef} />}
         </div>
       </div>
     </div>

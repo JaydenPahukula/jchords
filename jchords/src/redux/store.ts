@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import renderOptionsReducer from './renderoptionsslice';
+import settingsReducer from './settingsslice';
 
 const store = configureStore({
   reducer: {
-    renderOptions: renderOptionsReducer,
+    settings: settingsReducer,
   },
 });
 

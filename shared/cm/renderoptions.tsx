@@ -23,11 +23,3 @@ export default interface cmRenderOptions {
   simplifyChords: cmSimplifyChordsOptions;
   transposeValue: number;
 }
-
-export const cmDefaultRenderOptions: cmRenderOptions = {
-  accidentalsType: cmAccidentalsTypeOptions.auto,
-  autoRepeatChords: true,
-  printBarSeparators: cmPrintBarSeperatorsOptions.grids,
-  simplifyChords: cmSimplifyChordsOptions.none,
-  transposeValue: 0,
-};

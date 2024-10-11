@@ -70,8 +70,7 @@ export function stringToKey(str: string): Key {
   );
 }
 
-export const allKeys: Key[] = [
-  Key.None,
+export const realKeys: Key[] = [
   Key.C,
   Key.Cs,
   Key.Db,
@@ -90,6 +89,8 @@ export const allKeys: Key[] = [
   Key.Bb,
   Key.B,
 ];
+
+export const allKeys: Key[] = [Key.None, ...realKeys];
 
 export function isKey(obj: unknown): obj is Key {
   return typeof obj === 'number' && obj in Key;

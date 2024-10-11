@@ -1,7 +1,7 @@
 // @ts-ignore
 import { parseSong, renderSong } from 'chord-mark/lib/chord-mark.js';
-import { cmDefaultRenderOptions } from 'shared/chordmark/renderoptions';
 import SongChart from 'shared/types/songchart';
+import calculateCmRenderOptions from 'shared/utils/cmrenderoptions';
 import './editor.css';
 
 interface EditorProps {
@@ -44,7 +44,7 @@ export default function Editor(props: EditorProps) {
               __html:
                 props.chart === undefined
                   ? ''
-                  : renderSong(parseSong(props.chart.text), cmDefaultRenderOptions),
+                  : renderSong(parseSong(props.chart.text), calculateCmRenderOptions({})),
             }}
           ></pre>
         </div>
