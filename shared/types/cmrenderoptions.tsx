@@ -4,6 +4,12 @@ export enum cmAccidentalsTypeOptions {
   sharp = 'sharp',
 }
 
+export enum cmPrintChordsDurationOptions {
+  never = 'never',
+  uneven = 'uneven',
+  always = 'always',
+}
+
 export enum cmPrintBarSeperatorsOptions {
   never = 'never',
   grids = 'grids',
@@ -19,6 +25,7 @@ export enum cmSimplifyChordsOptions {
 export default interface cmRenderOptions {
   accidentalsType: cmAccidentalsTypeOptions;
   autoRepeatChords: boolean;
+  printChordsDuration: cmPrintChordsDurationOptions;
   printBarSeparators: cmPrintBarSeperatorsOptions;
   simplifyChords: cmSimplifyChordsOptions;
   transposeValue: number;

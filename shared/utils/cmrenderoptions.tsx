@@ -1,5 +1,6 @@
 import cmRenderOptions, {
   cmPrintBarSeperatorsOptions,
+  cmPrintChordsDurationOptions,
   cmSimplifyChordsOptions,
 } from '../types/cmrenderoptions';
 import Settings, { defaultSettings } from '../types/settings';
@@ -19,6 +20,7 @@ export default function calcCmRenderOptions({
   return {
     accidentalsType: calcCmAccidentalsType(set),
     autoRepeatChords: true,
+    printChordsDuration: cmPrintChordsDurationOptions.never,
     printBarSeparators: cmPrintBarSeperatorsOptions.grids,
     simplifyChords: cmSimplifyChordsOptions.none,
     transposeValue: calcTransposeValue(songChart?.key, settings?.key),
