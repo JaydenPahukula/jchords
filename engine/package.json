@@ -5,7 +5,8 @@
   "main": "dist/jchords-engine.js",
   "types": "dist/dts/index.d.ts",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "test": "npm run build && node test/test.js"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.0",

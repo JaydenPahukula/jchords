@@ -1,13 +1,13 @@
-import parseSong from './parser/parser';
+import parseSong from './parser/parseSong';
+import ChordLine from './types/chordline';
+import Line from './types/line';
+import LineType from './types/linetype';
+import LyricLine from './types/lyricline';
+import Section from './types/section';
 import Song from './types/song';
-import SongChordLine from './types/songchordline';
-import SongLine from './types/songline';
-import SongLineType from './types/songlinetype';
-import SongLyricLine from './types/songlyricline';
-import SongSection from './types/songsection';
 import TimeSignature from './types/timesignature';
 
 export { parseSong };
 
 // types
-export { Song, SongChordLine, SongLine, SongLineType, SongLyricLine, SongSection, TimeSignature };
+export { ChordLine, Line, LineType, LyricLine, Section, Song, TimeSignature };
