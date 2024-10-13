@@ -1,4 +1,3 @@
-export default interface TimeSignature {
-  num: number;
-  den: number;
-}
+type TimeSignature = [number, number];
+
+export default TimeSignature;

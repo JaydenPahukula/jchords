@@ -5,14 +5,14 @@ export default [
   {
     input: 'src/index.ts',
     output: {
-      file: 'lib/jchords-engine.js',
+      file: 'dist/jchords-engine.js',
     },
     plugins: [typescript()],
   },
   {
-    input: 'lib/dts/index.d.ts',
+    input: 'dist/dts/index.d.ts',
     output: {
-      file: 'lib/jchords-engine.d.ts',
+      file: 'dist/jchords-engine.d.ts',
     },
     plugins: [dts()],
   },

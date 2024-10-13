@@ -1,7 +1,7 @@
-import SongLine from './line';
+import SongSection from './songsection';
 import TimeSignature from './timesignature';
 
 export default interface Song {
-  timeSignature: TimeSignature;
-  lines: SongLine;
+  timeSignature: TimeSignature | undefined;
+  sections: SongSection[];
 }

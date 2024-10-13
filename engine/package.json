@@ -2,8 +2,8 @@
   "name": "jchords-engine",
   "type": "module",
   "version": "1.0.0",
-  "main": "lib/jchords-engine.js",
-  "types": "lib/dts/index.d.ts",
+  "main": "dist/jchords-engine.js",
+  "types": "dist/dts/index.d.ts",
   "scripts": {
     "build": "rollup -c"
   },
