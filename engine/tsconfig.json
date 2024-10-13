@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "declaration": true,
+    "declarationDir": "lib/dts",
+    "module": "ES6",
+    "outDir": "lib",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
