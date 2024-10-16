@@ -1,0 +1,10 @@
+#title-row {
+  background-color: var(--gray3);
+  display: flex;
+}
+
+#title {
+  margin: 10px 12px 6px;
+  white-space: nowrap;
+  font-size: 1.7em;
+}

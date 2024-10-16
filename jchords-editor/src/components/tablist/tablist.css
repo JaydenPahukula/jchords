@@ -1,0 +1,23 @@
+#tablist {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 8px;
+  gap: 8px;
+}
+
+.tab,
+.tab-selected {
+  padding: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tab {
+  background-color: var(--gray2);
+}
+
+.tab:hover,
+.tab-selected {
+  background-color: var(--gray0);
+}
