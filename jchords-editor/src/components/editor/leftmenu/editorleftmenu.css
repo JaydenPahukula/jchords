@@ -1,0 +1,19 @@
+#editor-left-menu {
+  background-color: var(--gray0);
+  width: 250px;
+  display: flex;
+  padding: 18px;
+}
+
+.editor-left-menu-section {
+  width: 100%;
+}
+
+.editor-left-menu-section-header {
+  font-weight: normal;
+  font-size: 1em;
+}
+
+.editor-left-menu-input {
+  width: 100%;
+}
