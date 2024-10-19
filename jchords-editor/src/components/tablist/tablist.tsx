@@ -25,7 +25,7 @@ export default function TabList(): ReactElement {
             className={classes({ tab: !selected, 'tab-selected': selected })}
             onClick={() => dispatch(setCurrSong(i))}
           >
-            <h2 className="tab-title">{song.info.title}</h2>
+            <h2 className="tab-title">{song.info.title + (modified ? ' *' : ' ')}</h2>
             <button className="tab-close-button" onClick={() => dispatch(closeSong(i))}>
               <XIcon12 />
             </button>
