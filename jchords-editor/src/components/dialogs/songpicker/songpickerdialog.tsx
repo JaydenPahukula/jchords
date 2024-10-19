@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import { getAllSongInfo, getSongSrc } from 'src/db/functions';
 import { useAppDispatch } from 'src/redux/hooks';
 import { closeSongPickerDialog } from 'src/redux/slices/dialog';
-import { openSong, setSongSrc } from 'src/redux/slices/songdata';
+import { openSong, updateSongSrc } from 'src/redux/slices/songdata';
 import Song from 'src/types/song';
 import SongId from 'src/types/songid';
 import SongInfo from 'src/types/songinfo';
@@ -34,7 +34,7 @@ export default function SongPickerDialog(): ReactElement {
       };
       dispatch(openSong(newSong));
       getSongSrc(info.id).then(
-        (res) => res !== undefined && dispatch(setSongSrc({ id: info.id, newSrc: res })),
+        (res) => res !== undefined && dispatch(updateSongSrc({ id: info.id, newSrc: res })),
       );
       dispatch(closeSongPickerDialog());
     }

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'src/redux/types';
 import Song from 'src/types/song';
 import SongId from 'src/types/songid';
+import SongInfo from 'src/types/songinfo';
 
 /*
  * This slice manages the array of all the songs current open in
@@ -56,9 +57,6 @@ export const songDataSlice = createSlice({
         order: [...state.order, id],
       };
     },
-    setSongSrc: (state: SongDataState, action: PayloadAction<{ id: SongId; newSrc: string }>) => {
-      state.songs[action.payload.id].song.src = action.payload.newSrc;
-    },
     setCurrSong: (state: SongDataState, action: PayloadAction<number>) => {
       const index = Math.max(0, Math.min(state.order.length - 1, action.payload));
       state.currIndex = index;
@@ -74,10 +72,27 @@ export const songDataSlice = createSlice({
         songs: newSongs,
       };
     },
+    updateSongSrc: (
+      state: SongDataState,
+      action: PayloadAction<{ id: SongId; newSrc: string }>,
+    ) => {
+      state.songs[action.payload.id].song.src = action.payload.newSrc;
+    },
+    updateSongInfo: (
+      state: SongDataState,
+      action: PayloadAction<{ id: SongId; update: Partial<SongInfo> }>,
+    ) => {
+      // do not update song id
+      const update = { ...action.payload.update };
+      delete update.id;
+      const oldInfo = state.songs[action.payload.id].song.info;
+      state.songs[action.payload.id].song.info = { ...oldInfo, ...update };
+    },
   },
 });
 
-export const { openSong, setSongSrc, setCurrSong, closeSong } = songDataSlice.actions;
+export const { openSong, setCurrSong, closeSong, updateSongSrc, updateSongInfo } =
+  songDataSlice.actions;
 
 const songDataReducer = songDataSlice.reducer;
 export default songDataReducer;
