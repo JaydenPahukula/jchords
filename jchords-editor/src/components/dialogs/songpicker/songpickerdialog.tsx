@@ -34,7 +34,8 @@ export default function SongPickerDialog(): ReactElement {
       };
       dispatch(openSong(newSong));
       getSongSrc(info.id).then(
-        (res) => res !== undefined && dispatch(updateSongSrc({ id: info.id, newSrc: res })),
+        (res) =>
+          res !== undefined && dispatch(updateSongSrc({ id: info.id, newSrc: res, modify: false })),
       );
       dispatch(closeSongPickerDialog());
     }

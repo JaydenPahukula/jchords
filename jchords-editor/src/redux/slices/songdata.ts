@@ -74,10 +74,10 @@ export const songDataSlice = createSlice({
     },
     updateSongSrc: (
       state: SongDataState,
-      action: PayloadAction<{ id: SongId; newSrc: string }>,
+      action: PayloadAction<{ id: SongId; newSrc: string; modify?: boolean }>,
     ) => {
       state.songs[action.payload.id].song.src = action.payload.newSrc;
-      state.songs[action.payload.id].modified = true; // mark updated
+      if (action.payload.modify !== false) state.songs[action.payload.id].modified = true; // mark updated
     },
     updateSongInfo: (
       state: SongDataState,
