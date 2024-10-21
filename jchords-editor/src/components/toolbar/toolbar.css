@@ -1,6 +1,29 @@
 #toolbar {
   background-color: var(--gray0);
   width: 100%;
-  padding: 8px;
+  padding: 6px 10px;
   border-bottom: solid 1px var(--gray3);
+  display: flex;
+  gap: 10px;
+}
+
+.toolbar-button {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  gap: 2px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toolbar-button:hover {
+  background-color: var(--gray2);
+}
+
+.toolbar-button:active {
+  background-color: var(--gray3);
+}
+
+.toolbar-button-text {
+  margin-top: 2px;
 }

@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 import PlusIcon18 from 'src/components/icons/plusicon18';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { openSongPickerDialog } from 'src/redux/slices/dialog';
-import { closeSong, selectSongData, setCurrSong } from 'src/redux/slices/songdata';
+import { closeSong, openBlankSong, selectSongData, setCurrSong } from 'src/redux/slices/songdata';
 import SongId from 'src/types/songid';
 import classes from 'src/utils/classes';
 import XIcon12 from '../icons/xicon12';
@@ -12,7 +11,7 @@ export default function TabList(): ReactElement {
   const dispatch = useAppDispatch();
   const { currIndex, songs, order } = useAppSelector(selectSongData);
 
-  const openSongPicker = () => dispatch(openSongPickerDialog());
+  const newSong = () => dispatch(openBlankSong());
 
   return (
     <div id="tablist">
@@ -32,7 +31,7 @@ export default function TabList(): ReactElement {
           </div>
         );
       })}
-      <div className="tab" onClick={openSongPicker}>
+      <div className="tab" onClick={newSong}>
         <PlusIcon18 />
       </div>
     </div>

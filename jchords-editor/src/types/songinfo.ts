@@ -6,12 +6,6 @@ export default interface SongInfo {
   artist: string;
 }
 
-export const emptySongInfo: SongInfo = {
-  id: '',
-  title: '',
-  artist: '',
-};
-
 export function isSongInfo(obj: unknown): obj is SongInfo {
   const objAs = obj as SongInfo;
   return (

@@ -1,4 +1,6 @@
-const XIcon12 = () => (
+import { ReactElement } from 'react';
+
+const XIcon12 = (): ReactElement => (
   <svg
     width="16px"
     height="16px"
