@@ -10,7 +10,7 @@ export default function Editor(): ReactElement {
   const song = useAppSelector(selectCurrSong);
   const dispatch = useAppDispatch();
 
-  const renderedSong = renderSong(parseSong(song.src));
+  const renderedSong = renderSong(parseSong(song.src ?? ''));
 
   const updateSrc = (e: ChangeEvent<HTMLTextAreaElement>) =>
     dispatch(updateSongSrc({ id: song.info.id, newSrc: e.target.value }));

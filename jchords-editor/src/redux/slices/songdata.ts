@@ -52,7 +52,7 @@ export const songDataSlice = createSlice({
         modified: false,
       };
       return {
-        currIndex: 0,
+        currIndex: state.order.length,
         songs: newSongs,
         order: [...state.order, id],
       };
