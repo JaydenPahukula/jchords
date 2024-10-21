@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 18px;
   padding: 18px;
+  border-right: solid 1px var(--gray3);
 }
 
 .editor-left-menu-section {
