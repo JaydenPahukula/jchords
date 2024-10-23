@@ -12,7 +12,9 @@ import SongInfo from 'src/types/songinfo';
 type Songs = {
   [key: SongId]: {
     song: Song;
-    modified: boolean;
+    srcModified: boolean;
+    infoModified: boolean;
+    isNew: boolean;
   };
 };
 
@@ -34,7 +36,9 @@ const initialState: SongDataState = {
           artist: 'JChords',
         },
       },
-      modified: false,
+      srcModified: false,
+      infoModified: false,
+      isNew: false,
     },
   },
   order: ['welcome'],
@@ -49,7 +53,9 @@ export const songDataSlice = createSlice({
       const newSongs = { ...state.songs };
       newSongs[id] = {
         song: action.payload,
-        modified: false,
+        srcModified: false,
+        infoModified: false,
+        isNew: false,
       };
       return {
         currIndex: state.order.length,
@@ -71,7 +77,9 @@ export const songDataSlice = createSlice({
             artist: '',
           },
         },
-        modified: false,
+        srcModified: false,
+        infoModified: false,
+        isNew: true,
       };
       return {
         currIndex: state.order.length,
@@ -99,7 +107,7 @@ export const songDataSlice = createSlice({
       action: PayloadAction<{ id: SongId; newSrc: string; modify?: boolean }>,
     ) => {
       state.songs[action.payload.id].song.src = action.payload.newSrc;
-      if (action.payload.modify !== false) state.songs[action.payload.id].modified = true; // mark updated
+      if (action.payload.modify !== false) state.songs[action.payload.id].infoModified = true; // mark updated
     },
     updateSongInfo: (
       state: SongDataState,
@@ -109,13 +117,43 @@ export const songDataSlice = createSlice({
       delete update.id; // do not update song id
       const oldInfo = state.songs[action.payload.id].song.info;
       state.songs[action.payload.id].song.info = { ...oldInfo, ...update };
-      state.songs[action.payload.id].modified = true; // mark updated
+      state.songs[action.payload.id].infoModified = true; // mark updated
+    },
+    markUnmodified: (state: SongDataState, action: PayloadAction<SongId>) => {
+      state.songs[action.payload].srcModified = false;
+      state.songs[action.payload].infoModified = false;
+    },
+    // for when a song gets first saved
+    songCreated: (
+      state: SongDataState,
+      action: PayloadAction<{ oldId: SongId; id: SongId }>,
+    ): SongDataState => {
+      const newSongs = { ...state.songs };
+      newSongs[action.payload.id] = {
+        song: state.songs[action.payload.oldId].song,
+        srcModified: false,
+        infoModified: false,
+        isNew: false,
+      };
+      return {
+        currIndex: state.currIndex,
+        songs: newSongs,
+        order: state.order.map((id, i) => (i === state.currIndex ? action.payload.id : id)),
+      };
     },
   },
 });
 
-export const { openSong, openBlankSong, setCurrSong, closeSong, updateSongSrc, updateSongInfo } =
-  songDataSlice.actions;
+export const {
+  openSong,
+  openBlankSong,
+  setCurrSong,
+  closeSong,
+  updateSongSrc,
+  updateSongInfo,
+  markUnmodified,
+  songCreated,
+} = songDataSlice.actions;
 
 const songDataReducer = songDataSlice.reducer;
 export default songDataReducer;

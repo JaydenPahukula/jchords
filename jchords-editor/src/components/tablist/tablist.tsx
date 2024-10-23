@@ -16,7 +16,7 @@ export default function TabList(): ReactElement {
   return (
     <div id="tablist">
       {order.map((id: SongId, i: number) => {
-        const { song, modified } = songs[id];
+        const { song, srcModified, infoModified } = songs[id];
         const selected = i === currIndex;
         return (
           <div
@@ -24,7 +24,9 @@ export default function TabList(): ReactElement {
             className={classes({ tab: !selected, 'tab-selected': selected })}
             onClick={() => dispatch(setCurrSong(i))}
           >
-            <h2 className="tab-title">{song.info.title + (modified ? ' *' : ' ')}</h2>
+            <h2 className="tab-title">
+              {song.info.title + (srcModified || infoModified ? ' *' : ' ')}
+            </h2>
             <button className="tab-close-button" onClick={() => dispatch(closeSong(i))}>
               <XIcon12 />
             </button>
