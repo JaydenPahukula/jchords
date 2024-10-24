@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 import PlusIcon18 from 'src/components/icons/plusicon18';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { closeSong, openBlankSong, selectSongData, setCurrSong } from 'src/redux/slices/songdata';
+import { closeSong, openSong, selectSongData, setCurrSong } from 'src/redux/slices/songdata';
 import SongId from 'src/types/songid';
 import classes from 'src/utils/classes';
+import makeBlankSong from 'src/utils/makeblanksong';
 import XIcon12 from '../icons/xicon12';
 import './tablist.css';
 
@@ -11,7 +12,7 @@ export default function TabList(): ReactElement {
   const dispatch = useAppDispatch();
   const { currIndex, songs, order } = useAppSelector(selectSongData);
 
-  const newSong = () => dispatch(openBlankSong());
+  const newSong = () => dispatch(openSong({ song: makeBlankSong(), isNew: true }));
 
   return (
     <div id="tablist">

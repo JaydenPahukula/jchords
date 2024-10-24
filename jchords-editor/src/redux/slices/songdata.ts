@@ -3,7 +3,6 @@ import { RootState } from 'src/redux/types';
 import Song from 'src/types/song';
 import SongId from 'src/types/songid';
 import SongInfo from 'src/types/songinfo';
-import generateTmpId from 'src/utils/generatetmpid';
 
 /*
  * This slice manages the array of all the songs current open in
@@ -54,38 +53,21 @@ export const songDataSlice = createSlice({
       action: PayloadAction<{ song: Song; isNew: boolean }>,
     ): SongDataState => {
       const id: SongId = action.payload.song.info.id;
-      const newSongs = { ...state.songs };
-      newSongs[id] = {
-        song: action.payload.song,
-        srcModified: false,
-        infoModified: false,
-        isNew: action.payload.isNew,
-      };
+      // switch to song if it is already open
+      const i = state.order.findIndex((id) => id === action.payload.song.info.id);
+      if (i !== -1) return { ...state, currIndex: i };
+      // else open in new tab
       return {
         currIndex: state.order.length,
-        songs: newSongs,
-        order: [...state.order, id],
-      };
-    },
-    openBlankSong: (state: SongDataState, action: PayloadAction<void>): SongDataState => {
-      const id = generateTmpId();
-      const newSongs = { ...state.songs };
-      newSongs[id] = {
-        song: {
-          src: '',
-          info: {
-            id: id,
-            title: 'New Song',
-            artist: '',
+        songs: {
+          ...state.songs,
+          [id]: {
+            song: action.payload.song,
+            srcModified: false,
+            infoModified: false,
+            isNew: action.payload.isNew,
           },
         },
-        srcModified: false,
-        infoModified: false,
-        isNew: true,
-      };
-      return {
-        currIndex: state.order.length,
-        songs: newSongs,
         order: [...state.order, id],
       };
     },
@@ -115,10 +97,12 @@ export const songDataSlice = createSlice({
       state: SongDataState,
       action: PayloadAction<{ id: SongId; update: Partial<SongInfo> }>,
     ) => {
-      const update = { ...action.payload.update };
-      delete update.id; // do not update song id
       const oldInfo = state.songs[action.payload.id].song.info;
-      state.songs[action.payload.id].song.info = { ...oldInfo, ...update };
+      state.songs[action.payload.id].song.info = {
+        ...oldInfo,
+        ...action.payload.update,
+        id: action.payload.id, // do not update id
+      };
       state.songs[action.payload.id].infoModified = true; // mark updated
     },
     markUnmodified: (state: SongDataState, action: PayloadAction<SongId>) => {
@@ -148,7 +132,6 @@ export const songDataSlice = createSlice({
 
 export const {
   openSong,
-  openBlankSong,
   setCurrSong,
   closeSong,
   updateSongSrc,

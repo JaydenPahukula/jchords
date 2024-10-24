@@ -1,8 +1,8 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { getAllSongInfo, getSongSrc } from 'src/db/functions';
-import { useAppDispatch } from 'src/redux/hooks';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { closeSongPickerDialog } from 'src/redux/slices/dialog';
-import { openSong, updateSongSrc } from 'src/redux/slices/songdata';
+import { openSong, selectSongData, updateSongSrc } from 'src/redux/slices/songdata';
 import Song from 'src/types/song';
 import SongId from 'src/types/songid';
 import SongInfo from 'src/types/songinfo';
@@ -14,6 +14,7 @@ export default function SongPickerDialog(): ReactElement {
   const [isSongListLoading, setIsSongListLoading] = useState<boolean>(true);
   const [selectedId, setSelectedId] = useState<SongId | undefined>(undefined);
 
+  const { order } = useAppSelector(selectSongData);
   const dispatch = useAppDispatch();
 
   // load song list
@@ -33,10 +34,13 @@ export default function SongPickerDialog(): ReactElement {
         info: info,
       };
       dispatch(openSong({ song: newSong, isNew: false }));
-      getSongSrc(info.id).then(
-        (res) =>
-          res !== undefined && dispatch(updateSongSrc({ id: info.id, newSrc: res, modify: false })),
-      );
+      if (!order.includes(info.id)) {
+        getSongSrc(info.id).then(
+          (res) =>
+            res !== undefined &&
+            dispatch(updateSongSrc({ id: info.id, newSrc: res, modify: false })),
+        );
+      }
       dispatch(closeSongPickerDialog());
     }
   }
