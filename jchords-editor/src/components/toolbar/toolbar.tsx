@@ -2,13 +2,15 @@ import { ReactElement, useEffect, useState } from 'react';
 import CheckIcon18 from 'src/components/icons/checkicon18';
 import HourglassIcon18 from 'src/components/icons/hourglassicon18';
 import OpenFolderIcon18 from 'src/components/icons/openfoldericon18';
+import PlusCircleIcon18 from 'src/components/icons/pluscircleicon18';
 import SaveIcon18 from 'src/components/icons/saveicon18';
 import UploadIcon18 from 'src/components/icons/uploadicon18';
 import WarningIcon18 from 'src/components/icons/warningicon18';
 import { createNewSong, setSongInfo, setSongSrc } from 'src/db/functions';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { openImportDialog, openSongPickerDialog } from 'src/redux/slices/dialog';
-import { markUnmodified, selectSongData, songCreated } from 'src/redux/slices/songdata';
+import { markUnmodified, openSong, selectSongData, songCreated } from 'src/redux/slices/songdata';
+import makeBlankSong from 'src/utils/makeblanksong';
 import './toolbar.css';
 
 enum SaveState {
@@ -29,6 +31,7 @@ export default function Toolbar(): ReactElement {
     setSaveState(SaveState.None);
   }, [currIndex]);
 
+  const openNewSong = () => dispatch(openSong({ song: makeBlankSong(), isNew: true }));
   const openSongPicker = () => dispatch(openSongPickerDialog());
   const openImport = () => dispatch(openImportDialog());
 
@@ -69,6 +72,10 @@ export default function Toolbar(): ReactElement {
 
   return (
     <div id="toolbar">
+      <div className="toolbar-button" onClick={openNewSong}>
+        <PlusCircleIcon18 />
+        New Song
+      </div>
       <div className="toolbar-button" onClick={openSongPicker}>
         <OpenFolderIcon18 />
         Open Song
