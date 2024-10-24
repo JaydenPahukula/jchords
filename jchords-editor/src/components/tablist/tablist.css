@@ -1,13 +1,22 @@
 #tablist {
-  width: 100%;
+  flex-grow: 1;
   display: flex;
   align-items: flex-end;
   padding-left: 8px;
+  padding-right: 16px;
   gap: 8px;
+  overflow: auto visible;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.tablist::-webkit-scrollbar {
+  display: none; /* Chrome */
 }
 
 .tab,
 .tab-selected {
+  min-width: max-content;
   height: 30px;
   cursor: pointer;
   user-select: none;
