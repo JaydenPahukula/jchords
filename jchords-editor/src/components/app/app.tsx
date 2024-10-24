@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import DialogHandler from 'src/components/dialogs/dialoghandler';
 import Editor from 'src/components/editor/editor';
+import EditorLeftMenu from 'src/components/editorleftmenu/editorleftmenu';
 import TabList from 'src/components/tablist/tablist';
 import Toolbar from 'src/components/toolbar/toolbar';
 import './app.css';
@@ -13,7 +14,10 @@ export default function App(): ReactElement {
         <TabList />
       </div>
       <Toolbar />
-      <Editor />
+      <div id="content">
+        <EditorLeftMenu />
+        <Editor />
+      </div>
       <DialogHandler />
     </div>
   );

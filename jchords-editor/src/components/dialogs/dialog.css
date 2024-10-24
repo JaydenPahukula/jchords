@@ -22,3 +22,22 @@
   left: 0;
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+.dialog-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.dialog-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.dialog-footer-button {
+  padding: 12px 32px;
+  font-family: inherit;
+  font-size: 1em;
+}

@@ -32,7 +32,7 @@ export default function SongPickerDialog(): ReactElement {
         src: undefined,
         info: info,
       };
-      dispatch(openSong(newSong));
+      dispatch(openSong({ song: newSong, isNew: false }));
       getSongSrc(info.id).then(
         (res) =>
           res !== undefined && dispatch(updateSongSrc({ id: info.id, newSrc: res, modify: false })),
@@ -40,6 +40,8 @@ export default function SongPickerDialog(): ReactElement {
       dispatch(closeSongPickerDialog());
     }
   }
+
+  const close = () => dispatch(closeSongPickerDialog());
 
   return (
     <div id="song-picker-dialog" className="dialog">
@@ -67,9 +69,12 @@ export default function SongPickerDialog(): ReactElement {
           })
         )}
       </div>
-      <div id="song-picker-dialog-footer">
+      <div className="dialog-footer">
+        <button className="dialog-footer-button" onClick={close}>
+          Cancel
+        </button>
         <button
-          id="song-picker-confirm-button"
+          className="dialog-footer-button"
           disabled={selectedId === undefined}
           onClick={submit}
         >

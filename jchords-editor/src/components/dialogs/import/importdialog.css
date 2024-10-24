@@ -1,0 +1,33 @@
+#import-dialog {
+  width: 85%;
+  height: 95%;
+}
+
+#import-dialog-editor-labels {
+  display: flex;
+  justify-content: space-around;
+}
+
+#import-dialog-editor {
+  flex-grow: 1;
+  border: solid 1px var(--gray3);
+  background-color: var(--gray1);
+  display: flex;
+  overflow-y: auto;
+}
+
+#import-dialog-editor-textarea {
+  resize: none;
+  border: none;
+  outline: none;
+  border-right: solid 1px var(--gray3);
+  background-color: transparent;
+  padding: 12px;
+  width: 50%;
+}
+
+#import-dialog-editor-preview {
+  overflow: auto;
+  padding: 12px;
+  width: 50%;
+}

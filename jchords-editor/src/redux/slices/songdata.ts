@@ -3,6 +3,7 @@ import { RootState } from 'src/redux/types';
 import Song from 'src/types/song';
 import SongId from 'src/types/songid';
 import SongInfo from 'src/types/songinfo';
+import generateTmpId from 'src/utils/generatetmpid';
 
 /*
  * This slice manages the array of all the songs current open in
@@ -48,14 +49,17 @@ export const songDataSlice = createSlice({
   name: 'songData',
   initialState: initialState,
   reducers: {
-    openSong: (state: SongDataState, action: PayloadAction<Song>): SongDataState => {
-      const id: SongId = action.payload.info.id;
+    openSong: (
+      state: SongDataState,
+      action: PayloadAction<{ song: Song; isNew: boolean }>,
+    ): SongDataState => {
+      const id: SongId = action.payload.song.info.id;
       const newSongs = { ...state.songs };
       newSongs[id] = {
-        song: action.payload,
+        song: action.payload.song,
         srcModified: false,
         infoModified: false,
-        isNew: false,
+        isNew: action.payload.isNew,
       };
       return {
         currIndex: state.order.length,
@@ -64,16 +68,14 @@ export const songDataSlice = createSlice({
       };
     },
     openBlankSong: (state: SongDataState, action: PayloadAction<void>): SongDataState => {
-      let n = 0;
-      while (state.order.includes('new' + n.toString())) n += 1;
-      const id = 'new' + n.toString();
+      const id = generateTmpId();
       const newSongs = { ...state.songs };
       newSongs[id] = {
         song: {
           src: '',
           info: {
             id: id,
-            title: n === 0 ? 'New Song' : 'New Song ' + n.toString(),
+            title: 'New Song',
             artist: '',
           },
         },

@@ -21,6 +21,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
     "chord-mark": "^0.17.0",
+    "chord-mark-converters": "^0.17.0",
     "firebase": "^10.14.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

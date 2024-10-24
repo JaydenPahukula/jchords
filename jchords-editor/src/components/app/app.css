@@ -14,3 +14,11 @@
   white-space: nowrap;
   font-size: 1.7em;
 }
+
+#content {
+  flex-grow: 1;
+  background-color: var(--gray1);
+  display: flex;
+  align-items: stretch;
+  overflow-y: auto;
+}

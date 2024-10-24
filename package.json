@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "chord-mark-converters": "^0.17.0"
+  }
+}

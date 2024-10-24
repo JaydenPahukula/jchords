@@ -3,10 +3,11 @@ import CheckIcon18 from 'src/components/icons/checkicon18';
 import HourglassIcon18 from 'src/components/icons/hourglassicon18';
 import OpenFolderIcon18 from 'src/components/icons/openfoldericon18';
 import SaveIcon18 from 'src/components/icons/saveicon18';
+import UploadIcon18 from 'src/components/icons/uploadicon18';
 import WarningIcon18 from 'src/components/icons/warningicon18';
 import { createNewSong, setSongInfo, setSongSrc } from 'src/db/functions';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { openSongPickerDialog } from 'src/redux/slices/dialog';
+import { openImportDialog, openSongPickerDialog } from 'src/redux/slices/dialog';
 import { markUnmodified, selectSongData, songCreated } from 'src/redux/slices/songdata';
 import './toolbar.css';
 
@@ -29,6 +30,7 @@ export default function Toolbar(): ReactElement {
   }, [currIndex]);
 
   const openSongPicker = () => dispatch(openSongPickerDialog());
+  const openImport = () => dispatch(openImportDialog());
 
   const saveDisabled =
     currId === 'welcome' || !(songs[currId].infoModified || songs[currId].srcModified);
@@ -85,6 +87,10 @@ export default function Toolbar(): ReactElement {
           <SaveIcon18 />
         )}
         Save
+      </div>
+      <div className="toolbar-button" onClick={openImport}>
+        <UploadIcon18 />
+        Import
       </div>
     </div>
   );

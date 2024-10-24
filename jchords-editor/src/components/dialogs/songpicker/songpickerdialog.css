@@ -25,14 +25,3 @@
 .song-picker-list-item-selected {
   background-color: var(--gray2);
 }
-
-#song-picker-dialog-footer {
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-#song-picker-confirm-button {
-  padding: 12px 32px;
-  font-family: inherit;
-  font-size: 1em;
-}

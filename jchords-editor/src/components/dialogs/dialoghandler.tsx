@@ -2,13 +2,14 @@ import { ReactElement, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { closeAllDialogs } from 'src/redux/slices/dialog';
 import './dialog.css';
-import SongPickerModal from './songpicker/songpickerdialog';
+import ImportDialog from './import/importdialog';
+import SongPickerDialog from './songpicker/songpickerdialog';
 
 export default function DialogHandler(): ReactElement {
   const dispatch = useAppDispatch();
-  const state = useAppSelector((state) => state.dialog);
+  const { isSongPickerDialogOpen, isImportDialogOpen } = useAppSelector((state) => state.dialog);
 
-  const isAnyDialogOpen = Object.values(state).includes(true);
+  const isAnyDialogOpen = isSongPickerDialogOpen || isImportDialogOpen;
 
   // add event listener to close dialogs when clicked outside
   useEffect(() => {
@@ -23,7 +24,15 @@ export default function DialogHandler(): ReactElement {
   });
 
   return isAnyDialogOpen ? (
-    <div id="dialog-background">{state.isSongPickerDialogOpen ? <SongPickerModal /> : <></>}</div>
+    <div id="dialog-background">
+      {isSongPickerDialogOpen ? (
+        <SongPickerDialog />
+      ) : isImportDialogOpen ? (
+        <ImportDialog />
+      ) : (
+        <>This should never happen</>
+      )}
+    </div>
   ) : (
     <></>
   );
