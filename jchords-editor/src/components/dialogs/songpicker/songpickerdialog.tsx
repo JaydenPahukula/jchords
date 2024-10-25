@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { closeSongPickerDialog } from 'src/redux/slices/dialog';
 import { openSong, selectSongData, updateSongSrc } from 'src/redux/slices/songdata';
 import Song from 'src/types/song';
-import SongId from 'src/types/songid';
 import SongInfo from 'src/types/songinfo';
 import classes from 'src/utils/classes';
 import './songpickerdialog.css';
@@ -12,7 +11,7 @@ import './songpickerdialog.css';
 export default function SongPickerDialog(): ReactElement {
   const [songList, setSongList] = useState<SongInfo[] | undefined>();
   const [isSongListLoading, setIsSongListLoading] = useState<boolean>(true);
-  const [selectedId, setSelectedId] = useState<SongId | undefined>(undefined);
+  const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
 
   const { order } = useAppSelector(selectSongData);
   const dispatch = useAppDispatch();

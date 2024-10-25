@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'src/redux/types';
 import Song from 'src/types/song';
-import SongId from 'src/types/songid';
 import SongInfo from 'src/types/songinfo';
 
 /*
@@ -10,7 +9,7 @@ import SongInfo from 'src/types/songinfo';
  */
 
 type Songs = {
-  [key: SongId]: {
+  [key: string]: {
     song: Song;
     srcModified: boolean;
     infoModified: boolean;
@@ -21,7 +20,7 @@ type Songs = {
 type SongDataState = {
   currIndex: number;
   songs: Songs;
-  order: SongId[];
+  order: string[];
 };
 
 const initialState: SongDataState = {
@@ -52,7 +51,7 @@ export const songDataSlice = createSlice({
       state: SongDataState,
       action: PayloadAction<{ song: Song; isNew: boolean }>,
     ): SongDataState => {
-      const id: SongId = action.payload.song.info.id;
+      const id: string = action.payload.song.info.id;
       // switch to song if it is already open
       const i = state.order.findIndex((id) => id === action.payload.song.info.id);
       if (i !== -1) return { ...state, currIndex: i };
@@ -88,14 +87,14 @@ export const songDataSlice = createSlice({
     },
     updateSongSrc: (
       state: SongDataState,
-      action: PayloadAction<{ id: SongId; newSrc: string; modify?: boolean }>,
+      action: PayloadAction<{ id: string; newSrc: string; modify?: boolean }>,
     ) => {
       state.songs[action.payload.id].song.src = action.payload.newSrc;
       if (action.payload.modify !== false) state.songs[action.payload.id].infoModified = true; // mark updated
     },
     updateSongInfo: (
       state: SongDataState,
-      action: PayloadAction<{ id: SongId; update: Partial<SongInfo> }>,
+      action: PayloadAction<{ id: string; update: Partial<SongInfo> }>,
     ) => {
       const oldInfo = state.songs[action.payload.id].song.info;
       state.songs[action.payload.id].song.info = {
@@ -105,14 +104,14 @@ export const songDataSlice = createSlice({
       };
       state.songs[action.payload.id].infoModified = true; // mark updated
     },
-    markUnmodified: (state: SongDataState, action: PayloadAction<SongId>) => {
+    markUnmodified: (state: SongDataState, action: PayloadAction<string>) => {
       state.songs[action.payload].srcModified = false;
       state.songs[action.payload].infoModified = false;
     },
     // for when a song gets first saved
     songCreated: (
       state: SongDataState,
-      action: PayloadAction<{ oldId: SongId; id: SongId }>,
+      action: PayloadAction<{ oldId: string; id: string }>,
     ): SongDataState => {
       const newSongs = { ...state.songs };
       newSongs[action.payload.id] = {

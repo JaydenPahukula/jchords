@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 import PlusIcon18 from 'src/components/icons/plusicon18';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { closeSong, openSong, selectSongData, setCurrSong } from 'src/redux/slices/songdata';
-import SongId from 'src/types/songid';
 import classes from 'src/utils/classes';
 import makeBlankSong from 'src/utils/makeblanksong';
 import XIcon12 from '../icons/xicon12';
@@ -16,7 +15,7 @@ export default function TabList(): ReactElement {
 
   return (
     <div id="tablist">
-      {order.map((id: SongId, i: number) => {
+      {order.map((id: string, i: number) => {
         const { song, srcModified, infoModified, isNew } = songs[id];
         const selected = i === currIndex;
         return (

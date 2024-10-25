@@ -9,7 +9,6 @@ import {
   setDoc,
 } from 'firebase/firestore/lite';
 import app from 'src/firebase/app';
-import SongId from 'src/types/songid';
 import SongInfo, { isSongInfo } from 'src/types/songinfo';
 
 const db = getFirestore(app);
@@ -71,7 +70,7 @@ export async function setSongSrc(id: string, src: string): Promise<void> {
   setDoc(doc(db, 'songsrc', id), { text: src });
 }
 
-export async function createNewSong(info: SongInfo, src: string): Promise<SongId> {
+export async function createNewSong(info: SongInfo, src: string): Promise<string> {
   const [_, infoData] = seperateDocIdAndData(info);
   const infoDoc = await addDoc(collection(db, 'song'), infoData);
   await setDoc(doc(db, 'songsrc', infoDoc.id), { text: src });
