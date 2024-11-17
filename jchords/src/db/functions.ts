@@ -1,12 +1,10 @@
 import {
-  addDoc,
   collection,
   doc,
   getDoc,
   getDocs,
   getFirestore,
   QueryDocumentSnapshot,
-  setDoc,
 } from 'firebase/firestore/lite';
 import app from 'src/firebase/app';
 import SongInfo, { isSongInfo } from 'src/types/songinfo';
@@ -18,11 +16,6 @@ function combineDocIdAndData(document: QueryDocumentSnapshot): { id: string } {
     id: document.id,
     ...document.data(),
   };
-}
-
-function seperateDocIdAndData<T extends { id: string }>(obj: T): [string, Omit<T, 'id'>] {
-  const { id, ...rest } = obj;
-  return [id, rest];
 }
 
 // return info for all available songs
@@ -42,10 +35,29 @@ export async function getAllSongInfo(): Promise<SongInfo[] | undefined> {
   }
 }
 
+// get song info
+export async function getSongInfo(id: string): Promise<SongInfo | undefined> {
+  try {
+    const document = await getDoc(doc(db, `song`, id));
+    if (document.exists()) {
+      const info = combineDocIdAndData(document);
+      if (isSongInfo(info)) {
+        return info;
+      } else {
+        console.error(`invalid info format (id: ${id})`);
+      }
+    } else {
+      console.error(`no info available (id: ${id})`);
+    }
+  } catch (e) {
+    console.error(`failed to get info (id: ${id})`);
+  }
+}
+
 // get song src
 export async function getSongSrc(id: string): Promise<string | undefined> {
   try {
-    const document = await getDoc(doc(db, 'songsrc', id));
+    const document = await getDoc(doc(db, `song/${id}/src`, id));
     if (document.exists()) {
       const src = document.data().text;
       if (typeof src === 'string') {
@@ -59,20 +71,4 @@ export async function getSongSrc(id: string): Promise<string | undefined> {
   } catch (e) {
     console.error(`failed to get src (id: ${id})`);
   }
-}
-
-export async function setSongInfo(info: SongInfo): Promise<void> {
-  const [_, data] = seperateDocIdAndData(info);
-  setDoc(doc(db, 'song', info.id), data);
-}
-
-export async function setSongSrc(id: string, src: string): Promise<void> {
-  setDoc(doc(db, 'songsrc', id), { text: src });
-}
-
-export async function createNewSong(info: SongInfo, src: string): Promise<string> {
-  const [_, infoData] = seperateDocIdAndData(info);
-  const infoDoc = await addDoc(collection(db, 'song'), infoData);
-  await setDoc(doc(db, 'songsrc', infoDoc.id), { text: src });
-  return infoDoc.id;
 }

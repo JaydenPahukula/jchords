@@ -9,15 +9,16 @@ body,
   font-family: 'Roboto', Arial, sans-serif;
   height: 100%;
   max-height: 100%;
+  color: var(--gray7);
 }
 
 html {
   --gray0: #fcfcfc;
-  --gray1: #f0f0f0;
+  --gray1: #eeeeee;
   --gray2: #e4e7ea;
   --gray3: #cfd2d6;
   --gray4: #909295;
-  --gray5: #505254;
+  --gray5: #666869;
   --gray6: #323333;
   --gray7: #1e2021;
 }

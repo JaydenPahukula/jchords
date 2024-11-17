@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
-import SearchIcon18 from 'src/components/icons/searchicon18';
+import SearchIcon24 from 'src/components/icons/searchicon24';
 import './searchbar.css';
 
 export default function SearchBar(): ReactElement {
   return (
     <div id="searchbar">
-      <input id="searchbar-input" type="text" placeholder="Search..." size={15}></input>
-      <SearchIcon18 />
+      <input id="searchbar-input" type="text" placeholder="Search..." size={10}></input>
+      <SearchIcon24 />
     </div>
   );
 }
