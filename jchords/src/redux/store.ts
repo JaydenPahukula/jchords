@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import settingsReducer from './slices/settings';
+import songDataReducer from './slices/songdata';
 
 const store = configureStore({
   reducer: {
-    settings: settingsReducer,
+    songData: songDataReducer,
   },
 });
 

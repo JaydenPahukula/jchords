@@ -1,14 +1,26 @@
 #navbar {
   position: sticky;
   top: 0;
-  height: 64px;
+  height: 68px;
   background-color: var(--gray0);
   display: flex;
+  justify-content: center;
+}
+
+#navbar-content {
+  display: flex;
   align-items: center;
+  height: 100%;
+  width: 100%;
+  max-width: 800px;
 }
 
 #title {
-  margin: 0 42px;
+  margin: 0 18px;
   white-space: nowrap;
   font-size: 2em;
+}
+
+#title-small {
+  margin-left: 14px;
 }

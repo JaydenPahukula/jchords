@@ -1,0 +1,11 @@
+#songlist {
+  width: 100%;
+  max-width: 800px;
+}
+
+#songlist-header {
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 100%;
+  margin: 12px 18px;
+}
