@@ -4,29 +4,34 @@ import PlayCircleIcon20 from 'src/components/icons/playcircleicon20';
 import ResponsivenessContext from 'src/contexts/responsiveness';
 import { getAllSongInfo } from 'src/db/functions';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { selectSongData, setLoading, setSongsLoaded, updateSongs } from 'src/redux/slices/songdata';
+import {
+  selectSongData,
+  setSongsLoaded,
+  setSongsLoading,
+  updateSongs,
+} from 'src/redux/slices/songdata';
 import './songlist.css';
 
 export default function SongList(): ReactElement {
   const { isMobile } = useContext(ResponsivenessContext);
   const dispatch = useAppDispatch();
-  const { loading, songsLoaded, songs } = useAppSelector(selectSongData);
+  const { songsLoading, songsLoaded, songs } = useAppSelector(selectSongData);
 
   useEffect(() => {
     // load songs if not loaded already
     if (!songsLoaded) {
-      dispatch(setLoading(true));
+      dispatch(setSongsLoading(true));
       getAllSongInfo().then((result) => {
         if (result !== undefined) {
           dispatch(updateSongs(Object.fromEntries(result.map((info) => [info.id, info]))));
           dispatch(setSongsLoaded());
         }
-        dispatch(setLoading(false));
+        dispatch(setSongsLoading(false));
       });
     }
   });
 
-  return loading ? (
+  return songsLoading ? (
     <>loading...</>
   ) : songsLoaded ? (
     <div id="songlist">

@@ -7,16 +7,20 @@ type SongInfoMap = {
 };
 
 type SongDataState = {
-  loading: boolean;
+  songsLoading: boolean;
   songsLoaded: boolean;
   songs: SongInfoMap;
+  currId: string;
+  srcLoading: boolean;
   src: string | undefined;
 };
 
 const initialState: SongDataState = {
-  loading: true,
+  songsLoading: true,
   songsLoaded: false,
   songs: {},
+  currId: '',
+  srcLoading: true,
   src: undefined,
 };
 
@@ -24,8 +28,8 @@ export const songDataSlice = createSlice({
   name: 'songData',
   initialState: initialState,
   reducers: {
-    setLoading: (state: SongDataState, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
+    setSongsLoading: (state: SongDataState, action: PayloadAction<boolean>) => {
+      state.songsLoading = action.payload;
     },
     setSongsLoaded: (state: SongDataState) => {
       state.songsLoaded = true;
@@ -33,15 +37,24 @@ export const songDataSlice = createSlice({
     updateSongs: (state: SongDataState, action: PayloadAction<SongInfoMap>) => {
       state.songs = { ...state.songs, ...action.payload };
     },
+    setCurrId: (state: SongDataState, action: PayloadAction<string>) => {
+      state.currId = action.payload;
+    },
+    setSrcLoading: (state: SongDataState, action: PayloadAction<boolean>) => {
+      state.srcLoading = action.payload;
+    },
     setSrc: (state: SongDataState, action: PayloadAction<string | undefined>) => {
       state.src = action.payload;
     },
   },
 });
 
-export const { setLoading, setSongsLoaded, updateSongs, setSrc } = songDataSlice.actions;
+export const { setSongsLoading, setSongsLoaded, updateSongs, setCurrId, setSrcLoading, setSrc } =
+  songDataSlice.actions;
 
 const songDataReducer = songDataSlice.reducer;
 export default songDataReducer;
 
 export const selectSongData = (state: RootState): SongDataState => state.songData;
+export const selectCurrSongInfo = (state: RootState): SongInfo | undefined =>
+  state.songData.songs[state.songData.currId];

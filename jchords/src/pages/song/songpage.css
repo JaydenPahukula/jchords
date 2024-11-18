@@ -1,0 +1,16 @@
+#song-page {
+  height: 100%;
+  min-width: 320px;
+  background-color: var(--bg3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden auto;
+}

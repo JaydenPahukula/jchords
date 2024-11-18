@@ -15,7 +15,7 @@
 }
 
 .songlist-item {
-  background-color: var(--gray0);
+  background-color: var(--bg0);
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -43,13 +43,13 @@
   overflow: hidden;
   font-weight: normal;
   font-size: 1em;
-  color: var(--gray5);
+  color: var(--fg1);
 }
 
 .songlist-item-button {
-  color: var(--gray7);
+  color: var(--fg0);
   text-decoration: none;
-  background-color: var(--gray1);
+  background-color: var(--bg1);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -60,9 +60,9 @@
 }
 
 .songlist-item-button:hover {
-  background-color: var(--gray2);
+  background-color: var(--bg2);
 }
 
 .songlist-item-button:active {
-  background-color: var(--gray3);
+  background-color: var(--bg3);
 }
