@@ -57,7 +57,7 @@ export async function getSongInfo(id: string): Promise<SongInfo | undefined> {
 // get song src
 export async function getSongSrc(id: string): Promise<string | undefined> {
   try {
-    const document = await getDoc(doc(db, `song/${id}/src`, id));
+    const document = await getDoc(doc(db, `songsrc`, id));
     if (document.exists()) {
       const src = document.data().text;
       if (typeof src === 'string') {

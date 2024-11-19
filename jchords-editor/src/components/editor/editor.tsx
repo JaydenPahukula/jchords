@@ -6,6 +6,13 @@ import { selectCurrSong, updateSongSrc } from 'src/redux/slices/songdata';
 import matchScrollEffect from 'src/utils/matchscrolleffect';
 import './editor.css';
 
+const renderOptions = {
+  autoRepeatChords: true,
+  printChordsDuration: 'never',
+  printBarSeparators: 'grids',
+  simplifyChords: 'none',
+};
+
 export default function Editor(): ReactElement {
   const srcRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLPreElement>(null);
@@ -19,7 +26,7 @@ export default function Editor(): ReactElement {
   const song = useAppSelector(selectCurrSong);
   const dispatch = useAppDispatch();
 
-  const renderedSong = renderSong(parseSong(song.src ?? ''));
+  const renderedSong = renderSong(parseSong(song.src ?? ''), renderOptions);
 
   const srcOnChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
     dispatch(updateSongSrc({ id: song.info.id, newSrc: e.target.value }));
