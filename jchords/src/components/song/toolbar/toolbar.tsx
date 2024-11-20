@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import GearIcon32 from 'src/components/icons/gearicon32';
 import LeftArrowIcon32 from 'src/components/icons/leftarrowicon32';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectCurrSongInfo } from 'src/redux/slices/songdata';
@@ -16,7 +17,11 @@ export default function Toolbar(): ReactElement {
         </Link>
       </div>
       <h1 id="toolbar-title">{info?.title}</h1>
-      <div id="toolbar-right"></div>
+      <div id="toolbar-right">
+        <button className="toolbar-button">
+          <GearIcon32 />
+        </button>
+      </div>
     </div>
   );
 }

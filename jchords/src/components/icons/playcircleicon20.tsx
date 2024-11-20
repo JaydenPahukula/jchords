@@ -1,6 +1,4 @@
-import { ReactElement } from 'react';
-
-const PlayCircleIcon20 = (): ReactElement => (
+const PlayCircleIcon20 = () => (
   <svg
     width="20"
     height="20"

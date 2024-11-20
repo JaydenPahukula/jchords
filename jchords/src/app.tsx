@@ -2,10 +2,10 @@ import { ReactElement, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ResponsivenessContext from 'src/contexts/responsiveness';
-import HomePage from 'src/pages/home/homepage';
-import SongPage from 'src/pages/song/songpage';
 import store from 'src/redux/store';
 import checkIfMobile from 'src/utils/checkifmobile';
+import HomePage from './components/home/homepage/homepage';
+import SongPage from './components/song/songpage/songpage';
 
 export default function App(): ReactElement {
   const [isMobile, setIsMobile] = useState<boolean>(checkIfMobile());
