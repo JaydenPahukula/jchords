@@ -4,6 +4,7 @@ import { ReactElement, useContext } from 'react';
 import ResponsivenessContext from 'src/contexts/responsiveness';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectSongData } from 'src/redux/slices/songdata';
+import cmSong from 'src/types/cmsong';
 import SongInfo from 'src/types/songinfo';
 import './chart.css';
 
@@ -12,6 +13,8 @@ export default function Chart(): ReactElement {
   const { songsLoading, songs, currId, srcLoading, src } = useAppSelector(selectSongData);
 
   const info: SongInfo | undefined = songs[currId];
+
+  const song: cmSong | undefined = parseSong(src ?? '');
 
   return (
     <div id={isMobile ? 'chart-small' : 'chart'}>
@@ -25,7 +28,7 @@ export default function Chart(): ReactElement {
           <h3 className={isMobile ? 'chart-subtitle-small' : 'chart-subtitle'}>{info.artist}</h3>
           <pre
             id={isMobile ? 'chart-content-small' : 'chart-content'}
-            dangerouslySetInnerHTML={{ __html: renderSong(parseSong(src)) }}
+            dangerouslySetInnerHTML={{ __html: renderSong(song) }}
           ></pre>
         </>
       )}
