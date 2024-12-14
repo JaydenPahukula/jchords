@@ -6,6 +6,7 @@ import MusicNoteIcon32 from 'src/components/icons/musicnoteicon32';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectCurrSongInfo } from 'src/redux/slices/songdata';
 import './toolbar.css';
+import './toolbarmenu.css';
 import ToolbarMenuButton from './toolbarmenubutton';
 import TransposeMenu from './transposemenu/transposemenu';
 

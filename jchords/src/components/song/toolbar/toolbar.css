@@ -62,15 +62,3 @@
   height: 0;
   align-self: flex-end;
 }
-
-.toolbar-menu {
-  background-color: var(--bg0);
-  color: var(--fg0);
-  position: absolute;
-  top: 2px;
-  right: 0px;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  width: 200px;
-  height: 400px;
-}
