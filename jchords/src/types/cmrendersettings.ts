@@ -1,6 +1,8 @@
-import { cmAccidental } from 'src/types/cmsong';
+import Accidental from './accidental';
+
+type cmAccidentalsType = Accidental | 'auto';
 
 export default interface cmRenderSettings {
-  accidentalsType: cmAccidental;
+  accidentalsType: cmAccidentalsType;
   transposeValue: number;
 }

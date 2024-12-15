@@ -1,7 +1,12 @@
 import { ChangeEvent, ForwardedRef, forwardRef } from 'react';
+import InvalidKeyError from 'src/errors/invalidkeyerror';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { selectRenderSettings, updateRenderSettings } from 'src/redux/slices/rendersettings';
-import { cmAccidental } from 'src/types/cmsong';
+import { selectSongData } from 'src/redux/slices/songdata';
+import { allKeys, isKey } from 'src/types/key';
+import calculateTransposeValue from 'src/utils/calculatetransposevalue';
+import calculateAccidentals from 'src/utils/keytoaccidentals';
+import transposeKey from 'src/utils/transposekey';
 
 const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
   props: {},
@@ -9,31 +14,43 @@ const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
 ) {
   const dispatch = useAppDispatch();
   const { transposeValue, accidentalsType } = useAppSelector(selectRenderSettings).settings;
+  const defaultKey = useAppSelector(selectSongData).defaultKey;
+
+  function handleKeyChange(e: ChangeEvent<HTMLSelectElement>) {
+    if (!isKey(e.target.value)) throw new InvalidKeyError(e.target.value);
+    if (defaultKey !== undefined) {
+      dispatch(
+        updateRenderSettings({
+          transposeValue: calculateTransposeValue(defaultKey, e.target.value),
+          accidentalsType: calculateAccidentals(e.target.value),
+        }),
+      );
+    }
+  }
 
   const transposeOptions = [6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5];
-
   function handleTransposeChange(e: ChangeEvent<HTMLSelectElement>) {
     const n = parseInt(e.target.value);
     if (!Number.isNaN(n)) {
       dispatch(
         updateRenderSettings({
-          transposeValue: n,
+          transposeValue: (n + 12) % 12,
         }),
       );
     }
   }
 
   function handleAccidentalsChange(e: ChangeEvent<HTMLSelectElement>) {
-    if (e.target.value === cmAccidental.sharp) {
+    if (e.target.value === 'sharp') {
       dispatch(
         updateRenderSettings({
-          accidentalsType: cmAccidental.sharp,
+          accidentalsType: 'sharp',
         }),
       );
-    } else if (e.target.value === cmAccidental.flat) {
+    } else if (e.target.value === 'flat') {
       dispatch(
         updateRenderSettings({
-          accidentalsType: cmAccidental.flat,
+          accidentalsType: 'flat',
         }),
       );
     }
@@ -43,12 +60,37 @@ const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
     <div className="toolbar-menu" ref={ref}>
       <h2 className="toolbar-menu-header">Transpose</h2>
       <div className="toolbar-menu-section">
+        <h3 className="toolbar-menu-section-header">Automatic</h3>
+        <div className="toolbar-menu-line">
+          <label className="toolbar-menu-label">Key:</label>
+          <select
+            className="toolbar-menu-select"
+            value={
+              defaultKey === undefined
+                ? ''
+                : transposeKey(
+                    defaultKey,
+                    transposeValue,
+                    accidentalsType === 'auto' ? undefined : accidentalsType,
+                  )
+            }
+            onChange={handleKeyChange}
+          >
+            {allKeys.map((key, i) => (
+              <option key={i} value={key}>
+                {key === defaultKey ? `${key} (default)` : key}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className="toolbar-menu-section">
         <h3 className="toolbar-menu-section-header">Manual</h3>
         <div className="toolbar-menu-line">
           <label className="toolbar-menu-label">Transpose:</label>
           <select
             className="toolbar-menu-select"
-            value={transposeValue}
+            value={((transposeValue + 5) % 12) - 5}
             onChange={handleTransposeChange}
           >
             {transposeOptions.map((n) => (
@@ -65,8 +107,8 @@ const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
             value={accidentalsType}
             onChange={handleAccidentalsChange}
           >
-            <option value={cmAccidental.sharp}>Sharp</option>
-            <option value={cmAccidental.flat}>Flat</option>
+            <option value={'sharp'}>Sharp</option>
+            <option value={'flat'}>Flat</option>
           </select>
         </div>
       </div>

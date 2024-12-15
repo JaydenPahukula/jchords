@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'src/redux/types';
 import cmRenderSettings from 'src/types/cmrendersettings';
-import { cmAccidental } from 'src/types/cmsong';
 
 type RenderSettingsState = {
   settings: cmRenderSettings;
@@ -9,7 +8,7 @@ type RenderSettingsState = {
 
 const initialState: RenderSettingsState = {
   settings: {
-    accidentalsType: cmAccidental.flat,
+    accidentalsType: 'flat',
     transposeValue: 0,
   },
 };

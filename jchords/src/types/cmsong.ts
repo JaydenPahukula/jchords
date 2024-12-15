@@ -1,3 +1,6 @@
+import Accidental from 'src/types/accidental';
+import Key from 'src/types/key';
+
 interface cmSongLine {
   // TODO
 }
@@ -6,14 +9,9 @@ interface cmSongChord {
   // TODO
 }
 
-export enum cmAccidental {
-  flat = 'flat',
-  sharp = 'sharp',
-}
-
 interface cmKeyDeclaration {
-  string: string;
-  accidental: cmAccidental;
+  string: Key;
+  accidentals: Accidental;
 }
 
 interface cmSongKeys {

@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'src/redux/types';
+import Key from 'src/types/key';
 import SongInfo from 'src/types/songinfo';
+import parseKey from 'src/utils/parsekey';
 
 type SongInfoMap = {
   [key: string]: SongInfo;
@@ -13,6 +15,7 @@ type SongDataState = {
   currId: string;
   srcLoading: boolean;
   src: string | undefined;
+  defaultKey: Key | undefined;
 };
 
 const initialState: SongDataState = {
@@ -22,6 +25,7 @@ const initialState: SongDataState = {
   currId: '',
   srcLoading: true,
   src: undefined,
+  defaultKey: undefined,
 };
 
 export const songDataSlice = createSlice({
@@ -45,6 +49,7 @@ export const songDataSlice = createSlice({
     },
     setSrc: (state: SongDataState, action: PayloadAction<string | undefined>) => {
       state.src = action.payload;
+      state.defaultKey = parseKey(action.payload ?? '');
     },
   },
 });
