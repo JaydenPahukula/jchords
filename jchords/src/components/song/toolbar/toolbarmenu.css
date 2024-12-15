@@ -17,9 +17,27 @@
 
 .toolbar-menu-section {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .toolbar-menu-section-header {
   font-size: 1.1em;
   font-weight: normal;
+}
+
+.toolbar-menu-line {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.toolbar-menu-select {
+  flex-grow: 1;
+}
+
+.toolbar-menu-label {
+  font-size: 0.9em;
 }

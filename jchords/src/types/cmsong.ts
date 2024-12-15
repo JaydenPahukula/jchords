@@ -6,7 +6,7 @@ interface cmSongChord {
   // TODO
 }
 
-enum cmAccidental {
+export enum cmAccidental {
   flat = 'flat',
   sharp = 'sharp',
 }
@@ -17,7 +17,7 @@ interface cmKeyDeclaration {
 }
 
 interface cmSongKeys {
-  auto: cmKeyDeclaration;
+  auto: cmKeyDeclaration | undefined;
   explicit: cmKeyDeclaration[];
 }
 

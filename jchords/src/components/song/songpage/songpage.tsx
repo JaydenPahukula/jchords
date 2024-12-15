@@ -1,3 +1,5 @@
+// @ts-ignore
+import { parseSong } from 'chord-mark/lib/chord-mark.js';
 import { ReactElement, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Chart from 'src/components/song/chart/chart';
@@ -5,6 +7,7 @@ import Toolbar from 'src/components/song/toolbar/toolbar';
 import ResponsivenessContext from 'src/contexts/responsiveness';
 import { getSongInfo, getSongSrc } from 'src/db/functions';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { updateRenderSettings } from 'src/redux/slices/rendersettings';
 import {
   selectSongData,
   setCurrId,
@@ -13,6 +16,7 @@ import {
   setSrcLoading,
   updateSongs,
 } from 'src/redux/slices/songdata';
+import determineAccidentals from 'src/utils/determineaccidentals';
 import './songpage.css';
 
 export default function SongPage(): ReactElement {
@@ -39,6 +43,11 @@ export default function SongPage(): ReactElement {
         getSongSrc(id).then((src) => {
           dispatch(setSrc(src));
           dispatch(setSrcLoading(false));
+          // parse song and set key
+          const accidentals = determineAccidentals(parseSong(src ?? ''));
+          if (accidentals !== undefined) {
+            dispatch(updateRenderSettings({ accidentalsType: accidentals }));
+          }
         });
       }
     }

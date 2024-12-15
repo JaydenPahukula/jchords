@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import chartSettingsReducer from './slices/settings';
+import renderSettingsReducer from './slices/rendersettings';
 import songDataReducer from './slices/songdata';
 
 const store = configureStore({
   reducer: {
     songData: songDataReducer,
-    chartSettings: chartSettingsReducer,
+    renderSettings: renderSettingsReducer,
   },
 });
 
