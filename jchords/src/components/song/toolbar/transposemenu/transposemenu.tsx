@@ -62,9 +62,12 @@ const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
       <div className="toolbar-menu-section">
         <h3 className="toolbar-menu-section-header">Automatic</h3>
         <div className="toolbar-menu-line">
-          <label className="toolbar-menu-label">Key:</label>
+          <label className="toolbar-menu-label" htmlFor="automatic transpose">
+            Key:
+          </label>
           <select
             className="toolbar-menu-select"
+            name="automatic transpose"
             value={
               defaultKey === undefined
                 ? ''
@@ -87,9 +90,12 @@ const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
       <div className="toolbar-menu-section">
         <h3 className="toolbar-menu-section-header">Manual</h3>
         <div className="toolbar-menu-line">
-          <label className="toolbar-menu-label">Transpose:</label>
+          <label className="toolbar-menu-label" htmlFor="manual transpose">
+            Transpose:
+          </label>
           <select
             className="toolbar-menu-select"
+            name="manual transpose"
             value={((transposeValue + 5) % 12) - 5}
             onChange={handleTransposeChange}
           >
@@ -101,9 +107,12 @@ const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
           </select>
         </div>
         <div className="toolbar-menu-line">
-          <label className="toolbar-menu-label">Accidentals:</label>
+          <label className="toolbar-menu-label" htmlFor="manual accidentals">
+            Accidentals:
+          </label>
           <select
             className="toolbar-menu-select"
+            name="manual accidentals"
             value={accidentalsType}
             onChange={handleAccidentalsChange}
           >
