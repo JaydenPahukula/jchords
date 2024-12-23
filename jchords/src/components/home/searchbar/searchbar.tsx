@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 import SearchIcon24 from 'src/components/icons/searchicon24';
-import './searchbar.css';
 
 export default function SearchBar(): ReactElement {
   return (

@@ -1,7 +1,6 @@
 import { ReactElement, useContext } from 'react';
 import SearchBar from 'src/components/home/searchbar/searchbar';
 import ResponsivenessContext from 'src/contexts/responsiveness';
-import './navbar.css';
 
 export default function Navbar(): ReactElement {
   const { isMobile } = useContext(ResponsivenessContext);

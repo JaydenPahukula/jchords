@@ -16,7 +16,6 @@ import {
 } from 'src/redux/slices/songdata';
 import keyToAccidental from 'src/utils/keytoaccidentals';
 import parseKey from 'src/utils/parsekey';
-import './songpage.css';
 
 export default function SongPage(): ReactElement {
   const { isMobile } = useContext(ResponsivenessContext);
@@ -52,9 +51,9 @@ export default function SongPage(): ReactElement {
   }, [id]);
 
   return (
-    <div id="song-page">
+    <div className="bg-bg3 h-full flex-col overflow-hidden">
       <Toolbar />
-      <div id="content" style={isMobile ? {} : { padding: 12 }}>
+      <div className="pad sm: flex-grow flex-col items-center overflow-y-auto overflow-x-hidden p-3 sm:p-0">
         <Chart />
       </div>
     </div>

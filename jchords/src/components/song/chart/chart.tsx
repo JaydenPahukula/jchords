@@ -7,7 +7,6 @@ import { selectRenderSettings } from 'src/redux/slices/rendersettings';
 import { selectSongData } from 'src/redux/slices/songdata';
 import cmSong from 'src/types/cmsong';
 import SongInfo from 'src/types/songinfo';
-import './chart.css';
 
 export default function Chart(): ReactElement {
   const { isMobile } = useContext(ResponsivenessContext);

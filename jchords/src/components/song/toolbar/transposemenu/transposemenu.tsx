@@ -57,17 +57,20 @@ const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
   }
 
   return (
-    <div className="toolbar-menu" ref={ref}>
-      <h2 className="toolbar-menu-header">Transpose</h2>
-      <div className="toolbar-menu-section">
-        <h3 className="toolbar-menu-section-header">Automatic</h3>
-        <div className="toolbar-menu-line">
-          <label className="toolbar-menu-label" htmlFor="automatic transpose">
+    <div
+      className="bg-bg0 text-fg0 width-52 absolute right-0 top-2 flex flex-col items-center gap-4 rounded-lg p-4 pb-6 shadow-md"
+      ref={ref}
+    >
+      <h2 className="text-xl font-bold">Transpose</h2>
+      <div className="flex w-full flex-col gap-2">
+        <h3 className="text-lg font-normal">Automatic</h3>
+        <div className="flex w-full justify-between gap-3">
+          <label className="text-sm" htmlFor="automatic-transpose">
             Key:
           </label>
           <select
-            className="toolbar-menu-select"
-            name="automatic transpose"
+            className="flex-grow"
+            id="automatic-transpose"
             value={
               defaultKey === undefined
                 ? ''
@@ -87,15 +90,15 @@ const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
           </select>
         </div>
       </div>
-      <div className="toolbar-menu-section">
-        <h3 className="toolbar-menu-section-header">Manual</h3>
-        <div className="toolbar-menu-line">
-          <label className="toolbar-menu-label" htmlFor="manual transpose">
+      <div className="flex w-full flex-col gap-2">
+        <h3 className="text-lg font-normal">Manual</h3>
+        <div className="flex w-full justify-between gap-3">
+          <label className="text-sm" htmlFor="manual-transpose">
             Transpose:
           </label>
           <select
-            className="toolbar-menu-select"
-            name="manual transpose"
+            className="flex-grow"
+            id="manual-transpose"
             value={((transposeValue + 5) % 12) - 5}
             onChange={handleTransposeChange}
           >
@@ -106,13 +109,13 @@ const TransposeMenu = forwardRef<HTMLDivElement>(function TransposeMenu(
             ))}
           </select>
         </div>
-        <div className="toolbar-menu-line">
-          <label className="toolbar-menu-label" htmlFor="manual accidentals">
+        <div className="flex w-full justify-between gap-3">
+          <label className="text-sm" htmlFor="manual-accidentals">
             Accidentals:
           </label>
           <select
-            className="toolbar-menu-select"
-            name="manual accidentals"
+            className="flex-grow"
+            id="manual-accidentals"
             value={accidentalsType}
             onChange={handleAccidentalsChange}
           >

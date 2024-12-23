@@ -10,7 +10,6 @@ import {
   setSongsLoading,
   updateSongs,
 } from 'src/redux/slices/songdata';
-import './songlist.css';
 
 export default function SongList(): ReactElement {
   const { isMobile } = useContext(ResponsivenessContext);
@@ -19,7 +18,7 @@ export default function SongList(): ReactElement {
 
   useEffect(() => {
     // load songs if not loaded already
-    if (!songsLoaded) {
+    if (!songsLoading) {
       dispatch(setSongsLoading(true));
       getAllSongInfo().then((result) => {
         if (result !== undefined) {
