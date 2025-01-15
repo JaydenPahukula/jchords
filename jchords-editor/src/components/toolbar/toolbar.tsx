@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { openImportDialog, openSongPickerDialog } from 'src/redux/slices/dialog';
 import { markUnmodified, openSong, selectSongData, songCreated } from 'src/redux/slices/songdata';
 import makeBlankSong from 'src/utils/makeblanksong';
-import './toolbar.css';
 
 enum SaveState {
   None,

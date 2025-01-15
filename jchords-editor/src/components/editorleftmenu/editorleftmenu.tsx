@@ -1,7 +1,6 @@
 import { ChangeEvent, ReactElement } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { selectCurrSong, updateSongInfo } from 'src/redux/slices/songdata';
-import './editorleftmenu.css';
 
 export default function EditorLeftMenu(): ReactElement {
   const song = useAppSelector(selectCurrSong);

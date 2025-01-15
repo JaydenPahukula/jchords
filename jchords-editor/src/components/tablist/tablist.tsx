@@ -5,7 +5,6 @@ import { closeSong, openSong, selectSongData, setCurrSong } from 'src/redux/slic
 import classes from 'src/utils/classes';
 import makeBlankSong from 'src/utils/makeblanksong';
 import XIcon12 from '../icons/xicon12';
-import './tablist.css';
 
 export default function TabList(): ReactElement {
   const dispatch = useAppDispatch();

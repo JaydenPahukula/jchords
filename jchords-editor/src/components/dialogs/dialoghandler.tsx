@@ -1,7 +1,6 @@
 import { ReactElement, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { closeAllDialogs } from 'src/redux/slices/dialog';
-import './dialog.css';
 import ImportDialog from './import/importdialog';
 import SongPickerDialog from './songpicker/songpickerdialog';
 

@@ -51,13 +51,13 @@ export default function Toolbar(): ReactElement {
 
   return (
     <div className="bg-bg9 text-bg1 flex h-12 items-center justify-start">
-      <div className="flex flex-shrink flex-grow items-center gap-1.5">
+      <div className="flex flex-shrink flex-grow items-center gap-1.5 px-2 py-0">
         <Link to="/" className={toolbarButtonClasses}>
           <LeftArrowIcon32 />
         </Link>
       </div>
       <h1 className="flex flex-grow overflow-hidden text-nowrap text-xl font-semibold">{title}</h1>
-      <div className="flex-shrinkflex-grow flex items-center justify-end gap-1.5">
+      <div className="flex-shrinkflex-grow flex items-center justify-end gap-1.5 px-2 py-0">
         <ToolbarMenuButton renderMenu={(ref) => <TransposeMenu ref={ref} />}>
           <MusicNoteIcon32 />
         </ToolbarMenuButton>

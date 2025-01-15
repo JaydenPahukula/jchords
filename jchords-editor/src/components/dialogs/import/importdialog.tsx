@@ -7,7 +7,6 @@ import { openSong } from 'src/redux/slices/songdata';
 import Song from 'src/types/song';
 import generateTmpId from 'src/utils/generatetmpid';
 import matchScrollEffect from 'src/utils/matchscrolleffect';
-import './importdialog.css';
 
 enum InputFormat {
   Auto = 'auto',

@@ -6,7 +6,6 @@ import { openSong, selectSongData, updateSongSrc } from 'src/redux/slices/songda
 import Song from 'src/types/song';
 import SongInfo from 'src/types/songinfo';
 import classes from 'src/utils/classes';
-import './songpickerdialog.css';
 
 export default function SongPickerDialog(): ReactElement {
   const [songList, setSongList] = useState<SongInfo[] | undefined>();

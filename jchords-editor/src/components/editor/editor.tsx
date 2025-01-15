@@ -4,7 +4,6 @@ import { ChangeEvent, ReactElement, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { selectCurrSong, updateSongSrc } from 'src/redux/slices/songdata';
 import matchScrollEffect from 'src/utils/matchscrolleffect';
-import './editor.css';
 
 const renderOptions = {
   autoRepeatChords: true,
