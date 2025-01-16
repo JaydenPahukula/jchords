@@ -1,0 +1,6 @@
+{
+  "description": "Shared code between jchords and jchords editor",
+  "imports": {
+    "firebase/": "npm:firebase@^10.14.1/"
+  }
+}

@@ -1,9 +1,8 @@
 import "./App.css";
 // @deno-types="@types/react"
 import { useState } from "react";
-// @ts-expect-error Unable to infer type at the moment
 import reactLogo from "./assets/react.svg";
-import app from "shared/firebase/app.ts";
+import app from "src/shared/firebase/app.ts";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,7 +20,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1 className="bg-fg0">Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
