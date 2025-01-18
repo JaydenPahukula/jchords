@@ -6,21 +6,21 @@
   },
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "jsxImportSourceTypes": "@types/react"
+    "jsxImportSource": "preact"
   },
   "imports": {
+    "@babel/plugin-transform-react-jsx": "npm:@babel/plugin-transform-react-jsx@^7.25.9",
+    "@babel/plugin-transform-react-jsx-development": "npm:@babel/plugin-transform-react-jsx-development@^7.25.9",
     "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.0",
-    "@types/react": "npm:@types/react@^18.3.12",
-    "@types/react-dom": "npm:@types/react-dom@^18.3.1",
-    "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.4",
+    "@preact/preset-vite": "npm:@preact/preset-vite@^2.9.4",
     "autoprefixer": "npm:autoprefixer@^10.4.20",
+    "babel-plugin-transform-hook-names": "npm:babel-plugin-transform-hook-names@^1.0.2",
     "postcss": "npm:postcss@^8.5.1",
-    "react": "npm:react@^18.3.1",
-    "react-dom": "npm:react-dom@^18.3.1",
+    "preact": "npm:preact@^10.25.4",
     "tailwindcss": "npm:tailwindcss@^3.4.17",
     "vite": "npm:vite@^6.0.1",
     "src/": "./src/"
   },
-  "workspace": ["src/shared"]
+  "workspace": ["src/shared"],
+  "nodeModulesDir": "auto"
 }
