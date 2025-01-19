@@ -1,7 +1,7 @@
-.vscode/
+.direnv/
 .vite/
-
-*/dist/
-*/node_modules/
+.vscode/
+dist/
+node_modules/
 
 flake.lock

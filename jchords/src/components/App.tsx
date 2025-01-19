@@ -1,4 +1,4 @@
-import app from "src/shared/firebase/app.ts";
+import app from "src/shared/firebase/app";
 
 export default function App() {
   console.log(app);
