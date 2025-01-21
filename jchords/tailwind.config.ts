@@ -9,6 +9,7 @@ export default {
       bg2: '#dadada',
       fg1: '#606060',
       fg0: '#000000',
+      fgerror: '#ff0000',
     },
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],

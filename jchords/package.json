@@ -10,7 +10,7 @@
     "deploy": "npm run format && npm run build && firebase deploy --only hosting:jchords-editor"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.2",
+    "@preact/preset-vite": "^2.9.4",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.1",
     "prettier": "^3.3.3",
@@ -21,14 +21,12 @@
     "vite": "^5.4.9"
   },
   "dependencies": {
-    "@preact/preset-vite": "^2.9.4",
-    "@reduxjs/toolkit": "^2.3.0",
+    "@preact/signals": "^2.0.1",
     "chord-mark": "^0.17.0",
     "chord-mark-converters": "^0.17.0",
     "firebase": "^10.14.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-redux": "^9.1.2"
+    "preact": "^10.25.4",
+    "preact-router": "^4.1.2"
   },
   "workspaces": [
     "./src/shared"
