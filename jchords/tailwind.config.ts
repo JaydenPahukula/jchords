@@ -5,9 +5,9 @@ export default {
   theme: {
     colors: {
       bg0: '#fbfbfb',
-      bg1: '#ededed',
-      bg2: '#dadada',
-      fg1: '#606060',
+      bg1: '#eeeeee',
+      bg2: '#e7e6e5',
+      fg1: '#696866',
       fg0: '#000000',
       fgerror: '#ff0000',
     },

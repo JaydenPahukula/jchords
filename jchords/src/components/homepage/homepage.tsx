@@ -1,17 +1,22 @@
-import { useContext } from 'preact/hooks';
+import { useContext, useEffect } from 'preact/hooks';
 import HomeHeader from 'src/components/homeheader/homeheader';
 import HomeSongList from 'src/components/homesonglist/homesonglist';
 import StateContext from 'src/state/statecontext';
 
 export default function HomePage() {
-  const stateManager = useContext(StateContext);
+  const state = useContext(StateContext);
 
-  stateManager?.onHomePageLoad();
+  useEffect(state.onHomePageLoad);
+
+  // update title
+  useEffect(() => {
+    document.title = 'JChords';
+  });
 
   return (
-    <div id="app" class="h-full min-h-screen w-full bg-bg2">
+    <div id="app" class="flex h-screen w-full flex-col bg-bg2">
       <HomeHeader />
-      <div class="flex flex-col items-center">
+      <div class="flex flex-grow flex-col items-center overflow-y-auto">
         <HomeSongList />
       </div>
     </div>
