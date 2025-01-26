@@ -1,12 +1,12 @@
 import { useContext, useEffect } from 'preact/hooks';
-import HomeHeader from 'src/components/homeheader/homeheader';
-import HomeSongList from 'src/components/homesonglist/homesonglist';
+import HomeHeader from 'src/components/home/homeheader';
+import HomeSongList from 'src/components/home/homesonglist';
 import StateContext from 'src/state/statecontext';
 
 export default function HomePage() {
   const state = useContext(StateContext);
 
-  useEffect(state.onHomePageLoad);
+  useEffect(() => state.onHomePageLoad(), []);
 
   // update title
   useEffect(() => {

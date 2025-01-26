@@ -1,6 +1,6 @@
 import Router, { Route } from 'preact-router';
-import HomePage from 'src/components/homepage/homepage';
-import SongPage from 'src/components/songpage/songpage';
+import HomePage from 'src/components/home/homepage';
+import SongPage from 'src/components/song/songpage';
 import StateContext from 'src/state/statecontext';
 import StateManager from 'src/state/statemanager';
 
@@ -10,7 +10,7 @@ export default function App() {
   return (
     <StateContext.Provider value={state}>
       <Router>
-        <Route default component={HomePage} />
+        <Route path="/" component={HomePage} />
         <Route path="/song/:id" component={SongPage} />
       </Router>
     </StateContext.Provider>

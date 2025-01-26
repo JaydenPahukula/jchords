@@ -12,7 +12,7 @@ function copySignal<T>(signal: Signal<T>): ReadonlySignal<T> {
 }
 
 export default class StateManager {
-  private _state: State = {
+  private readonly _state: State = {
     songMap: signal<SongInfoMap>({}),
     songMapLoadingStatus: signal<LoadingStatus>(LoadingStatus.None),
     currSongId: signal<string | undefined>(undefined),
@@ -23,15 +23,15 @@ export default class StateManager {
   };
 
   // public state
-  public songList = computed<SongInfo[]>(() => {
+  public readonly songList = computed<SongInfo[]>(() => {
     const songMap = this._state.songMap.value;
     return Object.keys(songMap).map((id) => songMap[id]);
   });
-  public songListLoadingStatus = copySignal(this._state.songMapLoadingStatus);
-  public currSongInfo = copySignal(this._state.currSongInfo);
-  public currSongInfoLoadingStatus = copySignal(this._state.currSongInfoLoadingStatus);
-  public currSong = copySignal(this._state.currSong);
-  public currSongLoadingStatus = copySignal(this._state.currSongLoadingStatus);
+  public readonly songListLoadingStatus = copySignal(this._state.songMapLoadingStatus);
+  public readonly currSongInfo = copySignal(this._state.currSongInfo);
+  public readonly currSongInfoLoadingStatus = copySignal(this._state.currSongInfoLoadingStatus);
+  public readonly currSong = copySignal(this._state.currSong);
+  public readonly currSongLoadingStatus = copySignal(this._state.currSongLoadingStatus);
 
   public onHomePageLoad() {
     batch(() => {
