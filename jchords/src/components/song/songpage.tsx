@@ -1,23 +1,30 @@
 import { useContext, useEffect } from 'preact/hooks';
 import { LoadingStatus } from 'src/shared/types/loadingstatus';
-import StateContext from 'src/state/statecontext';
+import onSongPageLoad from 'src/state/functions/onsongpageload';
+import UIStateContext from 'src/state/uistatecontext';
+import SongHeader from './songheader';
+import SongPageContent from './songpagecontent';
 
 export default function SongPage({ id }: { id: string }) {
-  const state = useContext(StateContext);
+  const state = useContext(UIStateContext);
 
-  useEffect(() => state.onSongPageLoad(id), []);
+  useEffect(() => onSongPageLoad(id), []);
 
-  // update title when appropriate
   useEffect(() => {
-    const title = state.currSongInfo.value?.title;
     if (
       state.currSongInfoLoadingStatus.value === LoadingStatus.Loaded &&
-      title !== undefined &&
-      title !== document.title
+      state.currSongInfo.value?.title !== undefined
     ) {
-      document.title = `${title} - JChords`;
+      document.title = state.currSongInfo.value.title + ' - JChords';
+    } else {
+      document.title = 'JChords';
     }
   });
 
-  return <>{state.currSongInfo.value?.title}</>;
+  return (
+    <div id="songpage" class="bg-bg3 flex h-screen w-full flex-col">
+      <SongHeader />
+      <SongPageContent />
+    </div>
+  );
 }

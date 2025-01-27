@@ -1,18 +1,20 @@
 import Router, { Route } from 'preact-router';
 import HomePage from 'src/components/home/homepage';
 import SongPage from 'src/components/song/songpage';
-import StateContext from 'src/state/statecontext';
-import StateManager from 'src/state/statemanager';
+import makeUIState from 'src/state/makeuistate';
+import state from 'src/state/state';
+import UIStateContext from 'src/state/uistatecontext';
+import UIState from 'src/types/uistate';
 
 export default function App() {
-  const state = new StateManager();
+  const uiState: UIState = makeUIState(state);
 
   return (
-    <StateContext.Provider value={state}>
+    <UIStateContext.Provider value={uiState}>
       <Router>
         <Route path="/" component={HomePage} />
         <Route path="/song/:id" component={SongPage} />
       </Router>
-    </StateContext.Provider>
+    </UIStateContext.Provider>
   );
 }
