@@ -20,11 +20,6 @@ function combineDocIdAndData(document: QueryDocumentSnapshot): { id: string } {
   };
 }
 
-function seperateDocIdAndData<T extends { id: string }>(obj: T): [string, Omit<T, 'id'>] {
-  const { id, ...rest } = obj;
-  return [id, rest];
-}
-
 // return info for all available songs
 export async function getAllSongInfo(): Promise<SongInfo[] | undefined> {
   try {
@@ -62,8 +57,7 @@ export async function getSongSrc(id: string): Promise<string | undefined> {
 }
 
 export async function setSongInfo(info: SongInfo): Promise<void> {
-  const [_, data] = seperateDocIdAndData(info);
-  setDoc(doc(db, 'song', info.id), data);
+  setDoc(doc(db, 'song', info.id), info);
 }
 
 export async function setSongSrc(id: string, src: string): Promise<void> {
@@ -71,8 +65,9 @@ export async function setSongSrc(id: string, src: string): Promise<void> {
 }
 
 export async function createNewSong(info: SongInfo, src: string): Promise<string> {
-  const [_, infoData] = seperateDocIdAndData(info);
-  const infoDoc = await addDoc(collection(db, 'song'), infoData);
-  await setDoc(doc(db, 'songsrc', infoDoc.id), { text: src });
+  const infoDoc = await addDoc(collection(db, 'song'), info);
+  const newInfo = {...info, id: infoDoc.id}
+  await setSongInfo(newInfo);
+  await setDoc(doc(db, 'songsrc', infoDoc.id), { text: src, id: infoDoc.id });
   return infoDoc.id;
 }
