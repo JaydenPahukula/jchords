@@ -14,9 +14,6 @@ export default {
       fg9: '#eeeeee',
       fgerror: '#ff0000',
     },
-    fontFamily: {
-      sans: ['Roboto', 'sans-serif'],
-    },
     extend: {},
   },
   plugins: [],

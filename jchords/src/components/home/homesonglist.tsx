@@ -1,24 +1,24 @@
 import { useContext } from 'preact/hooks';
 import PlayIcon from 'src/components/icons/playicon';
 import LoadingSpinner from 'src/components/loadingspinner/loadingspinner';
-import { LoadingStatus } from 'src/shared/types/loadingstatus';
+import LoadState from 'src/shared/types/loadstate';
 import StateContext from 'src/state/uistatecontext';
 
 export default function HomeSongList() {
   const state = useContext(StateContext);
 
-  switch (state.songListLoadingStatus.value) {
-    case LoadingStatus.None:
+  switch (state.songListLoadState.value) {
+    case LoadState.None:
       return <></>;
-    case LoadingStatus.Loading:
+    case LoadState.Loading:
       return (
         <div class="pt-12">
           <LoadingSpinner class="w-12" />
         </div>
       );
-    case LoadingStatus.Error:
+    case LoadState.Error:
       return <p class="p-4 text-xl text-fgerror">Could not load songs</p>;
-    case LoadingStatus.Loaded:
+    case LoadState.Loaded:
       return (
         <div class="w-full max-w-3xl p-3">
           <h2 class="mx-2 mb-2 text-xl font-bold">All Songs</h2>

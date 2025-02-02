@@ -1,18 +1,18 @@
 import { signal } from '@preact/signals';
-import { LoadingStatus } from 'src/shared/types/loadingstatus';
+import LoadState from 'src/shared/types/loadstate';
 import Song from 'src/shared/types/song';
 import SongInfo from 'src/shared/types/songinfo';
 import SongInfoMap from 'src/shared/types/songinfomap';
+import SongLoadState from 'src/types/songloadstate';
 
 /** Global app state */
 const state = {
   songMap: signal<SongInfoMap>({}),
-  songMapLoadingStatus: signal<LoadingStatus>(LoadingStatus.None),
+  songMapLoadState: signal<LoadState>(LoadState.None),
   currSongId: signal<string | undefined>(undefined),
-  currSongInfo: signal<SongInfo | undefined>(undefined),
-  currSongInfoLoadingStatus: signal<LoadingStatus>(LoadingStatus.None),
   currSong: signal<Song | undefined>(undefined),
-  currSongLoadingStatus: signal<LoadingStatus>(LoadingStatus.None),
+  currSongInfo: signal<SongInfo | undefined>(undefined),
+  currSongLoadState: signal<SongLoadState>(SongLoadState.Loading),
 };
 
 export default state;

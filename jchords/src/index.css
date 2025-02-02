@@ -4,6 +4,8 @@
 
 @layer components {
   :root {
+    --font-sans: Roboto, sans-serif;
+    --font-mono: Roboto Mono, Courier New, monospace;
     @apply text-fg0;
   }
 }

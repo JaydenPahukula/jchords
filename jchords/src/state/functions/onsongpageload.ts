@@ -1,56 +1,68 @@
 import { batch } from '@preact/signals';
 import { getSong, getSongInfo } from 'src/shared/db/functions';
 import SongNotFoundError from 'src/shared/errors/songnotfounderror';
-import { LoadingStatus } from 'src/shared/types/loadingstatus';
 import state from 'src/state/state';
+import SongLoadState from 'src/types/songloadstate';
+
+function loadSong(id: string) {
+  // check if already loaded
+  if (state.currSong.value?.id === id) {
+    state.currSongLoadState.value = SongLoadState.Loaded;
+  } else {
+    state.currSong.value = undefined;
+    getSong(id)
+      .then((song) => {
+        batch(() => {
+          state.currSong.value = song;
+          state.currSongLoadState.value = SongLoadState.Loaded;
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        state.currSongLoadState.value = SongLoadState.Error;
+      });
+  }
+}
 
 export default function onSongPageLoad(songId: string) {
-  let songExists = true;
   // load song info
-  batch(async () => {
+  let needToFetchSongInfo = false;
+  batch(() => {
     state.currSongId.value = songId;
-    if (songId in state.songMap.value) {
-      const info = state.songMap.value[songId];
-      state.currSongInfo.value = info;
-      state.currSongInfoLoadingStatus.value = LoadingStatus.Loaded;
+    // check if already loaded
+    if (state.currSongInfo.value?.id === songId) {
+      state.currSongLoadState.value = SongLoadState.InfoLoaded;
     } else {
-      state.currSongInfoLoadingStatus.value = LoadingStatus.Loading;
-      await getSongInfo(songId)
-        .then((songInfo) => {
-          batch(() => {
-            state.currSongInfo.value = songInfo;
-            state.currSongInfoLoadingStatus.value = LoadingStatus.Loaded;
-          });
-        })
-        .catch((error) => {
-          batch(() => {
-            state.currSongInfoLoadingStatus.value = LoadingStatus.Error;
-            if (error instanceof SongNotFoundError) {
-              state.currSongId.value = undefined;
-              songExists = false;
-            } else throw error;
-          });
-        });
+      // try to get from songmap
+      if (songId in state.songMap.value) {
+        state.currSongInfo.value = state.songMap.value[songId];
+        state.currSongLoadState.value = SongLoadState.InfoLoaded;
+      } else {
+        state.currSongInfo.value = undefined;
+        state.currSongLoadState.value = SongLoadState.Loading;
+        needToFetchSongInfo = true;
+      }
     }
   });
-  // load song
-  if (songExists && state.currSong.value?.id !== songId) {
-    batch(() => {
-      state.currSong.value = undefined;
-      state.currSongLoadingStatus.value = LoadingStatus.Loading;
-      getSong(songId)
-        .then((song) => {
-          batch(() => {
-            state.currSong.value = song;
-            state.currSongLoadingStatus.value = LoadingStatus.Loaded;
-          });
-        })
-        .catch((error) => {
-          state.currSongInfoLoadingStatus.value = LoadingStatus.Error;
-          if (error instanceof SongNotFoundError) {
-            state.currSongId.value = undefined;
-          } else throw error;
+
+  if (needToFetchSongInfo) {
+    getSongInfo(songId)
+      .then((info) => {
+        batch(() => {
+          state.currSongInfo.value = info;
+          state.currSongLoadState.value = SongLoadState.InfoLoaded;
         });
-    });
+        loadSong(songId);
+      })
+      .catch((error) => {
+        if (error instanceof SongNotFoundError) {
+          state.currSongLoadState.value = SongLoadState.SongNotFound;
+        } else {
+          console.error(error);
+          state.currSongLoadState.value = SongLoadState.Error;
+        }
+      });
+  } else {
+    loadSong(songId);
   }
 }
