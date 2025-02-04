@@ -1,5 +1,6 @@
 import { route } from 'preact-router';
 import { useContext } from 'preact/hooks';
+import GearIcon from 'src/components/icons/gearicon';
 import HomeIcon from 'src/components/icons/homeicon';
 import UIStateContext from 'src/state/uistatecontext';
 import SongHeaderButton from './songheaderbutton';
@@ -16,7 +17,9 @@ export default function SongHeader() {
         <SongHeaderButton onClick={() => route('/')} icon={<HomeIcon />} />
       </div>
       <h1 class="align-middle text-2xl font-bold">{state.currSongInfo.value?.title}</h1>
-      <div class="flex flex-1 justify-end px-3"></div>
+      <div class="flex flex-1 justify-end px-3">
+        <SongHeaderButton icon={<GearIcon />} />
+      </div>
     </div>
   );
 }

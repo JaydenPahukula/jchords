@@ -1,6 +1,6 @@
 import Router, { Route } from 'preact-router';
-import HomePage from 'src/components/home/homepage';
-import SongPage from 'src/components/song/songpage';
+import HomePage from 'src/components/homepage/homepage';
+import SongPage from 'src/components/songpage/songpage';
 import makeUIState from 'src/state/makeuistate';
 import state from 'src/state/state';
 import UIStateContext from 'src/state/uistatecontext';
