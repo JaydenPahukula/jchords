@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'preact/hooks';
 import onSongPageLoad from 'src/state/functions/onsongpageload';
 import UIStateContext from 'src/state/uistatecontext';
 import SongLoadState from 'src/types/songloadstate';
-import SongHeader from './songheader';
+import SongHeader from './header/songheader';
 import SongPageContent from './songpagecontent';
 
 export default function SongPage({ id }: { id: string }) {
