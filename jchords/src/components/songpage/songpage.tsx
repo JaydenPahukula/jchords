@@ -24,7 +24,7 @@ export default function SongPage({ id }: { id: string }) {
   }, [currSongLoadState.value]);
 
   return (
-    <div id="songpage" class="flex h-screen w-full flex-col bg-bg3">
+    <div id="songpage" class="flex h-screen w-full flex-col overflow-hidden bg-bg3">
       <SongHeader />
       <div class="flex flex-grow flex-col items-center overflow-y-auto p-4">
         <SongPageContent />

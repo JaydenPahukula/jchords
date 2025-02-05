@@ -1,5 +1,6 @@
 import { route } from 'preact-router';
 import { useContext } from 'preact/hooks';
+import ExpandableMenuButton from 'src/components/expandablemenubutton/expandablemenubutton';
 import GearIcon from 'src/components/icons/gearicon';
 import HomeIcon from 'src/components/icons/homeicon';
 import UIStateContext from 'src/state/uistatecontext';
@@ -18,7 +19,9 @@ export default function SongHeader() {
       </div>
       <h1 class="align-middle text-2xl font-bold">{state.currSongInfo.value?.title}</h1>
       <div class="flex flex-1 justify-end px-3">
-        <SongHeaderButton icon={<GearIcon />} />
+        <ExpandableMenuButton menu={<div class="h-96 w-96 bg-bg0 text-fg0 shadow-lg">test</div>}>
+          <SongHeaderButton icon={<GearIcon />} />
+        </ExpandableMenuButton>
       </div>
     </div>
   );

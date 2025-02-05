@@ -1,7 +1,7 @@
-import { ComponentChildren } from 'preact';
+import { ComponentChild } from 'preact';
 
 interface SongHeaderButtonProps {
-  icon: ComponentChildren;
+  icon: ComponentChild;
   onClick?: () => void;
 }
 
