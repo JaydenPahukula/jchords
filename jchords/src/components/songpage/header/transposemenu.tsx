@@ -41,16 +41,14 @@ export default function TransposeMenu() {
   }
 
   return (
-    <div class="flex w-56 flex-col gap-4 rounded-lg bg-bg0 p-4 text-fg0 shadow-lg">
-      <h2 class="text-xl font-bold">Transpose</h2>
-      <div class="flex flex-col gap-1">
+    <div class="w-56 rounded-lg bg-bg0 p-4 text-fg0 shadow-lg">
+      <h2 class="mb-3 text-xl font-bold">Transpose</h2>
+      <div class="mb-5 flex flex-col gap-1 border-t border-fg1 pt-1">
         <h3 class="text-lg font-normal">Automatic</h3>
-        <div class="flex w-full justify-between gap-3">
-          <label class="text-sm" htmlFor="automatic-transpose">
-            Key:
-          </label>
+        <div class="flex w-full justify-between gap-4">
+          <label htmlFor="automatic-transpose">Key:</label>
           <select
-            class="flex-grow"
+            class="flex-grow px-2"
             id="automatic-transpose"
             value={keyToString(currKey, currAccidental, mode)}
             onChange={handleKeyChange}
@@ -63,14 +61,12 @@ export default function TransposeMenu() {
           </select>
         </div>
       </div>
-      <div class="flex flex-col gap-1">
+      <div class="mb-1 flex flex-col gap-1 border-t border-fg1 pt-1">
         <h3 class="text-lg font-normal">Manual</h3>
-        <div class="flex w-full justify-between gap-3">
-          <label class="text-sm" htmlFor="manual-transpose">
-            Transpose:
-          </label>
+        <div class="flex w-full justify-between gap-4">
+          <label htmlFor="manual-transpose">Transpose:</label>
           <select
-            class="flex-grow"
+            class="flex-grow px-2"
             id="manual-transpose"
             value={((currTransposeValue + 5) % 12) - 5}
             onChange={handleTransposeChange}
@@ -82,12 +78,10 @@ export default function TransposeMenu() {
             ))}
           </select>
         </div>
-        <div class="flex w-full justify-between gap-3">
-          <label class="text-sm" htmlFor="manual-accidentals">
-            Accidentals:
-          </label>
+        <div class="flex w-full justify-between gap-4">
+          <label htmlFor="manual-accidentals">Accidentals:</label>
           <select
-            class="flex-grow"
+            class="flex-grow px-2"
             id="manual-accidentals"
             value={currAccidental == Accidental.Flat ? 'flat' : 'sharp'}
             onChange={handleAccidentalsChange}
