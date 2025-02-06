@@ -7,3 +7,10 @@ export function isSong(obj: unknown): obj is Song {
   const objAs = obj as Song;
   return !!objAs && typeof objAs.id === 'string' && typeof objAs.text === 'string';
 }
+
+export function makeEmptySong(): Song {
+  return {
+    id: '',
+    text: '',
+  };
+}

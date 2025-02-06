@@ -1,19 +1,21 @@
 import { batch } from '@preact/signals';
 import { getSong, getSongInfo } from 'src/shared/db/functions';
 import SongNotFoundError from 'src/shared/errors/songnotfounderror';
+import parseSong from 'src/shared/functions/parsesong';
 import state from 'src/state/state';
 import SongLoadState from 'src/types/songloadstate';
+import { resetTransposeOptions } from './transpose';
 
 function loadSong(id: string) {
   // check if already loaded
   if (state.currSong.value?.id === id) {
     state.currSongLoadState.value = SongLoadState.Loaded;
   } else {
-    state.currSong.value = undefined;
     getSong(id)
       .then((song) => {
         batch(() => {
-          state.currSong.value = song;
+          state.currSong.value = parseSong(song);
+          resetTransposeOptions();
           state.currSongLoadState.value = SongLoadState.Loaded;
         });
       })
@@ -38,7 +40,6 @@ export default function onSongPageLoad(songId: string) {
         state.currSongInfo.value = state.songMap.value[songId];
         state.currSongLoadState.value = SongLoadState.InfoLoaded;
       } else {
-        state.currSongInfo.value = undefined;
         state.currSongLoadState.value = SongLoadState.Loading;
         needToFetchSongInfo = true;
       }

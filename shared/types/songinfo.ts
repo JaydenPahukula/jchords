@@ -13,3 +13,11 @@ export function isSongInfo(obj: unknown): obj is SongInfo {
     typeof objAs.artist === 'string'
   );
 }
+
+export function makeEmptySongInfo(): SongInfo {
+  return {
+    id: '',
+    title: '',
+    artist: '',
+  };
+}

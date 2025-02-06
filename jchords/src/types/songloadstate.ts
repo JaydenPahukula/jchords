@@ -1,4 +1,4 @@
-enum SongLoadState {
+const enum SongLoadState {
   Loading,
   InfoLoaded,
   SongNotFound,

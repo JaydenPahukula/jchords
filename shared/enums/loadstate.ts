@@ -1,4 +1,4 @@
-enum LoadState {
+const enum LoadState {
   None,
   Loading,
   Error,

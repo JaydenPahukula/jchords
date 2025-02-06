@@ -3,8 +3,11 @@ import { useContext } from 'preact/hooks';
 import ExpandableMenuButton from 'src/components/expandablemenubutton/expandablemenubutton';
 import GearIcon from 'src/components/icons/gearicon';
 import HomeIcon from 'src/components/icons/homeicon';
+import MusicNoteIcon from 'src/components/icons/musicnoteicon';
 import UIStateContext from 'src/state/uistatecontext';
 import SongHeaderButton from './songheaderbutton';
+import TestMenu from './testmenu';
+import TransposeMenu from './transposemenu';
 
 export default function SongHeader() {
   const state = useContext(UIStateContext);
@@ -15,12 +18,21 @@ export default function SongHeader() {
       class="z-[1] flex h-[3.25rem] flex-shrink-0 items-center bg-bg9 text-fg9 shadow-md"
     >
       <div class="flex flex-1 px-3">
-        <SongHeaderButton onClick={() => route('/')} icon={<HomeIcon />} />
+        <SongHeaderButton onClick={() => route('/')}>
+          <HomeIcon />
+        </SongHeaderButton>
       </div>
       <h1 class="align-middle text-2xl font-bold">{state.currSongInfo.value?.title}</h1>
-      <div class="flex flex-1 justify-end px-3">
-        <ExpandableMenuButton menu={<div class="h-96 w-96 bg-bg0 text-fg0 shadow-lg">test</div>}>
-          <SongHeaderButton icon={<GearIcon />} />
+      <div class="flex flex-1 justify-end gap-2 px-3">
+        <ExpandableMenuButton menu={<TransposeMenu />}>
+          <SongHeaderButton>
+            <MusicNoteIcon />
+          </SongHeaderButton>
+        </ExpandableMenuButton>
+        <ExpandableMenuButton menu={<TestMenu />}>
+          <SongHeaderButton>
+            <GearIcon />
+          </SongHeaderButton>
         </ExpandableMenuButton>
       </div>
     </div>
