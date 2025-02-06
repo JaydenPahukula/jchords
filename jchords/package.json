@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "npm run build && vite preview",
-    "deploy": "npm run format && npm run build && firebase deploy --only hosting:jchords-editor"
+    "deploy": "npm run format && npm run build && firebase deploy --only hosting:jchords"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.9.4",

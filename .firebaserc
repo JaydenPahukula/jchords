@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "jchords-467fa"
+  },
+  "targets": {
+    "jchords-467fa": {
+      "hosting": {
+        "jchords": [
+          "jchords-467fa"
+        ],
+        "jchords-editor": [
+          "jchords-467fa-editor"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "hosting": [
+    {
+      "target": "jchords",
+      "public": "jchords/dist",
+      "rewrites": [
+        {
+          "source": "song/**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}
