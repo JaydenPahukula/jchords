@@ -13,6 +13,7 @@ export default {
       fg1: '#696866',
       fg9: '#eeeeee',
       fgerror: '#ff0000',
+      fgdisabled: '#878786',
     },
     extend: {},
   },

@@ -6,6 +6,7 @@ import calcKey from 'src/shared/functions/calckey';
 import cmAccidentalsTypeToAccidental from 'src/shared/functions/cmaccidentalstypetoaccidental';
 import keyToString from 'src/shared/functions/keytostring';
 import { setAccidentalsType, setKey, setTransposeValue } from 'src/state/functions/transpose';
+import updateRenderOptions from 'src/state/functions/updaterenderoptions';
 import UIStateContext from 'src/state/uistatecontext';
 
 // prettier-ignore
@@ -16,12 +17,22 @@ export default function TransposeMenu() {
   const { currSong, renderOptions } = useContext(UIStateContext);
 
   const { defaultKey, defaultAccidental, mode } = currSong.value;
-  const currAccidentalsType = renderOptions.value.accidentalsType;
-  const currTransposeValue = renderOptions.value.transposeValue;
+  const renderOpts = renderOptions.value;
+
+  function handleSymbolTypeChange(e: JSX.TargetedMouseEvent<HTMLSelectElement>) {
+    const val = e.currentTarget.value;
+    if (val == 'chord' || val == 'roman') {
+      updateRenderOptions({
+        symbolType: val,
+      });
+    }
+  }
+
+  const transposeDisabled = renderOpts.symbolType === 'roman';
 
   const defaultKeyString = keyToString(defaultKey, defaultAccidental, mode);
-  const currAccidental = cmAccidentalsTypeToAccidental(currAccidentalsType);
-  const currKey = calcKey(defaultKey, currTransposeValue);
+  const currAccidental = cmAccidentalsTypeToAccidental(renderOpts.accidentalsType);
+  const currKey = calcKey(defaultKey, renderOpts.transposeValue);
 
   const keyOptions = mode == Mode.Major ? majorKeyOptions : minorKeyOptions;
   function handleKeyChange(e: JSX.TargetedMouseEvent<HTMLSelectElement>) {
@@ -41,16 +52,29 @@ export default function TransposeMenu() {
   }
 
   return (
-    <div class="w-56 rounded-lg bg-bg0 p-4 text-fg0 shadow-lg">
+    <div class="w-60 rounded-lg bg-bg0 p-4 text-fg0 shadow-lg">
       <h2 class="mb-3 text-xl font-bold">Transpose</h2>
-      <div class="mb-5 flex flex-col gap-1 border-t border-fg1 pt-1">
-        <h3 class="text-lg font-normal">Automatic</h3>
-        <div class="flex w-full justify-between gap-4">
-          <label htmlFor="automatic-transpose">Key:</label>
+      <div class="mb-4 flex flex-col gap-1 border-t border-fg1 pt-4">
+        <label class="flex w-full justify-between gap-4">
+          Symbol Type:
           <select
-            class="flex-grow px-2"
-            id="automatic-transpose"
+            class="flex-grow px-1"
+            value={renderOpts.symbolType}
+            onChange={handleSymbolTypeChange}
+          >
+            <option value="chord">Chord</option>
+            <option value="roman">Roman</option>
+          </select>
+        </label>
+      </div>
+      <div class="mb-5 flex flex-col gap-1 border-t border-fg1 pt-1 has-[:disabled]:text-fgdisabled">
+        <h3 class="text-lg font-normal">Automatic</h3>
+        <label class="flex w-full justify-between gap-4">
+          Key:
+          <select
+            class="flex-grow px-1"
             value={keyToString(currKey, currAccidental, mode)}
+            disabled={transposeDisabled}
             onChange={handleKeyChange}
           >
             {keyOptions.map((key) => (
@@ -59,16 +83,16 @@ export default function TransposeMenu() {
               </option>
             ))}
           </select>
-        </div>
+        </label>
       </div>
-      <div class="mb-1 flex flex-col gap-1 border-t border-fg1 pt-1">
+      <div class="mb-1 flex flex-col gap-1 border-t border-fg1 pt-1 has-[:disabled]:text-fgdisabled">
         <h3 class="text-lg font-normal">Manual</h3>
-        <div class="flex w-full justify-between gap-4">
-          <label htmlFor="manual-transpose">Transpose:</label>
+        <label class="flex w-full justify-between gap-4">
+          Transpose:
           <select
-            class="flex-grow px-2"
-            id="manual-transpose"
-            value={((currTransposeValue + 5) % 12) - 5}
+            class="flex-grow px-1"
+            value={((renderOpts.transposeValue + 5) % 12) - 5}
+            disabled={transposeDisabled}
             onChange={handleTransposeChange}
           >
             {transposeOptions.map((n) => (
@@ -77,19 +101,19 @@ export default function TransposeMenu() {
               </option>
             ))}
           </select>
-        </div>
-        <div class="flex w-full justify-between gap-4">
-          <label htmlFor="manual-accidentals">Accidentals:</label>
+        </label>
+        <label class="flex w-full justify-between gap-4">
+          Accidentals:
           <select
-            class="flex-grow px-2"
-            id="manual-accidentals"
+            class="flex-grow px-1"
             value={currAccidental == Accidental.Flat ? 'flat' : 'sharp'}
+            disabled={transposeDisabled}
             onChange={handleAccidentalsChange}
           >
             <option value={'sharp'}>Sharp</option>
             <option value={'flat'}>Flat</option>
           </select>
-        </div>
+        </label>
       </div>
     </div>
   );

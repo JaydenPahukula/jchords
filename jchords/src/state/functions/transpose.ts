@@ -5,6 +5,7 @@ import calcTransposeValue from 'src/shared/functions/calctransposevalue';
 import stringToAccidental from 'src/shared/functions/stringtoaccidental';
 import stringToKey from 'src/shared/functions/stringtokey';
 import state from 'src/state/state';
+import updateRenderOptions from './updaterenderoptions';
 
 export function resetTransposeOptions() {
   batch(() => {
@@ -21,15 +22,13 @@ export function setKey(keyString: string) {
 }
 
 export function setTransposeValue(value: number) {
-  state.renderOptions.value = {
-    ...state.renderOptions.value,
+  updateRenderOptions({
     transposeValue: ((value % 12) + 12) % 12,
-  };
+  });
 }
 
 export function setAccidentalsType(accidental: Accidental) {
-  state.renderOptions.value = {
-    ...state.renderOptions.value,
+  updateRenderOptions({
     accidentalsType: accidentalToCmAccidentalsType(accidental),
-  };
+  });
 }
