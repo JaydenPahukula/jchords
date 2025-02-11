@@ -1,7 +1,7 @@
 import { useContext } from 'preact/hooks';
+import LoadState from 'shared/enums/loadstate';
 import PlayIcon from 'src/components/icons/playicon';
 import LoadingSpinner from 'src/components/loadingspinner/loadingspinner';
-import LoadState from 'src/shared/enums/loadstate';
 import StateContext from 'src/state/uistatecontext';
 
 export default function HomeSongList() {

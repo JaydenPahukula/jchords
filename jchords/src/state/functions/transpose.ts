@@ -1,9 +1,9 @@
 import { batch } from '@preact/signals';
-import Accidental from 'src/shared/enums/accidental';
-import accidentalToCmAccidentalsType from 'src/shared/functions/accidentaltocmaccidentalstype';
-import calcTransposeValue from 'src/shared/functions/calctransposevalue';
-import stringToAccidental from 'src/shared/functions/stringtoaccidental';
-import stringToKey from 'src/shared/functions/stringtokey';
+import Accidental from 'shared/enums/accidental';
+import accidentalToCmAccidentalsType from 'shared/functions/accidentaltocmaccidentalstype';
+import calcTransposeValue from 'shared/functions/calctransposevalue';
+import stringToAccidental from 'shared/functions/stringtoaccidental';
+import stringToKey from 'shared/functions/stringtokey';
 import state from 'src/state/state';
 import updateRenderOptions from './updaterenderoptions';
 

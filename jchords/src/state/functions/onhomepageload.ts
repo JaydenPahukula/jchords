@@ -1,6 +1,6 @@
 import { batch } from '@preact/signals';
-import { getSongMap } from 'src/shared/db/functions';
-import LoadState from 'src/shared/enums/loadstate';
+import { getSongMap } from 'shared/db/functions';
+import LoadState from 'shared/enums/loadstate';
 import state from 'src/state/state';
 
 export default function onHomePageLoad() {

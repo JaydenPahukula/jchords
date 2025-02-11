@@ -1,4 +1,4 @@
-import cmRenderOptions from 'src/shared/types/cm/cmrenderoptions';
+import cmRenderOptions from 'shared/types/cm/cmrenderoptions';
 import state from '../state';
 
 export default function updateRenderOptions(newOptions: Partial<cmRenderOptions>) {

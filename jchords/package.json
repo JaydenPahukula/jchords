@@ -24,9 +24,10 @@
     "@preact/signals": "^2.0.1",
     "chord-mark": "^0.17.0",
     "chord-mark-converters": "^0.17.0",
-    "firebase": "^10.14.1",
+    "firebase": "^11.3.0",
     "preact": "^10.25.4",
-    "preact-router": "^4.1.2"
+    "preact-router": "^4.1.2",
+    "shared": "file:../shared"
   },
   "workspaces": [
     "./src/shared"

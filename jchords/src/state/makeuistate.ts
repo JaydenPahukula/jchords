@@ -1,5 +1,5 @@
 import { computed, ReadonlySignal, Signal } from '@preact/signals';
-import SongInfo from 'src/shared/types/songinfo';
+import SongInfo from 'shared/types/songinfo';
 import State from 'src/types/state';
 import UIState from 'src/types/uistate';
 

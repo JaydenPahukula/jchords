@@ -1,8 +1,8 @@
 import { ReadonlySignal } from '@preact/signals';
-import LoadState from 'src/shared/enums/loadstate';
-import cmRenderOptions from 'src/shared/types/cm/cmrenderoptions';
-import ParsedSong from 'src/shared/types/parsedsong';
-import SongInfo from 'src/shared/types/songinfo';
+import LoadState from 'shared/enums/loadstate';
+import cmRenderOptions from 'shared/types/cm/cmrenderoptions';
+import ParsedSong from 'shared/types/parsedsong';
+import SongInfo from 'shared/types/songinfo';
 import SongLoadState from './songloadstate';
 
 interface UIState {

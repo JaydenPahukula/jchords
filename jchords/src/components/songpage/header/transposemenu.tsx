@@ -1,10 +1,10 @@
 import { useContext } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
-import Accidental from 'src/shared/enums/accidental';
-import Mode from 'src/shared/enums/mode';
-import calcKey from 'src/shared/functions/calckey';
-import cmAccidentalsTypeToAccidental from 'src/shared/functions/cmaccidentalstypetoaccidental';
-import keyToString from 'src/shared/functions/keytostring';
+import Accidental from 'shared/enums/accidental';
+import Mode from 'shared/enums/mode';
+import calcKey from 'shared/functions/calckey';
+import cmAccidentalsTypeToAccidental from 'shared/functions/cmaccidentalstypetoaccidental';
+import keyToString from 'shared/functions/keytostring';
 import { setAccidentalsType, setKey, setTransposeValue } from 'src/state/functions/transpose';
 import updateRenderOptions from 'src/state/functions/updaterenderoptions';
 import UIStateContext from 'src/state/uistatecontext';

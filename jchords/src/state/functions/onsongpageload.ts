@@ -1,7 +1,7 @@
 import { batch } from '@preact/signals';
-import { getSong, getSongInfo } from 'src/shared/db/functions';
-import SongNotFoundError from 'src/shared/errors/songnotfounderror';
-import parseSong from 'src/shared/functions/parsesong';
+import { getSong, getSongInfo } from 'shared/db/functions';
+import SongNotFoundError from 'shared/errors/songnotfounderror';
+import parseSong from 'shared/functions/parsesong';
 import state from 'src/state/state';
 import SongLoadState from 'src/types/songloadstate';
 import { resetTransposeOptions } from './transpose';
