@@ -11,6 +11,7 @@ function copySignal<T>(signal: Signal<T>): ReadonlySignal<T> {
 /** Makes a subset of the global state signals that will be used by the ui */
 export default function makeUIState(state: State): UIState {
   return {
+    size: copySignal(state.size),
     songList: computed<SongInfo[]>(() => {
       const songMap = state.songMap.value;
       return Object.keys(songMap).map((id) => songMap[id]);

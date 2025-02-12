@@ -20,7 +20,7 @@ export default function HomeSongList() {
       return <p class="text-fg-error p-4 text-xl">Could not load songs</p>;
     case LoadState.Loaded:
       return (
-        <div class="w-full max-w-3xl p-3">
+        <div class="w-full max-w-3xl overflow-hidden p-3">
           <h2 class="mx-2 mb-2 text-xl font-bold">All Songs</h2>
           {state.songList.value.map((info) => (
             <div class="bg-bg-0 mb-3 flex h-[76px] w-full items-center rounded-md px-5 py-3 !shadow-md">
