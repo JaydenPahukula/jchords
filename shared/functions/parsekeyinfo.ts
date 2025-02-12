@@ -1,10 +1,10 @@
-import Accidental from 'src/shared/enums/accidental';
-import Key from 'src/shared/enums/key';
-import Mode from 'src/shared/enums/mode';
-import stringToAccidental from 'src/shared/functions/stringtoaccidental';
-import stringToKey from 'src/shared/functions/stringtokey';
-import stringToMode from 'src/shared/functions/stringtomode';
-import cmSong from 'src/shared/types/cm/cmsong';
+import Accidental from 'shared/enums/accidental';
+import Key from 'shared/enums/key';
+import Mode from 'shared/enums/mode';
+import stringToAccidental from 'shared/functions/stringtoaccidental';
+import stringToKey from 'shared/functions/stringtokey';
+import stringToMode from 'shared/functions/stringtomode';
+import cmSong from 'shared/types/cm/cmsong';
 
 export default function parseKeyInfo(
   song: cmSong | undefined,

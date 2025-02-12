@@ -8,7 +8,7 @@ interface SongHeaderButtonProps {
 export default function SongHeaderButton(props: SongHeaderButtonProps) {
   return (
     <button
-      class="w-10 rounded-md text-fg9 hover:bg-[#ffffff20] active:bg-[#ffffff30]"
+      class="text-fg-9 hover:bg-fg-9/10 active:bg-fg-9/20 w-10 rounded-md"
       onClick={props.onClick}
     >
       {props.children}

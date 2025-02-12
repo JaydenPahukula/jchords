@@ -3,7 +3,7 @@ import IconProps from './iconprops';
 export default function AccountIcon(props: IconProps) {
   return (
     <svg
-      class={props.class}
+      class={props.class + ' flex-shrink-0'}
       viewBox="1 1 22 22"
       fill="none"
       stroke="currentColor"

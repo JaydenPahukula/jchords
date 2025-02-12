@@ -1,4 +1,4 @@
-import Accidental from 'src/shared/enums/accidental';
+import Accidental from 'shared/enums/accidental';
 
 const FLAT_KEYS = [
   'Db',

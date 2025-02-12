@@ -3,7 +3,7 @@ import IconProps from './iconprops';
 export default function HomeIcon(props: IconProps) {
   return (
     <svg
-      class={props.class}
+      class={props.class + ' flex-shrink-0'}
       viewBox="0 1 24 23"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"

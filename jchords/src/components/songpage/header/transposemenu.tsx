@@ -52,9 +52,9 @@ export default function TransposeMenu() {
   }
 
   return (
-    <div class="w-60 rounded-lg bg-bg0 p-4 text-fg0 shadow-lg">
+    <div class="bg-bg-0 text-fg-0 w-60 rounded-lg p-4 !shadow-lg">
       <h2 class="mb-3 text-xl font-bold">Transpose</h2>
-      <div class="mb-4 flex flex-col gap-1 border-t border-fg1 pt-4">
+      <div class="border-fg-1 mb-4 flex flex-col gap-1 border-t pt-4">
         <label class="flex w-full justify-between gap-4">
           Symbol Type:
           <select
@@ -67,7 +67,7 @@ export default function TransposeMenu() {
           </select>
         </label>
       </div>
-      <div class="mb-5 flex flex-col gap-1 border-t border-fg1 pt-1 has-[:disabled]:text-fgdisabled">
+      <div class="has-[:disabled]:text-fg-disabled border-fg-1 mb-5 flex flex-col gap-1 border-t pt-1">
         <h3 class="text-lg font-normal">Automatic</h3>
         <label class="flex w-full justify-between gap-4">
           Key:
@@ -85,7 +85,7 @@ export default function TransposeMenu() {
           </select>
         </label>
       </div>
-      <div class="mb-1 flex flex-col gap-1 border-t border-fg1 pt-1 has-[:disabled]:text-fgdisabled">
+      <div class="has-[:disabled]:text-fg-disabled border-fg-1 mb-1 flex flex-col gap-1 border-t pt-1">
         <h3 class="text-lg font-normal">Manual</h3>
         <label class="flex w-full justify-between gap-4">
           Transpose:

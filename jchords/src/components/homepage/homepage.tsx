@@ -12,7 +12,7 @@ export default function HomePage() {
   });
 
   return (
-    <div id="homepage" class="flex h-screen w-full flex-col bg-bg2">
+    <div id="homepage" class="bg-bg-1 flex h-screen w-full flex-col">
       <HomeHeader />
       <div class="flex flex-grow flex-col items-center overflow-y-auto">
         <HomeSongList />

@@ -1,11 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: Roboto, sans-serif;
+  --font-mono: Roboto Mono, Courier New, monospace;
+
+  --color-bg-0: #fbfbfb;
+  --color-bg-button: #eeeeee;
+  --color-bg-button-hover: #e3e3e3;
+  --color-bg-button-active: #d6d6d6;
+  --color-bg-1: #e7e6e5;
+  --color-bg-2: #d2d1d1;
+  --color-bg-9: #2e2e2e;
+
+  --color-fg-0: #000000;
+  --color-fg-1: #696866;
+  --color-fg-9: #eeeeee;
+  --color-fg-error: #ff0000;
+  --color-fg-disabled: #878786;
+}
 
 @layer components {
-  :root {
-    --font-sans: Roboto, sans-serif;
-    --font-mono: Roboto Mono, Courier New, monospace;
-    @apply text-fg0;
+  select {
+    @apply bg-bg-button rounded-sm;
   }
 }

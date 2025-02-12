@@ -33,7 +33,7 @@ export default function ExpandableMenuButton(props: ExpandableMenuButtonProps) {
       </div>
       {isOpen && (
         <div class="relative h-0 w-0">
-          <div ref={menuContainerRef} class="absolute right-2 top-0">
+          <div ref={menuContainerRef} class="absolute top-0 right-2">
             {props.menu}
           </div>
         </div>

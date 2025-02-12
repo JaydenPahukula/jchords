@@ -1,4 +1,4 @@
-import { computed, ReadonlySignal, Signal } from '@preact/signals';
+import { computed, ReadonlySignal, signal, Signal } from '@preact/signals';
 import SongInfo from 'shared/types/songinfo';
 import State from 'src/types/state';
 import UIState from 'src/types/uistate';
@@ -16,6 +16,7 @@ export default function makeUIState(state: State): UIState {
       return Object.keys(songMap).map((id) => songMap[id]);
     }),
     songListLoadState: copySignal(state.songMapLoadState),
+    searchText: signal<string>(''),
     currSong: copySignal(state.currSong),
     currSongInfo: copySignal(state.currSongInfo),
     currSongLoadState: copySignal(state.currSongLoadState),

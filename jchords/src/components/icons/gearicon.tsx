@@ -3,7 +3,7 @@ import IconProps from './iconprops';
 export default function GearIcon(props: IconProps) {
   return (
     <svg
-      class={props.class}
+      class={props.class + ' flex-shrink-0'}
       fill="currentColor"
       stroke="none"
       viewBox="-1 0 19 19"
