@@ -14,7 +14,9 @@ export default function makeUIState(state: State): UIState {
     size: copySignal(state.size),
     songList: computed<SongInfo[]>(() => {
       const songMap = state.songMap.value;
-      return Object.keys(songMap).map((id) => songMap[id]);
+      const songList = Object.keys(songMap).map((id) => songMap[id]);
+      songList.sort((a, b) => (a.title == b.title ? 0 : a.title > b.title ? 1 : -1));
+      return songList;
     }),
     songListLoadState: copySignal(state.songMapLoadState),
     searchText: signal<string>(''),

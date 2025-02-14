@@ -20,21 +20,19 @@ export default function HomeSongList() {
       return <p class="text-fg-error p-4 text-xl">Could not load songs</p>;
     case LoadState.Loaded:
       return (
-        <div class="w-full max-w-3xl overflow-hidden p-3">
+        <div class="w-full max-w-3xl overflow-y-visible p-3">
           <h2 class="mx-2 mb-2 text-xl font-bold">All Songs</h2>
           {state.songList.value.map((info) => (
-            <div class="bg-bg-0 mb-3 flex h-[76px] w-full items-center rounded-md px-5 py-3 !shadow-md">
-              <div class="flex-grow">
-                <h3 class="text-xl">{info.title}</h3>
-                <p class="text-fg-1">{info.artist || ' '}</p>
-              </div>
+            <div class="bg-bg-0 mb-2 grid w-full grid-cols-[auto_min-content] grid-rows-[min-content_min-content] rounded-md p-2 pl-3 !shadow-sm sm:mb-3">
+              <h3 class="truncate text-xl">{info.title || '*no title*'}</h3>
               <a
                 href={`/song/${info.id}`}
-                class="bg-bg-button hover:bg-bg-button-hover active:bg-bg-button-active flex cursor-pointer items-center gap-2 rounded-lg p-3 transition-all select-none"
+                class="bg-bg-button hover:bg-bg-button-hover active:bg-bg-button-active row-span-2 flex cursor-pointer items-center gap-2 rounded-lg p-3 transition-all select-none"
               >
-                <label class="cursor-pointer">Open</label>
-                <PlayIcon class="h-6" />
+                <label class="hidden h-min cursor-pointer sm:block">Open</label>
+                <PlayIcon class="h-7" />
               </a>
+              <p class="text-fg-1 h-6 truncate">{info.artist}</p>
             </div>
           ))}
         </div>
