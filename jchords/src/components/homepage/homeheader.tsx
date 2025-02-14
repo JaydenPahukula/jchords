@@ -1,19 +1,43 @@
-import { useContext, useState } from 'preact/hooks';
+import { useContext, useRef, useState } from 'preact/hooks';
+import { JSX } from 'preact/jsx-runtime';
 import Size from 'shared/enums/size';
 import AccountIcon48 from 'src/components/icons/accounticon';
 import SearchIcon from 'src/components/icons/searchicon';
+import XIcon from 'src/components/icons/xicon';
 import UIStateContext from 'src/state/uistatecontext';
-
-const searchBarId = 'searchbar';
 
 export default function HomeHeader() {
   const state = useContext(UIStateContext);
-  const [searchBarFocused, setSearchBarFocused] = useState<boolean>(false);
+  const [clearHeader, setClearHeader] = useState<boolean>(false);
+  const searchBarRef = useRef<HTMLInputElement>(null);
 
   const isSm = state.size.value < Size.sm;
-  const clearHeader = isSm && searchBarFocused;
 
-  const focusSearchBar = () => document.getElementById(searchBarId)?.focus();
+  const showXIcon = state.searchText.value.length > 0 || clearHeader;
+
+  function focusSearchBar() {
+    searchBarRef.current?.focus();
+  }
+
+  function clearSearchText() {
+    state.searchText.value = '';
+  }
+
+  function searchBarOnInput(e: JSX.TargetedInputEvent<HTMLInputElement>) {
+    state.searchText.value = e.currentTarget.value;
+  }
+
+  function searchBarOnFocus() {
+    if (isSm) setClearHeader(true);
+  }
+
+  function onXClick() {
+    clearSearchText();
+    if (isSm) {
+      setClearHeader(false);
+      searchBarRef.current?.blur();
+    }
+  }
 
   return (
     <div id="header" class="bg-bg-0 z-[1] flex h-20 flex-shrink-0 justify-center !shadow-md">
@@ -25,18 +49,32 @@ export default function HomeHeader() {
         )}
         <div id="header-right" class="flex flex-grow items-center justify-end gap-4">
           <div
-            onClick={focusSearchBar}
-            class="sm:bg-bg-button sm:hover:bg-bg-button-hover focus-within:bg-bg-button flex h-12 cursor-text items-center rounded-xl p-3 focus-within:w-full sm:w-64 sm:max-w-xl sm:gap-1 sm:focus-within:w-64"
+            class={
+              'sm:bg-bg-button sm:hover:bg-bg-button-hover flex h-12 items-center rounded-xl sm:w-64 sm:max-w-xl ' +
+              (clearHeader ? 'bg-bg-button w-full' : '')
+            }
           >
             <input
-              class="w-full max-w-0 flex-shrink flex-grow bg-transparent outline-none focus:max-w-screen sm:not-focus:max-w-64"
-              id={searchBarId}
-              onFocus={() => setSearchBarFocused(true)}
-              onFocusOut={() => setSearchBarFocused(false)}
+              class={
+                'h-full w-full flex-shrink flex-grow bg-transparent px-3 outline-none sm:max-w-64 ' +
+                (clearHeader ? 'max-w-screen' : 'max-w-0')
+              }
+              ref={searchBarRef}
+              value={state.searchText}
+              onInput={searchBarOnInput}
+              onFocus={searchBarOnFocus}
               type="text"
-              placeholder="Search..."
+              placeholder="Search"
             ></input>
-            <SearchIcon class="h-full" />
+            {showXIcon ? (
+              <div class="h-full cursor-pointer p-3" onClick={onXClick}>
+                <XIcon class="h-full" />
+              </div>
+            ) : (
+              <div class="h-full p-3" onClick={focusSearchBar}>
+                <SearchIcon class="h-full" />
+              </div>
+            )}
           </div>
           {!clearHeader && <AccountIcon48 class="h-10 sm:h-12" />}
         </div>
