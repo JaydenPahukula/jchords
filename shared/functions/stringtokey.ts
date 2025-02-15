@@ -1,4 +1,4 @@
-import Key from 'shared/enums/key';
+import Key from '../enums/key';
 
 // prettier-ignore
 const KEY_STRINGS = [
