@@ -4,7 +4,6 @@ import {
   getDoc,
   getDocs,
   getFirestore,
-  connectFirestoreEmulator,
   QueryDocumentSnapshot,
 } from 'firebase/firestore/lite';
 import SongNotFoundError from '../errors/songnotfounderror';
