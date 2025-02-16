@@ -1,5 +1,6 @@
 import {
   collection,
+  connectFirestoreEmulator,
   doc,
   getDoc,
   getDocs,
@@ -7,12 +8,17 @@ import {
   QueryDocumentSnapshot,
 } from 'firebase/firestore/lite';
 import SongNotFoundError from '../errors/songnotfounderror';
-import app from './app';
 import Song, { isSong } from '../types/song';
 import SongInfo, { isSongInfo } from '../types/songinfo';
 import SongInfoMap from '../types/songinfomap';
+import app from './app';
 
 const db = getFirestore(app);
+
+// use emulator db if in development mode
+if (process.env.NODE_ENV === 'development') {
+  connectFirestoreEmulator(db, 'localhost', 8080);
+}
 
 function hasId(obj: { [key: string]: any }): obj is { id: string } {
   return obj.hasOwnProperty('id');

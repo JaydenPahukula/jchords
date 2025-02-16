@@ -16,8 +16,10 @@
     devShells = {
       default = pkgs.mkShell {
         packages = with pkgs; [
-          nodejs
+          google-cloud-sdk
           firebase-tools
+          jdk21_headless # needed for firebase emulators
+          nodejs
         ];
       };
     };
