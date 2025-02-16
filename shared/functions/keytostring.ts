@@ -1,6 +1,6 @@
-import Accidental from '../enums/accidental';
-import Key from '../enums/key';
-import Mode from '../enums/mode';
+import Accidental from 'shared/enums/accidental';
+import Key from 'shared/enums/key';
+import Mode from 'shared/enums/mode';
 
 /** Get the string representation of the given key. */
 export default function keyToString(

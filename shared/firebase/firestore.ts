@@ -7,10 +7,10 @@ import {
   getFirestore,
   QueryDocumentSnapshot,
 } from 'firebase/firestore/lite';
-import SongNotFoundError from '../errors/songnotfounderror';
-import Song, { isSong } from '../types/song';
-import SongInfo, { isSongInfo } from '../types/songinfo';
-import SongInfoMap from '../types/songinfomap';
+import SongNotFoundError from 'shared/errors/songnotfounderror';
+import Song, { isSong } from 'shared/types/song';
+import SongInfo, { isSongInfo } from 'shared/types/songinfo';
+import SongInfoMap from 'shared/types/songinfomap';
 import app from './app';
 
 const db = getFirestore(app);

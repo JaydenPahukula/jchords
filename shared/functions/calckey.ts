@@ -1,4 +1,4 @@
-import Key from '../enums/key';
+import Key from 'shared/enums/key';
 
 /** Calculate key from transpose value */
 export default function calcKey(key: Key, transposeVal: number): Key {

@@ -1,6 +1,6 @@
-import Accidental from '../enums/accidental';
-import Key from '../enums/key';
-import Mode from '../enums/mode';
+import Accidental from 'shared/enums/accidental';
+import Key from 'shared/enums/key';
+import Mode from 'shared/enums/mode';
 import cmSong from './cm/cmsong';
 import Song from './song';
 
