@@ -1,6 +1,6 @@
 import { batch } from '@preact/signals';
-import { getSong, getSongInfo } from 'shared/db/functions';
 import SongNotFoundError from 'shared/errors/songnotfounderror';
+import { getSong, getSongInfo } from 'shared/firebase/firestore';
 import parseSong from 'shared/functions/parsesong';
 import state from 'src/state/state';
 import SongLoadState from 'src/types/songloadstate';

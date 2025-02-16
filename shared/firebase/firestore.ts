@@ -4,10 +4,11 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  connectFirestoreEmulator,
   QueryDocumentSnapshot,
 } from 'firebase/firestore/lite';
 import SongNotFoundError from '../errors/songnotfounderror';
-import app from '../firebase/app';
+import app from './app';
 import Song, { isSong } from '../types/song';
 import SongInfo, { isSongInfo } from '../types/songinfo';
 import SongInfoMap from '../types/songinfomap';

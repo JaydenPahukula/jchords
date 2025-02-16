@@ -1,6 +1,6 @@
 {
   "description": "Shared code between jchords and jchords editor",
   "dependencies": {
-    "firebase": "npm:firebase@^10.14.1/"
+    "firebase": "^11.3.0"
   }
 }
