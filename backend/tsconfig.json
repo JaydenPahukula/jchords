@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "exclude": ["../node_modules"],
+  "compilerOptions": {
+    "module": "NodeNext",
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "outDir": "dist",
+    "skipLibCheck": true // npm long package breaks the build
+  },
+  "compileOnSave": true
+}

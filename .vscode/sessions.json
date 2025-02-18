@@ -1,0 +1,32 @@
+{
+  "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v10/terminal-keeper.json",
+  "theme": "tribe",
+  "active": "default",
+  "activateOnStartup": true,
+  "keepExistingTerminals": false,
+  "sessions": {
+    "default": [
+      {
+        "name": "",
+        "icon": "terminal",
+        "focus": true,
+        "commands": [""]
+      },
+      {
+        "name": "jchords dev",
+        "autoExecuteCommands": true,
+        "commands": ["npm run dev-jchords"]
+      },
+      {
+        "name": "backend dev",
+        "autoExecuteCommands": true,
+        "commands": ["npm run dev-backend"]
+      },
+      {
+        "name": "emulator",
+        "autoExecuteCommands": true,
+        "commands": ["npm run emulator"]
+      }
+    ]
+  }
+}
