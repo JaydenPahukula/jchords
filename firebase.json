@@ -5,7 +5,13 @@
       "public": "jchords/dist",
       "rewrites": [
         {
-          "source": "song/**",
+          "source": "/api/{,/**}",
+          "function": {
+            "functionId": "api"
+          }
+        },
+        {
+          "source": "**",
           "destination": "/index.html"
         }
       ]
