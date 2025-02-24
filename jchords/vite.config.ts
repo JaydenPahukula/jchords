@@ -5,7 +5,6 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [preact(), tailwindcss()],
   resolve: {
-    preserveSymlinks: true,
     alias: {
       src: '/src',
     },

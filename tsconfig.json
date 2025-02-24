@@ -8,6 +8,7 @@
     /* Emit */
     "sourceMap": true,
     "noEmit": false,
+    "outDir": "dist",
 
     /* Language */
     "target": "ES2020",
@@ -20,7 +21,7 @@
     "strict": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": false,
+    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   }
