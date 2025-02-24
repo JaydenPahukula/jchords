@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import { onRequest } from 'firebase-functions/v2/https';
-import rootHandler from 'src/handlers/root';
+import rootHandler from './handlers/root';
 
 const expressApp = express();
 
