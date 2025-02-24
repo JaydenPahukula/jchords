@@ -21,6 +21,7 @@
           jdk21_headless # needed for firebase emulators
           nodejs
         ];
+        GOOGLE_APPLICATION_CREDENTIALS = "./secrets/serviceaccount.json";
       };
     };
   }));

@@ -3,6 +3,7 @@
     /* Module*/
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "resolveJsonModule": true,
 
     /* Emit */
     "sourceMap": true,

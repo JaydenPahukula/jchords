@@ -1,12 +1,30 @@
+// {
+//   "extends": "../tsconfig.json",
+//   "compilerOptions": {
+//     // "module": "NodeNext",
+//     // "moduleResolution": "nodenext",
+//     // "esModuleInterop": true,
+//     "outDir": "dist",
+//     "skipLibCheck": true, // npm long package breaks the build
+//     "sourceMap": true,
+//     "target": "es2017",
+//     "paths": {
+//       "src/*": ["./src/*"]
+//     }
+//   },
+//   "compileOnSave": true
+// }
+
 {
-  "extends": "../tsconfig.json",
-  "exclude": ["../node_modules"],
   "compilerOptions": {
     "module": "NodeNext",
     "esModuleInterop": true,
     "moduleResolution": "nodenext",
-    "outDir": "dist",
-    "skipLibCheck": true // npm long package breaks the build
+    "outDir": "dist"
   },
-  "compileOnSave": true
+  "compileOnSave": true,
+  "include": ["src"],
+  "paths": {
+    "src/*": ["./src/*"]
+  }
 }
