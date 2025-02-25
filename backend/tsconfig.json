@@ -1,9 +1,9 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "esModuleInterop": true,
-    "moduleResolution": "nodenext",
+    "paths": {
+      "src/*": ["./src/*"]
+    },
     "outDir": "dist"
   },
   "compileOnSave": true

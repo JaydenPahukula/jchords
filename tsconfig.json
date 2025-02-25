@@ -8,7 +8,6 @@
     /* Emit */
     "sourceMap": true,
     "noEmit": false,
-    "outDir": "dist",
 
     /* Language */
     "target": "ES2020",

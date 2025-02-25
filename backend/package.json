@@ -1,5 +1,6 @@
 {
   "name": "jchords-backend",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
