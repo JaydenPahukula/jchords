@@ -1,9 +1,19 @@
 {
   "name": "jchords-backend",
   "type": "module",
+  "watch": {
+    "build": {
+      "patterns": [
+        "src",
+        "../shared"
+      ],
+      "extensions": "ts,tsx",
+      "silent": true
+    }
+  },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
+    "build": "ncc build src/index.ts -o dist",
+    "dev": "npm-watch build",
     "deploy": "npm run build && firebase deploy --only functions"
   },
   "main": "dist/index.js",
@@ -11,6 +21,11 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "firebase-admin": "^12.6.0",
-    "firebase-functions": "^6.0.1"
+    "firebase-functions": "^6.0.1",
+    "shared": "file:../shared"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.3",
+    "npm-watch": "^0.13.0"
   }
 }

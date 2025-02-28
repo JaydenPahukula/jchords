@@ -1,6 +1,6 @@
 import { Handler } from 'express';
+import { isSongInfo } from 'shared/types/songinfo.js';
 import db from '../firebase/firestore.js';
-import { isSongInfo } from '../shared/types/songinfo.js';
 
 const getSongs: Handler = async (request, response) => {
   request;
