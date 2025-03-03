@@ -7,4 +7,3 @@ node_modules/
 *.local
 
 secrets/
-firestore.rules
