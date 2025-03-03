@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "format": "prettier --write './**/*.{js,ts,tsx,html,css,svg,json}' | grep -v ' (unchanged)'",
-    "emulator": "firebase emulators:start --only 'firestore,functions' --import=emulator/firestore-data",
+    "emulator": "firebase emulators:start --only 'firestore,functions' --import=firestore/testdata",
     "dev-jchords": "npm run dev --prefix jchords/",
     "dev-backend": "npm run dev --prefix backend/",
     "deploy-jchords": "npm run deploy --prefix jchords/",
-    "deploy-backend": "npm run deploy --prefix backend/"
+    "deploy-backend": "npm run deploy --prefix backend/",
+    "deploy-firestore-rules": "firebase deploy --only firestore:rules"
   },
   "devDependencies": {
     "prettier": "^3.3.3",
