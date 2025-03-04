@@ -1,6 +1,6 @@
 {
   "name": "jchords-backend",
-  "type": "module",
+  "type": "commonjs",
   "watch": {
     "build": {
       "patterns": [
@@ -12,8 +12,8 @@
     }
   },
   "scripts": {
-    "build": "ncc build src/index.ts -o dist",
-    "dev": "npm-watch build",
+    "build": "esbuild src/index.ts --outfile=dist/index.js --bundle --sourcemap --platform=node --target=node22 --format=cjs",
+    "dev": "esbuild src/index.ts --outfile=dist/index.js --bundle --sourcemap --platform=node --target=node22 --format=cjs --watch",
     "deploy": "npm run build && firebase deploy --only functions"
   },
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
     "shared": "file:../shared"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.3",
+    "esbuild": "^0.25.0",
     "npm-watch": "^0.13.0"
   }
 }

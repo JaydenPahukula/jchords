@@ -4,6 +4,8 @@
     "paths": {
       "src/*": ["./src/*"]
     },
+    "esModuleInterop": true,
+    "isolatedModules": true,
     "outDir": "dist"
   },
   "compileOnSave": true
