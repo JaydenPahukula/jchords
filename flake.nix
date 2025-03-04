@@ -18,9 +18,11 @@
         packages = with pkgs; [
           google-cloud-sdk
           firebase-tools
-          jdk21_headless # needed for firebase emulators
-          nodejs
+          jdk # needed for firebase emulators
+          nodejs_22
         ];
+        FIRESTORE_EMULATOR_HOST = "127.0.0.1:8080";
+        GOOGLE_APPLICATION_CREDENTIALS = "secrets/serviceaccount.json";
       };
     };
   }));

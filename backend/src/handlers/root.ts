@@ -1,7 +1,6 @@
 import { Handler } from 'express';
 
-// @ts-expect-error
-const rootHandler: Handler = (request, response) => {
+const rootHandler: Handler = (_request, response) => {
   return response.status(200).send('hello');
 };
 
