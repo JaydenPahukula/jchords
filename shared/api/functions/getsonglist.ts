@@ -1,9 +1,9 @@
 import SongInfo from 'shared/types/songinfo';
-import { isGetResponseBody } from '../../types/api/getsongsresponsebody';
+import { isGetSongListResponseBody } from '../../types/api/getsonglistresponsebody';
 import apiFetch from '../apifetch';
 
 export default async function getSongList(): Promise<SongInfo[] | undefined> {
-  const result = await apiFetch('songs', 'GET');
-  if (!isGetResponseBody(result)) return undefined;
-  return result.songs;
+  const result = await apiFetch('GET', 'songlist');
+  if (!isGetSongListResponseBody(result)) return undefined;
+  return result.songList;
 }

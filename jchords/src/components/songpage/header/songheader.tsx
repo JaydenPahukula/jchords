@@ -22,7 +22,7 @@ export default function SongHeader() {
           <HomeIcon />
         </SongHeaderButton>
       </div>
-      <h1 class="align-middle text-2xl font-bold">{state.currSongInfo.value?.title}</h1>
+      <h1 class="align-middle text-2xl font-bold">{state.currSong.value?.info.title}</h1>
       <div class="flex flex-1 justify-end gap-2 px-3">
         <ExpandableMenuButton menu={<TransposeMenu />}>
           <SongHeaderButton>

@@ -1,20 +1,20 @@
 import { batch } from '@preact/signals';
+import getSongList from 'shared/api/functions/getsonglist';
 import LoadState from 'shared/enums/loadstate';
-import { getSongMap } from 'shared/firebase/firestore';
 import state from 'src/state/state';
 
 export default function onHomePageLoad() {
-  if (state.songMapLoadState.value === LoadState.None) {
-    state.songMapLoadState.value = LoadState.Loading;
-    getSongMap()
-      .then((songMap) => {
-        batch(() => {
-          state.songMap.value = songMap;
-          state.songMapLoadState.value = LoadState.Loaded;
-        });
-      })
-      .catch(() => {
-        state.songMapLoadState.value = LoadState.Error;
+  if (state.songListLoadState.value === LoadState.None) {
+    state.songListLoadState.value = LoadState.Loading;
+    getSongList().then((list) => {
+      batch(() => {
+        if (list == undefined) {
+          state.songListLoadState.value = LoadState.Error;
+        } else {
+          state.songList.value = list;
+          state.songListLoadState.value = LoadState.Loaded;
+        }
       });
+    });
   }
 }

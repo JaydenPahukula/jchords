@@ -12,7 +12,6 @@ interface UIState {
   songListLoadState: ReadonlySignal<LoadState>;
   searchText: Signal<string>;
   currSong: ReadonlySignal<ParsedSong>;
-  currSongInfo: ReadonlySignal<SongInfo>;
   currSongLoadState: ReadonlySignal<SongLoadState>;
   renderOptions: ReadonlySignal<cmRenderOptions>;
 }

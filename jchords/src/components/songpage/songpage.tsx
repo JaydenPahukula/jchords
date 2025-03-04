@@ -1,23 +1,19 @@
 import { useContext, useEffect } from 'preact/hooks';
+import LoadState from 'shared/enums/loadstate';
 import onSongPageLoad from 'src/state/functions/onsongpageload';
 import UIStateContext from 'src/state/uistatecontext';
-import SongLoadState from 'src/types/songloadstate';
 import SongHeader from './header/songheader';
 import SongPageContent from './songpagecontent';
 
 export default function SongPage({ id }: { id: string }) {
-  const { currSongLoadState, currSongInfo } = useContext(UIStateContext);
+  const { currSongLoadState, currSong } = useContext(UIStateContext);
 
   useEffect(() => onSongPageLoad(id), []);
 
   // page title
   useEffect(() => {
-    if (
-      (currSongLoadState.value === SongLoadState.InfoLoaded ||
-        currSongLoadState.value === SongLoadState.Loaded) &&
-      !!currSongInfo.value?.title
-    ) {
-      document.title = currSongInfo.value.title + ' - JChords';
+    if (currSongLoadState.value === LoadState.Loaded && !!currSong.value.info.title) {
+      document.title = currSong.value.info.title + ' - JChords';
     } else {
       document.title = 'JChords';
     }
