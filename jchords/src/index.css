@@ -20,6 +20,13 @@
 }
 
 @layer components {
+  html {
+    /* @apply overscroll-none; */
+  }
+  html,
+  body {
+    @apply overflow-hidden overscroll-none;
+  }
   select {
     @apply bg-bg-button rounded-sm;
   }
