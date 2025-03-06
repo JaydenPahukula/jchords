@@ -28,12 +28,12 @@ export default function ExpandableMenuButton(props: ExpandableMenuButtonProps) {
 
   return (
     <div class="expandable-menu-button flex flex-col items-end">
-      <div class="flex" ref={buttonContainerRef} onClick={toggle}>
+      <div class="flex h-full w-full" ref={buttonContainerRef} onClick={toggle}>
         {props.children}
       </div>
       {isOpen && (
         <div class="relative h-0 w-0">
-          <div ref={menuContainerRef} class="absolute top-0 right-2">
+          <div ref={menuContainerRef} class="absolute top-[3px] right-0">
             {props.menu}
           </div>
         </div>

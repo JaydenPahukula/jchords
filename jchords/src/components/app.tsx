@@ -1,5 +1,6 @@
 import Router, { Route } from 'preact-router';
 import HomePage from 'src/components/homepage/homepage';
+import LoginPage from 'src/components/homepage/loginpage';
 import SongPage from 'src/components/songpage/songpage';
 import calcSize from 'src/responsiveness/calcsize';
 import makeUIState from 'src/state/makeuistate';
@@ -19,6 +20,7 @@ export default function App() {
       <Router>
         <Route path="/" component={HomePage} />
         <Route path="/song/:id" component={SongPage} />
+        <Route path="/login" component={LoginPage} />
       </Router>
     </UIStateContext.Provider>
   );

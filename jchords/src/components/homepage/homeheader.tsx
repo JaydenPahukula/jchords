@@ -1,10 +1,10 @@
 import { useContext, useRef, useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
 import Size from 'shared/enums/size';
-import AccountIcon48 from 'src/components/icons/accounticon';
 import SearchIcon from 'src/components/icons/searchicon';
 import XIcon from 'src/components/icons/xicon';
 import UIStateContext from 'src/state/uistatecontext';
+import UserCircle from '../usercircle/usercircle';
 
 export default function HomeHeader() {
   const state = useContext(UIStateContext);
@@ -40,14 +40,16 @@ export default function HomeHeader() {
   }
 
   return (
-    <div id="header" class="bg-bg-0 z-[1] flex h-20 flex-shrink-0 justify-center !shadow-md">
+    <div id="header" class="bg-bg-0 z-[1] flex h-18 flex-shrink-0 justify-center !shadow-md">
       <div id="header-content" class="flex h-full w-full max-w-5xl items-stretch gap-4 px-4">
         {!clearHeader && (
           <div id="header-left" class="flex items-center">
-            <h1 class="text-3xl font-bold sm:text-4xl">JChords</h1>
+            <a href="/">
+              <h1 class="text-3xl font-bold sm:text-4xl">JChords</h1>
+            </a>
           </div>
         )}
-        <div id="header-right" class="flex flex-grow items-center justify-end gap-4">
+        <div id="header-right" class="flex flex-grow items-center justify-end gap-1 sm:gap-4">
           <div
             class={
               'sm:bg-bg-button sm:hover:bg-bg-button-hover flex h-12 items-center rounded-xl sm:w-64 sm:max-w-xl ' +
@@ -68,15 +70,19 @@ export default function HomeHeader() {
             ></input>
             {showXIcon ? (
               <div class="h-full cursor-pointer p-3" onClick={onXClick}>
-                <XIcon class="h-full" />
+                <XIcon />
               </div>
             ) : (
               <div class="h-full p-3" onClick={focusSearchBar}>
-                <SearchIcon class="h-full" />
+                <SearchIcon />
               </div>
             )}
           </div>
-          {!clearHeader && <AccountIcon48 class="h-10 sm:h-12" />}
+          {!clearHeader && (
+            <div class="w-11">
+              <UserCircle />
+            </div>
+          )}
         </div>
       </div>
     </div>

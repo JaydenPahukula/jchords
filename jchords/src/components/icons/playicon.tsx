@@ -1,9 +1,7 @@
-import IconProps from './iconprops';
-
-export default function PlayIcon(props: IconProps) {
+export default function PlayIcon() {
   return (
     <svg
-      class={props.class + ' flex-shrink-0'}
+      class="icon"
       viewBox="0 0 48 48"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"

@@ -14,20 +14,29 @@
 
   --color-fg-0: #000000;
   --color-fg-1: #696866;
+  --color-fg-2: #afafaf;
   --color-fg-9: #eeeeee;
   --color-fg-error: #ff0000;
   --color-fg-disabled: #878786;
+  --color-fg-link: #0077de;
+  --color-fg-link-hover: #00549e;
 }
 
 @layer components {
-  html {
-    /* @apply overscroll-none; */
-  }
   html,
   body {
     @apply overflow-hidden overscroll-none;
   }
+  body {
+    @apply text-fg-0 h-dvh;
+  }
   select {
     @apply bg-bg-button rounded-sm;
+  }
+  .icon {
+    @apply h-full w-full flex-shrink-0;
+  }
+  .link {
+    @apply text-fg-link hover:text-fg-link-hover cursor-pointer hover:underline;
   }
 }

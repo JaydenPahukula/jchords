@@ -1,9 +1,7 @@
-import IconProps from './iconprops';
-
-export default function MusicNoteIcon(props: IconProps) {
+export default function MusicNoteIcon() {
   return (
     <svg
-      class={props.class + ' flex-shrink-0'}
+      class="icon"
       fill="currentColor"
       stroke="none"
       viewBox="-2 -3 62 61"

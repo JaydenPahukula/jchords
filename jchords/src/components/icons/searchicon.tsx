@@ -1,9 +1,7 @@
-import IconProps from './iconprops';
-
-export default function SearchIcon(props: IconProps) {
+export default function SearchIcon() {
   return (
     <svg
-      class={props.class + ' flex-shrink-0'}
+      class="icon"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
