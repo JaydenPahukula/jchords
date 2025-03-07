@@ -12,8 +12,8 @@ export default function HomeSongList() {
       return <></>;
     case LoadState.Loading:
       return (
-        <div class="pt-12">
-          <LoadingSpinner class="w-12" />
+        <div class="w-10 pt-12">
+          <LoadingSpinner />
         </div>
       );
     case LoadState.Error:

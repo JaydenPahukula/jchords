@@ -69,11 +69,11 @@ export default function HomeHeader() {
               placeholder="Search"
             ></input>
             {showXIcon ? (
-              <div class="h-full cursor-pointer p-3" onClick={onXClick}>
+              <div class="aspect-square h-full cursor-pointer p-3" onClick={onXClick}>
                 <XIcon />
               </div>
             ) : (
-              <div class="h-full p-3" onClick={focusSearchBar}>
+              <div class="aspect-square h-full p-3" onClick={focusSearchBar}>
                 <SearchIcon />
               </div>
             )}

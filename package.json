@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "format": "prettier --write './**/*.{js,ts,tsx,html,css,svg,json}' | grep -v ' (unchanged)'",
-    "emulator": "firebase emulators:start --only 'firestore,functions' --import=firestore/testdata --export-on-exit",
+    "emulator": "firebase emulators:start --only 'auth,firestore,functions' --import=firestore/testdata --export-on-exit",
     "dev-jchords": "npm run dev --prefix jchords/",
     "dev-backend": "npm run dev --prefix backend/",
     "deploy-jchords": "npm run deploy --prefix jchords/",

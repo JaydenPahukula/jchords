@@ -15,23 +15,6 @@ export default function LoginPage() {
 
   function onFormSubmit(e: JSX.TargetedSubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log('hi');
-  }
-
-  function emailOnInput(e: JSX.TargetedInputEvent<HTMLInputElement>) {
-    emailInputText.value = e.currentTarget.value;
-  }
-
-  function clearEmailInput() {
-    emailInputText.value = '';
-  }
-
-  function passwordOnInput(e: JSX.TargetedInputEvent<HTMLInputElement>) {
-    passwordInputText.value = e.currentTarget.value;
-  }
-
-  function clearPasswordInput() {
-    passwordInputText.value = '';
   }
 
   return (
@@ -52,27 +35,27 @@ export default function LoginPage() {
               required
               title="Please enter a valid email address"
               value={emailInputText}
-              onInput={emailOnInput}
+              onInput={(e) => (emailInputText.value = e.currentTarget.value)}
               placeholder="Email"
-              class="peer flex-grow p-0.5 outline-none"
-              onXClicked={clearEmailInput}
+              onXClicked={() => (emailInputText.value = '')}
+              class="mb-8"
             />
             <FormInput
               type="password"
               required
               value={passwordInputText}
-              onInput={passwordOnInput}
+              onInput={(e) => (passwordInputText.value = e.currentTarget.value)}
               onClick={selectContent}
               placeholder="Password"
-              class="peer flex-grow p-0.5 outline-none"
-              onXClicked={clearPasswordInput}
+              onXClicked={() => (passwordInputText.value = '')}
               icon={<LockIcon />}
+              class="mb-8"
             />
             <input
               disabled={submitButtonDisabled}
               type="submit"
               value="Sign In"
-              class="bg-bg-button hover:not-disabled:bg-bg-button-hover active:not-disabled:bg-bg-button-active disabled:text-fg-disabled w-full cursor-pointer rounded-full p-2"
+              class="bg-bg-button hover:not-disabled:bg-bg-button-hover active:not-disabled:bg-bg-button-active w-full cursor-pointer rounded-full p-2"
             ></input>
           </form>
         </div>

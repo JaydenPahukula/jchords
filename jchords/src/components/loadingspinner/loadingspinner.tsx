@@ -1,10 +1,5 @@
-export default function LoadingSpinner(props: { class?: string }) {
+export default function LoadingSpinner() {
   return (
-    <div
-      class={
-        'box-border aspect-square animate-spin rounded-full border-4 border-[currentColor] border-t-[transparent] ' +
-        (props.class ?? '')
-      }
-    ></div>
+    <div class="box-border aspect-square w-full animate-spin rounded-full border-3 border-[currentColor] border-t-[transparent]"></div>
   );
 }

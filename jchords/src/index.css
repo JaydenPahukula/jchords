@@ -11,12 +11,14 @@
   --color-bg-1: #e7e6e5;
   --color-bg-2: #d2d1d1;
   --color-bg-9: #2e2e2e;
+  --color-bg-error: #db1212;
 
   --color-fg-0: #000000;
   --color-fg-1: #696866;
   --color-fg-2: #afafaf;
-  --color-fg-9: #eeeeee;
-  --color-fg-error: #ff0000;
+  --color-fg-8: #eeeeee;
+  --color-fg-9: #ffffff;
+  --color-fg-error: #f00000;
   --color-fg-disabled: #878786;
   --color-fg-link: #0077de;
   --color-fg-link-hover: #00549e;
@@ -38,5 +40,8 @@
   }
   .link {
     @apply text-fg-link hover:text-fg-link-hover cursor-pointer hover:underline;
+  }
+  :disabled {
+    @apply text-fg-disabled;
   }
 }

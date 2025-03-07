@@ -15,7 +15,7 @@ export default function SongHeader() {
   return (
     <div
       id="header"
-      class="bg-bg-9 text-fg-9 z-[1] flex h-[3.25rem] flex-shrink-0 items-center shadow-md"
+      class="bg-bg-9 text-fg-8 z-[1] flex h-[3.25rem] flex-shrink-0 items-center shadow-md"
     >
       <div class="flex flex-1 px-3">
         <SongHeaderButton onClick={() => route('/')}>

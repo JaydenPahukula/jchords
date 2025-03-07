@@ -1,4 +1,5 @@
 import Router, { Route } from 'preact-router';
+import CreateAccountPage from 'src/components/homepage/createaccountpage';
 import HomePage from 'src/components/homepage/homepage';
 import LoginPage from 'src/components/homepage/loginpage';
 import SongPage from 'src/components/songpage/songpage';
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/" component={HomePage} />
         <Route path="/song/:id" component={SongPage} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/createaccount" component={CreateAccountPage} />
       </Router>
     </UIStateContext.Provider>
   );
