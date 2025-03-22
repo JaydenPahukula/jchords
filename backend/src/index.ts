@@ -1,9 +1,9 @@
 import cors from 'cors';
 import express from 'express';
 import { onRequest } from 'firebase-functions/v2/https';
-import getSong from './handlers/getsong';
-import getSongList from './handlers/getsonglist';
-import rootHandler from './handlers/root';
+import getSong from 'src/handlers/getsong';
+import getSongList from 'src/handlers/getsonglist';
+import rootHandler from 'src/handlers/root';
 
 const expressApp = express();
 

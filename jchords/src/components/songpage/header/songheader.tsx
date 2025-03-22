@@ -4,10 +4,10 @@ import ExpandableMenuButton from 'src/components/expandablemenubutton/expandable
 import GearIcon from 'src/components/icons/gearicon';
 import HomeIcon from 'src/components/icons/homeicon';
 import MusicNoteIcon from 'src/components/icons/musicnoteicon';
+import SongHeaderButton from 'src/components/songpage/header/songheaderbutton';
+import TestMenu from 'src/components/songpage/header/testmenu';
+import TransposeMenu from 'src/components/songpage/header/transposemenu';
 import UIStateContext from 'src/state/uistatecontext';
-import SongHeaderButton from './songheaderbutton';
-import TestMenu from './testmenu';
-import TransposeMenu from './transposemenu';
 
 export default function SongHeader() {
   const state = useContext(UIStateContext);

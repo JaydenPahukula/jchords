@@ -1,13 +1,11 @@
-import cmAccidental from './cmaccidental';
-import cmKey from './cmkey';
+import cmAccidental from 'shared/types/cm/cmaccidental';
+import cmKey from 'shared/types/cm/cmkey';
 
-interface cmSongLine {
-  // TODO
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface cmSongLine {} // TODO
 
-interface cmSongChord {
-  // TODO
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface cmSongChord {} // TODO
 
 interface cmKeyDeclaration {
   string: cmKey;

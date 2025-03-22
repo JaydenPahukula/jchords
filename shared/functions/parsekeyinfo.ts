@@ -19,6 +19,7 @@ export default function parseKeyInfo(
   try {
     return [stringToKey(keyString), stringToAccidental(keyString), stringToMode(keyString)];
   } catch (error) {
+    console.error(error);
     return undefined;
   }
 }

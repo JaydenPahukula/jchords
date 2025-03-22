@@ -3,8 +3,8 @@ import { JSX } from 'preact/jsx-runtime';
 import Size from 'shared/enums/size';
 import SearchIcon from 'src/components/icons/searchicon';
 import XIcon from 'src/components/icons/xicon';
+import UserCircle from 'src/components/usercircle/usercircle';
 import UIStateContext from 'src/state/uistatecontext';
-import UserCircle from '../usercircle/usercircle';
 
 export default function HomeHeader() {
   const state = useContext(UIStateContext);

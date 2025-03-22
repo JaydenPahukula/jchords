@@ -1,5 +1,5 @@
-import ExpandableMenuButton from '../expandablemenubutton/expandablemenubutton';
-import UserIcon from '../icons/usericon';
+import ExpandableMenuButton from 'src/components/expandablemenubutton/expandablemenubutton';
+import UserIcon from 'src/components/icons/usericon';
 
 function UserCircleMenu({ isSignedIn }: { isSignedIn: boolean }) {
   return isSignedIn ? (

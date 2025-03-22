@@ -1,8 +1,8 @@
 import { useContext } from 'preact/hooks';
 import LoadState from 'shared/enums/loadstate';
+import LoadingSpinner from 'src/components/loadingspinner/loadingspinner';
+import Chart from 'src/components/songpage/chart';
 import UIStateContext from 'src/state/uistatecontext';
-import LoadingSpinner from '../loadingspinner/loadingspinner';
-import Chart from './chart';
 
 export default function SongPageContent() {
   const { currSongLoadState } = useContext(UIStateContext);

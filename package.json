@@ -4,17 +4,23 @@
   "private": true,
   "scripts": {
     "format": "prettier --write './**/*.{js,ts,tsx,html,css,svg,json}' | grep -v ' (unchanged)'",
+    "lint": "eslint",
+    "lint-fix": "eslint --fix",
     "emulator": "firebase emulators:start --only 'auth,firestore,functions' --import=firestore/testdata --export-on-exit",
     "dev-jchords": "npm run dev --prefix jchords/",
     "dev-backend": "npm run dev --prefix backend/",
-    "deploy-jchords": "npm run deploy --prefix jchords/",
-    "deploy-backend": "npm run deploy --prefix backend/",
+    "deploy-jchords": "npm run lint && npm run deploy --prefix jchords/",
+    "deploy-backend": "npm run lint && npm run deploy --prefix backend/",
     "deploy-firestore-rules": "firebase deploy --only firestore:rules"
   },
   "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "eslint": "^9.23.0",
+    "eslint-plugin-no-relative-import-paths": "^1.6.1",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.1.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.27.0"
   },
   "workspaces": [
     "jchords",

@@ -1,4 +1,4 @@
-import cmAccidental from './cmaccidental';
+import cmAccidental from 'shared/types/cm/cmaccidental';
 
 export type cmAccidentalsType = cmAccidental | 'auto';
 

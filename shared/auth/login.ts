@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import auth from '../firebase/auth';
+import auth from 'shared/firebase/auth';
 
 export const enum LogInResult {
   Success,

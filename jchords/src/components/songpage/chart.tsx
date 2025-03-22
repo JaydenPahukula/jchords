@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-expect-error TODO add chord-mark type definitions
 import { renderSong } from 'chord-mark';
 import { useContext } from 'preact/hooks';
 import UIStateContext from 'src/state/uistatecontext';

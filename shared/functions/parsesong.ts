@@ -1,6 +1,6 @@
 import ParsedSong from 'shared/types/parsedsong';
 import Song from 'shared/types/song';
-// @ts-expect-error
+// @ts-expect-error TODO add type definitions to chord-mark
 import { parseSong as cmParseSong } from 'chord-mark';
 import Accidental from 'shared/enums/accidental';
 import Key from 'shared/enums/key';

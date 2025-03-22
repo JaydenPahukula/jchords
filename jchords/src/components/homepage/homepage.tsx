@@ -1,7 +1,7 @@
 import { useEffect } from 'preact/hooks';
+import HomeHeader from 'src/components/homepage/homeheader';
+import HomeSongList from 'src/components/homepage/homesonglist';
 import onHomePageLoad from 'src/state/functions/onhomepageload';
-import HomeHeader from './homeheader';
-import HomeSongList from './homesonglist';
 
 export default function HomePage() {
   useEffect(onHomePageLoad, []);

@@ -1,6 +1,6 @@
 import { FirebaseError } from '@firebase/util';
 import { AuthErrorCodes, createUserWithEmailAndPassword } from 'firebase/auth';
-import auth from '../firebase/auth';
+import auth from 'shared/firebase/auth';
 
 export const enum CreateAccountResult {
   Success,

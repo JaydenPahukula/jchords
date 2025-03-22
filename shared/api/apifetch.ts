@@ -1,4 +1,4 @@
-/// <reference path="../declarations/vite-env.d.ts" />
+import 'shared/declarations/vite-env.d.ts';
 
 type Method = 'GET';
 
@@ -16,10 +16,11 @@ export default async function apiFetch<RequestBody = undefined>(
       body: body && JSON.stringify(body),
     });
     if (response.ok) {
-      return response.json();
+      return await response.json();
     }
     console.error(`Fetch error: ${url.href} returned ${response.status} ${response.statusText}`);
   } catch (error) {
     console.error(`Fetch error: ${url.href} - ${error}`);
   }
+  return undefined;
 }

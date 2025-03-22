@@ -4,10 +4,10 @@ import { useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
 import logIn, { LogInResult } from 'shared/auth/login';
 import selectContent from 'shared/misc/selectcontent';
-import LockIcon from '../icons/lockicon';
-import LoadingSpinner from '../loadingspinner/loadingspinner';
-import FormInput from './forminput';
-import GenericHeader from './genericheader';
+import FormInput from 'src/components/homepage/forminput';
+import GenericHeader from 'src/components/homepage/genericheader';
+import LockIcon from 'src/components/icons/lockicon';
+import LoadingSpinner from 'src/components/loadingspinner/loadingspinner';
 
 export default function LoginPage() {
   const emailInputText = useSignal<string>('');

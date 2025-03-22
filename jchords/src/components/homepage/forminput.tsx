@@ -1,6 +1,6 @@
 import { ComponentChild } from 'preact';
 import { JSX } from 'preact/jsx-runtime';
-import XIcon from '../icons/xicon';
+import XIcon from 'src/components/icons/xicon';
 
 interface FormInputProps extends JSX.InputHTMLAttributes {
   icon?: ComponentChild;
@@ -18,7 +18,7 @@ export default function FormInput(props: FormInputProps) {
     >
       <input {...inputProps} class="peer flex-grow p-0.5 outline-none" />
       <div
-        onMouseDown={props.onXClicked}
+        onMouseDown={onXClicked}
         class="hover:bg-bg-button hidden h-7 w-7 rounded-sm p-1 peer-focus:not-peer-placeholder-shown:block"
       >
         <XIcon />

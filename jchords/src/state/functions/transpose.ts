@@ -4,8 +4,8 @@ import accidentalToCmAccidentalsType from 'shared/functions/accidentaltocmaccide
 import calcTransposeValue from 'shared/functions/calctransposevalue';
 import stringToAccidental from 'shared/functions/stringtoaccidental';
 import stringToKey from 'shared/functions/stringtokey';
+import updateRenderOptions from 'src/state/functions/updaterenderoptions';
 import state from 'src/state/state';
-import updateRenderOptions from './updaterenderoptions';
 
 export function resetTransposeOptions() {
   batch(() => {

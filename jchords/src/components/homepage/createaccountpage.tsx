@@ -5,11 +5,11 @@ import { JSX } from 'preact/jsx-runtime';
 import createAccount, { CreateAccountResult } from 'shared/auth/createaccount';
 import debounce from 'shared/misc/debounce';
 import selectContent from 'shared/misc/selectcontent';
-import LockIcon from '../icons/lockicon';
-import XIcon from '../icons/xicon';
-import LoadingSpinner from '../loadingspinner/loadingspinner';
-import FormInput from './forminput';
-import GenericHeader from './genericheader';
+import FormInput from 'src/components/homepage/forminput';
+import GenericHeader from 'src/components/homepage/genericheader';
+import LockIcon from 'src/components/icons/lockicon';
+import XIcon from 'src/components/icons/xicon';
+import LoadingSpinner from 'src/components/loadingspinner/loadingspinner';
 
 // -1 = loading
 
