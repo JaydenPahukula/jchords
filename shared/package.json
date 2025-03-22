@@ -2,6 +2,7 @@
   "name": "jchords-shared",
   "description": "Shared code between jchords and jchords editor",
   "dependencies": {
+    "@firebase/util": "^1.11.0",
     "firebase": "^11.3.0"
   }
 }

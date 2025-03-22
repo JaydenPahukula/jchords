@@ -17,5 +17,6 @@ export default function makeUIState(state: State): UIState {
     currSong: copySignal(state.currSong),
     currSongLoadState: copySignal(state.currSongLoadState),
     renderOptions: copySignal(state.renderOptions),
+    user: copySignal(state.user),
   };
 }

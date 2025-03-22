@@ -1,20 +1,35 @@
-import { computed, signal } from '@preact/signals';
+import { computed, useSignal } from '@preact/signals';
+import { route } from 'preact-router';
+import { useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
+import logIn, { LogInResult } from 'shared/auth/login';
 import selectContent from 'shared/misc/selectcontent';
 import LockIcon from '../icons/lockicon';
+import LoadingSpinner from '../loadingspinner/loadingspinner';
 import FormInput from './forminput';
 import GenericHeader from './genericheader';
 
 export default function LoginPage() {
-  const emailInputText = signal<string>('');
-  const passwordInputText = signal<string>('');
+  const emailInputText = useSignal<string>('');
+  const passwordInputText = useSignal<string>('');
+  const [result, setResult] = useState<LogInResult | -1>();
 
   const submitButtonDisabled = computed<boolean>(
     () => emailInputText.value.length == 0 || passwordInputText.value.length == 0,
   );
 
+  const submitLoading = result == -1;
+
   function onFormSubmit(e: JSX.TargetedSubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+    setResult(-1);
+    logIn(emailInputText.value, passwordInputText.value).then((res) => {
+      if (res == LogInResult.Success) {
+        route('/');
+      } else {
+        setResult(res);
+      }
+    });
   }
 
   return (
@@ -33,6 +48,7 @@ export default function LoginPage() {
             <FormInput
               type="email"
               required
+              disabled={submitLoading}
               title="Please enter a valid email address"
               value={emailInputText}
               onInput={(e) => (emailInputText.value = e.currentTarget.value)}
@@ -43,6 +59,7 @@ export default function LoginPage() {
             <FormInput
               type="password"
               required
+              disabled={submitLoading}
               value={passwordInputText}
               onInput={(e) => (passwordInputText.value = e.currentTarget.value)}
               onClick={selectContent}
@@ -51,12 +68,20 @@ export default function LoginPage() {
               icon={<LockIcon />}
               class="mb-8"
             />
-            <input
-              disabled={submitButtonDisabled}
-              type="submit"
-              value="Sign In"
-              class="bg-bg-button hover:not-disabled:bg-bg-button-hover active:not-disabled:bg-bg-button-active w-full cursor-pointer rounded-full p-2"
-            ></input>
+            {submitLoading ? (
+              <div class="bg-bg-button flex h-11 w-full items-center justify-center rounded-full">
+                <div class="w-6">
+                  <LoadingSpinner />
+                </div>
+              </div>
+            ) : (
+              <input
+                disabled={submitButtonDisabled}
+                type="submit"
+                value="Sign In"
+                class="bg-bg-button hover:not-disabled:bg-bg-button-hover active:not-disabled:bg-bg-button-active disabled:text-fg-disabled h-11 w-full rounded-full not-disabled:cursor-pointer"
+              ></input>
+            )}
           </form>
         </div>
       </div>

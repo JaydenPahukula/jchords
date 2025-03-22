@@ -1,4 +1,5 @@
 import { signal } from '@preact/signals';
+import { User } from 'firebase/auth';
 import LoadState from 'shared/enums/loadstate';
 import Size from 'shared/enums/size';
 import parseSong from 'shared/functions/parsesong';
@@ -17,6 +18,7 @@ const state = {
   currSong: signal<ParsedSong>(parseSong(makeEmptySong())),
   currSongLoadState: signal<LoadState>(LoadState.None),
   renderOptions: signal<cmRenderOptions>(makeDefaultRenderOptions()),
+  user: signal<User | null>(null),
 };
 
 export default state;

@@ -63,13 +63,13 @@ export default function CreateAccountPage() {
   function onFormSubmit(e: JSX.TargetedSubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (mismatch.value) {
-      showMismatchError.value = false;
+      showMismatchError.value = true;
       return;
     }
     setResult(-1);
     createAccount(emailInputText.value, passwordInputText.value).then((res) => {
       if (res === CreateAccountResult.Success) {
-        route('/');
+        route('/'); // go to home page
       } else {
         setResult(res);
       }
