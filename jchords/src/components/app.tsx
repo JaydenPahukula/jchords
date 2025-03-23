@@ -1,4 +1,5 @@
 import Router, { Route } from 'preact-router';
+import DialogManager from 'shared/components/dialogs/dialogmanager';
 import CreateAccountPage from 'src/components/homepage/createaccountpage';
 import HomePage from 'src/components/homepage/homepage';
 import LoginPage from 'src/components/homepage/loginpage';
@@ -20,13 +21,16 @@ export default function App() {
   };
 
   return (
-    <UIStateContext.Provider value={uiState}>
-      <Router>
-        <Route path="/" component={HomePage} />
-        <Route path="/song/:id" component={SongPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/createaccount" component={CreateAccountPage} />
-      </Router>
-    </UIStateContext.Provider>
+    <>
+      <DialogManager signal={state.dialog} />
+      <UIStateContext.Provider value={uiState}>
+        <Router>
+          <Route path="/" component={HomePage} />
+          <Route path="/song/:id" component={SongPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/createaccount" component={CreateAccountPage} />
+        </Router>
+      </UIStateContext.Provider>
+    </>
   );
 }

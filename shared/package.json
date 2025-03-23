@@ -3,6 +3,8 @@
   "description": "Shared code between jchords and jchords editor",
   "dependencies": {
     "@firebase/util": "^1.11.0",
-    "firebase": "^11.3.0"
+    "firebase": "^11.3.0",
+    "@preact/signals": "^2.0.1",
+    "preact": "^10.25.4"
   }
 }

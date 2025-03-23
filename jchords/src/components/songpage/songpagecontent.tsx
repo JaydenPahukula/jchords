@@ -1,6 +1,6 @@
 import { useContext } from 'preact/hooks';
+import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
 import LoadState from 'shared/enums/loadstate';
-import LoadingSpinner from 'src/components/loadingspinner/loadingspinner';
 import Chart from 'src/components/songpage/chart';
 import UIStateContext from 'src/state/uistatecontext';
 

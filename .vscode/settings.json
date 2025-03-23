@@ -3,4 +3,8 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "javascript.preferences.importModuleSpecifier": "non-relative"
+  // "tailwindCSS.experimental.configFile": {
+  // "jchords/src/index.css": "jchords/src/**"
+  // "shared/src/index.css"
+  // }
 }

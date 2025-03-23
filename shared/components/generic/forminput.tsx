@@ -1,6 +1,6 @@
 import { ComponentChild } from 'preact';
 import { JSX } from 'preact/jsx-runtime';
-import XIcon from 'src/components/icons/xicon';
+import XIcon from 'shared/components/icons/xicon';
 
 interface FormInputProps extends JSX.InputHTMLAttributes {
   icon?: ComponentChild;

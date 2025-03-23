@@ -3,15 +3,13 @@ import { route } from 'preact-router';
 import { useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
 import createAccount, { CreateAccountResult } from 'shared/auth/createaccount';
+import FormInput from 'shared/components/generic/forminput';
+import LockIcon from 'shared/components/icons/lockicon';
+import XIcon from 'shared/components/icons/xicon';
+import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
 import debounce from 'shared/misc/debounce';
 import selectContent from 'shared/misc/selectcontent';
-import FormInput from 'src/components/homepage/forminput';
 import GenericHeader from 'src/components/homepage/genericheader';
-import LockIcon from 'src/components/icons/lockicon';
-import XIcon from 'src/components/icons/xicon';
-import LoadingSpinner from 'src/components/loadingspinner/loadingspinner';
-
-// -1 = loading
 
 function ErrorMessage(props: { status: CreateAccountResult | -1; close: () => void }) {
   const status = props.status;

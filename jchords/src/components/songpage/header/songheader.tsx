@@ -1,9 +1,9 @@
 import { route } from 'preact-router';
 import { useContext } from 'preact/hooks';
+import GearIcon from 'shared/components/icons/gearicon';
+import HomeIcon from 'shared/components/icons/homeicon';
+import MusicNoteIcon from 'shared/components/icons/musicnoteicon';
 import ExpandableMenuButton from 'src/components/expandablemenubutton/expandablemenubutton';
-import GearIcon from 'src/components/icons/gearicon';
-import HomeIcon from 'src/components/icons/homeicon';
-import MusicNoteIcon from 'src/components/icons/musicnoteicon';
 import SongHeaderButton from 'src/components/songpage/header/songheaderbutton';
 import TestMenu from 'src/components/songpage/header/testmenu';
 import TransposeMenu from 'src/components/songpage/header/transposemenu';

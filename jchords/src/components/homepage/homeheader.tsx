@@ -1,8 +1,8 @@
 import { useContext, useRef, useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
+import SearchIcon from 'shared/components/icons/searchicon';
+import XIcon from 'shared/components/icons/xicon';
 import Size from 'shared/enums/size';
-import SearchIcon from 'src/components/icons/searchicon';
-import XIcon from 'src/components/icons/xicon';
 import UserCircle from 'src/components/usercircle/usercircle';
 import UIStateContext from 'src/state/uistatecontext';
 
