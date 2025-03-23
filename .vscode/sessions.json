@@ -9,22 +9,30 @@
       {
         "name": "",
         "focus": true,
-        "commands": [""]
+        "commands": [
+          ""
+        ]
       },
       {
         "name": "jchords dev",
         "autoExecuteCommands": true,
-        "commands": ["npm run dev-jchords"]
+        "commands": [
+          "npm run dev-jchords"
+        ]
       },
       {
         "name": "backend dev",
         "autoExecuteCommands": true,
-        "commands": ["npm run dev-backend"]
+        "commands": [
+          "npm run dev-backend"
+        ]
       },
       {
         "name": "emulator",
         "autoExecuteCommands": true,
-        "commands": ["npm run emulator"]
+        "commands": [
+          "npm run emulator"
+        ]
       }
     ]
   }
