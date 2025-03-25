@@ -1,13 +1,13 @@
 import { computed, useSignal } from '@preact/signals';
 import { JSX } from 'preact/jsx-runtime';
 import logIn, { LogInResult } from 'shared/auth/login';
-import DialogProps from 'shared/components/dialogs/dialogprops';
 import GenericDialog from 'shared/components/dialogs/genericdialog';
 import FormInput from 'shared/components/generic/forminput';
 import LockIcon from 'shared/components/icons/lockicon';
 import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
 import Dialog from 'shared/enums/dialog';
 import selectContent from 'shared/misc/selectcontent';
+import DialogProps from 'shared/types/dialogprops';
 
 export default function LoginDialog(props: DialogProps) {
   const emailInputText = useSignal<string>('');

@@ -1,12 +1,11 @@
-import { FunctionComponent } from 'preact';
 import CreateAccountDialog from 'shared/components/dialogs/createaccountdialog';
-import DialogProps from 'shared/components/dialogs/dialogprops';
 import LoginDialog from 'shared/components/dialogs/logindialog';
 import Dialog from 'shared/enums/dialog';
+import DialogManifest from 'shared/types/dialogmanifest';
 
-const DIALOGS: { type: Dialog; component: FunctionComponent<DialogProps> }[] = [
+const dialogManifest: DialogManifest = [
   { type: Dialog.Login, component: LoginDialog },
   { type: Dialog.CreateAccount, component: CreateAccountDialog },
 ];
 
-export default DIALOGS;
+export default dialogManifest;

@@ -1,6 +1,13 @@
 {
   "name": "jchords-shared",
   "description": "Shared code between jchords and jchords editor",
+  "private": "true",
+  "exports": {
+    "./components/*": "./components/*.tsx",
+    "./*": "./*.ts",
+    "./*.d.ts": "./*.d.ts",
+    "./*.json": "./*.json"
+  },
   "dependencies": {
     "@firebase/util": "^1.11.0",
     "firebase": "^11.3.0",

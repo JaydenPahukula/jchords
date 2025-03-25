@@ -1,5 +1,6 @@
 import Router, { Route } from 'preact-router';
 import DialogManager from 'shared/components/dialogs/dialogmanager';
+import dialogManifest from 'src/components/dialogs/dialogmanifest';
 import CreateAccountPage from 'src/components/homepage/createaccountpage';
 import HomePage from 'src/components/homepage/homepage';
 import LoginPage from 'src/components/homepage/loginpage';
@@ -22,7 +23,7 @@ export default function App() {
 
   return (
     <>
-      <DialogManager signal={state.dialog} />
+      <DialogManager signal={state.dialog} manifest={dialogManifest} />
       <UIStateContext.Provider value={uiState}>
         <Router>
           <Route path="/" component={HomePage} />
