@@ -33,17 +33,13 @@ export default function LoginDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog
-      dialogRef={props.dialogRef}
-      closeButton
-      onClose={() => props.changeDialog(Dialog.None)}
-    >
+    <GenericDialog dialogRef={props.dialogRef} closeButton>
       <h2 class="text-3xl font-bold">Sign In</h2>
       <p class="mb-8">
         or{' '}
-        <a href="/createaccount" class="link">
+        <span onClick={() => props.changeDialog(Dialog.CreateAccount)} class="link">
           create an account
-        </a>
+        </span>
       </p>
       <form onSubmit={onFormSubmit}>
         <FormInput

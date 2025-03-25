@@ -2,6 +2,7 @@ import { computed, useSignal } from '@preact/signals';
 import { JSX } from 'preact/jsx-runtime';
 import createAccount, { CreateAccountResult } from 'shared/auth/createaccount';
 import DialogProps from 'shared/components/dialogs/dialogprops';
+import GenericDialog from 'shared/components/dialogs/genericdialog';
 import FormInput from 'shared/components/generic/forminput';
 import LockIcon from 'shared/components/icons/lockicon';
 import XIcon from 'shared/components/icons/xicon';
@@ -9,7 +10,6 @@ import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
 import Dialog from 'shared/enums/dialog';
 import debounce from 'shared/misc/debounce';
 import selectContent from 'shared/misc/selectcontent';
-import GenericDialog from './genericdialog';
 
 function ErrorMessage(props: { status: CreateAccountResult | -1; close: () => void }) {
   const status = props.status;
@@ -101,11 +101,7 @@ export default function CreateAccountDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog
-      dialogRef={props.dialogRef}
-      closeButton
-      onClose={() => props.changeDialog(Dialog.None)}
-    >
+    <GenericDialog dialogRef={props.dialogRef} closeButton>
       <h2 class="mb-8 text-3xl font-bold">Create Account</h2>
       <form onSubmit={onFormSubmit}>
         <FormInput

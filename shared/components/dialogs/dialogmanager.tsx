@@ -1,8 +1,6 @@
 import { Signal, useSignalEffect } from '@preact/signals';
-import { RefObject } from 'preact';
-import { useRef } from 'preact/hooks';
-import CreateAccountDialog from 'shared/components/dialogs/createaccountdialog';
-import LoginDialog from 'shared/components/dialogs/logindialog';
+import { useEffect, useRef } from 'preact/hooks';
+import DIALOGS from 'shared/components/dialogs/dialogmanifest';
 import Dialog from 'shared/enums/dialog';
 
 interface DialogManagerProps {
@@ -10,43 +8,46 @@ interface DialogManagerProps {
 }
 
 export default function DialogManager({ signal }: DialogManagerProps) {
-  const loginDialogRef = useRef<HTMLDialogElement>(null);
-  const createAccountDialogRef = useRef<HTMLDialogElement>(null);
-
-  function getRef(dialog: Dialog): RefObject<HTMLDialogElement> | undefined {
-    switch (dialog) {
-      case Dialog.Login:
-        return loginDialogRef;
-      case Dialog.CreateAccount:
-        return createAccountDialogRef;
-      default:
-        return undefined;
-    }
-  }
-
-  useSignalEffect(() => {
-    const dialog = getRef(signal.value)?.current;
-    if (dialog) {
-      dialog.showModal();
-      return () => dialog.close();
-    }
-    return () => {};
+  // create refs and listeners for each dialog
+  const dialogs = DIALOGS.map((entry) => {
+    return {
+      ...entry,
+      ref: useRef<HTMLDialogElement>(null),
+      /** Checks and updates the signal if the dialog was closed another way, i.e. with `.close()` */
+      listener: () => {
+        if (signal.value === entry.type) signal.value = Dialog.None;
+      },
+    };
   });
 
-  const changeDialog = (newDialog: Dialog) => (signal.value = newDialog);
+  useEffect(() => {
+    // add onClose event listeners
+    dialogs.forEach(({ ref, listener }) => {
+      ref.current?.addEventListener('close', listener);
+      ref.current?.addEventListener('cancel', listener);
+    });
+    // cleanup
+    return () =>
+      dialogs.forEach(({ ref, listener }) => {
+        ref.current?.removeEventListener('close', listener);
+        ref.current?.removeEventListener('cancel', listener);
+      });
+  });
 
-  // switch (signal.value) {
-  //   case Dialog.Login:
-  //     return <LoginDialog changeDialog={changeDialog} />;
-  //   case Dialog.CreateAccount:
-  //     return <CreateAccountDialog />;
-  //   default:
-  //     return <></>;
-  // }
+  useSignalEffect(() => {
+    const dialog = dialogs.find(({ type }) => type === signal.value)?.ref?.current;
+    dialog?.showModal();
+    return () => dialog?.close();
+  });
+
   return (
-    <div id="dialogs" class="h-10">
-      <LoginDialog dialogRef={loginDialogRef} changeDialog={changeDialog} />
-      <CreateAccountDialog dialogRef={createAccountDialogRef} changeDialog={changeDialog} />
+    <div id="dialogs">
+      {dialogs.map(({ component, ref }) => {
+        return component({
+          dialogRef: ref,
+          changeDialog: (newDialog: Dialog) => (signal.value = newDialog),
+        });
+      })}
     </div>
   );
 }

@@ -21,6 +21,7 @@ export default defineConfig([
     rules: {
       'no-relative-import-paths/no-relative-import-paths': ['warn'],
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
     },
   },
   // no relative paths
