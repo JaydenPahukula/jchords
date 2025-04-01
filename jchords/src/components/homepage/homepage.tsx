@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <div id="homepage" class="bg-bg-1 flex h-dvh w-full flex-col">
       <HomeHeader />
-      <div class="flex flex-grow flex-col items-center overflow-y-auto">
+      <div class="flex grow flex-col items-center overflow-y-auto">
         <HomeSongList />
       </div>
     </div>

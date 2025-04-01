@@ -9,6 +9,7 @@
     "emulator": "firebase emulators:start --only 'auth,firestore,functions' --import=firestore/testdata --export-on-exit",
     "dev-jchords": "npm run dev --prefix jchords/",
     "dev-backend": "npm run dev --prefix backend/",
+    "preview-jchords": "npm run preview --prefix jchords/",
     "deploy-jchords": "npm run lint && npm run deploy --prefix jchords/",
     "deploy-backend": "npm run lint && npm run deploy --prefix backend/",
     "deploy-firestore-rules": "firebase deploy --only firestore:rules"

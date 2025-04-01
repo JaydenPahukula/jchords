@@ -57,11 +57,7 @@ export default function TransposeMenu() {
       <div class="border-fg-1 mb-4 flex flex-col gap-1 border-t pt-4">
         <label class="flex w-full justify-between gap-4">
           Symbol Type:
-          <select
-            class="flex-grow px-1"
-            value={renderOpts.symbolType}
-            onChange={handleSymbolTypeChange}
-          >
+          <select class="grow px-1" value={renderOpts.symbolType} onChange={handleSymbolTypeChange}>
             <option value="chord">Chord</option>
             <option value="roman">Roman</option>
           </select>
@@ -72,7 +68,7 @@ export default function TransposeMenu() {
         <label class="flex w-full justify-between gap-4">
           Key:
           <select
-            class="flex-grow px-1"
+            class="grow px-1"
             value={keyToString(currKey, currAccidental, mode)}
             disabled={transposeDisabled}
             onChange={handleKeyChange}
@@ -90,7 +86,7 @@ export default function TransposeMenu() {
         <label class="flex w-full justify-between gap-4">
           Transpose:
           <select
-            class="flex-grow px-1"
+            class="grow px-1"
             value={((renderOpts.transposeValue + 5) % 12) - 5}
             disabled={transposeDisabled}
             onChange={handleTransposeChange}
@@ -105,7 +101,7 @@ export default function TransposeMenu() {
         <label class="flex w-full justify-between gap-4">
           Accidentals:
           <select
-            class="flex-grow px-1"
+            class="grow px-1"
             value={currAccidental == Accidental.Flat ? 'flat' : 'sharp'}
             disabled={transposeDisabled}
             onChange={handleAccidentalsChange}

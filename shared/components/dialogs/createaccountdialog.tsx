@@ -1,129 +1,121 @@
-import { computed, useSignal } from '@preact/signals';
+import { batch, useComputed, useSignal } from '@preact/signals';
 import { JSX } from 'preact/jsx-runtime';
-import createAccount, { CreateAccountResult } from 'shared/auth/createaccount';
-import DialogProps from 'shared/components/dialogs/dialogprops';
+import createAccount from 'shared/auth/createaccount';
 import GenericDialog from 'shared/components/dialogs/genericdialog';
 import FormInput from 'shared/components/generic/forminput';
+import ArrowLeftIcon from 'shared/components/icons/arrowlefticon';
 import LockIcon from 'shared/components/icons/lockicon';
-import XIcon from 'shared/components/icons/xicon';
 import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
+import CreateAccountResult from 'shared/enums/createaccountresult';
 import Dialog from 'shared/enums/dialog';
-import debounce from 'shared/misc/debounce';
 import selectContent from 'shared/misc/selectcontent';
+import useDebounce from 'shared/misc/usedebounce';
+import DialogProps from 'shared/types/dialogprops';
 
-function ErrorMessage(props: { status: CreateAccountResult | -1; close: () => void }) {
-  const status = props.status;
-  if (status == CreateAccountResult.Success || status == -1) return <></>;
-  return (
-    <div class="bg-bg-error text-fg-9 mt-4 flex w-full items-center rounded-2xl p-2 pl-4">
-      <p class="flex-grow leading-tight font-bold">
-        {status === CreateAccountResult.EmailInUse
-          ? 'Email is already in use'
-          : status === CreateAccountResult.InvalidEmail
-            ? 'Invalid email'
-            : status === CreateAccountResult.WeakPassword
-              ? 'Please choose a stronger password'
-              : 'Could not create account. Try again later'}
-      </p>
-      <div
-        onClick={props.close}
-        class="hover:bg-bg-0/20 active:bg-bg-0/30 h-8 w-8 flex-shrink-0 rounded-lg p-1"
-      >
-        <XIcon />
-      </div>
-    </div>
-  );
+type ErrorState = null | CreateAccountResult | 'loading' | 'mismatch';
+
+function getErrorMessage(errorState: ErrorState): string {
+  switch (errorState) {
+    case CreateAccountResult.WeakPassword:
+      return 'Please choose a stronger password';
+    case CreateAccountResult.InvalidEmail:
+      return 'Invalid email';
+    case CreateAccountResult.EmailInUse:
+      return 'Email is already in use';
+    case CreateAccountResult.Failed:
+      return 'Could not create account. Try again later';
+    case 'mismatch':
+      return 'Passwords do not match';
+    default:
+      return '';
+  }
 }
 
 export default function CreateAccountDialog(props: DialogProps) {
-  const emailInputText = useSignal('a@a.a');
-  const passwordInputText = useSignal('asdfasdf');
-  const passwordInputText2 = useSignal('asdfasdf');
-  const showMismatchError = useSignal(false);
-  const state = useSignal<CreateAccountResult | -1>();
+  const emailInput = useSignal('');
+  const passwordInput = useSignal('');
+  const passwordInput2 = useSignal('');
+  const errorState = useSignal<ErrorState>(null);
 
-  const mismatch = computed(
+  const debounceMismatch = useDebounce(() => {
+    errorState.value = mismatch.value ? 'mismatch' : null;
+  });
+
+  const mismatch = useComputed(() => {
+    const isMismatch =
+      passwordInput.value.length > 0 &&
+      passwordInput2.value.length > 0 &&
+      passwordInput.value !== passwordInput2.value;
+    if (!isMismatch) debounceMismatch();
+    else errorState.value = null;
+    return isMismatch;
+  });
+  if (mismatch.value) void 0; // mismatch signal breaks without this
+
+  const submitButtonDisabled = useComputed<boolean>(
     () =>
-      passwordInputText.value.length > 0 &&
-      passwordInputText2.value.length > 0 &&
-      passwordInputText.value !== passwordInputText2.value,
+      emailInput.value.length === 0 ||
+      passwordInput.value.length === 0 ||
+      passwordInput2.value.length === 0 ||
+      errorState.value === 'mismatch',
   );
 
-  const submitButtonDisabled = computed<boolean>(
-    () =>
-      emailInputText.value.length === 0 ||
-      passwordInputText.value.length === 0 ||
-      passwordInputText2.value.length === 0,
-  );
+  const submitLoading = useComputed(() => errorState.value === 'loading');
 
-  const submitLoading = state.value == -1;
+  const errorMessage = useComputed(() => getErrorMessage(errorState.value));
 
   function onFormSubmit(e: JSX.TargetedSubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (mismatch.value) {
-      showMismatchError.value = true;
+      errorState.value = 'mismatch';
       return;
     }
-    state.value = -1;
-    createAccount(emailInputText.value, passwordInputText.value).then((result) => {
+    errorState.value = 'loading';
+    createAccount(emailInput.value, passwordInput.value).then((result) => {
+      errorState.value = result;
       if (result === CreateAccountResult.Success) {
+        batch(() => {
+          emailInput.value = '';
+          passwordInput.value = '';
+          passwordInput2.value = '';
+        });
         props.changeDialog(Dialog.None); // close dialog
-      } else {
-        state.value = result;
       }
     });
   }
 
-  const showError = debounce(() => {
-    showMismatchError.value = mismatch.value;
-  });
-
-  function passwordOnInput(e: JSX.TargetedInputEvent<HTMLInputElement>) {
-    passwordInputText.value = e.currentTarget.value;
-    if (!mismatch.value) showMismatchError.value = false;
-    else showError();
-  }
-
-  function clearPassword() {
-    passwordInputText.value = '';
-    showMismatchError.value = false;
-  }
-
-  function passwordOnInput2(e: JSX.TargetedInputEvent<HTMLInputElement>) {
-    passwordInputText2.value = e.currentTarget.value;
-    if (!mismatch.value) showMismatchError.value = false;
-    else showError();
-  }
-
-  function clearPassword2() {
-    passwordInputText.value = '';
-    showMismatchError.value = false;
-  }
-
   return (
-    <GenericDialog dialogRef={props.dialogRef} closeButton>
-      <h2 class="mb-8 text-3xl font-bold">Create Account</h2>
+    <GenericDialog
+      dialogRef={props.dialogRef}
+      closeButton
+      otherButtons={[
+        <div onClick={() => props.changeDialog(Dialog.Login)}>
+          <ArrowLeftIcon />
+        </div>,
+      ]}
+    >
       <form onSubmit={onFormSubmit}>
+        <h2 class="mb-6 text-3xl font-bold">Create Account</h2>
         <FormInput
           type="email"
           disabled={submitLoading}
           required
           title="Please enter a valid email address"
-          value={emailInputText}
-          onInput={(e) => (emailInputText.value = e.currentTarget.value)}
+          value={emailInput}
+          onInput={(e) => (emailInput.value = e.currentTarget.value)}
           placeholder="Email"
-          onXClicked={() => (emailInputText.value = '')}
+          onXClicked={() => (emailInput.value = '')}
           class="mb-8"
         />
         <FormInput
           type="password"
           disabled={submitLoading}
           required
-          value={passwordInputText}
-          onInput={passwordOnInput}
+          value={passwordInput}
+          onInput={(e) => (passwordInput.value = e.currentTarget.value)}
           onClick={selectContent}
           placeholder="Password"
-          onXClicked={clearPassword}
+          onXClicked={() => (passwordInput.value = '')}
           icon={<LockIcon />}
           class="mb-8"
         />
@@ -131,19 +123,15 @@ export default function CreateAccountDialog(props: DialogProps) {
           type="password"
           disabled={submitLoading}
           required
-          value={passwordInputText2}
-          onInput={passwordOnInput2}
+          value={passwordInput2}
+          onInput={(e) => (passwordInput2.value = e.currentTarget.value)}
           onClick={selectContent}
           placeholder="Confirm Password"
-          onXClicked={clearPassword2}
+          onXClicked={() => (passwordInput2.value = '')}
           icon={<LockIcon />}
         />
-        <div class="h-8">
-          <p hidden={computed(() => !showMismatchError.value)} class="text-fg-error text-sm">
-            Passwords do not match
-          </p>
-        </div>
-        {submitLoading ? (
+        <p class="text-fg-error mt-1 h-8 text-sm">{errorMessage.value}</p>
+        {submitLoading.value ? (
           <div class="bg-bg-button flex h-11 w-full items-center justify-center rounded-full">
             <div class="w-6">
               <LoadingSpinner />
@@ -154,10 +142,9 @@ export default function CreateAccountDialog(props: DialogProps) {
             disabled={submitButtonDisabled}
             type="submit"
             value="Create"
-            class="bg-bg-button hover:not-disabled:bg-bg-button-hover active:not-disabled:bg-bg-button-active disabled:text-fg-disabled h-11 w-full rounded-full not-disabled:cursor-pointer"
+            class="bg-bg-button hover:enabled:bg-bg-button-hover active:enabled:bg-bg-button-active disabled:text-fg-disabled h-11 w-full rounded-full enabled:cursor-pointer"
           ></input>
         )}
-        <ErrorMessage status={state.value ?? -1} close={() => (state.value = undefined)} />
       </form>
     </GenericDialog>
   );

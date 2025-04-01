@@ -49,7 +49,7 @@ export default function HomeHeader() {
             </a>
           </div>
         )}
-        <div id="header-right" class="flex flex-grow items-center justify-end gap-1 sm:gap-4">
+        <div id="header-right" class="flex grow items-center justify-end gap-1 sm:gap-4">
           <div
             class={
               'sm:bg-bg-button sm:hover:bg-bg-button-hover flex h-12 items-center rounded-xl sm:w-64 sm:max-w-xl ' +
@@ -58,7 +58,7 @@ export default function HomeHeader() {
           >
             <input
               class={
-                'h-full w-full flex-shrink flex-grow bg-transparent px-3 outline-none sm:max-w-64 ' +
+                'h-full w-full flex-shrink grow bg-transparent px-3 outline-none sm:max-w-64 ' +
                 (clearHeader ? 'max-w-screen' : 'max-w-0')
               }
               ref={searchBarRef}

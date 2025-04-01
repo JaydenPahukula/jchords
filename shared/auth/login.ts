@@ -1,10 +1,7 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from '@firebase/util';
+import { AuthErrorCodes, signInWithEmailAndPassword } from 'firebase/auth';
+import LogInResult from 'shared/enums/loginresult';
 import auth from 'shared/firebase/auth';
-
-export const enum LogInResult {
-  Success,
-  Bad,
-}
 
 export default async function logIn(email: string, password: string): Promise<LogInResult> {
   try {
@@ -12,13 +9,14 @@ export default async function logIn(email: string, password: string): Promise<Lo
     await signInWithEmailAndPassword(auth, email, password);
     return LogInResult.Success;
   } catch (error) {
-    console.log(error);
-    // if (error instanceof FirebaseError) {
-    //   if (error.code === AuthErrorCodes.WEAK_PASSWORD) return CreateAccountResult.WeakPassword;
-    //   else if (error.code === AuthErrorCodes.INVALID_EMAIL) return CreateAccountResult.InvalidEmail;
-    //   else if (error.code === AuthErrorCodes.EMAIL_EXISTS) return CreateAccountResult.EmailInUse;
-    // }
-    // return CreateAccountResult.Failed;
+    switch ((error as FirebaseError).code) {
+      case AuthErrorCodes.INVALID_EMAIL:
+      case AuthErrorCodes.USER_DELETED:
+      case AuthErrorCodes.INVALID_PASSWORD:
+        return LogInResult.BadCredentials;
+      default:
+        console.error(`Unknown Firebase error when logging in: ${error}`);
+        return LogInResult.Failed;
+    }
   }
-  return LogInResult.Success;
 }

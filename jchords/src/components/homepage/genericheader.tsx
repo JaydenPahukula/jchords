@@ -7,7 +7,7 @@ export default function GenericHeader() {
             <h1 class="text-3xl font-bold sm:text-4xl">JChords</h1>
           </a>
         </div>
-        <div id="header-right" class="flex flex-grow items-center justify-end gap-4"></div>
+        <div id="header-right" class="flex grow items-center justify-end gap-4"></div>
       </div>
     </div>
   );

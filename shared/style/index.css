@@ -23,7 +23,7 @@
   --color-fg-link: #0077de;
   --color-fg-link-hover: #00549e;
 
-  --color-dialog-bg: #00000060;
+  --color-dialog-backdrop: #00000060;
 }
 
 @layer components {

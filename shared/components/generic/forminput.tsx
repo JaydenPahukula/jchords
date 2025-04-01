@@ -13,10 +13,10 @@ export default function FormInput(props: FormInputProps) {
     <div
       class={
         c +
-        ' border-b-fg-2 has-focus:border-b-fg-0 flex w-full items-center border-b-1 border-solid has-focus:border-b-[1.5px]'
+        ' border-b-fg-2 focus-within:border-b-fg-0 flex w-full items-center border-b-1 border-solid has-focus:border-b-[1.5px]'
       }
     >
-      <input {...inputProps} class="peer flex-grow p-0.5 outline-none" />
+      <input {...inputProps} class="peer grow p-0.5 outline-none disabled:select-none" />
       <div
         onMouseDown={onXClicked}
         class="hover:bg-bg-button hidden h-7 w-7 rounded-sm p-1 peer-focus:not-peer-placeholder-shown:block"
