@@ -13,6 +13,7 @@ export default async function logIn(email: string, password: string): Promise<Lo
       case AuthErrorCodes.INVALID_EMAIL:
       case AuthErrorCodes.USER_DELETED:
       case AuthErrorCodes.INVALID_PASSWORD:
+      case AuthErrorCodes.INVALID_IDP_RESPONSE:
         return LogInResult.BadCredentials;
       default:
         console.error(`Unknown Firebase error when logging in: ${error}`);
