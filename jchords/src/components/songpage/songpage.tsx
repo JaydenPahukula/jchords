@@ -3,7 +3,7 @@ import LoadState from 'shared/enums/loadstate';
 import SongHeader from 'src/components/songpage/header/songheader';
 import SongPageContent from 'src/components/songpage/songpagecontent';
 import onSongPageLoad from 'src/state/functions/onsongpageload';
-import UIStateContext from 'src/state/uistatecontext';
+import UIStateContext from 'src/state/statecontext';
 
 export default function SongPage({ id }: { id: string }) {
   const { currSongLoadState, currSong } = useContext(UIStateContext);

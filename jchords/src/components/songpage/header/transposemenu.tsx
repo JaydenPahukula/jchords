@@ -7,7 +7,7 @@ import cmAccidentalsTypeToAccidental from 'shared/functions/cmaccidentalstypetoa
 import keyToString from 'shared/functions/keytostring';
 import { setAccidentalsType, setKey, setTransposeValue } from 'src/state/functions/transpose';
 import updateRenderOptions from 'src/state/functions/updaterenderoptions';
-import UIStateContext from 'src/state/uistatecontext';
+import UIStateContext from 'src/state/statecontext';
 
 // prettier-ignore
 const majorKeyOptions = ['C','C#','Db','D','D#','Eb','E','F','F#','Gb','G','G#','Ab','A','A#','Bb','B'];

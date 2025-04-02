@@ -5,14 +5,10 @@ import HomePage from 'src/components/homepage/homepage';
 import SongPage from 'src/components/songpage/songpage';
 import calcSize from 'src/responsiveness/calcsize';
 import initListeners from 'src/state/functions/initlisteners';
-import makeUIState from 'src/state/makeuistate';
 import state from 'src/state/state';
-import UIStateContext from 'src/state/uistatecontext';
-import UIState from 'src/types/uistate';
+import UIStateContext from 'src/state/statecontext';
 
 export default function App() {
-  const uiState: UIState = makeUIState(state);
-
   initListeners();
 
   window.onresize = () => {
@@ -22,7 +18,7 @@ export default function App() {
   return (
     <>
       <DialogManager signal={state.dialog} manifest={dialogManifest} />
-      <UIStateContext.Provider value={uiState}>
+      <UIStateContext.Provider value={state}>
         <Router>
           <Route path="/" component={HomePage} />
           <Route path="/song/:id" component={SongPage} />

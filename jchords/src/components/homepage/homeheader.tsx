@@ -1,30 +1,32 @@
+import { useSignal } from '@preact/signals';
 import { useContext, useRef, useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
 import SearchIcon from 'shared/components/icons/searchicon';
 import XIcon from 'shared/components/icons/xicon';
 import Size from 'shared/enums/size';
 import UserCircle from 'src/components/usercircle/usercircle';
-import UIStateContext from 'src/state/uistatecontext';
+import UIStateContext from 'src/state/statecontext';
 
 export default function HomeHeader() {
   const state = useContext(UIStateContext);
   const [clearHeader, setClearHeader] = useState<boolean>(false);
   const searchBarRef = useRef<HTMLInputElement>(null);
+  const searchText = useSignal('');
 
   const isSm = state.size.value < Size.sm;
 
-  const showXIcon = state.searchText.value.length > 0 || clearHeader;
+  const showXIcon = searchText.value.length > 0 || clearHeader;
 
   function focusSearchBar() {
     searchBarRef.current?.focus();
   }
 
   function clearSearchText() {
-    state.searchText.value = '';
+    searchText.value = '';
   }
 
   function searchBarOnInput(e: JSX.TargetedInputEvent<HTMLInputElement>) {
-    state.searchText.value = e.currentTarget.value;
+    searchText.value = e.currentTarget.value;
   }
 
   function searchBarOnFocus() {
@@ -62,7 +64,7 @@ export default function HomeHeader() {
                 (clearHeader ? 'max-w-screen' : 'max-w-0')
               }
               ref={searchBarRef}
-              value={state.searchText}
+              value={searchText}
               onInput={searchBarOnInput}
               onFocus={searchBarOnFocus}
               type="text"

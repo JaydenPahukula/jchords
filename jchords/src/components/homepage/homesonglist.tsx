@@ -2,7 +2,7 @@ import { useContext } from 'preact/hooks';
 import PlayIcon from 'shared/components/icons/playicon';
 import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
 import LoadState from 'shared/enums/loadstate';
-import UIStateContext from 'src/state/uistatecontext';
+import UIStateContext from 'src/state/statecontext';
 
 export default function HomeSongList() {
   const state = useContext(UIStateContext);

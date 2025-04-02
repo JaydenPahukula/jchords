@@ -1,7 +1,7 @@
 // @ts-expect-error TODO add chord-mark type definitions
 import { renderSong } from 'chord-mark';
 import { useContext } from 'preact/hooks';
-import UIStateContext from 'src/state/uistatecontext';
+import UIStateContext from 'src/state/statecontext';
 
 export default function Chart() {
   const { currSong, renderOptions } = useContext(UIStateContext);

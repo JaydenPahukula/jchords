@@ -4,7 +4,7 @@ import UserIcon from 'shared/components/icons/usericon';
 import Dialog from 'shared/enums/dialog';
 import ExpandableMenuButton from 'src/components/expandablemenubutton/expandablemenubutton';
 import showDialog from 'src/state/functions/showdialog';
-import UIStateContext from 'src/state/uistatecontext';
+import UIStateContext from 'src/state/statecontext';
 
 function UserCircleMenu() {
   return (
