@@ -7,14 +7,14 @@ import cmAccidentalsTypeToAccidental from 'shared/functions/cmaccidentalstypetoa
 import keyToString from 'shared/functions/keytostring';
 import { setAccidentalsType, setKey, setTransposeValue } from 'src/state/functions/transpose';
 import updateRenderOptions from 'src/state/functions/updaterenderoptions';
-import UIStateContext from 'src/state/statecontext';
+import StateContext from 'src/state/statecontext';
 
 // prettier-ignore
 const majorKeyOptions = ['C','C#','Db','D','D#','Eb','E','F','F#','Gb','G','G#','Ab','A','A#','Bb','B'];
 const minorKeyOptions = majorKeyOptions.map((s) => s + 'm');
 
 export default function TransposeMenu() {
-  const { currSong, renderOptions } = useContext(UIStateContext);
+  const { currSong, renderOptions } = useContext(StateContext);
 
   const { defaultKey, defaultAccidental, mode } = currSong.value;
   const renderOpts = renderOptions.value;

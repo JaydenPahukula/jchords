@@ -5,10 +5,10 @@ import SearchIcon from 'shared/components/icons/searchicon';
 import XIcon from 'shared/components/icons/xicon';
 import Size from 'shared/enums/size';
 import UserCircle from 'src/components/usercircle/usercircle';
-import UIStateContext from 'src/state/statecontext';
+import StateContext from 'src/state/statecontext';
 
 export default function HomeHeader() {
-  const state = useContext(UIStateContext);
+  const state = useContext(StateContext);
   const [clearHeader, setClearHeader] = useState<boolean>(false);
   const searchBarRef = useRef<HTMLInputElement>(null);
   const searchText = useSignal('');

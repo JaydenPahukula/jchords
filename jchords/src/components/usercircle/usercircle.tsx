@@ -4,7 +4,7 @@ import UserIcon from 'shared/components/icons/usericon';
 import Dialog from 'shared/enums/dialog';
 import ExpandableMenuButton from 'src/components/expandablemenubutton/expandablemenubutton';
 import showDialog from 'src/state/functions/showdialog';
-import UIStateContext from 'src/state/statecontext';
+import StateContext from 'src/state/statecontext';
 
 function UserCircleMenu() {
   return (
@@ -19,7 +19,7 @@ function UserCircleMenu() {
   );
 }
 export default function UserCircle() {
-  const { user } = useContext(UIStateContext);
+  const { user } = useContext(StateContext);
 
   const isSignedIn = user.value !== null;
 
