@@ -15,6 +15,10 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "jchords-editor",
+      "public": "jchords-editor/dist/"
     }
   ],
   "firestore": {

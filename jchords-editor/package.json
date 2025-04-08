@@ -1,0 +1,28 @@
+{
+  "name": "jchords-editor",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "npm run build && vite preview",
+    "deploy": "npm run build && firebase deploy --only hosting:jchords-editor"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.9.4",
+    "@tailwindcss/postcss": "^4.0.6",
+    "@tailwindcss/vite": "^4.0.6",
+    "autoprefixer": "^10.4.20",
+    "prettier-plugin-tailwindcss": "^0.6.10",
+    "tailwindcss": "^4.0.6",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "firebase": "^11.3.0",
+    "@preact/signals": "^2.0.1",
+    "chord-mark": "^0.17.0",
+    "preact": "^10.25.4",
+    "preact-router": "^4.1.2",
+    "shared": "file:../shared"
+  }
+}

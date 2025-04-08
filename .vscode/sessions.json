@@ -21,6 +21,13 @@
         ]
       },
       {
+        "name": "jchords-editor dev",
+        "autoExecuteCommands": true,
+        "commands": [
+          "npm run dev-editor"
+        ]
+      },
+      {
         "name": "backend dev",
         "autoExecuteCommands": true,
         "commands": [
