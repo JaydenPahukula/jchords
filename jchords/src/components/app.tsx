@@ -1,8 +1,8 @@
 import Router, { Route } from 'preact-router';
 import DialogManager from 'shared/components/dialogs/dialogmanager';
-import dialogManifest from 'src/components/dialogs/dialogmanifest';
 import HomePage from 'src/components/homepage/homepage';
 import SongPage from 'src/components/songpage/songpage';
+import dialogManifest from 'src/dialogs/dialogmanifest';
 import calcSize from 'src/responsiveness/calcsize';
 import initListeners from 'src/state/functions/initlisteners';
 import state from 'src/state/state';
