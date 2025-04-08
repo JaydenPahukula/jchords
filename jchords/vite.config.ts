@@ -12,5 +12,5 @@ export default defineConfig({
       src: '/src',
     },
   },
-  envDir: '../',
+  envDir: '../env',
 });
