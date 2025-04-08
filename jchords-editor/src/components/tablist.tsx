@@ -1,0 +1,34 @@
+import { useContext } from 'preact/hooks';
+import PlusIcon from 'shared/components/icons/plusicon';
+import XIcon from 'shared/components/icons/xicon';
+import { closeTab, newTab, switchTab } from 'src/state/functions/tabs';
+import StateContext from 'src/state/statecontext';
+
+export default function TabList() {
+  const state = useContext(StateContext);
+
+  return (
+    <div class="no-scrollbar flex h-8 w-full gap-2 self-end overflow-x-auto">
+      {state.tabs.value.map(({ song }, index) => (
+        <div
+          onClick={() => switchTab(index)}
+          class={
+            'grid cursor-default grid-cols-[118px_28px] items-center ' +
+            (index === state.tabIndex.value ? 'bg-bg-0' : 'bg-bg-1 hover:bg-bg-0')
+          }
+        >
+          <p class="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap">{song.info.title}</p>
+          <button
+            onClick={() => closeTab(index)}
+            class="hover:bg-bg-button active:bg-bg-button-hover m-[6px] ml-0.5 cursor-pointer rounded-sm p-[3px]"
+          >
+            <XIcon />
+          </button>
+        </div>
+      ))}
+      <button onClick={newTab} class="bg-bg-1 hover:bg-bg-0 w-8 cursor-pointer p-[7px]">
+        <PlusIcon />
+      </button>
+    </div>
+  );
+}
