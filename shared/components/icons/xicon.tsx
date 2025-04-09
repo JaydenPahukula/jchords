@@ -10,8 +10,8 @@ export default function XIcon() {
       stroke-linejoin="round"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <line x1="5" y1="5" x2="19" y2="19"></line>
-      <line x1="5" y1="19" x2="19" y2="5"></line>
+      <line x1="4" y1="4" x2="20" y2="20"></line>
+      <line x1="4" y1="20" x2="20" y2="4"></line>
     </svg>
   );
 }

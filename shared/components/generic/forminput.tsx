@@ -19,11 +19,11 @@ export default function FormInput(props: FormInputProps) {
       <input {...inputProps} class="peer grow p-0.5 outline-none disabled:select-none" />
       <div
         onMouseDown={onXClicked}
-        class="hover:bg-bg-button hidden h-7 w-7 rounded-sm p-1 peer-focus:not-peer-placeholder-shown:block"
+        class="hover:bg-bg-button hidden h-7 w-7 rounded-sm p-[6px] peer-focus:not-peer-placeholder-shown:block"
       >
         <XIcon />
       </div>
-      {icon && <div class="not-peer-focus:text-fg-1 h-7 w-7 p-1">{icon}</div>}
+      {icon && <div class="not-peer-focus:text-fg-1 h-7 w-7 p-[5px]">{icon}</div>}
     </div>
   );
 }

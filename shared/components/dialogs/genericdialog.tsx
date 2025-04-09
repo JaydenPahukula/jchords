@@ -18,14 +18,14 @@ export default function GenericDialog(props: GenericDialogProps) {
         <div
           onClick={() => props.dialogRef.current?.close()}
           tabindex={0}
-          class="hover:bg-bg-button active:bg-bg-button-hover float-right h-8 w-8 rounded-md p-0.5"
+          class="hover:bg-bg-button active:bg-bg-button-hover float-right h-8 w-8 rounded-md p-[5px]"
         >
           <XIcon />
         </div>
       )}
       <div class="flex min-h-2">
         {props.otherButtons?.map((button) => (
-          <div class="hover:bg-bg-button active:bg-bg-button-hover float-right h-8 w-8 rounded-md p-0.5">
+          <div class="hover:bg-bg-button active:bg-bg-button-hover float-right h-8 w-8 rounded-md p-[5px]">
             {button}
           </div>
         ))}

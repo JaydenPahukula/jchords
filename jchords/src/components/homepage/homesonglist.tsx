@@ -30,7 +30,7 @@ export default function HomeSongList() {
                 class="bg-bg-button hover:bg-bg-button-hover active:bg-bg-button-active row-span-2 flex cursor-pointer items-center gap-2 rounded-lg p-3 transition-all select-none"
               >
                 <label class="hidden h-min cursor-pointer sm:block">Open</label>
-                <div class="w-7">
+                <div class="w-6">
                   <PlayIcon />
                 </div>
               </a>

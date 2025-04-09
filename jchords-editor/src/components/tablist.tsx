@@ -29,13 +29,13 @@ export default function TabList() {
               closeTab(index);
               e.stopPropagation();
             }}
-            class="hover:bg-bg-button active:bg-bg-button-hover m-[6px] ml-0.5 cursor-pointer rounded-sm p-[3px]"
+            class="hover:bg-bg-button active:bg-bg-button-hover m-[6px] ml-0.5 cursor-pointer rounded-sm p-[3.5px]"
           >
             <XIcon />
           </button>
         </div>
       ))}
-      <button onClick={newTab} class="bg-bg-1 hover:bg-bg-0 w-8 cursor-pointer p-[9px]">
+      <button onClick={newTab} class="bg-bg-1 hover:bg-bg-0 w-8 cursor-pointer p-[9.5px]">
         <PlusIcon />
       </button>
     </div>

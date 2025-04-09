@@ -9,7 +9,8 @@ export default function SearchIcon() {
       stroke-width="2"
       stroke-linecap="round"
     >
-      <path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"></path>
+      <circle cx="9" cy="9" r="8"></circle>
+      <line x1="15.3" y1="15.3" x2="22" y2="22"></line>
     </svg>
   );
 }

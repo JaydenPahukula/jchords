@@ -10,8 +10,8 @@ export default function ArrowLeftIcon() {
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      <polyline points="10 5 3 12 10 19"></polyline>
-      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <polyline points="9 4 1 12 9 20"></polyline>
+      <line x1="1" y1="12" x2="23" y2="12"></line>
     </svg>
   );
 }
