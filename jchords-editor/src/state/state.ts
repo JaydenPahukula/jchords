@@ -7,8 +7,8 @@ import makeWelcomeSong from 'src/functions/makewelcomesong';
 const welcomeSong = makeWelcomeSong();
 
 // these are here so computed signals in state do not cause circular definition
-const songs = signal<{ [key: string]: { song: Song; new: boolean } }>({
-  [welcomeSong.info.id]: { song: welcomeSong, new: true },
+const songs = signal<{ [key: string]: { song: Song; new: boolean; modified: boolean } }>({
+  [welcomeSong.info.id]: { song: welcomeSong, new: true, modified: false },
 });
 const tabs = signal<string[]>([welcomeSong.info.id]);
 const tabIndex = signal<number>(0);

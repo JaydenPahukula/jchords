@@ -15,15 +15,18 @@ export default function TabList() {
 
   return (
     <div class="no-scrollbar flex h-8 w-full gap-2 self-end overflow-x-auto">
-      {songList.value.map(({ song }, index) => (
+      {songList.value.map(({ song, modified }, index) => (
         <div
+          key={song.info.id}
           onClick={() => switchTab(index)}
           class={
-            'grid cursor-default grid-cols-[118px_28px] items-center ' +
+            'grid cursor-default grid-cols-[124px_28px] items-center ' +
             (index === state.tabIndex.value ? 'bg-bg-0' : 'bg-bg-1 hover:bg-bg-0')
           }
         >
-          <p class="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap">{song.info.title}</p>
+          <p class="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
+            {(modified ? '* ' : '') + song.info.title}
+          </p>
           <button
             onClick={(e) => {
               closeTab(index);
