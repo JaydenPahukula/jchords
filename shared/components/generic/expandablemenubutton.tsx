@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 interface ExpandableMenuButtonProps {
   children: ComponentChild;
   menu: ComponentChild;
+  rjust?: boolean;
 }
 
 export default function ExpandableMenuButton(props: ExpandableMenuButtonProps) {
@@ -27,13 +28,20 @@ export default function ExpandableMenuButton(props: ExpandableMenuButtonProps) {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div class="expandable-menu-button flex flex-col items-end">
+    <div
+      class={
+        'expandable-menu-button flex items-end ' + (props.rjust ? 'flex-row' : 'flex-row-reverse')
+      }
+    >
       <div class="flex h-full w-full" ref={buttonContainerRef} onClick={toggle}>
         {props.children}
       </div>
       {isOpen && (
         <div class="relative h-0 w-0">
-          <div ref={menuContainerRef} class="absolute top-[3px] right-0">
+          <div
+            ref={menuContainerRef}
+            class={'absolute top-[3px] ' + (props.rjust ? 'right-0' : 'left-0')}
+          >
             {props.menu}
           </div>
         </div>
