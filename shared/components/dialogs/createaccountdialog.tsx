@@ -1,11 +1,10 @@
 import { batch, useComputed, useSignal } from '@preact/signals';
-import { JSX } from 'preact/jsx-runtime';
 import createAccount from 'shared/auth/createaccount';
 import GenericDialog from 'shared/components/dialogs/genericdialog';
+import FormButton from 'shared/components/generic/formbutton';
 import FormInput from 'shared/components/generic/forminput';
 import ArrowLeftIcon from 'shared/components/icons/arrowlefticon';
 import LockIcon from 'shared/components/icons/lockicon';
-import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
 import CreateAccountResult from 'shared/enums/createaccountresult';
 import Dialog from 'shared/enums/dialog';
 import useDebounce from 'shared/hooks/usedebounce';
@@ -64,8 +63,7 @@ export default function CreateAccountDialog(props: DialogProps) {
 
   const errorMessage = useComputed(() => getErrorMessage(errorState.value));
 
-  function onFormSubmit(e: JSX.TargetedSubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function submit() {
     if (mismatch.value) {
       errorState.value = 'mismatch';
       return;
@@ -94,58 +92,45 @@ export default function CreateAccountDialog(props: DialogProps) {
         </div>,
       ]}
     >
-      <form onSubmit={onFormSubmit}>
-        <h2 class="mb-6 text-3xl font-bold">Create Account</h2>
-        <FormInput
-          type="email"
-          disabled={submitLoading}
-          required
-          title="Please enter a valid email address"
-          value={emailInput}
-          onInput={(e) => (emailInput.value = e.currentTarget.value)}
-          placeholder="Email"
-          onXClicked={() => (emailInput.value = '')}
-          class="mb-8"
-        />
-        <FormInput
-          type="password"
-          disabled={submitLoading}
-          required
-          value={passwordInput}
-          onInput={(e) => (passwordInput.value = e.currentTarget.value)}
-          onClick={selectContent}
-          placeholder="Password"
-          onXClicked={() => (passwordInput.value = '')}
-          icon={<LockIcon />}
-          class="mb-8"
-        />
-        <FormInput
-          type="password"
-          disabled={submitLoading}
-          required
-          value={passwordInput2}
-          onInput={(e) => (passwordInput2.value = e.currentTarget.value)}
-          onClick={selectContent}
-          placeholder="Confirm Password"
-          onXClicked={() => (passwordInput2.value = '')}
-          icon={<LockIcon />}
-        />
-        <p class="text-fg-error mt-1 h-8 text-sm">{errorMessage.value}</p>
-        {submitLoading.value ? (
-          <div class="bg-bg-button flex h-11 w-full items-center justify-center rounded-full">
-            <div class="w-6">
-              <LoadingSpinner />
-            </div>
-          </div>
-        ) : (
-          <input
-            disabled={submitButtonDisabled}
-            type="submit"
-            value="Create"
-            class="bg-bg-button hover:enabled:bg-bg-button-hover active:enabled:bg-bg-button-active disabled:text-fg-disabled h-11 w-full rounded-full enabled:cursor-pointer"
-          ></input>
-        )}
-      </form>
+      <h2 class="mb-6 text-3xl font-bold">Create Account</h2>
+      <FormInput
+        type="email"
+        disabled={submitLoading}
+        required
+        title="Please enter a valid email address"
+        value={emailInput}
+        onInput={(e) => (emailInput.value = e.currentTarget.value)}
+        placeholder="Email"
+        onXClicked={() => (emailInput.value = '')}
+        class="mb-8"
+      />
+      <FormInput
+        type="password"
+        disabled={submitLoading}
+        required
+        value={passwordInput}
+        onInput={(e) => (passwordInput.value = e.currentTarget.value)}
+        onClick={selectContent}
+        placeholder="Password"
+        onXClicked={() => (passwordInput.value = '')}
+        icon={<LockIcon />}
+        class="mb-8"
+      />
+      <FormInput
+        type="password"
+        disabled={submitLoading}
+        required
+        value={passwordInput2}
+        onInput={(e) => (passwordInput2.value = e.currentTarget.value)}
+        onClick={selectContent}
+        placeholder="Confirm Password"
+        onXClicked={() => (passwordInput2.value = '')}
+        icon={<LockIcon />}
+      />
+      <p class="text-fg-error mt-1 h-8 text-sm">{errorMessage.value}</p>
+      <FormButton disabled={submitButtonDisabled} onClick={submit}>
+        Create Account
+      </FormButton>
     </GenericDialog>
   );
   return <>createaccountdialog</>;

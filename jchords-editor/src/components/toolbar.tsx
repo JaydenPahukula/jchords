@@ -2,6 +2,8 @@ import OpenFolderIcon from 'shared/components/icons/openfoldericon';
 import PlusCircleIcon from 'shared/components/icons/pluscircleicon';
 import SaveIcon from 'shared/components/icons/saveicon';
 import UploadIcon from 'shared/components/icons/uploadicon';
+import Dialog from 'shared/enums/dialog';
+import showDialog from 'src/state/functions/showdialog';
 import { newTab } from 'src/state/functions/tabs';
 
 export default function Toolbar() {
@@ -16,7 +18,10 @@ export default function Toolbar() {
         </div>
         <p class="mr-2 whitespace-nowrap">New Song</p>
       </button>
-      <button class="hover:bg-bg-button active:bg-bg-button-hover flex cursor-pointer items-center rounded-md">
+      <button
+        onClick={() => showDialog(Dialog.OpenSong)}
+        class="hover:bg-bg-button active:bg-bg-button-hover flex cursor-pointer items-center rounded-md"
+      >
         <div class="h-full p-[7px] pr-[5px]">
           <OpenFolderIcon />
         </div>
