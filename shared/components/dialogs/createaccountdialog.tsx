@@ -8,8 +8,8 @@ import LockIcon from 'shared/components/icons/lockicon';
 import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
 import CreateAccountResult from 'shared/enums/createaccountresult';
 import Dialog from 'shared/enums/dialog';
+import useDebounce from 'shared/hooks/usedebounce';
 import selectContent from 'shared/misc/selectcontent';
-import useDebounce from 'shared/misc/usedebounce';
 import DialogProps from 'shared/types/dialogprops';
 
 type ErrorState = null | CreateAccountResult | 'loading' | 'mismatch';
