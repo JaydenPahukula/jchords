@@ -14,7 +14,7 @@ export default function TabList() {
   );
 
   return (
-    <div class="no-scrollbar flex h-8 w-full gap-2 self-end overflow-x-auto">
+    <div class="no-scrollbar flex h-8 w-full gap-2 self-end overflow-x-auto pl-4">
       {songList.value.map(({ song, modified }, index) => (
         <div
           key={song.info.id}
