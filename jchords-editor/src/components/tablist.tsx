@@ -21,7 +21,7 @@ export default function TabList() {
           onClick={() => switchTab(index)}
           class={
             'grid cursor-default grid-cols-[124px_28px] items-center ' +
-            (index === state.tabIndex.value ? 'bg-bg-0' : 'bg-bg-1 hover:bg-bg-0')
+            (index === state.tabIndex.value ? 'bg-bg-0' : 'bg-bg-2 hover:bg-bg-0')
           }
         >
           <p class="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
@@ -38,7 +38,7 @@ export default function TabList() {
           </button>
         </div>
       ))}
-      <button onClick={newTab} class="bg-bg-1 hover:bg-bg-0 w-8 cursor-pointer p-[9.5px]">
+      <button onClick={newTab} class="bg-bg-2 hover:bg-bg-0 w-8 cursor-pointer p-[9.5px]">
         <PlusIcon />
       </button>
     </div>

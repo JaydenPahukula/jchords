@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <>
       <GrowlStack />
-      <div id="homepage" class="bg-bg-2 flex h-dvh w-full flex-col">
+      <div id="homepage" class="bg-bg-3 flex h-dvh w-full flex-col">
         <HomeHeader />
         <div class="flex grow flex-col items-center overflow-y-auto">
           <HomeSongList />
