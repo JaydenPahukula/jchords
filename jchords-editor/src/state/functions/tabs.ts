@@ -9,7 +9,10 @@ export function newTab() {
   const newSong = makeNewSong();
   state.tabIndex.value = state.tabs.value.length;
   state.tabs.value = state.tabs.value.concat([newSong.info.id]);
-  state.songs.value = { ...state.songs.value, [newSong.info.id]: { song: newSong, new: true } };
+  state.songs.value = {
+    ...state.songs.value,
+    [newSong.info.id]: { song: newSong, new: true, modified: false },
+  };
 }
 
 export function closeTab(index: number) {

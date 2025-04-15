@@ -34,10 +34,11 @@ export default function Editor({ songSignal }: EditorProps) {
           wrap="off"
           autoCorrect="off"
           autoCapitalize="off"
+          placeholder="Start typing here..."
           disabled={disabled}
           value={songSignal.value?.text}
           onInput={onInput}
-          class="h-full w-full grow resize-none overflow-y-auto p-2 font-mono text-sm outline-none"
+          class="h-full w-full grow resize-none overflow-y-auto p-2 font-mono text-sm outline-none placeholder:italic"
         ></textarea>
       </div>
       <div class="flex flex-col overflow-hidden">

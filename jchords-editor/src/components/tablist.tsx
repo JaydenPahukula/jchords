@@ -38,7 +38,10 @@ export default function TabList() {
           </button>
         </div>
       ))}
-      <button onClick={newTab} class="bg-bg-2 hover:bg-bg-0 w-8 cursor-pointer p-[9.5px]">
+      <button
+        onClick={newTab}
+        class="bg-bg-2 hover:bg-bg-0 mr-4 w-8 shrink-0 cursor-pointer p-[9.5px]"
+      >
         <PlusIcon />
       </button>
     </div>
