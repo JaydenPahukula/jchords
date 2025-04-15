@@ -11,7 +11,7 @@ export default function EditorPage() {
     <div id="editor-page" class="grid h-full w-full grid-rows-[min-content_min-content_auto]">
       <TitleRow />
       <Toolbar />
-      <div class="flex grow">
+      <div class="flex grow overflow-hidden">
         <LeftMenu />
         <Editor songSignal={state.currSong} />
       </div>

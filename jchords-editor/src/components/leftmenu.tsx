@@ -20,7 +20,7 @@ export default function LeftMenu() {
     updateCurrSongInfo({ artist: e.currentTarget.value });
 
   return (
-    <div class="bg-bg-0 border-r-bg-3 h-full w-[25%] max-w-64 border-r-1 px-4 py-2">
+    <div class="bg-bg-0 border-r-bg-4 h-full w-[25%] max-w-64 border-r-1 px-4 py-2">
       <h2 class="my-1 w-full text-center text-lg">Song Info</h2>
       <label>ID:</label>
       <input class="vanilla-input mb-3 w-full" value={visibleId} readonly disabled></input>
