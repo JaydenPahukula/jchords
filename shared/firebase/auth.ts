@@ -1,6 +1,6 @@
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
-import 'shared/declarations/vite-env.d.ts';
 import app from 'shared/firebase/app';
+import 'shared/types/declarations/vite-env.d.ts';
 
 const auth = getAuth(app);
 

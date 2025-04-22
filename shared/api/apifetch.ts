@@ -1,4 +1,4 @@
-import 'shared/declarations/vite-env.d.ts';
+import 'shared/types/declarations/vite-env.d.ts';
 
 type Method = 'GET';
 

@@ -1,5 +1,4 @@
 import { batch, useComputed, useSignal } from '@preact/signals';
-import createAccount from 'shared/auth/createaccount';
 import GenericDialog from 'shared/components/dialogs/genericdialog';
 import FormButton from 'shared/components/generic/formbutton';
 import FormInput from 'shared/components/generic/forminput';
@@ -7,8 +6,9 @@ import ArrowLeftIcon from 'shared/components/icons/arrowlefticon';
 import LockIcon from 'shared/components/icons/lockicon';
 import CreateAccountResult from 'shared/enums/createaccountresult';
 import Dialog from 'shared/enums/dialog';
+import createAccount from 'shared/functions/auth/createaccount';
+import selectContent from 'shared/functions/lambdas/selectcontent';
 import useDebounce from 'shared/hooks/usedebounce';
-import selectContent from 'shared/misc/selectcontent';
 import DialogProps from 'shared/types/dialogprops';
 
 type ErrorState = null | CreateAccountResult | 'loading' | 'mismatch';

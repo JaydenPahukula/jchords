@@ -9,7 +9,6 @@ export function switchTab(index: number) {
 export function newTab(newSong?: Song) {
   if (newSong === undefined) newSong = makeNewSong();
   const isNew = newSong === undefined;
-
   state.tabIndex.value = state.tabs.value.length;
   state.tabs.value = state.tabs.value.concat([newSong.info.id]);
   state.songs.value = {

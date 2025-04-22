@@ -2,7 +2,7 @@ import { computed } from '@preact/signals';
 import { useContext } from 'preact/hooks';
 import PlusIcon from 'shared/components/icons/plusicon';
 import XIcon from 'shared/components/icons/xicon';
-import isDefined from 'shared/functions/isdefined';
+import isDefined from 'shared/functions/lambdas/isdefined';
 import { closeTab, newTab, switchTab } from 'src/state/functions/tabs';
 import StateContext from 'src/state/statecontext';
 

@@ -1,6 +1,4 @@
 import { batch, useComputed, useSignal } from '@preact/signals';
-import logIn from 'shared/auth/login';
-import logInWithGoogle from 'shared/auth/loginwithgoogle';
 import GenericDialog from 'shared/components/dialogs/genericdialog';
 import FormButton from 'shared/components/generic/formbutton';
 import FormInput from 'shared/components/generic/forminput';
@@ -8,7 +6,9 @@ import GoogleIcon from 'shared/components/icons/googleicon';
 import LockIcon from 'shared/components/icons/lockicon';
 import Dialog from 'shared/enums/dialog';
 import LogInResult from 'shared/enums/loginresult';
-import selectContent from 'shared/misc/selectcontent';
+import logIn from 'shared/functions/auth/login';
+import logInWithGoogle from 'shared/functions/auth/loginwithgoogle';
+import selectContent from 'shared/functions/lambdas/selectcontent';
 import DialogProps from 'shared/types/dialogprops';
 
 type ErrorState = null | LogInResult | 'loading';
@@ -44,7 +44,6 @@ export default function LoginDialog(props: DialogProps) {
   }
 
   function submit() {
-    console.log('submit');
     errorState.value = 'loading';
     logIn(emailInput.value, passwordInput.value).then((result) => {
       errorState.value = result;
