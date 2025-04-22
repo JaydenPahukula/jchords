@@ -39,7 +39,7 @@ export default function TabList() {
         </div>
       ))}
       <button
-        onClick={newTab}
+        onClick={() => newTab}
         class="bg-bg-2 hover:bg-bg-0 mr-4 w-8 shrink-0 cursor-pointer p-[9.5px]"
       >
         <PlusIcon />

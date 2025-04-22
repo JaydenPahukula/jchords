@@ -1,3 +1,4 @@
+import Song from 'shared/types/song';
 import makeNewSong from 'src/functions/makenewsong';
 import state from 'src/state/state';
 
@@ -5,13 +6,15 @@ export function switchTab(index: number) {
   state.tabIndex.value = index;
 }
 
-export function newTab() {
-  const newSong = makeNewSong();
+export function newTab(newSong?: Song) {
+  if (newSong === undefined) newSong = makeNewSong();
+  const isNew = newSong === undefined;
+
   state.tabIndex.value = state.tabs.value.length;
   state.tabs.value = state.tabs.value.concat([newSong.info.id]);
   state.songs.value = {
     ...state.songs.value,
-    [newSong.info.id]: { song: newSong, new: true, modified: false },
+    [newSong.info.id]: { song: newSong, new: isNew, modified: false },
   };
 }
 
