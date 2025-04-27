@@ -1,7 +1,7 @@
 {
   "name": "jchords-shared",
   "description": "Shared code between jchords and jchords editor",
-  "private": "true",
+  "private": true,
   "exports": {
     "./components/*": "./components/*.tsx",
     "./*": "./*.ts",

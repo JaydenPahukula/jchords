@@ -1,4 +1,4 @@
-import apiFetch from 'shared/api/apifetch';
+import apiFetch from 'shared/functions/api/apifetch';
 import { isGetSongResponseBody } from 'shared/types/api/getsongresponsebody';
 import Song from 'shared/types/song';
 

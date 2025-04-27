@@ -1,9 +1,9 @@
 import Accidental from 'shared/enums/accidental';
 import Key from 'shared/enums/key';
 import Mode from 'shared/enums/mode';
-import stringToAccidental from 'shared/functions/stringtoaccidental';
-import stringToKey from 'shared/functions/stringtokey';
-import stringToMode from 'shared/functions/stringtomode';
+import stringToAccidental from 'shared/functions/converters/stringtoaccidental';
+import stringToKey from 'shared/functions/converters/stringtokey';
+import stringToMode from 'shared/functions/converters/stringtomode';
 import cmSong from 'shared/types/cm/cmsong';
 
 export default function parseKeyInfo(

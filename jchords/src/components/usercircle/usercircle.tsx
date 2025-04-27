@@ -1,8 +1,8 @@
 import { useContext } from 'preact/hooks';
-import logOut from 'shared/auth/logout';
 import ExpandableMenuButton from 'shared/components/generic/expandablemenubutton';
 import UserIcon from 'shared/components/icons/usericon';
 import Dialog from 'shared/enums/dialog';
+import logOut from 'shared/functions/auth/logout';
 import showDialog from 'src/state/functions/showdialog';
 import StateContext from 'src/state/statecontext';
 

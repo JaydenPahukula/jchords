@@ -1,11 +1,11 @@
 import { useComputed, useSignal } from '@preact/signals';
 import { useEffect } from 'preact/hooks';
-import getSong from 'shared/api/functions/getsong';
-import getSongList from 'shared/api/functions/getsonglist';
 import GenericDialog from 'shared/components/dialogs/genericdialog';
 import FormButton from 'shared/components/generic/formbutton';
 import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
 import Dialog from 'shared/enums/dialog';
+import getSong from 'shared/functions/api/endpoints/getsong';
+import getSongList from 'shared/functions/api/endpoints/getsonglist';
 import DialogProps from 'shared/types/dialogprops';
 import SongInfo from 'shared/types/songinfo';
 import { newTab } from 'src/state/functions/tabs';
