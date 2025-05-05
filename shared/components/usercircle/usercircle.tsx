@@ -1,10 +1,8 @@
-import { useContext } from 'preact/hooks';
+import { User } from 'firebase/auth';
 import ExpandableMenuButton from 'shared/components/generic/expandablemenubutton';
 import UserIcon from 'shared/components/icons/usericon';
 import Dialog from 'shared/enums/dialog';
 import logOut from 'shared/functions/auth/logout';
-import showDialog from 'src/state/functions/showdialog';
-import StateContext from 'src/state/statecontext';
 
 function UserCircleMenu() {
   return (
@@ -18,10 +16,14 @@ function UserCircleMenu() {
     </div>
   );
 }
-export default function UserCircle() {
-  const { user } = useContext(StateContext);
 
-  const isSignedIn = user.value !== null;
+interface UserCircleProps {
+  user: User | null;
+  showDialog: (dialog: Dialog) => void;
+}
+
+export default function UserCircle(props: UserCircleProps) {
+  const isSignedIn = props.user !== null;
 
   return isSignedIn ? (
     <ExpandableMenuButton menu={<UserCircleMenu />}>
@@ -31,7 +33,7 @@ export default function UserCircle() {
     </ExpandableMenuButton>
   ) : (
     <div
-      onClick={() => showDialog(Dialog.Login)}
+      onClick={() => props.showDialog(Dialog.Login)}
       class="hover:outline-bg-button-hover active:outline-bg-button-active bg-bg-button cursor-pointer rounded-full outline-[6px] outline-transparent"
     >
       <UserIcon />

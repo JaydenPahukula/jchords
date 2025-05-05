@@ -1,4 +1,6 @@
+import { ComponentChild } from 'preact';
+
 export default interface Growl {
-  message: string;
+  content: ComponentChild;
   type?: Growl;
 }

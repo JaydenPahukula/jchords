@@ -8,11 +8,11 @@ function GrowlInstance({ growl }: { growl: GrowlRecord }) {
     <div
       key={growl.id}
       class={
-        'bg-bg-0 z-20 flex items-center gap-1 rounded-md p-3 text-lg shadow-lg! transition-opacity duration-1000 ' +
+        'bg-bg-0 z-20 flex w-max items-center gap-1 rounded-md p-3 text-lg shadow-lg! transition-opacity duration-1000 ' +
         (growl.stage === GrowlStage.Fade ? 'opacity-0' : '')
       }
     >
-      <p class="mx-2">{growl.message}</p>
+      <p class="mx-2 w-max shrink-0">{growl.content}</p>
       <button
         onClick={growl.close}
         class="hover:bg-bg-button active:bg-bg-button-hover h-9 w-9 rounded-sm p-[6px]"

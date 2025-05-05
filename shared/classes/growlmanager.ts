@@ -6,7 +6,7 @@ import GrowlRecord from 'shared/types/growlrecord';
 const growlTimeout = 10000;
 const growlFadeDuration = 1000;
 
-export class GrowlManager {
+class GrowlManager {
   private nextId = signal(0);
   private growls = signal<{ [key: number]: GrowlRecord }>({});
   private order = signal<number[]>([]);

@@ -3,8 +3,9 @@ import { useContext, useRef, useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
 import SearchIcon from 'shared/components/icons/searchicon';
 import XIcon from 'shared/components/icons/xicon';
+import UserCircle from 'shared/components/usercircle/usercircle';
 import Size from 'shared/enums/size';
-import UserCircle from 'src/components/usercircle/usercircle';
+import showDialog from 'src/state/functions/showdialog';
 import StateContext from 'src/state/statecontext';
 
 export default function HomeHeader() {
@@ -82,7 +83,7 @@ export default function HomeHeader() {
           </div>
           {!clearHeader && (
             <div class="w-11">
-              <UserCircle />
+              <UserCircle user={state.user.value} showDialog={showDialog} />
             </div>
           )}
         </div>

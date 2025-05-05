@@ -4,5 +4,5 @@ import auth from 'shared/firebase/auth';
 
 export default function logOut() {
   signOut(auth);
-  growlManager.dispatchGrowl({ message: 'Signed out successfully' });
+  growlManager.dispatchGrowl({ content: 'Signed out successfully' });
 }
