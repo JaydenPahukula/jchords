@@ -1,6 +1,6 @@
-import SongInfo, { isSongInfo, makeEmptySongInfo } from 'shared/types/songinfo';
+import { SongInfo, isSongInfo, makeEmptySongInfo } from 'shared/types/songinfo';
 
-export default interface Song {
+export interface Song {
   info: SongInfo;
   text: string;
 }

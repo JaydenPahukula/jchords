@@ -1,7 +1,7 @@
-import growlManager from 'shared/classes/growlmanager';
-import Dialog from 'shared/enums/dialog';
-import showDialog from 'src/state/functions/showdialog';
-import state from 'src/state/state';
+import { growlManager } from 'shared/classes/growlmanager';
+import { Dialog } from 'shared/enums/dialog';
+import { showDialog } from 'src/state/functions/showdialog';
+import { state } from 'src/state/state';
 
 const notSignedInGrowl = {
   content: (
@@ -14,7 +14,7 @@ const notSignedInGrowl = {
   ),
 };
 
-export default function save() {
+export function save() {
   if (state.user.value === null) {
     growlManager.dispatchGrowl(notSignedInGrowl);
     return;

@@ -1,11 +1,11 @@
 import { batch } from '@preact/signals';
-import Accidental from 'shared/enums/accidental';
-import calcTransposeValue from 'shared/functions/calctransposevalue';
-import accidentalToCmAccidentalsType from 'shared/functions/converters/accidentaltocmaccidentalstype';
-import stringToAccidental from 'shared/functions/converters/stringtoaccidental';
-import stringToKey from 'shared/functions/converters/stringtokey';
-import updateRenderOptions from 'src/state/functions/updaterenderoptions';
-import state from 'src/state/state';
+import { Accidental } from 'shared/enums/accidental';
+import { calcTransposeValue } from 'shared/functions/calctransposevalue';
+import { accidentalToCmAccidentalsType } from 'shared/functions/converters/accidentaltocmaccidentalstype';
+import { stringToAccidental } from 'shared/functions/converters/stringtoaccidental';
+import { stringToKey } from 'shared/functions/converters/stringtokey';
+import { updateRenderOptions } from 'src/state/functions/updaterenderoptions';
+import { state } from 'src/state/state';
 
 export function resetTransposeOptions() {
   batch(() => {

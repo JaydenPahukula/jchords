@@ -3,15 +3,15 @@ import { ReadonlySignal, useComputed } from '@preact/signals';
 import { parseSong, renderSong } from 'chord-mark';
 import { useRef } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
-import useMatchScrollEffect from 'shared/hooks/usematchscrolleffect';
-import Song from 'shared/types/song';
+import { useMatchScrollEffect } from 'shared/hooks/usematchscrolleffect';
+import { Song } from 'shared/types/song';
 import { updateCurrSong } from 'src/state/functions/song';
 
 interface EditorProps {
   songSignal: ReadonlySignal<Song | undefined>;
 }
 
-export default function Editor({ songSignal }: EditorProps) {
+export function Editor({ songSignal }: EditorProps) {
   const sourceRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   useMatchScrollEffect(sourceRef, previewRef);

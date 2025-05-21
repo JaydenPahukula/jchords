@@ -1,7 +1,7 @@
-import Song from 'shared/types/song';
-import getTmpId from 'src/functions/gettmpid';
+import { Song } from 'shared/types/song';
+import { getTmpId } from 'src/functions/gettmpid';
 
-export default function makeNewSong(): Song {
+export function makeNewSong(): Song {
   return {
     info: {
       id: getTmpId(),

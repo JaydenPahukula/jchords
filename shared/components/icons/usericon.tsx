@@ -1,4 +1,4 @@
-export default function UserIcon() {
+export function UserIcon() {
   return (
     <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="2 2 20 20">
       <path

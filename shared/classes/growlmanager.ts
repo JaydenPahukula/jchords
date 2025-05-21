@@ -1,7 +1,7 @@
 import { batch, computed, signal } from '@preact/signals';
-import GrowlStage from 'shared/enums/growlstage';
-import Growl from 'shared/types/growl';
-import GrowlRecord from 'shared/types/growlrecord';
+import { GrowlStage } from 'shared/enums/growlstage';
+import { Growl } from 'shared/types/growl';
+import { GrowlRecord } from 'shared/types/growlrecord';
 
 const growlTimeout = 10000;
 const growlFadeDuration = 1000;
@@ -57,6 +57,4 @@ class GrowlManager {
   }
 }
 
-const growlManager = new GrowlManager();
-
-export default growlManager;
+export const growlManager = new GrowlManager();

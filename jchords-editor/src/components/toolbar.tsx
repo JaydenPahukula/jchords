@@ -1,15 +1,15 @@
 import { useContext } from 'preact/hooks';
-import OpenFolderIcon from 'shared/components/icons/openfoldericon';
-import PlusCircleIcon from 'shared/components/icons/pluscircleicon';
-import SaveIcon from 'shared/components/icons/saveicon';
-import UploadIcon from 'shared/components/icons/uploadicon';
-import Dialog from 'shared/enums/dialog';
-import save from 'src/state/functions/save';
-import showDialog from 'src/state/functions/showdialog';
+import { OpenFolderIcon } from 'shared/components/icons/openfoldericon';
+import { PlusCircleIcon } from 'shared/components/icons/pluscircleicon';
+import { SaveIcon } from 'shared/components/icons/saveicon';
+import { UploadIcon } from 'shared/components/icons/uploadicon';
+import { Dialog } from 'shared/enums/dialog';
+import { save } from 'src/state/functions/save';
+import { showDialog } from 'src/state/functions/showdialog';
 import { newTab } from 'src/state/functions/tabs';
-import StateContext from 'src/state/statecontext';
+import { StateContext } from 'src/state/statecontext';
 
-export default function Toolbar() {
+export function Toolbar() {
   const { songs, currSongId } = useContext(StateContext);
 
   const saveButtonDisabled = !songs.value[currSongId.value ?? '']?.modified;

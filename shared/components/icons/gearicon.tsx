@@ -1,4 +1,4 @@
-export default function GearIcon() {
+export function GearIcon() {
   return (
     <svg
       class="icon"

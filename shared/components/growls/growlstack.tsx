@@ -1,7 +1,7 @@
-import growlManager from 'shared/classes/growlmanager';
-import XIcon from 'shared/components/icons/xicon';
-import GrowlStage from 'shared/enums/growlstage';
-import GrowlRecord from 'shared/types/growlrecord';
+import { growlManager } from 'shared/classes/growlmanager';
+import { XIcon } from 'shared/components/icons/xicon';
+import { GrowlStage } from 'shared/enums/growlstage';
+import { GrowlRecord } from 'shared/types/growlrecord';
 
 function GrowlInstance({ growl }: { growl: GrowlRecord }) {
   return (
@@ -23,7 +23,7 @@ function GrowlInstance({ growl }: { growl: GrowlRecord }) {
   );
 }
 
-export default function GrowlStack() {
+export function GrowlStack() {
   return (
     <div class="absolute right-0 bottom-0 flex flex-col items-end gap-4 p-4">
       {growlManager.growlList.value.map((g) => (

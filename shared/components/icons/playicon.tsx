@@ -1,4 +1,4 @@
-export default function PlayIcon() {
+export function PlayIcon() {
   return (
     <svg
       class="icon"

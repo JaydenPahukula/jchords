@@ -1,6 +1,6 @@
-import SongInfo, { isSongInfo } from 'shared/types/songinfo';
+import { SongInfo, isSongInfo } from 'shared/types/songinfo';
 
-export default interface GetSongListResponseBody {
+export interface GetSongListResponseBody {
   songList: SongInfo[];
 }
 

@@ -1,10 +1,10 @@
 import { useContext } from 'preact/hooks';
-import UserCircle from 'shared/components/usercircle/usercircle';
-import TabList from 'src/components/tablist';
-import showDialog from 'src/state/functions/showdialog';
-import StateContext from 'src/state/statecontext';
+import { UserCircle } from 'shared/components/usercircle/usercircle';
+import { TabList } from 'src/components/tablist';
+import { showDialog } from 'src/state/functions/showdialog';
+import { StateContext } from 'src/state/statecontext';
 
-export default function TitleRow() {
+export function TitleRow() {
   const { user } = useContext(StateContext);
 
   return (

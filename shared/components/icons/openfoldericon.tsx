@@ -1,4 +1,4 @@
-export default function OpenFolderIcon() {
+export function OpenFolderIcon() {
   return (
     <svg
       viewBox="0 0 24 24"

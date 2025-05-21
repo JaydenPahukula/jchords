@@ -3,9 +3,9 @@ import { useContext } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
 import { makeEmptySong } from 'shared/types/song';
 import { updateCurrSongInfo } from 'src/state/functions/song';
-import StateContext from 'src/state/statecontext';
+import { StateContext } from 'src/state/statecontext';
 
-export default function LeftMenu() {
+export function LeftMenu() {
   const state = useContext(StateContext);
   const disabled = useComputed(() => state.currSong.value === undefined);
 

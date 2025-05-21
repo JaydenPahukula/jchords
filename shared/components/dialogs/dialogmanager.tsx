@@ -1,14 +1,14 @@
 import { Signal, useSignalEffect } from '@preact/signals';
 import { useEffect, useRef } from 'preact/hooks';
-import Dialog from 'shared/enums/dialog';
-import DialogManifest from 'shared/types/dialogmanifest';
+import { Dialog } from 'shared/enums/dialog';
+import { DialogManifest } from 'shared/types/dialogmanifest';
 
 interface DialogManagerProps {
   signal: Signal<Dialog>;
   manifest: DialogManifest;
 }
 
-export default function DialogManager({ signal, manifest }: DialogManagerProps) {
+export function DialogManager({ signal, manifest }: DialogManagerProps) {
   // create refs and listeners for each dialog
   const dialogs = manifest.map((entry) => {
     return {

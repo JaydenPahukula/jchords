@@ -1,4 +1,4 @@
-import cmAccidental from 'shared/types/cm/cmaccidental';
+import { cmAccidental } from 'shared/types/cm/cmaccidental';
 
 export type cmAccidentalsType = cmAccidental | 'auto';
 
@@ -6,7 +6,7 @@ type cmPrintBarSeperators = 'never' | 'grids' | 'always';
 
 type cmSymbolType = 'chord' | 'roman';
 
-export default interface cmRenderOptions {
+export interface cmRenderOptions {
   accidentalsType: cmAccidentalsType;
   transposeValue: number;
   printBarSeparators: cmPrintBarSeperators;

@@ -4,7 +4,7 @@ type Method = 'GET';
 
 const API_URL = new URL(import.meta.env.VITE_API_URL);
 
-export default async function apiFetch<RequestBody = undefined>(
+export async function apiFetch<RequestBody = undefined>(
   method: Method,
   path: string,
   body?: RequestBody,

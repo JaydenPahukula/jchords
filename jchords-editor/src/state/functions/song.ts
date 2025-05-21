@@ -1,6 +1,6 @@
-import Song from 'shared/types/song';
-import SongInfo from 'shared/types/songinfo';
-import state from 'src/state/state';
+import { Song } from 'shared/types/song';
+import { SongInfo } from 'shared/types/songinfo';
+import { state } from 'src/state/state';
 
 export function updateCurrSongInfo(update: Partial<SongInfo>) {
   const currId = state.currSongId.value;

@@ -1,4 +1,4 @@
-export default function ArrowLeftIcon() {
+export function ArrowLeftIcon() {
   return (
     <svg
       viewBox="0 0 24 24"

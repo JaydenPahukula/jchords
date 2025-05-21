@@ -1,5 +1,5 @@
-import cmAccidental from 'shared/types/cm/cmaccidental';
-import cmKey from 'shared/types/cm/cmkey';
+import { cmAccidental } from 'shared/types/cm/cmaccidental';
+import { cmKey } from 'shared/types/cm/cmkey';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface cmSongLine {} // TODO
@@ -17,7 +17,7 @@ interface cmSongKeys {
   explicit: cmKeyDeclaration[];
 }
 
-export default interface cmSong {
+export interface cmSong {
   allLines: cmSongLine[];
   allChords: cmSongChord[];
   allKeys: cmSongKeys;

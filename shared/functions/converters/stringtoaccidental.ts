@@ -1,4 +1,4 @@
-import Accidental from 'shared/enums/accidental';
+import { Accidental } from 'shared/enums/accidental';
 
 const FLAT_KEYS = [
   'Db',
@@ -19,6 +19,6 @@ const FLAT_KEYS = [
   'Abm',
 ];
 
-export default function stringToAccidental(s: string): Accidental {
+export function stringToAccidental(s: string): Accidental {
   return FLAT_KEYS.includes(s) ? Accidental.Flat : Accidental.Sharp;
 }

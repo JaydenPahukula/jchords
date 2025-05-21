@@ -1,4 +1,4 @@
-export default function GenericHeader() {
+export function GenericHeader() {
   return (
     <div id="header" class="bg-bg-0 z-[1] flex h-18 flex-shrink-0 justify-center !shadow-md">
       <div id="header-content" class="flex h-full w-full max-w-5xl items-stretch gap-4 px-4">

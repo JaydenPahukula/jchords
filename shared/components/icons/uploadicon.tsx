@@ -1,4 +1,4 @@
-export default function UploadIcon() {
+export function UploadIcon() {
   return (
     <svg
       viewBox="0 0 24 24"

@@ -1,6 +1,6 @@
-import Size from 'shared/enums/size';
+import { Size } from 'shared/enums/size';
 
-export default function calcSize(): Size {
+export function calcSize(): Size {
   const w = window.innerWidth;
   if (w < 640) return Size.none;
   if (w < 768) return Size.sm;

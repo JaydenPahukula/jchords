@@ -1,7 +1,5 @@
-const enum GrowlType {
+export const enum GrowlType {
   Success,
   Warn,
   Error,
 }
-
-export default GrowlType;

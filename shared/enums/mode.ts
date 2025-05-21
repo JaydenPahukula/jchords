@@ -1,6 +1,4 @@
-const enum Mode {
+export const enum Mode {
   Major,
   Minor,
 }
-
-export default Mode;

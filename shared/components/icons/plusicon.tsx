@@ -1,4 +1,4 @@
-export default function PlusIcon() {
+export function PlusIcon() {
   return (
     <svg
       class="icon"

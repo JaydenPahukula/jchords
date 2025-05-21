@@ -1,6 +1,6 @@
-import Song, { isSong } from 'shared/types/song';
+import { Song, isSong } from 'shared/types/song';
 
-export default interface GetSongResponseBody {
+export interface GetSongResponseBody {
   song: Song;
 }
 

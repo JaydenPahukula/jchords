@@ -4,10 +4,7 @@ import { useEffect } from 'preact/hooks';
 /*
  * Matches the scroll percent of two elements
  */
-export default function useMatchScrollEffect(
-  aRef: RefObject<HTMLElement>,
-  bRef: RefObject<HTMLElement>,
-) {
+export function useMatchScrollEffect(aRef: RefObject<HTMLElement>, bRef: RefObject<HTMLElement>) {
   useEffect(() => {
     if (aRef.current === null || bRef.current === null) return;
 

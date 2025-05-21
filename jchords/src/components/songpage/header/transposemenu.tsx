@@ -1,19 +1,19 @@
 import { useContext } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
-import Accidental from 'shared/enums/accidental';
-import Mode from 'shared/enums/mode';
-import calcKey from 'shared/functions/calckey';
-import cmAccidentalsTypeToAccidental from 'shared/functions/converters/cmaccidentalstypetoaccidental';
-import keyToString from 'shared/functions/converters/keytostring';
+import { Accidental } from 'shared/enums/accidental';
+import { Mode } from 'shared/enums/mode';
+import { calcKey } from 'shared/functions/calckey';
+import { cmAccidentalsTypeToAccidental } from 'shared/functions/converters/cmaccidentalstypetoaccidental';
+import { keyToString } from 'shared/functions/converters/keytostring';
 import { setAccidentalsType, setKey, setTransposeValue } from 'src/state/functions/transpose';
-import updateRenderOptions from 'src/state/functions/updaterenderoptions';
-import StateContext from 'src/state/statecontext';
+import { updateRenderOptions } from 'src/state/functions/updaterenderoptions';
+import { StateContext } from 'src/state/statecontext';
 
 // prettier-ignore
 const majorKeyOptions = ['C','C#','Db','D','D#','Eb','E','F','F#','Gb','G','G#','Ab','A','A#','Bb','B'];
 const minorKeyOptions = majorKeyOptions.map((s) => s + 'm');
 
-export default function TransposeMenu() {
+export function TransposeMenu() {
   const { currSong, renderOptions } = useContext(StateContext);
 
   const { defaultKey, defaultAccidental, mode } = currSong.value;

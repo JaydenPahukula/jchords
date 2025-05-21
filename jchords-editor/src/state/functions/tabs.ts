@@ -1,6 +1,6 @@
-import Song from 'shared/types/song';
-import makeNewSong from 'src/functions/makenewsong';
-import state from 'src/state/state';
+import { Song } from 'shared/types/song';
+import { makeNewSong } from 'src/functions/makenewsong';
+import { state } from 'src/state/state';
 
 export function switchTab(index: number) {
   state.tabIndex.value = index;

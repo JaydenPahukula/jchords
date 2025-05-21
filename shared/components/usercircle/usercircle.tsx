@@ -1,8 +1,8 @@
 import { User } from 'firebase/auth';
-import ExpandableMenuButton from 'shared/components/generic/expandablemenubutton';
-import UserIcon from 'shared/components/icons/usericon';
-import Dialog from 'shared/enums/dialog';
-import logOut from 'shared/functions/auth/logout';
+import { ExpandableMenuButton } from 'shared/components/generic/expandablemenubutton';
+import { UserIcon } from 'shared/components/icons/usericon';
+import { Dialog } from 'shared/enums/dialog';
+import { logOut } from 'shared/functions/auth/logout';
 
 function UserCircleMenu() {
   return (
@@ -22,7 +22,7 @@ interface UserCircleProps {
   showDialog: (dialog: Dialog) => void;
 }
 
-export default function UserCircle(props: UserCircleProps) {
+export function UserCircle(props: UserCircleProps) {
   const isSignedIn = props.user !== null;
 
   return isSignedIn ? (

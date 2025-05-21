@@ -1,6 +1,4 @@
 import { createContext } from 'preact';
-import State from 'src/types/state';
+import { State } from 'src/types/state';
 
-const StateContext = createContext<State>(undefined!);
-
-export default StateContext;
+export const StateContext = createContext<State>(undefined!);

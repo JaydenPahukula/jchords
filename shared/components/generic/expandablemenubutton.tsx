@@ -7,7 +7,7 @@ interface ExpandableMenuButtonProps {
   rjust?: boolean;
 }
 
-export default function ExpandableMenuButton(props: ExpandableMenuButtonProps) {
+export function ExpandableMenuButton(props: ExpandableMenuButtonProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const menuContainerRef = useRef<HTMLDivElement | null>(null);
   const buttonContainerRef = useRef<HTMLDivElement | null>(null);

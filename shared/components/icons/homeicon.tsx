@@ -1,4 +1,4 @@
-export default function HomeIcon() {
+export function HomeIcon() {
   return (
     <svg
       class="icon"

@@ -5,7 +5,7 @@ interface SongHeaderButtonProps {
   onClick?: () => void;
 }
 
-export default function SongHeaderButton(props: SongHeaderButtonProps) {
+export function SongHeaderButton(props: SongHeaderButtonProps) {
   return (
     <button
       class="text-fg-8 hover:bg-fg-8/10 active:bg-fg-8/20 w-10 rounded-md"

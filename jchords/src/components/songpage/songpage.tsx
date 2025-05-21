@@ -1,11 +1,11 @@
 import { useContext, useEffect } from 'preact/hooks';
-import LoadState from 'shared/enums/loadstate';
-import SongHeader from 'src/components/songpage/header/songheader';
-import SongPageContent from 'src/components/songpage/songpagecontent';
-import onSongPageLoad from 'src/state/functions/onsongpageload';
-import StateContext from 'src/state/statecontext';
+import { LoadState } from 'shared/enums/loadstate';
+import { SongHeader } from 'src/components/songpage/header/songheader';
+import { SongPageContent } from 'src/components/songpage/songpagecontent';
+import { onSongPageLoad } from 'src/state/functions/onsongpageload';
+import { StateContext } from 'src/state/statecontext';
 
-export default function SongPage({ id }: { id: string }) {
+export function SongPage({ id }: { id: string }) {
   const { currSongLoadState, currSong } = useContext(StateContext);
 
   useEffect(() => onSongPageLoad(id), []);

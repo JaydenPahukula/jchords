@@ -1,5 +1,5 @@
 import { ComponentChild, ComponentChildren, RefObject } from 'preact';
-import XIcon from 'shared/components/icons/xicon';
+import { XIcon } from 'shared/components/icons/xicon';
 
 interface GenericDialogProps {
   dialogRef: RefObject<HTMLDialogElement>;
@@ -8,7 +8,7 @@ interface GenericDialogProps {
   otherButtons?: ComponentChild[];
 }
 
-export default function GenericDialog(props: GenericDialogProps) {
+export function GenericDialog(props: GenericDialogProps) {
   return (
     <dialog
       ref={props.dialogRef}

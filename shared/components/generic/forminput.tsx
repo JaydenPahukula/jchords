@@ -1,13 +1,13 @@
 import { ComponentChild } from 'preact';
 import { JSX } from 'preact/jsx-runtime';
-import XIcon from 'shared/components/icons/xicon';
+import { XIcon } from 'shared/components/icons/xicon';
 
 interface FormInputProps extends JSX.InputHTMLAttributes {
   icon?: ComponentChild;
   onXClicked?: () => void;
 }
 
-export default function FormInput(props: FormInputProps) {
+export function FormInput(props: FormInputProps) {
   const { icon, onXClicked, class: c, ...inputProps } = props;
   return (
     <div

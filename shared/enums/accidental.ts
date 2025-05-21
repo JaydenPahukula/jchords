@@ -1,6 +1,4 @@
-const enum Accidental {
+export const enum Accidental {
   Sharp,
   Flat,
 }
-
-export default Accidental;

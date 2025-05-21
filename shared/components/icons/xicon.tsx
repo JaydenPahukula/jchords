@@ -1,4 +1,4 @@
-export default function XIcon() {
+export function XIcon() {
   return (
     <svg
       class="icon"

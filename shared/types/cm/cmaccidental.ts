@@ -1,3 +1,1 @@
-type cmAccidental = 'flat' | 'sharp';
-
-export default cmAccidental;
+export type cmAccidental = 'flat' | 'sharp';

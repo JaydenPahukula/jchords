@@ -1,8 +1,6 @@
-const enum LoadState {
+export const enum LoadState {
   None,
   Loading,
   Error,
   Loaded,
 }
-
-export default LoadState;

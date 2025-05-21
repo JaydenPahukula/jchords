@@ -1,4 +1,4 @@
-export default function MusicNoteIcon() {
+export function MusicNoteIcon() {
   return (
     <svg
       class="icon"

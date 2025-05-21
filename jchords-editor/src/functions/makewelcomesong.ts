@@ -1,6 +1,6 @@
-import Song from 'shared/types/song';
+import { Song } from 'shared/types/song';
 
-export default function makeWelcomeSong(): Song {
+export function makeWelcomeSong(): Song {
   return {
     info: {
       id: 'welcome',

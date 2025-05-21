@@ -1,15 +1,15 @@
 import { route } from 'preact-router';
 import { useContext } from 'preact/hooks';
-import ExpandableMenuButton from 'shared/components/generic/expandablemenubutton';
-import GearIcon from 'shared/components/icons/gearicon';
-import HomeIcon from 'shared/components/icons/homeicon';
-import MusicNoteIcon from 'shared/components/icons/musicnoteicon';
-import SongHeaderButton from 'src/components/songpage/header/songheaderbutton';
-import TestMenu from 'src/components/songpage/header/testmenu';
-import TransposeMenu from 'src/components/songpage/header/transposemenu';
-import StateContext from 'src/state/statecontext';
+import { ExpandableMenuButton } from 'shared/components/generic/expandablemenubutton';
+import { GearIcon } from 'shared/components/icons/gearicon';
+import { HomeIcon } from 'shared/components/icons/homeicon';
+import { MusicNoteIcon } from 'shared/components/icons/musicnoteicon';
+import { SongHeaderButton } from 'src/components/songpage/header/songheaderbutton';
+import { TestMenu } from 'src/components/songpage/header/testmenu';
+import { TransposeMenu } from 'src/components/songpage/header/transposemenu';
+import { StateContext } from 'src/state/statecontext';
 
-export default function SongHeader() {
+export function SongHeader() {
   const state = useContext(StateContext);
 
   return (

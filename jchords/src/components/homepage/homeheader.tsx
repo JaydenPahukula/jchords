@@ -1,14 +1,14 @@
 import { useSignal } from '@preact/signals';
 import { useContext, useRef, useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
-import SearchIcon from 'shared/components/icons/searchicon';
-import XIcon from 'shared/components/icons/xicon';
-import UserCircle from 'shared/components/usercircle/usercircle';
-import Size from 'shared/enums/size';
-import showDialog from 'src/state/functions/showdialog';
-import StateContext from 'src/state/statecontext';
+import { SearchIcon } from 'shared/components/icons/searchicon';
+import { XIcon } from 'shared/components/icons/xicon';
+import { UserCircle } from 'shared/components/usercircle/usercircle';
+import { Size } from 'shared/enums/size';
+import { showDialog } from 'src/state/functions/showdialog';
+import { StateContext } from 'src/state/statecontext';
 
-export default function HomeHeader() {
+export function HomeHeader() {
   const state = useContext(StateContext);
   const [clearHeader, setClearHeader] = useState<boolean>(false);
   const searchBarRef = useRef<HTMLInputElement>(null);

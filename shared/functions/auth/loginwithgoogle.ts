@@ -1,12 +1,12 @@
 import { FirebaseError } from '@firebase/util';
 import { AuthErrorCodes, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import LogInResult from 'shared/enums/loginresult';
-import auth from 'shared/firebase/auth';
+import { LogInResult } from 'shared/enums/loginresult';
+import { auth } from 'shared/firebase/auth';
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
 
-export default async function logInWithGoogle(): Promise<LogInResult> {
+export async function logInWithGoogle(): Promise<LogInResult> {
   try {
     await signInWithPopup(auth, googleProvider);
     return LogInResult.Success;

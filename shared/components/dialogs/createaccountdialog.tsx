@@ -1,15 +1,15 @@
 import { batch, useComputed, useSignal } from '@preact/signals';
-import GenericDialog from 'shared/components/dialogs/genericdialog';
-import FormButton from 'shared/components/generic/formbutton';
-import FormInput from 'shared/components/generic/forminput';
-import ArrowLeftIcon from 'shared/components/icons/arrowlefticon';
-import LockIcon from 'shared/components/icons/lockicon';
-import CreateAccountResult from 'shared/enums/createaccountresult';
-import Dialog from 'shared/enums/dialog';
-import createAccount from 'shared/functions/auth/createaccount';
-import selectContent from 'shared/functions/lambdas/selectcontent';
-import useDebounce from 'shared/hooks/usedebounce';
-import DialogProps from 'shared/types/dialogprops';
+import { GenericDialog } from 'shared/components/dialogs/genericdialog';
+import { FormButton } from 'shared/components/generic/formbutton';
+import { FormInput } from 'shared/components/generic/forminput';
+import { ArrowLeftIcon } from 'shared/components/icons/arrowlefticon';
+import { LockIcon } from 'shared/components/icons/lockicon';
+import { CreateAccountResult } from 'shared/enums/createaccountresult';
+import { Dialog } from 'shared/enums/dialog';
+import { createAccount } from 'shared/functions/auth/createaccount';
+import { selectContent } from 'shared/functions/lambdas/selectcontent';
+import { useDebounce } from 'shared/hooks/usedebounce';
+import { DialogProps } from 'shared/types/dialogprops';
 
 type ErrorState = null | CreateAccountResult | 'loading' | 'mismatch';
 
@@ -30,7 +30,7 @@ function getErrorMessage(errorState: ErrorState): string {
   }
 }
 
-export default function CreateAccountDialog(props: DialogProps) {
+export function CreateAccountDialog(props: DialogProps) {
   const emailInput = useSignal('');
   const passwordInput = useSignal('');
   const passwordInput2 = useSignal('');

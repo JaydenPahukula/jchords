@@ -9,6 +9,5 @@ import { JSX } from 'preact/jsx-runtime';
  * <input onClick={selectContent} />
  * ```
  */
-const selectContent = (e: JSX.TargetedMouseEvent<HTMLInputElement>) => e.currentTarget.select();
-
-export default selectContent;
+export const selectContent = (e: JSX.TargetedMouseEvent<HTMLInputElement>) =>
+  e.currentTarget.select();

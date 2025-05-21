@@ -1,4 +1,4 @@
-export default function LockIcon() {
+export function LockIcon() {
   return (
     <svg
       class="icon"

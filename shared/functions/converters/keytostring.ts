@@ -1,13 +1,9 @@
-import Accidental from 'shared/enums/accidental';
-import Key from 'shared/enums/key';
-import Mode from 'shared/enums/mode';
+import { Accidental } from 'shared/enums/accidental';
+import { Key } from 'shared/enums/key';
+import { Mode } from 'shared/enums/mode';
 
 /** Get the string representation of the given key. */
-export default function keyToString(
-  key: Key,
-  accidental: Accidental,
-  mode: Mode = Mode.Major,
-): string {
+export function keyToString(key: Key, accidental: Accidental, mode: Mode = Mode.Major): string {
   if (mode == Mode.Major) {
     if (accidental == Accidental.Sharp) {
       return ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'][key];

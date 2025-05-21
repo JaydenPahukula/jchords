@@ -1,10 +1,10 @@
 import { useContext } from 'preact/hooks';
-import PlayIcon from 'shared/components/icons/playicon';
-import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
-import LoadState from 'shared/enums/loadstate';
-import StateContext from 'src/state/statecontext';
+import { PlayIcon } from 'shared/components/icons/playicon';
+import { LoadingSpinner } from 'shared/components/loadingspinner/loadingspinner';
+import { LoadState } from 'shared/enums/loadstate';
+import { StateContext } from 'src/state/statecontext';
 
-export default function HomeSongList() {
+export function HomeSongList() {
   const state = useContext(StateContext);
 
   switch (state.songListLoadState.value) {

@@ -1,4 +1,4 @@
-export default function PlusCircleIcon() {
+export function PlusCircleIcon() {
   return (
     <svg
       class="icon"

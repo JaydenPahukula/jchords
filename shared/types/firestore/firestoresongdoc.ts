@@ -1,4 +1,4 @@
-export default interface FirestoreSongDoc {
+export interface FirestoreSongDoc {
   id: string;
   text: string;
 }

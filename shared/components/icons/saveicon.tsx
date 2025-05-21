@@ -1,4 +1,4 @@
-export default function SaveIcon() {
+export function SaveIcon() {
   return (
     <svg
       viewBox="0 0 24 24"

@@ -1,11 +1,14 @@
 import { Handler, Request, Response } from 'express';
-import GetSongResponseBody from 'shared/types/api/getsongresponsebody';
+import { GetSongResponseBody } from 'shared/types/api/getsongresponsebody';
 import { isFirestoreSongDoc } from 'shared/types/firestore/firestoresongdoc';
 import { isFirestoreSongInfoDoc } from 'shared/types/firestore/firestoresonginfodoc';
-import Song from 'shared/types/song';
-import db from 'src/firebase/firestore';
+import { Song } from 'shared/types/song';
+import { db } from 'src/firebase/firestore';
 
-const getSong: Handler = async (request: Request, response: Response<GetSongResponseBody>) => {
+export const getSong: Handler = async (
+  request: Request,
+  response: Response<GetSongResponseBody>,
+) => {
   const id = request.params.id;
 
   // get info
@@ -29,5 +32,3 @@ const getSong: Handler = async (request: Request, response: Response<GetSongResp
 
   return response.status(200).send({ song: song });
 };
-
-export default getSong;

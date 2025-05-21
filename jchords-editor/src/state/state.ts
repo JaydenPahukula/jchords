@@ -1,8 +1,8 @@
 import { computed, signal } from '@preact/signals';
 import { User } from 'firebase/auth';
-import Dialog from 'shared/enums/dialog';
-import Song from 'shared/types/song';
-import makeWelcomeSong from 'src/functions/makewelcomesong';
+import { Dialog } from 'shared/enums/dialog';
+import { Song } from 'shared/types/song';
+import { makeWelcomeSong } from 'src/functions/makewelcomesong';
 
 const welcomeSong = makeWelcomeSong();
 
@@ -15,7 +15,7 @@ const tabIndex = signal<number>(0);
 const currSongId = computed<string | undefined>(() => tabs.value[tabIndex.value]);
 
 /** Global app state */
-const state = {
+export const state = {
   songs: songs,
   tabs: tabs,
   tabIndex: tabIndex,
@@ -24,5 +24,3 @@ const state = {
   user: signal<User | null>(null),
   dialog: signal<Dialog>(Dialog.None),
 };
-
-export default state;

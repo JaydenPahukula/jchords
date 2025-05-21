@@ -1,6 +1,6 @@
 import { ReadonlySignal } from '@preact/signals';
 import { ComponentChild, ComponentChildren } from 'preact';
-import LoadingSpinner from 'shared/components/loadingspinner/loadingspinner';
+import { LoadingSpinner } from 'shared/components/loadingspinner/loadingspinner';
 
 interface FormButtonProps {
   children?: ComponentChildren;
@@ -10,7 +10,7 @@ interface FormButtonProps {
   onClick?: () => void;
 }
 
-export default function FormButton(props: FormButtonProps) {
+export function FormButton(props: FormButtonProps) {
   return (
     <button
       disabled={props.disabled}

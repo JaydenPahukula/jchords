@@ -1,5 +1,5 @@
 // for responsiveness
-const enum Size {
+export const enum Size {
   none,
   sm,
   md,
@@ -7,5 +7,3 @@ const enum Size {
   xl,
   xxl,
 }
-
-export default Size;

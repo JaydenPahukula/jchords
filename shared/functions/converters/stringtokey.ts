@@ -1,4 +1,4 @@
-import Key from 'shared/enums/key';
+import { Key } from 'shared/enums/key';
 
 // prettier-ignore
 const KEY_STRINGS = [
@@ -16,7 +16,7 @@ const KEY_STRINGS = [
   ['B','G#m','Abm']
 ]
 
-export default function stringToKey(s: string): Key {
+export function stringToKey(s: string): Key {
   const index = KEY_STRINGS.findIndex((l) => l.includes(s));
   if (index == -1) return Key.C;
   return index;

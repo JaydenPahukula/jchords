@@ -1,3 +1,1 @@
-const isDefined = (x: unknown) => x !== undefined;
-
-export default isDefined;
+export const isDefined = (x: unknown) => x !== undefined;
