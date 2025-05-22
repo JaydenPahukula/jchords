@@ -6,7 +6,7 @@ import { logOut } from 'shared/functions/auth/logout';
 
 function UserCircleMenu() {
   return (
-    <div class="text-fg-0 bg-bg-0 z-[2] overflow-hidden rounded-lg !shadow-lg">
+    <div class="text-fg-0 bg-bg-0 relative z-20 overflow-hidden rounded-lg !shadow-lg">
       <p
         onClick={logOut}
         class="hover:bg-bg-button active:bg-bg-button-hover px-10 py-6 text-lg whitespace-nowrap"

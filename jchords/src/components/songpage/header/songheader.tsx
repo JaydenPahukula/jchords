@@ -24,12 +24,12 @@ export function SongHeader() {
       </div>
       <h1 class="align-middle text-2xl font-bold">{state.currSong.value?.info.title}</h1>
       <div class="flex flex-1 justify-end gap-2 px-3">
-        <ExpandableMenuButton menu={<TransposeMenu />} rjust>
+        <ExpandableMenuButton menu={<TransposeMenu />}>
           <SongHeaderButton>
             <MusicNoteIcon />
           </SongHeaderButton>
         </ExpandableMenuButton>
-        <ExpandableMenuButton menu={<TestMenu />} rjust>
+        <ExpandableMenuButton menu={<TestMenu />}>
           <SongHeaderButton>
             <GearIcon />
           </SongHeaderButton>
