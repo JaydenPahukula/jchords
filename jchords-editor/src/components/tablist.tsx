@@ -1,5 +1,5 @@
 import { computed } from '@preact/signals';
-import { useContext } from 'preact/hooks';
+import { useContext, useEffect, useRef } from 'preact/hooks';
 import { PlusIcon } from 'shared/components/icons/plusicon';
 import { XIcon } from 'shared/components/icons/xicon';
 import { isDefined } from 'shared/functions/lambdas/isdefined';
@@ -8,13 +8,23 @@ import { StateContext } from 'src/state/statecontext';
 
 export function TabList() {
   const state = useContext(StateContext);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // for sideways scrolling
+  useEffect(
+    () =>
+      ref.current?.addEventListener('wheel', (e) => {
+        if (ref.current !== null) ref.current.scrollLeft += e.deltaY / 2;
+      }),
+    [],
+  );
 
   const songList = computed(() =>
     state.tabs.value.map((id) => state.songs.value[id] ?? undefined).filter(isDefined),
   );
 
   return (
-    <div class="no-scrollbar flex h-8 w-full gap-2 self-end overflow-x-auto pl-4">
+    <div ref={ref} class="no-scrollbar flex h-8 w-full gap-2 self-end overflow-x-auto pl-4">
       {songList.value.map(({ song, modified }, index) => (
         <div
           key={song.info.id}
