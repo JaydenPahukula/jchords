@@ -2,10 +2,12 @@ import { CreateAccountDialog } from 'shared/components/dialogs/createaccountdial
 import { LoginDialog } from 'shared/components/dialogs/logindialog';
 import { Dialog } from 'shared/enums/dialog';
 import { DialogManifest } from 'shared/types/dialogmanifest';
+import { DeleteConfirmationDialog } from 'src/components/dialogs/deleteconfirmationdialog';
 import { OpenSongDialog } from 'src/components/dialogs/opensongdialog';
 
 export const dialogManifest: DialogManifest = [
   { type: Dialog.OpenSong, component: OpenSongDialog },
   { type: Dialog.Login, component: LoginDialog },
   { type: Dialog.CreateAccount, component: CreateAccountDialog },
+  { type: Dialog.DialogConfirmation, component: DeleteConfirmationDialog },
 ];

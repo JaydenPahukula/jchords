@@ -2,7 +2,7 @@ import { apiFetch } from 'shared/functions/api/apifetch';
 import { PatchSongRequestBody } from 'shared/types/api/patchsongrequestbody';
 import { Song } from 'shared/types/song';
 
-export async function apiSaveSong(
+export async function apiUpdateSong(
   song: Song,
   firebaseAuthToken: string,
 ): Promise<true | undefined> {

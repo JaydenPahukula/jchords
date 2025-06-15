@@ -1,4 +1,4 @@
-import { signal } from '@preact/signals';
+import { useSignal } from '@preact/signals';
 import { useContext } from 'preact/hooks';
 import { growlManager } from 'shared/classes/growlmanager';
 import { FormButton } from 'shared/components/generic/formbutton';
@@ -24,12 +24,12 @@ const somethingWentWrongGrowl: Growl = {
 };
 
 const successGrowl: Growl = {
-  content: 'Song saved successfully!',
+  content: 'Song saved successfully',
 };
 
 export function LeftMenuPublishButton() {
   const state = useContext(StateContext);
-  const loading = signal(false);
+  const loading = useSignal(false);
 
   const disabled = !state.isCurrSongModified.value;
   const text = state.isCurrSongNew.value ? 'Publish' : 'Update';

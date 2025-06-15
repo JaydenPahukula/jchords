@@ -1,6 +1,6 @@
 import 'shared/types/declarations/vite-env.d.ts';
 
-type Method = 'GET' | 'PUT' | 'PATCH';
+type Method = 'GET' | 'PUT' | 'PATCH' | 'DELETE';
 
 const API_URL = new URL(import.meta.env.VITE_API_URL);
 

@@ -11,9 +11,9 @@ const tabs = signal<Tab[]>([{ song: welcomeSong, new: true, modified: false }]);
 const tabIndex = signal<number>(0);
 
 const currTab = computed<Tab>(() => {
-  const entry = tabs.value.at(tabIndex.value);
-  if (entry === undefined) throw new Error(`state.tabIndex out of range`);
-  return entry;
+  const tab = tabs.value.at(tabIndex.value);
+  if (tab === undefined) throw new Error(`state.tabIndex out of range`);
+  return tab;
 });
 
 /** Global app state */

@@ -4,4 +4,5 @@ export const enum Dialog {
   CreateAccount,
   OpenSong,
   PublishSong,
+  DialogConfirmation,
 }

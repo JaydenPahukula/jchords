@@ -32,11 +32,12 @@ export function OpenSongDialog(props: DialogProps) {
   }, []);
 
   function submit() {
-    if (selectedSongId.value === undefined) {
+    const id = selectedSongId.value;
+    if (id === undefined) {
       errorState.value = 'error';
     } else {
       errorState.value = 'loading';
-      apiGetSong(selectedSongId.value).then((result) => {
+      apiGetSong(id).then((result) => {
         if (result === undefined) {
           errorState.value = 'error';
         } else {

@@ -1,3 +1,4 @@
+import { useComputed } from '@preact/signals';
 import { useContext } from 'preact/hooks';
 import { OpenFolderIcon } from 'shared/components/icons/openfoldericon';
 import { PlusCircleIcon } from 'shared/components/icons/pluscircleicon';
@@ -8,7 +9,11 @@ import { newTab } from 'src/state/functions/tabs';
 import { StateContext } from 'src/state/statecontext';
 
 export function Toolbar() {
-  const { songs, currSongId } = useContext(StateContext);
+  const state = useContext(StateContext);
+
+  const deleteButtonDisabled = useComputed(
+    () => state.isCurrSongNew.value || state.currSong.value.info.author !== state.user.value?.uid,
+  );
 
   return (
     <div class="bg-bg-0 border-b-bg-4 flex h-9 gap-2 border-b-1 px-2 py-1">
@@ -35,6 +40,16 @@ export function Toolbar() {
           <UploadIcon />
         </div>
         <p class="mr-2 whitespace-nowrap">Import</p>
+      </button>
+      <button
+        disabled={deleteButtonDisabled}
+        onClick={() => showDialog(Dialog.DialogConfirmation)}
+        class="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
+      >
+        <div class="h-full p-[7px] pr-[5px]">
+          <UploadIcon />
+        </div>
+        <p class="mr-2 whitespace-nowrap">Delete</p>
       </button>
     </div>
   );

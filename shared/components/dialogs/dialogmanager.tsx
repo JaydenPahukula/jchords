@@ -15,7 +15,7 @@ export function DialogManager({ signal, manifest }: DialogManagerProps) {
       ...entry,
       ref: useRef<HTMLDialogElement>(null),
       /** Checks and updates the signal if the dialog was closed another way, i.e. with `.close()` */
-      listener: () => {
+      closeListener: () => {
         if (signal.value === entry.type) signal.value = Dialog.None;
       },
     };
@@ -23,15 +23,15 @@ export function DialogManager({ signal, manifest }: DialogManagerProps) {
 
   useEffect(() => {
     // add onClose event listeners
-    dialogs.forEach(({ ref, listener }) => {
-      ref.current?.addEventListener('close', listener);
-      ref.current?.addEventListener('cancel', listener);
+    dialogs.forEach(({ ref, closeListener }) => {
+      ref.current?.addEventListener('close', closeListener);
+      ref.current?.addEventListener('cancel', closeListener);
     });
     // cleanup
     return () =>
-      dialogs.forEach(({ ref, listener }) => {
-        ref.current?.removeEventListener('close', listener);
-        ref.current?.removeEventListener('cancel', listener);
+      dialogs.forEach(({ ref, closeListener }) => {
+        ref.current?.removeEventListener('close', closeListener);
+        ref.current?.removeEventListener('cancel', closeListener);
       });
   });
 

@@ -13,7 +13,7 @@ interface FormButtonProps {
 export function FormButton(props: FormButtonProps) {
   return (
     <button
-      disabled={props.disabled}
+      disabled={props.disabled || props.loading}
       onClick={props.onClick}
       class="bg-bg-button enabled:hover:bg-bg-button-hover enabled:active:bg-bg-button-active flex h-11 w-full flex-col items-center justify-center rounded-full enabled:cursor-pointer"
     >
