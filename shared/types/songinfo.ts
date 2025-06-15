@@ -1,23 +1,24 @@
+import { generateInterfaceChecker, isString } from 'shared/functions/generateInterfaceChecker';
+
 export interface SongInfo {
   id: string;
   title: string;
   artist: string;
+  author: string;
 }
 
-export function isSongInfo(obj: unknown): obj is SongInfo {
-  const objAs = obj as SongInfo;
-  return (
-    !!obj &&
-    typeof objAs.id === 'string' &&
-    typeof objAs.title === 'string' &&
-    typeof objAs.artist === 'string'
-  );
-}
+export const isSongInfo = generateInterfaceChecker<SongInfo>({
+  id: isString,
+  title: isString,
+  artist: isString,
+  author: isString,
+});
 
 export function makeEmptySongInfo(): SongInfo {
   return {
     id: '',
     title: '',
     artist: '',
+    author: '',
   };
 }

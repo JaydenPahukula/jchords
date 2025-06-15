@@ -19,8 +19,10 @@ export default defineConfig([
     },
     extends: ['js/recommended', 'ts/recommended'],
     rules: {
-      'no-relative-import-paths/no-relative-import-paths': ['warn'],
+      'no-empty': 'warn',
+      'no-relative-import-paths/no-relative-import-paths': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-empty-object-type': ['warn', { allowObjectTypes: 'always' }], //['warn', { allowObjectTypes: 'always' }],
       '@typescript-eslint/no-unused-vars': ['warn', { varsIgnorePattern: '^_' }],
     },
   },

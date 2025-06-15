@@ -1,8 +1,6 @@
-import { computed } from '@preact/signals';
 import { useContext, useEffect, useRef } from 'preact/hooks';
 import { PlusIcon } from 'shared/components/icons/plusicon';
 import { XIcon } from 'shared/components/icons/xicon';
-import { isDefined } from 'shared/functions/lambdas/isdefined';
 import { closeTab, newTab, switchTab } from 'src/state/functions/tabs';
 import { StateContext } from 'src/state/statecontext';
 
@@ -19,15 +17,11 @@ export function TabList() {
     [],
   );
 
-  const songList = computed(() =>
-    state.tabs.value.map((id) => state.songs.value[id] ?? undefined).filter(isDefined),
-  );
-
   return (
     <div ref={ref} class="no-scrollbar flex h-8 w-full gap-2 self-end overflow-x-auto pl-4">
-      {songList.value.map(({ song, modified }, index) => (
+      {state.tabs.value.map(({ song, modified }, index) => (
         <div
-          key={song.info.id}
+          key={index}
           onClick={() => switchTab(index)}
           class={
             'grid cursor-default grid-cols-[124px_28px] items-center ' +

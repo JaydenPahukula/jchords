@@ -1,12 +1,12 @@
 import { Song } from 'shared/types/song';
-import { getTmpId } from 'src/functions/gettmpid';
 
 export function makeNewSong(): Song {
   return {
     info: {
-      id: getTmpId(),
+      id: '',
       title: 'New Song',
       artist: '',
+      author: '',
     },
     text: '',
   };

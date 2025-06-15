@@ -10,7 +10,7 @@ export function TitleRow() {
   return (
     <div class="bg-bg-4 flex h-12 w-full">
       <h1 class="mx-3 self-center text-[1.7rem] font-bold whitespace-nowrap">JChords Editor</h1>
-      <div class="relative flex h-full grow items-end">
+      <div class="relative flex h-full shrink grow items-end">
         <div class="absolute h-full w-4 bg-[linear-gradient(90deg,var(--color-bg-4),transparent)]"></div>
         <TabList />
         <div class="absolute right-0 h-full w-4 bg-[linear-gradient(270deg,var(--color-bg-4),transparent)]"></div>

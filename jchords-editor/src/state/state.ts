@@ -3,24 +3,27 @@ import { User } from 'firebase/auth';
 import { Dialog } from 'shared/enums/dialog';
 import { Song } from 'shared/types/song';
 import { makeWelcomeSong } from 'src/functions/makewelcomesong';
+import { Tab } from 'src/types/tab';
 
 const welcomeSong = makeWelcomeSong();
 
-// these are here so computed signals in state do not cause circular definition
-const songs = signal<{ [key: string]: { song: Song; new: boolean; modified: boolean } }>({
-  [welcomeSong.info.id]: { song: welcomeSong, new: true, modified: false },
-});
-const tabs = signal<string[]>([welcomeSong.info.id]);
+const tabs = signal<Tab[]>([{ song: welcomeSong, new: true, modified: false }]);
 const tabIndex = signal<number>(0);
-const currSongId = computed<string | undefined>(() => tabs.value[tabIndex.value]);
+
+const currTab = computed<Tab>(() => {
+  const entry = tabs.value.at(tabIndex.value);
+  if (entry === undefined) throw new Error(`state.tabIndex out of range`);
+  return entry;
+});
 
 /** Global app state */
 export const state = {
-  songs: songs,
   tabs: tabs,
   tabIndex: tabIndex,
-  currSongId: currSongId,
-  currSong: computed<Song | undefined>(() => songs.value[currSongId.value ?? ''].song ?? undefined),
+  currTab: currTab,
+  currSong: computed<Song>(() => currTab.value.song),
+  isCurrSongNew: computed<boolean>(() => currTab.value.new),
+  isCurrSongModified: computed<boolean>(() => currTab.value.modified),
   user: signal<User | null>(null),
   dialog: signal<Dialog>(Dialog.None),
 };

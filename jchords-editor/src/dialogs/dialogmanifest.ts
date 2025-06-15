@@ -5,10 +5,7 @@ import { DialogManifest } from 'shared/types/dialogmanifest';
 import { OpenSongDialog } from 'src/components/dialogs/opensongdialog';
 
 export const dialogManifest: DialogManifest = [
-  {
-    type: Dialog.OpenSong,
-    component: OpenSongDialog,
-  },
+  { type: Dialog.OpenSong, component: OpenSongDialog },
   { type: Dialog.Login, component: LoginDialog },
   { type: Dialog.CreateAccount, component: CreateAccountDialog },
 ];

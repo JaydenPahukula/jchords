@@ -1,46 +1,46 @@
 {
-  "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v10/terminal-keeper.json",
-  "theme": "default",
-  "active": "default",
-  "activateOnStartup": false,
-  "keepExistingTerminals": false,
-  "sessions": {
-    "default": [
-      {
-        "name": "",
-        "focus": true,
-        "commands": [
-          ""
+    "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v10/terminal-keeper.json",
+    "theme": "default",
+    "active": "default",
+    "activateOnStartup": false,
+    "keepExistingTerminals": false,
+    "sessions": {
+        "default": [
+            {
+                "name": "",
+                "focus": true,
+                "commands": [
+                    ""
+                ]
+            },
+            {
+                "name": "jchords dev",
+                "autoExecuteCommands": true,
+                "commands": [
+                    "npm run dev-jchords"
+                ]
+            },
+            {
+                "name": "jchords-editor dev",
+                "autoExecuteCommands": true,
+                "commands": [
+                    "npm run dev-editor"
+                ]
+            },
+            {
+                "name": "backend dev",
+                "autoExecuteCommands": true,
+                "commands": [
+                    "npm run dev-backend"
+                ]
+            },
+            {
+                "name": "emulator",
+                "autoExecuteCommands": true,
+                "commands": [
+                    "npm run emulator"
+                ]
+            }
         ]
-      },
-      {
-        "name": "jchords dev",
-        "autoExecuteCommands": true,
-        "commands": [
-          "npm run dev-jchords"
-        ]
-      },
-      {
-        "name": "jchords-editor dev",
-        "autoExecuteCommands": true,
-        "commands": [
-          "npm run dev-editor"
-        ]
-      },
-      {
-        "name": "backend dev",
-        "autoExecuteCommands": true,
-        "commands": [
-          "npm run dev-backend"
-        ]
-      },
-      {
-        "name": "emulator",
-        "autoExecuteCommands": true,
-        "commands": [
-          "npm run emulator"
-        ]
-      }
-    ]
-  }
+    }
 }

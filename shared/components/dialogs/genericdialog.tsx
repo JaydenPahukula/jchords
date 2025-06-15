@@ -3,7 +3,7 @@ import { XIcon } from 'shared/components/icons/xicon';
 
 interface GenericDialogProps {
   dialogRef: RefObject<HTMLDialogElement>;
-  children: ComponentChildren;
+  children?: ComponentChildren;
   closeButton?: boolean;
   otherButtons?: ComponentChild[];
 }

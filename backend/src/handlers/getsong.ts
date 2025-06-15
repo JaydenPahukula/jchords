@@ -1,33 +1,26 @@
-import { Handler, Request, Response } from 'express';
+import { RequestHandler } from 'express';
 import { GetSongResponseBody } from 'shared/types/api/getsongresponsebody';
 import { isFirestoreSongDoc } from 'shared/types/firestore/firestoresongdoc';
-import { isFirestoreSongInfoDoc } from 'shared/types/firestore/firestoresonginfodoc';
 import { Song } from 'shared/types/song';
 import { db } from 'src/firebase/firestore';
 
-export const getSong: Handler = async (
-  request: Request,
-  response: Response<GetSongResponseBody>,
+export const getSong: RequestHandler<{ id: string }, GetSongResponseBody> = async (
+  request,
+  response,
 ) => {
   const id = request.params.id;
 
-  // get info
-  const infoDoc = await db.collection('songinfo').doc(id).get();
-  if (!infoDoc.exists) return response.status(404).send();
-  const infoDocData = infoDoc.data();
-  if (!isFirestoreSongInfoDoc(infoDocData) || infoDocData.id != id) {
-    return response.status(500).send();
-  }
-  // get song
-  const songDoc = await db.collection('song').doc(id).get();
-  if (!songDoc.exists) return response.status(404).send();
-  const songDocData = songDoc.data() ?? {};
-  if (!isFirestoreSongDoc(songDocData) || songDocData.id != id) return response.status(500).send();
+  const doc = await db.collection('song').doc(id).get();
+
+  if (!doc.exists) return response.status(404).send();
+
+  const data = doc.data();
+  if (!isFirestoreSongDoc(data)) return response.status(500).send();
 
   // construct song
   const song: Song = {
-    text: songDocData.text,
-    info: infoDocData,
+    text: data.text,
+    info: { ...data.info, id: id },
   };
 
   return response.status(200).send({ song: song });

@@ -4,8 +4,8 @@ import { GenericDialog } from 'shared/components/dialogs/genericdialog';
 import { FormButton } from 'shared/components/generic/formbutton';
 import { LoadingSpinner } from 'shared/components/loadingspinner/loadingspinner';
 import { Dialog } from 'shared/enums/dialog';
-import { getSong } from 'shared/functions/api/endpoints/getsong';
-import { getSongList } from 'shared/functions/api/endpoints/getsonglist';
+import { apiGetSong } from 'shared/functions/api/endpoints/getsong';
+import { apiGetSongList } from 'shared/functions/api/endpoints/getsonglist';
 import { DialogProps } from 'shared/types/dialogprops';
 import { SongInfo } from 'shared/types/songinfo';
 import { newTab } from 'src/state/functions/tabs';
@@ -26,7 +26,7 @@ export function OpenSongDialog(props: DialogProps) {
 
   useEffect(() => {
     songList.value = 'loading';
-    getSongList().then((res) => {
+    apiGetSongList().then((res) => {
       songList.value = res === undefined ? 'error' : res;
     });
   }, []);
@@ -36,7 +36,7 @@ export function OpenSongDialog(props: DialogProps) {
       errorState.value = 'error';
     } else {
       errorState.value = 'loading';
-      getSong(selectedSongId.value).then((result) => {
+      apiGetSong(selectedSongId.value).then((result) => {
         if (result === undefined) {
           errorState.value = 'error';
         } else {

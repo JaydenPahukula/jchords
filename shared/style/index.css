@@ -48,6 +48,9 @@
   .vanilla-input {
     @apply disabled:bg-bg-0 disabled:text-fg-1 disabled:outline-fg-2 text-fg-0 border-0 border-black bg-white px-1 outline-1 focus-visible:outline-2;
   }
+  .vanilla-button {
+    @apply bg-bg-button not-disabled:hover:bg-bg-button-hover not-disabled:active:bg-bg-button-active text-fg-0 border-black outline-1 not-disabled:cursor-pointer focus-visible:outline-2;
+  }
   :disabled {
     @apply text-fg-disabled;
   }

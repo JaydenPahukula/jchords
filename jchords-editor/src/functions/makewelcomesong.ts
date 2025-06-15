@@ -6,6 +6,7 @@ export function makeWelcomeSong(): Song {
       id: 'welcome',
       title: 'Welcome',
       artist: '',
+      author: '',
     },
     text: 'this is the welcome song!',
   };

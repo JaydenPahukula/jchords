@@ -1,7 +1,7 @@
 import { batch } from '@preact/signals';
 import { Dialog } from 'shared/enums/dialog';
 import { LoadState } from 'shared/enums/loadstate';
-import { getSong } from 'shared/functions/api/endpoints/getsong';
+import { apiGetSong } from 'shared/functions/api/endpoints/getsong';
 import { parseSong } from 'shared/functions/parsesong';
 import { state } from 'src/state/state';
 
@@ -12,7 +12,7 @@ export function onSongPageLoad(songId: string) {
   });
   if (state.currSongLoadState.value == LoadState.None || state.currSong.value.info.id != songId) {
     state.currSongLoadState.value = LoadState.Loading;
-    getSong(songId).then((result) => {
+    apiGetSong(songId).then((result) => {
       if (result === undefined) {
         state.currSongLoadState.value = LoadState.Error;
       } else {

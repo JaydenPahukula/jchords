@@ -1,9 +1,25 @@
+import {
+  generateInterfaceChecker,
+  isString,
+  ObjectOf,
+} from 'shared/functions/generateInterfaceChecker';
+
 export interface FirestoreSongDoc {
-  id: string;
   text: string;
+  info: {
+    title: string;
+    artist: string;
+    author: string;
+  };
 }
 
-export function isFirestoreSongDoc(obj: unknown): obj is FirestoreSongDoc {
-  const objAs = obj as FirestoreSongDoc;
-  return !!objAs && typeof objAs.id === 'string' && typeof objAs.text === 'string';
-}
+export const isFirestoreSongDoc = generateInterfaceChecker<FirestoreSongDoc>({
+  text: isString,
+  info: ObjectOf(
+    generateInterfaceChecker({
+      title: isString,
+      artist: isString,
+      author: isString,
+    }),
+  ),
+});
