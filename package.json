@@ -29,6 +29,7 @@
     "jchords",
     "jchords-editor",
     "backend",
-    "shared"
+    "shared",
+    "jchords-engine"
   ]
 }

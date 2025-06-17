@@ -1,0 +1,10 @@
+{
+  "name": "jchords-engine",
+  "type": "module",
+  "scripts": {
+    "tests": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.3"
+  }
+}
