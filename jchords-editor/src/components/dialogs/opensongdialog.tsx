@@ -12,7 +12,7 @@ import { newTab } from 'src/state/functions/tabs';
 
 export function OpenSongDialog(props: DialogProps) {
   const songList = useSignal<SongInfo[] | 'loading' | 'error'>('loading');
-  const errorState = useSignal<undefined | 'loading' | 'error'>(undefined);
+  const submitState = useSignal<undefined | 'loading' | 'error'>(undefined);
   const selectedIndex = useSignal<number | undefined>(undefined);
 
   const selectedSongId = useComputed(() => {
@@ -21,28 +21,35 @@ export function OpenSongDialog(props: DialogProps) {
   });
 
   const submitDisabled = useComputed(
-    () => selectedIndex.value === undefined || errorState.value === 'loading',
+    () => selectedIndex.value === undefined || submitState.value === 'loading',
   );
 
   useEffect(() => {
-    songList.value = 'loading';
-    apiGetSongList().then((res) => {
-      songList.value = res === undefined ? 'error' : res;
-    });
+    // only fetch data when the dialog is opened for the first time
+    function fetchData() {
+      if (props.dialogRef.current?.open && !Array.isArray(songList.value)) {
+        songList.value = 'loading';
+        apiGetSongList().then((res) => {
+          songList.value = res === undefined ? 'error' : res;
+        });
+      }
+    }
+    props.dialogRef.current?.addEventListener('toggle', fetchData);
+    return () => props.dialogRef.current?.removeEventListener('toggle', fetchData);
   }, []);
 
   function submit() {
     const id = selectedSongId.value;
     if (id === undefined) {
-      errorState.value = 'error';
+      submitState.value = 'error';
     } else {
-      errorState.value = 'loading';
+      submitState.value = 'loading';
       apiGetSong(id).then((result) => {
         if (result === undefined) {
-          errorState.value = 'error';
+          submitState.value = 'error';
         } else {
           selectedIndex.value = undefined;
-          errorState.value = undefined;
+          submitState.value = undefined;
           props.changeDialog(Dialog.None);
           newTab(result);
         }
@@ -78,13 +85,13 @@ export function OpenSongDialog(props: DialogProps) {
           </ol>
         )}
       </div>
-      {errorState.value === 'error' && (
+      {submitState.value === 'error' && (
         <p class="text-fg-error mb-2 text-sm">Something went wrong. Please try again later</p>
       )}
       <FormButton
         onClick={submit}
         disabled={submitDisabled}
-        loading={errorState.value === 'loading'}
+        loading={submitState.value === 'loading'}
       >
         Open Song
       </FormButton>
