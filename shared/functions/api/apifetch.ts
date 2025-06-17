@@ -1,16 +1,15 @@
+import { HttpMethod } from 'shared/enums/httpmethod';
 import 'shared/types/declarations/vite-env.d.ts';
-
-type Method = 'GET' | 'PUT' | 'PATCH' | 'DELETE';
 
 const API_URL = new URL(import.meta.env.VITE_API_URL);
 
 /**
  * Sends a request to the backend. Returns undefined if something goes wrong.
  *
- * @returns `undefined` if the operation was successful, otherwise returns the body of the response.
+ * @returns `undefined` if the operation was unsuccessful, otherwise returns the body of the response.
  */
 export async function apiFetch<RequestBody extends object | undefined = undefined>(
-  method: Method,
+  method: HttpMethod,
   path: string,
   body?: RequestBody,
   headers?: HeadersInit,
