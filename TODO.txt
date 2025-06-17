@@ -1,5 +1,10 @@
+small stuff
 - api request body type (why is it JSON string?)
 - make dialog render on show instead of page load
 - add icons to growls
 - spruce up deleteconfirmationdialog
 - find proper method enum
+
+big stuff
+- show users songs in open song dialog
+- add edit account page
