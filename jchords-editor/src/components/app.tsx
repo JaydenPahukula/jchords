@@ -15,9 +15,9 @@ export function App() {
 
   return (
     <>
-      <DialogManager signal={state.dialog} manifest={dialogManifest} />
-      <GrowlStack />
       <StateContext.Provider value={state}>
+        <DialogManager signal={state.dialog} manifest={dialogManifest} />
+        <GrowlStack />
         <EditorPage />
       </StateContext.Provider>
     </>

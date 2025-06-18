@@ -1,5 +1,5 @@
 import { useComputed, useSignal } from '@preact/signals';
-import { useEffect } from 'preact/hooks';
+import { useContext, useEffect } from 'preact/hooks';
 import { GenericDialog } from 'shared/components/dialogs/genericdialog';
 import { FormButton } from 'shared/components/generic/formbutton';
 import { LoadingSpinner } from 'shared/components/loadingspinner/loadingspinner';
@@ -9,15 +9,25 @@ import { apiGetSongList } from 'shared/functions/api/endpoints/getsonglist';
 import { DialogProps } from 'shared/types/dialogprops';
 import { SongInfo } from 'shared/types/songinfo';
 import { newTab } from 'src/state/functions/tabs';
+import { StateContext } from 'src/state/statecontext';
 
 export function OpenSongDialog(props: DialogProps) {
-  const songList = useSignal<SongInfo[] | 'loading' | 'error'>('loading');
+  const state = useContext(StateContext);
+
+  const songList = useSignal<SongInfo[]>([]);
+  const songListLoadingState = useSignal<'done' | 'loading' | 'error'>('loading');
   const submitState = useSignal<undefined | 'loading' | 'error'>(undefined);
   const selectedIndex = useSignal<number | undefined>(undefined);
+  const showAllSongs = useSignal<boolean>(true);
+
+  const displaySongList = useComputed(() => {
+    if (showAllSongs.value) return songList.value;
+    return songList.value.filter((info) => info.author === state.user.value?.uid);
+  });
 
   const selectedSongId = useComputed(() => {
-    if (songList.value === 'loading' || songList.value === 'error') return;
-    return songList.value[selectedIndex.value ?? -1]?.id;
+    if (selectedIndex.value === undefined) return undefined;
+    return songList.value[selectedIndex.value]?.id;
   });
 
   const submitDisabled = useComputed(
@@ -27,10 +37,16 @@ export function OpenSongDialog(props: DialogProps) {
   useEffect(() => {
     // only fetch data when the dialog is opened for the first time
     function fetchData() {
-      if (props.dialogRef.current?.open && !Array.isArray(songList.value)) {
-        songList.value = 'loading';
-        apiGetSongList().then((res) => {
-          songList.value = res === undefined ? 'error' : res;
+      if (props.dialogRef.current?.open && songListLoadingState.value != 'error') {
+        songListLoadingState.value = 'loading';
+        songList.value = [];
+        apiGetSongList().then((result) => {
+          if (result === undefined) {
+            songListLoadingState.value = 'error';
+          } else {
+            songListLoadingState.value = 'done';
+            songList.value = result;
+          }
         });
       }
     }
@@ -60,18 +76,31 @@ export function OpenSongDialog(props: DialogProps) {
   return (
     <GenericDialog dialogRef={props.dialogRef} closeButton>
       <h2 class="mb-4 text-3xl font-bold">Open Song</h2>
+      {state.user.value !== null && (
+        <div class="mb-2 inline-block">
+          <input
+            type="checkbox"
+            checked={!showAllSongs.value}
+            onChange={() => (showAllSongs.value = !showAllSongs.value)}
+            class="mr-1"
+          >
+            {' '}
+          </input>
+          Show only your songs
+        </div>
+      )}
       <div class="border-fg-1 mb-2 h-80 border-1">
-        {songList.value === 'loading' ? (
+        {songListLoadingState.value === 'loading' ? (
           <div class="flex h-full w-full items-center justify-center">
             <div class="h-10 w-10">
               <LoadingSpinner />
             </div>
           </div>
-        ) : songList.value === 'error' ? (
+        ) : songListLoadingState.value === 'error' ? (
           <>error</>
         ) : (
           <ol>
-            {songList.value.map((info, i) => (
+            {displaySongList.value.map((info, i) => (
               <li
                 onClick={() => (selectedIndex.value = i)}
                 class={

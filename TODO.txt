@@ -1,5 +1,6 @@
 small stuff
 - api request body type (why is it JSON string?)
+- fix growls
 - add icons to growls
 - spruce up deleteconfirmationdialog
 
