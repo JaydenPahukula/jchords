@@ -27,8 +27,8 @@ export function DeleteConfirmationDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog dialogRef={props.dialogRef} closeButton wide>
-      <p class="my-4 text-lg">Are you sure you want to delete this song? This cannot be undone.</p>
+    <GenericDialog dialogRef={props.dialogRef} closeButton class="w-md">
+      <p class="my-4">Are you sure you want to delete this song? This cannot be undone.</p>
       <div class="flex justify-center">
         <div class="w-[50%]">
           <FormButton onClick={submit} loading={loading.value}>

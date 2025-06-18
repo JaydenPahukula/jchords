@@ -91,6 +91,7 @@ export function CreateAccountDialog(props: DialogProps) {
           <ArrowLeftIcon />
         </div>,
       ]}
+      class="w-96"
     >
       <h2 class="mb-6 text-3xl font-bold">Create Account</h2>
       <FormInput

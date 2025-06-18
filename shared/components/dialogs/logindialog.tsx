@@ -66,7 +66,7 @@ export function LoginDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog dialogRef={props.dialogRef} closeButton>
+    <GenericDialog dialogRef={props.dialogRef} closeButton class="w-96">
       <h2 class="text-3xl font-bold">Sign In</h2>
       <p class="mb-6">
         or{' '}

@@ -74,7 +74,7 @@ export function OpenSongDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog dialogRef={props.dialogRef} closeButton>
+    <GenericDialog dialogRef={props.dialogRef} closeButton class="w-96">
       <h2 class="mb-4 text-3xl font-bold">Open Song</h2>
       {state.user.value !== null && (
         <div class="mb-2 inline-block">

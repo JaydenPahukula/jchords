@@ -5,8 +5,8 @@ interface GenericDialogProps {
   dialogRef: RefObject<HTMLDialogElement>;
   children?: ComponentChildren;
   closeButton?: boolean;
-  wide?: boolean;
   otherButtons?: ComponentChild[];
+  class?: string;
 }
 
 export function GenericDialog(props: GenericDialogProps) {
@@ -15,7 +15,7 @@ export function GenericDialog(props: GenericDialogProps) {
       ref={props.dialogRef}
       class={
         'bg-bg-0 backdrop:bg-dialog-backdrop z-10 m-auto max-w-full overflow-x-hidden overflow-y-auto rounded-lg p-6 shadow-md! ' +
-        (props.wide ? 'w-lg' : 'w-sm')
+        props.class
       }
     >
       {props.closeButton && (

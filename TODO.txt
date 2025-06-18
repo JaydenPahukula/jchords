@@ -3,7 +3,7 @@ small stuff
 - fix growls
 - add icons to growls
 - spruce up deleteconfirmationdialog
+- make enter work for log in dialog
 
 big stuff
-- show users songs in open song dialog
 - add edit account page
