@@ -1,4 +1,6 @@
+import { Theme } from '@radix-ui/themes';
 import { onAuthStateChanged } from 'firebase/auth';
+import { StrictMode } from 'react';
 import { DialogManager } from 'shared/components/dialogs/dialogmanager';
 import { GrowlStack } from 'shared/components/growls/growlstack';
 import { auth } from 'shared/firebase/auth';
@@ -14,12 +16,14 @@ export function App() {
   });
 
   return (
-    <>
-      <StateContext.Provider value={state}>
-        <DialogManager signal={state.dialog} manifest={dialogManifest} />
-        <GrowlStack />
-        <EditorPage />
-      </StateContext.Provider>
-    </>
+    <StrictMode>
+      <Theme grayColor="slate">
+        <StateContext.Provider value={state}>
+          <DialogManager signal={state.dialog} manifest={dialogManifest} />
+          <GrowlStack />
+          <EditorPage />
+        </StateContext.Provider>
+      </Theme>
+    </StrictMode>
   );
 }

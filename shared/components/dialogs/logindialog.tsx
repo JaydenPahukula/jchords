@@ -1,15 +1,16 @@
-import { batch, useComputed, useSignal } from '@preact/signals';
+import { batch, useComputed, useSignal } from '@preact/signals-react';
+import { Dialog } from '@radix-ui/themes';
 import { GenericDialog } from 'shared/components/dialogs/genericdialog';
 import { FormButton } from 'shared/components/generic/formbutton';
 import { FormInput } from 'shared/components/generic/forminput';
 import { GoogleIcon } from 'shared/components/icons/googleicon';
 import { LockIcon } from 'shared/components/icons/lockicon';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { LogInResult } from 'shared/enums/loginresult';
 import { logIn } from 'shared/functions/auth/login';
 import { logInWithGoogle } from 'shared/functions/auth/loginwithgoogle';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
-import { DialogProps } from 'shared/types/dialogprops';
+import { DialogProps } from 'shared/types/dialog/dialogprops';
 
 type ErrorState = null | LogInResult | 'loading';
 
@@ -49,7 +50,7 @@ export function LoginDialog(props: DialogProps) {
       errorState.value = result;
       if (result == LogInResult.Success) {
         clear();
-        props.changeDialog(Dialog.None);
+        props.close();
       }
     });
   }
@@ -60,17 +61,17 @@ export function LoginDialog(props: DialogProps) {
       errorState.value = result;
       if (result == LogInResult.Success) {
         clear();
-        props.changeDialog(Dialog.None);
+        props.close();
       }
     });
   }
 
   return (
-    <GenericDialog dialogRef={props.dialogRef} closeButton class="w-96">
-      <h2 class="text-3xl font-bold">Sign In</h2>
+    <GenericDialog {...props} closeButton>
+      <Dialog.Title>Sign In</Dialog.Title>
       <p class="mb-6">
         or{' '}
-        <span onClick={() => props.changeDialog(Dialog.CreateAccount)} class="link">
+        <span onClick={() => props.changeDialog(DialogType.CreateAccount)} class="link">
           create an account
         </span>
       </p>

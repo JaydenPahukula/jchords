@@ -1,6 +1,6 @@
 import { signal } from '@preact/signals';
 import { User } from 'firebase/auth';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { LoadState } from 'shared/enums/loadstate';
 import { Size } from 'shared/enums/size';
 import { parseSong } from 'shared/functions/parsesong';
@@ -20,5 +20,5 @@ export const state = {
   currSongLoadState: signal<LoadState>(LoadState.None),
   renderOptions: signal<cmRenderOptions>(makeDefaultRenderOptions()),
   user: signal<User | null>(null),
-  dialog: signal<Dialog>(Dialog.None),
+  dialog: signal<DialogType>(DialogType.None),
 };

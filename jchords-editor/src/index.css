@@ -1,1 +1,21 @@
-../../shared/style/index.css
+body {
+  margin: 0;
+}
+
+#title-row {
+  background-color: var(--gray-6);
+}
+
+.icon {
+  height: 100%;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.user-circle-button {
+  background: var(--gray-1);
+}
+
+.user-circle-button:hover {
+  outline: 6px solid var(--gray-4);
+}

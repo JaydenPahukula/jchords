@@ -1,4 +1,4 @@
-import { batch } from '@preact/signals';
+import { batch } from '@preact/signals-react';
 import { apiDeleteSong } from 'shared/functions/api/endpoints/deletesong';
 import { apiNewSong } from 'shared/functions/api/endpoints/newsong';
 import { apiUpdateSong } from 'shared/functions/api/endpoints/updatesong';

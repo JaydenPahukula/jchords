@@ -1,4 +1,5 @@
-import { useContext } from 'preact/hooks';
+import { Box, Flex, Heading } from '@radix-ui/themes';
+import { useContext } from 'react';
 import { UserCircle } from 'shared/components/usercircle/usercircle';
 import { TabList } from 'src/components/tablist';
 import { showDialog } from 'src/state/functions/showdialog';
@@ -8,16 +9,20 @@ export function TitleRow() {
   const { user } = useContext(StateContext);
 
   return (
-    <div class="bg-bg-4 flex h-12 w-full">
-      <h1 class="mx-3 self-center text-[1.7rem] font-bold whitespace-nowrap">JChords Editor</h1>
-      <div class="relative flex h-full shrink grow items-end">
-        <div class="absolute h-full w-4 bg-[linear-gradient(90deg,var(--color-bg-4),transparent)]"></div>
+    <Flex id="title-row" align="end">
+      <Box mx="4" my="auto" asChild>
+        <Heading as="h1" wrap="nowrap" size="7">
+          JChords Editor
+        </Heading>
+      </Box>
+      <Flex flexGrow="1" flexShrink="1" align="end">
+        <Box className="absolute h-full w-4 bg-[linear-gradient(90deg,var(--color-bg-4),transparent)]" />
         <TabList />
-        <div class="absolute right-0 h-full w-4 bg-[linear-gradient(270deg,var(--color-bg-4),transparent)]"></div>
-      </div>
-      <div class="mx-1 h-12 w-12 shrink-0 p-1.5">
+        <Box className="absolute right-0 h-full w-4 bg-[linear-gradient(270deg,var(--color-bg-4),transparent)]" />
+      </Flex>
+      <Box flexShrink="0" width="48px" height="48px">
         <UserCircle user={user.value} showDialog={showDialog} />
-      </div>
-    </div>
+      </Box>
+    </Flex>
   );
 }

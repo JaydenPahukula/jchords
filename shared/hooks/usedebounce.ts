@@ -1,4 +1,4 @@
-import { useRef } from 'preact/hooks';
+import { useRef } from 'react';
 
 /**
  * Preact hook to get the debounced version of a function

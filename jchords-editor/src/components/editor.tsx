@@ -1,8 +1,7 @@
-import { ReadonlySignal, useComputed } from '@preact/signals';
+import { ReadonlySignal, useComputed } from '@preact/signals-react';
 // @ts-expect-error TODO add type definitions to chord-mark
 import { parseSong, renderSong } from 'chord-mark';
-import { useRef } from 'preact/hooks';
-import { JSX } from 'preact/jsx-runtime';
+import { ChangeEvent, useRef } from 'react';
 import { useMatchScrollEffect } from 'shared/hooks/usematchscrolleffect';
 import { Song } from 'shared/types/song';
 import { updateCurrSong } from 'src/state/functions/song';
@@ -20,14 +19,14 @@ export function Editor({ songSignal }: EditorProps) {
 
   const rendered = useComputed<string>(() => renderSong(parseSong(songSignal.value?.text)));
 
-  function onInput(e: JSX.TargetedInputEvent<HTMLTextAreaElement>) {
-    updateCurrSong({ text: e.currentTarget.value });
+  function onInput(e: ChangeEvent<HTMLTextAreaElement>) {
+    updateCurrSong({ text: e.target.value });
   }
 
   return (
-    <div class="bg-bg-1 grid h-full w-full grid-cols-2 overflow-hidden">
-      <div class="border-bg-4 flex flex-col overflow-hidden border-r-1">
-        <h2 class="border-bg-4 border-b-1 text-center text-sm">ChordMark Source</h2>
+    <div className="bg-bg-1 grid h-full w-full grid-cols-2 overflow-hidden">
+      <div className="border-bg-4 flex flex-col overflow-hidden border-r-1">
+        <h2 className="border-bg-4 border-b-1 text-center text-sm">ChordMark Source</h2>
         <textarea
           ref={sourceRef}
           autoComplete="off"
@@ -35,17 +34,17 @@ export function Editor({ songSignal }: EditorProps) {
           autoCorrect="off"
           autoCapitalize="off"
           placeholder="Start typing here..."
-          disabled={disabled}
+          disabled={disabled.value}
           value={songSignal.value?.text}
           onInput={onInput}
-          class="h-full w-full grow resize-none overflow-y-auto p-2 font-mono text-sm outline-none placeholder:italic"
+          className="h-full w-full grow resize-none overflow-y-auto p-2 font-mono text-sm outline-none placeholder:italic"
         ></textarea>
       </div>
-      <div class="flex flex-col overflow-hidden">
-        <h2 class="border-bg-4 border-b-1 text-center text-sm">Preview</h2>
+      <div className="flex flex-col overflow-hidden">
+        <h2 className="border-bg-4 border-b-1 text-center text-sm">Preview</h2>
         <div
           ref={previewRef}
-          class="h-full w-full grow overflow-y-auto p-2 font-mono text-sm"
+          className="h-full w-full grow overflow-y-auto p-2 font-mono text-sm"
           dangerouslySetInnerHTML={{ __html: rendered.value }}
         ></div>
       </div>

@@ -1,4 +1,4 @@
-import { batch, computed, signal } from '@preact/signals';
+import { batch, computed, signal } from '@preact/signals-react';
 import { GrowlStage } from 'shared/enums/growlstage';
 import { Growl } from 'shared/types/growl';
 import { GrowlRecord } from 'shared/types/growlrecord';

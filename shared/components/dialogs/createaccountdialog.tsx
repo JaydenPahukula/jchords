@@ -1,15 +1,16 @@
-import { batch, useComputed, useSignal } from '@preact/signals';
+import { batch, useComputed, useSignal } from '@preact/signals-react';
+import { Dialog } from '@radix-ui/themes';
 import { GenericDialog } from 'shared/components/dialogs/genericdialog';
 import { FormButton } from 'shared/components/generic/formbutton';
 import { FormInput } from 'shared/components/generic/forminput';
 import { ArrowLeftIcon } from 'shared/components/icons/arrowlefticon';
 import { LockIcon } from 'shared/components/icons/lockicon';
 import { CreateAccountResult } from 'shared/enums/createaccountresult';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { createAccount } from 'shared/functions/auth/createaccount';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
 import { useDebounce } from 'shared/hooks/usedebounce';
-import { DialogProps } from 'shared/types/dialogprops';
+import { DialogProps } from 'shared/types/dialog/dialogprops';
 
 type ErrorState = null | CreateAccountResult | 'loading' | 'mismatch';
 
@@ -77,23 +78,22 @@ export function CreateAccountDialog(props: DialogProps) {
           passwordInput.value = '';
           passwordInput2.value = '';
         });
-        props.changeDialog(Dialog.None); // close dialog
+        props.changeDialog(DialogType.None); // close dialog
       }
     });
   }
 
   return (
     <GenericDialog
-      dialogRef={props.dialogRef}
+      {...props}
       closeButton
       otherButtons={[
-        <div onClick={() => props.changeDialog(Dialog.Login)}>
+        <div onClick={() => props.changeDialog(DialogType.Login)}>
           <ArrowLeftIcon />
         </div>,
       ]}
-      class="w-96"
     >
-      <h2 class="mb-6 text-3xl font-bold">Create Account</h2>
+      <Dialog.Title>Create Account</Dialog.Title>
       <FormInput
         type="email"
         disabled={submitLoading}

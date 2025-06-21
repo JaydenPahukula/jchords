@@ -1,9 +1,9 @@
-import { useComputed } from '@preact/signals';
-import { useContext } from 'preact/hooks';
+import { useComputed } from '@preact/signals-react';
+import { useContext } from 'react';
 import { OpenFolderIcon } from 'shared/components/icons/openfoldericon';
 import { PlusCircleIcon } from 'shared/components/icons/pluscircleicon';
 import { UploadIcon } from 'shared/components/icons/uploadicon';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { showDialog } from 'src/state/functions/showdialog';
 import { newTab } from 'src/state/functions/tabs';
 import { StateContext } from 'src/state/statecontext';
@@ -16,40 +16,43 @@ export function Toolbar() {
   );
 
   return (
-    <div class="bg-bg-0 border-b-bg-4 flex h-9 gap-2 border-b-1 px-2 py-1">
+    <div className="bg-bg-0 border-b-bg-4 flex h-9 gap-2 border-b-1 px-2 py-1">
       <button
         onClick={() => newTab()}
-        class="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
+        className="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
       >
-        <div class="h-full p-[7px] pr-[5px]">
+        <div className="h-full p-[7px] pr-[5px]">
           <PlusCircleIcon />
         </div>
-        <p class="mr-2 whitespace-nowrap">New Song</p>
+        <p className="mr-2 whitespace-nowrap">New Song</p>
       </button>
       <button
-        onClick={() => showDialog(Dialog.OpenSong)}
-        class="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
+        onClick={() => showDialog(DialogType.OpenSong)}
+        className="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
       >
-        <div class="h-full p-[7px] pr-[5px]">
+        <div className="h-full p-[7px] pr-[5px]">
           <OpenFolderIcon />
         </div>
-        <p class="mr-2 whitespace-nowrap">Open Song</p>
-      </button>
-      <button class="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer">
-        <div class="h-full p-[7px] pr-[5px]">
-          <UploadIcon />
-        </div>
-        <p class="mr-2 whitespace-nowrap">Import</p>
+        <p className="mr-2 whitespace-nowrap">Open Song</p>
       </button>
       <button
-        disabled={deleteButtonDisabled}
-        onClick={() => showDialog(Dialog.DialogConfirmation)}
-        class="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
+        onClick={() => showDialog(DialogType.Import)}
+        className="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
       >
-        <div class="h-full p-[7px] pr-[5px]">
+        <div className="h-full p-[7px] pr-[5px]">
           <UploadIcon />
         </div>
-        <p class="mr-2 whitespace-nowrap">Delete</p>
+        <p className="mr-2 whitespace-nowrap">Import</p>
+      </button>
+      <button
+        disabled={deleteButtonDisabled.value}
+        onClick={() => showDialog(DialogType.DialogConfirmation)}
+        className="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
+      >
+        <div className="h-full p-[7px] pr-[5px]">
+          <UploadIcon />
+        </div>
+        <p className="mr-2 whitespace-nowrap">Delete</p>
       </button>
     </div>
   );

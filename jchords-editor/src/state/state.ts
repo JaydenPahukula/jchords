@@ -1,6 +1,6 @@
-import { computed, signal } from '@preact/signals';
+import { computed, signal } from '@preact/signals-react';
 import { User } from 'firebase/auth';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { Song } from 'shared/types/song';
 import { makeWelcomeSong } from 'src/functions/makewelcomesong';
 import { Tab } from 'src/types/tab';
@@ -25,5 +25,5 @@ export const state = {
   isCurrSongNew: computed<boolean>(() => currTab.value.new),
   isCurrSongModified: computed<boolean>(() => currTab.value.modified),
   user: signal<User | null>(null),
-  dialog: signal<Dialog>(Dialog.None),
+  dialog: signal<DialogType>(DialogType.None),
 };

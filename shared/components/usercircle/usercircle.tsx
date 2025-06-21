@@ -1,15 +1,16 @@
+import { signal } from '@preact/signals';
+import { Box, IconButton, Popover } from '@radix-ui/themes';
 import { User } from 'firebase/auth';
-import { ExpandableMenuButton } from 'shared/components/generic/expandablemenubutton';
 import { UserIcon } from 'shared/components/icons/usericon';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { logOut } from 'shared/functions/auth/logout';
 
 function UserCircleMenu() {
   return (
-    <div class="text-fg-0 bg-bg-0 relative z-20 overflow-hidden rounded-lg !shadow-lg">
+    <div className="text-fg-0 bg-bg-0 relative z-20 overflow-hidden rounded-lg !shadow-lg">
       <p
         onClick={logOut}
-        class="hover:bg-bg-button active:bg-bg-button-hover px-10 py-6 text-lg whitespace-nowrap"
+        className="hover:bg-bg-button active:bg-bg-button-hover px-10 py-6 text-lg whitespace-nowrap"
       >
         Sign Out
       </p>
@@ -19,24 +20,41 @@ function UserCircleMenu() {
 
 interface UserCircleProps {
   user: User | null;
-  showDialog: (dialog: Dialog) => void;
+  showDialog: (dialog: DialogType) => void;
 }
 
 export function UserCircle(props: UserCircleProps) {
+  const isMenuOpen = signal(false);
   const isSignedIn = props.user !== null;
 
-  return isSignedIn ? (
-    <ExpandableMenuButton menu={<UserCircleMenu />}>
-      <div class="hover:outline-bg-button-hover active:outline-bg-button-active bg-bg-button cursor-pointer rounded-full outline-[6px] outline-transparent">
-        <UserIcon />
-      </div>
-    </ExpandableMenuButton>
-  ) : (
-    <div
-      onClick={() => props.showDialog(Dialog.Login)}
-      class="hover:outline-bg-button-hover active:outline-bg-button-active bg-bg-button cursor-pointer rounded-full outline-[6px] outline-transparent"
-    >
-      <UserIcon />
-    </div>
+  return (
+    <Popover.Root>
+      <Popover.Trigger>
+        <Box p="6px" width="100%" height="100%">
+          <Box width="100%" height="100%" asChild>
+            <IconButton radius="full" className="user-circle-button">
+              <UserIcon color="var(--gray-12)" />
+            </IconButton>
+          </Box>
+        </Box>
+      </Popover.Trigger>
+      <Popover.Content>
+        <UserCircleMenu />
+      </Popover.Content>
+    </Popover.Root>
   );
+  // return isSignedIn ? (
+  //   <ExpandableMenuButton menu={<UserCircleMenu />}>
+  //     <div className="hover:outline-bg-button-hover active:outline-bg-button-active bg-bg-button cursor-pointer rounded-full outline-[6px] outline-transparent">
+  //       <UserIcon />
+  //     </div>
+  //   </ExpandableMenuButton>
+  // ) : (
+  //   <div
+  //     onClick={() => props.showDialog(DialogType.Login)}
+  //     className="hover:outline-bg-button-hover active:outline-bg-button-active bg-bg-button cursor-pointer rounded-full outline-[6px] outline-transparent"
+  //   >
+  //     <UserIcon />
+  //   </div>
+  // );
 }

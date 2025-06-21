@@ -4,6 +4,13 @@ small stuff
 - add icons to growls
 - spruce up deleteconfirmationdialog
 - make enter work for log in dialog
+- make dialogs close when clicked outside
+- replace delete song icon
+- fix icon framework
 
 big stuff
 - add edit account page
+
+later
+- fix package.json deps
+- replace radix with custom ui lib

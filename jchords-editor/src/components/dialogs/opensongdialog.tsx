@@ -1,12 +1,11 @@
-import { useComputed, useSignal } from '@preact/signals';
-import { useContext, useEffect } from 'preact/hooks';
+import { useComputed, useSignal } from '@preact/signals-react';
+import { Dialog } from '@radix-ui/themes';
+import { useContext, useEffect } from 'react';
 import { GenericDialog } from 'shared/components/dialogs/genericdialog';
 import { FormButton } from 'shared/components/generic/formbutton';
 import { LoadingSpinner } from 'shared/components/loadingspinner/loadingspinner';
-import { Dialog } from 'shared/enums/dialog';
 import { apiGetSong } from 'shared/functions/api/endpoints/getsong';
-import { apiGetSongList } from 'shared/functions/api/endpoints/getsonglist';
-import { DialogProps } from 'shared/types/dialogprops';
+import { DialogProps } from 'shared/types/dialog/dialogprops';
 import { SongInfo } from 'shared/types/songinfo';
 import { newTab } from 'src/state/functions/tabs';
 import { StateContext } from 'src/state/statecontext';
@@ -36,22 +35,22 @@ export function OpenSongDialog(props: DialogProps) {
 
   useEffect(() => {
     // only fetch data when the dialog is opened for the first time
-    function fetchData() {
-      if (props.dialogRef.current?.open && songListLoadingState.value != 'error') {
-        songListLoadingState.value = 'loading';
-        songList.value = [];
-        apiGetSongList().then((result) => {
-          if (result === undefined) {
-            songListLoadingState.value = 'error';
-          } else {
-            songListLoadingState.value = 'done';
-            songList.value = result;
-          }
-        });
-      }
-    }
-    props.dialogRef.current?.addEventListener('toggle', fetchData);
-    return () => props.dialogRef.current?.removeEventListener('toggle', fetchData);
+    // function fetchData() {
+    //   if (props.open.value && songListLoadingState.value != 'error') {
+    //     songListLoadingState.value = 'loading';
+    //     songList.value = [];
+    //     apiGetSongList().then((result) => {
+    //       if (result === undefined) {
+    //         songListLoadingState.value = 'error';
+    //       } else {
+    //         songListLoadingState.value = 'done';
+    //         songList.value = result;
+    //       }
+    //     });
+    //   }
+    // }
+    // props.dialogRef.current?.addEventListener('toggle', fetchData);
+    // return () => props.dialogRef.current?.removeEventListener('toggle', fetchData);
   }, []);
 
   function submit() {
@@ -66,7 +65,7 @@ export function OpenSongDialog(props: DialogProps) {
         } else {
           selectedIndex.value = undefined;
           submitState.value = undefined;
-          props.changeDialog(Dialog.None);
+          // props.changeDialog(Dialog.None);
           newTab(result);
         }
       });
@@ -74,25 +73,25 @@ export function OpenSongDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog dialogRef={props.dialogRef} closeButton class="w-96">
-      <h2 class="mb-4 text-3xl font-bold">Open Song</h2>
+    <GenericDialog {...props} closeButton className="w-96">
+      <Dialog.Title>Open Song</Dialog.Title>
       {state.user.value !== null && (
-        <div class="mb-2 inline-block">
+        <fieldset className="mb-2 inline-block">
           <input
             type="checkbox"
             checked={!showAllSongs.value}
             onChange={() => (showAllSongs.value = !showAllSongs.value)}
-            class="mr-1"
+            className="mr-1"
           >
             {' '}
           </input>
           Show only your songs
-        </div>
+        </fieldset>
       )}
-      <div class="border-fg-1 mb-2 h-80 border-1">
+      <div className="border-fg-1 mb-2 h-80 border-1">
         {songListLoadingState.value === 'loading' ? (
-          <div class="flex h-full w-full items-center justify-center">
-            <div class="h-10 w-10">
+          <div className="flex h-full w-full items-center justify-center">
+            <div className="h-10 w-10">
               <LoadingSpinner />
             </div>
           </div>
@@ -103,7 +102,7 @@ export function OpenSongDialog(props: DialogProps) {
             {displaySongList.value.map((info, i) => (
               <li
                 onClick={() => (selectedIndex.value = i)}
-                class={
+                className={
                   'cursor-pointer overflow-x-hidden overflow-y-auto px-1 text-sm text-ellipsis whitespace-nowrap ' +
                   (selectedIndex.value === i ? 'bg-bg-button-active' : 'hover:bg-bg-button')
                 }
@@ -115,7 +114,7 @@ export function OpenSongDialog(props: DialogProps) {
         )}
       </div>
       {submitState.value === 'error' && (
-        <p class="text-fg-error mb-2 text-sm">Something went wrong. Please try again later</p>
+        <p className="text-fg-error mb-2 text-sm">Something went wrong. Please try again later</p>
       )}
       <FormButton
         onClick={submit}
