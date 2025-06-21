@@ -1,12 +1,11 @@
-import { useComputed, useSignal } from '@preact/signals';
-import { useContext, useEffect } from 'preact/hooks';
+import { useComputed, useSignal } from '@preact-signals/safe-react';
+import { Box, Button, Dialog, Flex, Spinner, Switch, Table, Text } from '@radix-ui/themes';
+import { useContext, useEffect } from 'react';
 import { GenericDialog } from 'shared/components/dialogs/genericdialog';
-import { FormButton } from 'shared/components/generic/formbutton';
-import { LoadingSpinner } from 'shared/components/loadingspinner/loadingspinner';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { apiGetSong } from 'shared/functions/api/endpoints/getsong';
 import { apiGetSongList } from 'shared/functions/api/endpoints/getsonglist';
-import { DialogProps } from 'shared/types/dialogprops';
+import { DialogProps } from 'shared/types/dialog/dialogprops';
 import { SongInfo } from 'shared/types/songinfo';
 import { newTab } from 'src/state/functions/tabs';
 import { StateContext } from 'src/state/statecontext';
@@ -35,24 +34,20 @@ export function OpenSongDialog(props: DialogProps) {
   );
 
   useEffect(() => {
-    // only fetch data when the dialog is opened for the first time
-    function fetchData() {
-      if (props.dialogRef.current?.open && songListLoadingState.value != 'error') {
-        songListLoadingState.value = 'loading';
-        songList.value = [];
-        apiGetSongList().then((result) => {
-          if (result === undefined) {
-            songListLoadingState.value = 'error';
-          } else {
-            songListLoadingState.value = 'done';
-            songList.value = result;
-          }
-        });
-      }
+    // fetch data when the dialog is opened
+    if (props.open.value) {
+      songListLoadingState.value = 'loading';
+      songList.value = [];
+      apiGetSongList().then((result) => {
+        if (result === undefined) {
+          songListLoadingState.value = 'error';
+        } else {
+          songListLoadingState.value = 'done';
+          songList.value = result;
+        }
+      });
     }
-    props.dialogRef.current?.addEventListener('toggle', fetchData);
-    return () => props.dialogRef.current?.removeEventListener('toggle', fetchData);
-  }, []);
+  }, [props.open.value]);
 
   function submit() {
     const id = selectedSongId.value;
@@ -66,7 +61,7 @@ export function OpenSongDialog(props: DialogProps) {
         } else {
           selectedIndex.value = undefined;
           submitState.value = undefined;
-          props.changeDialog(Dialog.None);
+          props.changeDialog(DialogType.None);
           newTab(result);
         }
       });
@@ -74,56 +69,82 @@ export function OpenSongDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog dialogRef={props.dialogRef} closeButton class="w-96">
-      <h2 class="mb-4 text-3xl font-bold">Open Song</h2>
+    <GenericDialog {...props} closeButton width="460px">
+      <Dialog.Title>Open Song</Dialog.Title>
+      <Dialog.Description aria-describedby={undefined} />
       {state.user.value !== null && (
-        <div class="mb-2 inline-block">
-          <input
-            type="checkbox"
+        <Flex as="span" mb="3" align="center" gap="2">
+          <Switch
+            color="indigo"
             checked={!showAllSongs.value}
-            onChange={() => (showAllSongs.value = !showAllSongs.value)}
-            class="mr-1"
-          >
-            {' '}
-          </input>
-          Show only your songs
-        </div>
+            onCheckedChange={() => (showAllSongs.value = !showAllSongs.value)}
+          />
+          <Text>Show only your songs</Text>
+        </Flex>
       )}
-      <div class="border-fg-1 mb-2 h-80 border-1">
-        {songListLoadingState.value === 'loading' ? (
-          <div class="flex h-full w-full items-center justify-center">
-            <div class="h-10 w-10">
-              <LoadingSpinner />
-            </div>
-          </div>
-        ) : songListLoadingState.value === 'error' ? (
-          <>error</>
-        ) : (
-          <ol>
-            {displaySongList.value.map((info, i) => (
-              <li
+      <Table.Root
+        size="1"
+        variant="surface"
+        mb="3"
+        style={{ maxHeight: '600px', overflowX: 'auto' }}
+      >
+        <Table.Body>
+          {songListLoadingState.value === 'loading' ? (
+            <Table.Row>
+              <Table.Cell>
+                <Spinner size="3" mx="auto" my="4" />
+              </Table.Cell>
+            </Table.Row>
+          ) : songListLoadingState.value === 'error' ? (
+            <>error</> // TODO
+          ) : displaySongList.value.length === 0 ? (
+            <Table.Row>
+              <Table.Cell>
+                <Box width="100%" asChild>
+                  <Text align="center" color="gray">
+                    You don't have any songs!
+                  </Text>
+                </Box>
+              </Table.Cell>
+            </Table.Row>
+          ) : (
+            displaySongList.value.map((info, i) => (
+              <Table.Row
+                key={info.id}
                 onClick={() => (selectedIndex.value = i)}
-                class={
-                  'cursor-pointer overflow-x-hidden overflow-y-auto px-1 text-sm text-ellipsis whitespace-nowrap ' +
-                  (selectedIndex.value === i ? 'bg-bg-button-active' : 'hover:bg-bg-button')
+                tabIndex={0}
+                className={
+                  selectedIndex.value === i
+                    ? 'open-song-dialog-row-selected'
+                    : 'open-song-dialog-row'
                 }
               >
-                {info.title}
-              </li>
-            ))}
-          </ol>
-        )}
-      </div>
+                <Table.Cell py="1" style={{ height: '10px' }}>
+                  <Text truncate style={{ cursor: 'pointer' }}>
+                    {info.title}
+                  </Text>
+                </Table.Cell>
+              </Table.Row>
+            ))
+          )}
+        </Table.Body>
+      </Table.Root>
       {submitState.value === 'error' && (
-        <p class="text-fg-error mb-2 text-sm">Something went wrong. Please try again later</p>
+        <Text color="red" size="3">
+          Something went wrong. Please try again later
+        </Text>
       )}
-      <FormButton
-        onClick={submit}
-        disabled={submitDisabled}
-        loading={submitState.value === 'loading'}
-      >
-        Open Song
-      </FormButton>
+      <Flex width="100%" justify="end" mt="3">
+        <Button
+          size="3"
+          variant="surface"
+          onClick={submit}
+          disabled={submitDisabled.value}
+          loading={submitState.value === 'loading'}
+        >
+          Open Song
+        </Button>
+      </Flex>
     </GenericDialog>
   );
 }

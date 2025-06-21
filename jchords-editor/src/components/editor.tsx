@@ -1,8 +1,8 @@
-import { ReadonlySignal, useComputed } from '@preact/signals';
+import { ReadonlySignal, useComputed } from '@preact/signals-react';
+import { Box, Grid, Heading, Text } from '@radix-ui/themes';
 // @ts-expect-error TODO add type definitions to chord-mark
 import { parseSong, renderSong } from 'chord-mark';
-import { useRef } from 'preact/hooks';
-import { JSX } from 'preact/jsx-runtime';
+import { ChangeEvent, useRef } from 'react';
 import { useMatchScrollEffect } from 'shared/hooks/usematchscrolleffect';
 import { Song } from 'shared/types/song';
 import { updateCurrSong } from 'src/state/functions/song';
@@ -13,42 +13,70 @@ interface EditorProps {
 
 export function Editor({ songSignal }: EditorProps) {
   const sourceRef = useRef<HTMLTextAreaElement>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<HTMLPreElement>(null);
   useMatchScrollEffect(sourceRef, previewRef);
 
   const disabled = useComputed(() => songSignal.value === undefined);
 
   const rendered = useComputed<string>(() => renderSong(parseSong(songSignal.value?.text)));
 
-  function onInput(e: JSX.TargetedInputEvent<HTMLTextAreaElement>) {
-    updateCurrSong({ text: e.currentTarget.value });
+  function onInput(e: ChangeEvent<HTMLTextAreaElement>) {
+    updateCurrSong({ text: e.target.value });
   }
 
   return (
-    <div class="bg-bg-1 grid h-full w-full grid-cols-2 overflow-hidden">
-      <div class="border-bg-4 flex flex-col overflow-hidden border-r-1">
-        <h2 class="border-bg-4 border-b-1 text-center text-sm">ChordMark Source</h2>
-        <textarea
-          ref={sourceRef}
-          autoComplete="off"
-          wrap="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-          placeholder="Start typing here..."
-          disabled={disabled}
-          value={songSignal.value?.text}
-          onInput={onInput}
-          class="h-full w-full grow resize-none overflow-y-auto p-2 font-mono text-sm outline-none placeholder:italic"
-        ></textarea>
-      </div>
-      <div class="flex flex-col overflow-hidden">
-        <h2 class="border-bg-4 border-b-1 text-center text-sm">Preview</h2>
-        <div
-          ref={previewRef}
-          class="h-full w-full grow overflow-y-auto p-2 font-mono text-sm"
-          dangerouslySetInnerHTML={{ __html: rendered.value }}
-        ></div>
-      </div>
-    </div>
+    <Grid columns="2" className="editor" overflow="hidden">
+      <Grid rows="auto 1fr" overflow="hidden" style={{ borderRight: 'var(--editor-border)' }}>
+        <Heading
+          align="center"
+          as="h2"
+          size="2"
+          mt="1"
+          weight="regular"
+          truncate
+          style={{ borderBottom: 'var(--editor-border)' }}
+        >
+          ChordMark Source
+        </Heading>
+        <Box p="2" overflow="auto" asChild>
+          <textarea
+            ref={sourceRef}
+            autoComplete="off"
+            wrap="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            placeholder="Start typing here..."
+            disabled={disabled.value}
+            value={songSignal.value?.text}
+            onInput={onInput}
+            style={{
+              border: 'none',
+              outline: 'none',
+              background: 'transparent',
+              resize: 'none',
+              lineHeight: '20px',
+            }}
+          />
+        </Box>
+      </Grid>
+      <Grid rows="auto 1fr" overflow="hidden">
+        <Heading
+          align="center"
+          as="h2"
+          size="2"
+          mt="1"
+          weight="regular"
+          truncate
+          style={{ borderBottom: 'var(--editor-border)' }}
+        >
+          Preview
+        </Heading>
+        <Box p="2" overflow="auto" asChild>
+          <Text m="0" size="2" asChild>
+            <pre ref={previewRef} dangerouslySetInnerHTML={{ __html: rendered.value }} />
+          </Text>
+        </Box>
+      </Grid>
+    </Grid>
   );
 }

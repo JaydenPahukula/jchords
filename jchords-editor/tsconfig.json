@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["src/**/*.ts", "src/**/*.tsx", "../shared/components/generic/forminput.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

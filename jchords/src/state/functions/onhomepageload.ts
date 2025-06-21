@@ -1,11 +1,11 @@
 import { batch } from '@preact/signals';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { LoadState } from 'shared/enums/loadstate';
 import { apiGetSongList } from 'shared/functions/api/endpoints/getsonglist';
 import { state } from 'src/state/state';
 
 export function onHomePageLoad() {
-  state.dialog.value = Dialog.None;
+  state.dialog.value = DialogType.None;
   if (state.songListLoadState.value === LoadState.None) {
     state.songListLoadState.value = LoadState.Loading;
     apiGetSongList().then((list) => {

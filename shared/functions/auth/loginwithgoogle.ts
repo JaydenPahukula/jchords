@@ -11,6 +11,7 @@ export async function logInWithGoogle(): Promise<LogInResult> {
     await signInWithPopup(auth, googleProvider);
     return LogInResult.Success;
   } catch (error) {
+    console.log(error);
     switch ((error as FirebaseError).code) {
       case AuthErrorCodes.INVALID_EMAIL:
       case AuthErrorCodes.USER_DELETED:

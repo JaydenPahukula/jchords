@@ -1,15 +1,15 @@
-import { batch, useComputed, useSignal } from '@preact/signals';
+import { batch, useComputed, useSignal } from '@preact/signals-react';
+import { Box, Button, Dialog, Text } from '@radix-ui/themes';
 import { GenericDialog } from 'shared/components/dialogs/genericdialog';
-import { FormButton } from 'shared/components/generic/formbutton';
-import { FormInput } from 'shared/components/generic/forminput';
+import { TextFieldWithX } from 'shared/components/generic/textfieldwithx';
 import { ArrowLeftIcon } from 'shared/components/icons/arrowlefticon';
 import { LockIcon } from 'shared/components/icons/lockicon';
 import { CreateAccountResult } from 'shared/enums/createaccountresult';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { createAccount } from 'shared/functions/auth/createaccount';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
 import { useDebounce } from 'shared/hooks/usedebounce';
-import { DialogProps } from 'shared/types/dialogprops';
+import { DialogProps } from 'shared/types/dialog/dialogprops';
 
 type ErrorState = null | CreateAccountResult | 'loading' | 'mismatch';
 
@@ -72,67 +72,74 @@ export function CreateAccountDialog(props: DialogProps) {
     createAccount(emailInput.value, passwordInput.value).then((result) => {
       errorState.value = result;
       if (result === CreateAccountResult.Success) {
+        props.changeDialog(DialogType.None); // close dialog
         batch(() => {
           emailInput.value = '';
           passwordInput.value = '';
           passwordInput2.value = '';
         });
-        props.changeDialog(Dialog.None); // close dialog
       }
     });
   }
 
   return (
     <GenericDialog
-      dialogRef={props.dialogRef}
+      {...props}
       closeButton
-      otherButtons={[
-        <div onClick={() => props.changeDialog(Dialog.Login)}>
-          <ArrowLeftIcon />
-        </div>,
-      ]}
-      class="w-96"
+      otherButtons={[[<ArrowLeftIcon />, () => props.changeDialog(DialogType.Login)]]}
     >
-      <h2 class="mb-6 text-3xl font-bold">Create Account</h2>
-      <FormInput
+      <Dialog.Title size="6" mb="4">
+        Create Account
+      </Dialog.Title>
+      <Dialog.Description aria-describedby={undefined} />
+      <TextFieldWithX
         type="email"
-        disabled={submitLoading}
+        disabled={submitLoading.value}
         required
         title="Please enter a valid email address"
-        value={emailInput}
+        value={emailInput.value}
         onInput={(e) => (emailInput.value = e.currentTarget.value)}
         placeholder="Email"
         onXClicked={() => (emailInput.value = '')}
-        class="mb-8"
+        size="3"
+        mb="5"
       />
-      <FormInput
+      <TextFieldWithX
         type="password"
-        disabled={submitLoading}
+        disabled={submitLoading.value}
         required
-        value={passwordInput}
+        value={passwordInput.value}
         onInput={(e) => (passwordInput.value = e.currentTarget.value)}
         onClick={selectContent}
         placeholder="Password"
         onXClicked={() => (passwordInput.value = '')}
-        icon={<LockIcon />}
-        class="mb-8"
-      />
-      <FormInput
+        size="3"
+        mb="5"
+      >
+        <LockIcon />
+      </TextFieldWithX>
+      <TextFieldWithX
         type="password"
-        disabled={submitLoading}
+        disabled={submitLoading.value}
         required
-        value={passwordInput2}
+        value={passwordInput2.value}
         onInput={(e) => (passwordInput2.value = e.currentTarget.value)}
         onClick={selectContent}
         placeholder="Confirm Password"
         onXClicked={() => (passwordInput2.value = '')}
-        icon={<LockIcon />}
-      />
-      <p class="text-fg-error mt-1 h-8 text-sm">{errorMessage.value}</p>
-      <FormButton disabled={submitButtonDisabled} onClick={submit}>
-        Create Account
-      </FormButton>
+        size="3"
+        mb="3"
+      >
+        <LockIcon />
+      </TextFieldWithX>
+      <Text size="3" color="red">
+        {errorMessage}
+      </Text>
+      <Box mt="3" width="100%" asChild>
+        <Button size="3" variant="surface" disabled={submitButtonDisabled.value} onClick={submit}>
+          Create Account
+        </Button>
+      </Box>
     </GenericDialog>
   );
-  return <>createaccountdialog</>;
 }

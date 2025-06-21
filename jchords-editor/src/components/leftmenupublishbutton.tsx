@@ -1,30 +1,30 @@
-import { useSignal } from '@preact/signals';
-import { useContext } from 'preact/hooks';
+import { useSignal } from '@preact/signals-react';
+import { Button, Link } from '@radix-ui/themes';
+import { useContext } from 'react';
 import { growlManager } from 'shared/classes/growlmanager';
-import { FormButton } from 'shared/components/generic/formbutton';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { Growl } from 'shared/types/growl';
 import { showDialog } from 'src/state/functions/showdialog';
 import { publishNewSong, saveSong } from 'src/state/functions/song';
 import { StateContext } from 'src/state/statecontext';
 
 const notSignedInGrowl: Growl = {
-  content: (
-    <span class="flex">
-      <p onClick={() => showDialog(Dialog.Login)} class="link">
+  description: (
+    <>
+      <Link color="blue" underline="always" onClick={() => showDialog(DialogType.Login)}>
         Sign in
-      </p>
-      <p class="whitespace-pre"> to save your work</p>
-    </span>
+      </Link>{' '}
+      to save your work
+    </>
   ),
 };
 
 const somethingWentWrongGrowl: Growl = {
-  content: 'Something went wrong. Try again later',
+  description: 'Something went wrong. Try again later',
 };
 
 const successGrowl: Growl = {
-  content: 'Song saved successfully',
+  description: 'Song saved successfully',
 };
 
 export function LeftMenuPublishButton() {
@@ -38,6 +38,7 @@ export function LeftMenuPublishButton() {
     loading.value = true;
     if (state.user.value === null) {
       growlManager.dispatchGrowl(notSignedInGrowl);
+      loading.value = false;
     } else if (state.isCurrSongNew.value) {
       publishNewSong().then((success) => {
         loading.value = false;
@@ -60,8 +61,8 @@ export function LeftMenuPublishButton() {
   }
 
   return (
-    <FormButton disabled={disabled} loading={loading.value} onClick={submit}>
+    <Button variant="surface" disabled={disabled} loading={loading.value} onClick={submit}>
       {text}
-    </FormButton>
+    </Button>
   );
 }

@@ -1,1 +1,84 @@
-../../shared/style/index.css
+.radix-themes {
+  --cursor-button: pointer;
+  --cursor-checkbox: pointer;
+  --cursor-disabled: default;
+  --cursor-link: pointer;
+  --cursor-menu-item: pointer;
+  --cursor-radio: pointer;
+  --cursor-slider-thumb: grab;
+  --cursor-slider-thumb-active: grabbing;
+  --cursor-switch: pointer;
+
+  --editor-border: 1px solid var(--gray-6);
+}
+
+html,
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+#title-row {
+  background-color: var(--gray-6);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: hidden;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.user-circle-button {
+  background: var(--color-background);
+}
+.user-circle-button:hover {
+  outline: 6px solid var(--gray-4);
+}
+
+.tab {
+  background: var(--gray-3);
+}
+.tab[data-state='active'],
+.tab:active {
+  background: var(--color-background) !important; /* TODO fix this idk */
+}
+.tab:hover {
+  background: var(--gray-2);
+}
+
+.toolbar-button {
+  background: transparent;
+  color: var(--gray-12);
+}
+.toolbar-button:disabled {
+  color: var(--gray-10);
+}
+.toolbar-button:hover:enabled {
+  background: var(--gray-3);
+}
+
+.growl {
+  background: var(--gray-1);
+  border-radius: 6px;
+  box-shadow: var(--shadow-3);
+}
+
+.editor {
+  background: var(--gray-2);
+}
+
+.cmLine {
+  margin: 0;
+  font-size: 14px;
+}
+
+.open-song-dialog-row:hover {
+  background: var(--gray-2);
+  cursor: pointer;
+}
+.open-song-dialog-row-selected {
+  background: var(--gray-3);
+  cursor: points;
+}

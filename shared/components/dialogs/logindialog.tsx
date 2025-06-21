@@ -1,15 +1,16 @@
-import { batch, useComputed, useSignal } from '@preact/signals';
+import { batch, useComputed, useSignal } from '@preact/signals-react';
+import { Box, Button, Dialog, Flex, Separator, Text } from '@radix-ui/themes';
+import { useEffect } from 'react';
 import { GenericDialog } from 'shared/components/dialogs/genericdialog';
-import { FormButton } from 'shared/components/generic/formbutton';
-import { FormInput } from 'shared/components/generic/forminput';
+import { TextFieldWithX } from 'shared/components/generic/textfieldwithx';
 import { GoogleIcon } from 'shared/components/icons/googleicon';
 import { LockIcon } from 'shared/components/icons/lockicon';
-import { Dialog } from 'shared/enums/dialog';
+import { DialogType } from 'shared/enums/dialogtype';
 import { LogInResult } from 'shared/enums/loginresult';
 import { logIn } from 'shared/functions/auth/login';
 import { logInWithGoogle } from 'shared/functions/auth/loginwithgoogle';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
-import { DialogProps } from 'shared/types/dialogprops';
+import { DialogProps } from 'shared/types/dialog/dialogprops';
 
 type ErrorState = null | LogInResult | 'loading';
 
@@ -28,86 +29,128 @@ export function LoginDialog(props: DialogProps) {
   const emailInput = useSignal<string>('');
   const passwordInput = useSignal<string>('');
   const errorState = useSignal<ErrorState>(null);
+  const googleLoading = useSignal(false);
 
   const submitLoading = useComputed(() => errorState.value === 'loading');
   const submitDisabled = useComputed(
-    () => submitLoading.value || emailInput.value.length === 0 || passwordInput.value.length === 0,
+    () =>
+      submitLoading.value ||
+      emailInput.value.length === 0 ||
+      passwordInput.value.length === 0 ||
+      googleLoading.value,
   );
 
   const errorMessage = useComputed(() => getErrorMessage(errorState.value));
 
-  function clear() {
-    batch(() => {
-      emailInput.value = '';
-      passwordInput.value = '';
-    });
-  }
-
   function submit() {
     errorState.value = 'loading';
     logIn(emailInput.value, passwordInput.value).then((result) => {
-      errorState.value = result;
-      if (result == LogInResult.Success) {
-        clear();
-        props.changeDialog(Dialog.None);
-      }
+      batch(() => {
+        errorState.value = result;
+        if (result == LogInResult.Success) {
+          props.close();
+          emailInput.value = '';
+          passwordInput.value = '';
+        }
+      });
     });
   }
 
   function signInWithGoogle() {
-    errorState.value = 'loading';
+    googleLoading.value = true;
     logInWithGoogle().then((result) => {
-      errorState.value = result;
-      if (result == LogInResult.Success) {
-        clear();
-        props.changeDialog(Dialog.None);
-      }
+      batch(() => {
+        googleLoading.value = false;
+        if (result == LogInResult.Success) {
+          props.close();
+          emailInput.value = '';
+          passwordInput.value = '';
+        }
+      });
     });
   }
 
+  // override setTimeout for Firebase polling
+  useEffect(() => {
+    const originalSetTimeout = window.setTimeout;
+    window.setTimeout = ((handler: TimerHandler, timeout?: number, ...args: any[]): number => {
+      if (timeout === 8000) timeout = 1000; // shorten Firebase's default polling delay to 1s
+      return originalSetTimeout(handler, timeout, ...args);
+    }) as any; // this is to fix type error
+  }, []);
+
   return (
-    <GenericDialog dialogRef={props.dialogRef} closeButton class="w-96">
-      <h2 class="text-3xl font-bold">Sign In</h2>
-      <p class="mb-6">
+    <GenericDialog {...props} closeButton>
+      <Dialog.Title size="6" mb="1">
+        Sign In
+      </Dialog.Title>
+      <Dialog.Description mb="4">
         or{' '}
-        <span onClick={() => props.changeDialog(Dialog.CreateAccount)} class="link">
+        <Text
+          tabIndex={0}
+          color="blue"
+          onClick={() => props.changeDialog(DialogType.CreateAccount)}
+        >
           create an account
-        </span>
-      </p>
-      <FormInput
+        </Text>
+      </Dialog.Description>
+      <TextFieldWithX
         type="email"
         required
-        disabled={submitLoading}
+        disabled={submitLoading.value || googleLoading.value}
         title="Please enter a valid email address"
-        value={emailInput}
+        value={emailInput.value}
         onInput={(e) => (emailInput.value = e.currentTarget.value)}
         placeholder="Email"
         onXClicked={() => (emailInput.value = '')}
-        class="mb-8"
+        size="3"
+        mb="5"
       />
-      <FormInput
+      <TextFieldWithX
         type="password"
         required
-        disabled={submitLoading}
-        value={passwordInput}
+        disabled={submitLoading.value || googleLoading.value}
+        value={passwordInput.value}
         onInput={(e) => (passwordInput.value = e.currentTarget.value)}
         onClick={selectContent}
         placeholder="Password"
         onXClicked={() => (passwordInput.value = '')}
-        icon={<LockIcon />}
-      />
-      <p class="text-fg-error mt-1 h-8 text-sm">{errorMessage.value}</p>
-      <FormButton onClick={submit} loading={submitLoading.value} disabled={submitDisabled}>
-        Sign In
-      </FormButton>
-      <div class="items my-6 flex w-full items-center">
-        <hr class="grow"></hr>
-        <p class="mx-2 text-sm">OR</p>
-        <hr class="grow"></hr>
-      </div>
-      <FormButton onClick={signInWithGoogle} icon={<GoogleIcon />}>
-        Sign in with Google
-      </FormButton>
+        size="3"
+        mb="3"
+      >
+        <LockIcon />
+      </TextFieldWithX>
+      <Text size="3" color="red">
+        {errorMessage}
+      </Text>
+      <Box mt="3" width="100%" asChild>
+        <Button
+          size="3"
+          onClick={submit}
+          loading={submitLoading.value}
+          variant="surface"
+          disabled={submitDisabled.value}
+        >
+          Sign In
+        </Button>
+      </Box>
+      <Flex my="3" align="center">
+        <Separator size="4" decorative={true} />
+        <Text mx="2">OR</Text>
+        <Separator size="4" decorative={true} />
+      </Flex>
+      <Box width="100%" asChild>
+        <Button
+          size="3"
+          variant="surface"
+          onClick={signInWithGoogle}
+          loading={googleLoading.value}
+          disabled={googleLoading.value || submitLoading.value}
+        >
+          <GoogleIcon />
+          Sign in with Google
+        </Button>
+      </Box>
     </GenericDialog>
   );
 }

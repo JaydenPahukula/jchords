@@ -1,6 +1,7 @@
-import { ComponentChild } from 'preact';
+import { ReactNode } from 'react';
 
 export interface Growl {
-  content: ComponentChild;
-  type?: Growl;
+  title?: ReactNode;
+  description: ReactNode;
+  closeButton?: boolean;
 }

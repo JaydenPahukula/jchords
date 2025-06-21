@@ -1,4 +1,4 @@
-import { JSX } from 'preact/jsx-runtime';
+import { MouseEvent } from 'react';
 
 /**
  * Use this function to automatically select all the content in an input element when
@@ -9,5 +9,4 @@ import { JSX } from 'preact/jsx-runtime';
  * <input onClick={selectContent} />
  * ```
  */
-export const selectContent = (e: JSX.TargetedMouseEvent<HTMLInputElement>) =>
-  e.currentTarget.select();
+export const selectContent = (e: MouseEvent<HTMLInputElement>) => e.currentTarget.select();

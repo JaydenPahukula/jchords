@@ -1,8 +1,9 @@
-export const enum Dialog {
+export const enum DialogType {
   None,
   Login,
   CreateAccount,
   OpenSong,
   PublishSong,
   DialogConfirmation,
+  Import,
 }

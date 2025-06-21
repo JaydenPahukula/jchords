@@ -39,6 +39,9 @@
   select {
     @apply bg-bg-button rounded-sm;
   }
+  .radix-themes {
+    @apply h-full;
+  }
   .icon {
     @apply h-full w-full flex-shrink-0;
   }

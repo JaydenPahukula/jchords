@@ -1,9 +1,9 @@
 import { CreateAccountDialog } from 'shared/components/dialogs/createaccountdialog';
 import { LoginDialog } from 'shared/components/dialogs/logindialog';
-import { Dialog } from 'shared/enums/dialog';
-import { DialogManifest } from 'shared/types/dialogmanifest';
+import { DialogType } from 'shared/enums/dialogtype';
+import { DialogManifest } from 'shared/types/dialog/dialogmanifest';
 
 export const dialogManifest: DialogManifest = [
-  { type: Dialog.Login, component: LoginDialog },
-  { type: Dialog.CreateAccount, component: CreateAccountDialog },
+  { type: DialogType.Login, component: LoginDialog },
+  { type: DialogType.CreateAccount, component: CreateAccountDialog },
 ];

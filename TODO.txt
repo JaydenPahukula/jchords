@@ -1,9 +1,21 @@
 small stuff
 - api request body type (why is it JSON string?)
-- fix growls
 - add icons to growls
 - spruce up deleteconfirmationdialog
 - make enter work for log in dialog
+- make dialogs close when clicked outside
+- replace delete song icon
+- fix icon framework
+- fix scrolling on editor tablist
+- tablist scroll so new tab is in view
+- react signals safe idk
+- add view password option
+- disable open song dialog table
 
 big stuff
 - add edit account page
+- replace ui library
+
+later
+- fix package.json deps
+- replace radix with custom ui lib

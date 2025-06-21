@@ -7,11 +7,14 @@ export function switchTab(index: number) {
   state.tabIndex.value = index;
 }
 
-export function newTab(newSong?: Song) {
-  const isNew = newSong === undefined;
+export function newTab(newSong?: Song, modified?: boolean, isNew?: boolean) {
+  isNew = isNew ?? newSong === undefined;
   if (newSong === undefined) newSong = makeNewSong();
   state.tabIndex.value = state.tabs.value.length;
-  state.tabs.value = [...state.tabs.value, { song: newSong, new: isNew, modified: false }];
+  state.tabs.value = [
+    ...state.tabs.value,
+    { song: newSong, new: isNew, modified: modified ?? false },
+  ];
 }
 
 export function closeTab(index: number) {

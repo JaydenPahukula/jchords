@@ -1,4 +1,4 @@
-import { batch } from '@preact/signals';
+import { batch } from '@preact/signals-react';
 import { apiDeleteSong } from 'shared/functions/api/endpoints/deletesong';
 import { apiNewSong } from 'shared/functions/api/endpoints/newsong';
 import { apiUpdateSong } from 'shared/functions/api/endpoints/updatesong';
@@ -7,10 +7,10 @@ import { SongInfo } from 'shared/types/songinfo';
 import { closeTab, updateCurrTab } from 'src/state/functions/tabs';
 import { state } from 'src/state/state';
 
-export function updateCurrSongInfo(update: Partial<SongInfo>) {
+export function updateCurrSongInfo(update: Partial<SongInfo>, modify?: boolean) {
   const newInfo: SongInfo = { ...state.currSong.value.info, ...update };
   const newSong: Song = { ...state.currSong.value, info: newInfo };
-  updateCurrTab({ song: newSong });
+  updateCurrTab({ song: newSong, modified: modify ?? false });
 }
 
 export function updateCurrSong(update: Partial<Song>) {
@@ -22,16 +22,17 @@ export async function publishNewSong(): Promise<boolean> {
   if (!state.isCurrSongModified.value || !state.isCurrSongNew) return false;
   if (state.user.value === null) return false;
 
+  const uid = state.user.value.uid;
   const song = state.currSong.value;
   song.info.id = '';
-  song.info.author = state.user.value.uid;
+  song.info.author = uid;
 
   const result = await apiNewSong(song, await state.user.value.getIdToken());
 
   if (result === undefined) return false;
 
   batch(() => {
-    updateCurrSongInfo({ id: result });
+    updateCurrSongInfo({ id: result, author: uid });
     updateCurrTab({ new: false, modified: false });
   });
 

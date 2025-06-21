@@ -1,40 +1,47 @@
-import { ComponentChild, ComponentChildren, RefObject } from 'preact';
+import { Box, Dialog, Flex, IconButton } from '@radix-ui/themes';
+import { ContentProps } from '@radix-ui/themes/components/dialog';
+import { ReactElement } from 'react';
 import { XIcon } from 'shared/components/icons/xicon';
+import { DialogProps } from 'shared/types/dialog/dialogprops';
 
-interface GenericDialogProps {
-  dialogRef: RefObject<HTMLDialogElement>;
-  children?: ComponentChildren;
+interface GenericDialogProps extends ContentProps, DialogProps {
   closeButton?: boolean;
-  otherButtons?: ComponentChild[];
-  class?: string;
+  otherButtons?: [ReactElement, () => void][];
 }
 
 export function GenericDialog(props: GenericDialogProps) {
+  const { closeButton, otherButtons, changeDialog, close, ...dialogProps } = props;
+
+  function onOpenChange(open: boolean) {
+    if (open) changeDialog(props.type);
+    else close();
+  }
+
   return (
-    <dialog
-      ref={props.dialogRef}
-      class={
-        'bg-bg-0 backdrop:bg-dialog-backdrop z-10 m-auto max-w-full overflow-x-hidden overflow-y-auto rounded-lg p-6 shadow-md! ' +
-        props.class
-      }
-    >
-      {props.closeButton && (
-        <div
-          onClick={() => props.dialogRef.current?.close()}
-          tabindex={0}
-          class="hover:bg-bg-button active:bg-bg-button-hover float-right h-8 w-8 rounded-md p-[5px]"
-        >
-          <XIcon />
-        </div>
-      )}
-      <div class="flex min-h-2">
-        {props.otherButtons?.map((button) => (
-          <div class="hover:bg-bg-button active:bg-bg-button-hover float-right h-8 w-8 rounded-md p-[5px]">
-            {button}
-          </div>
-        ))}
-      </div>
-      <div class="p-4 pt-2">{props.children}</div>
-    </dialog>
+    <Dialog.Root open={props.open.value} onOpenChange={onOpenChange}>
+      <Dialog.Content width="384px" maxWidth="95vw" maxHeight="95vw" {...dialogProps}>
+        {otherButtons !== undefined && otherButtons.length > 0 && (
+          <Flex mt="-2" ml="-2" gap="2" mb="3">
+            {otherButtons.map(([button, onClick], index) => (
+              <IconButton key={index} variant="ghost" onClick={onClick}>
+                {button}
+              </IconButton>
+            ))}
+          </Flex>
+        )}
+        {closeButton && (
+          <Box position="absolute" top="4" right="4" asChild>
+            <Dialog.Close>
+              <IconButton variant="ghost">
+                <XIcon />
+              </IconButton>
+            </Dialog.Close>
+          </Box>
+        )}
+        <Box height="100%" width="100%">
+          {dialogProps.children}
+        </Box>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 }

@@ -5,5 +5,5 @@ import { SongInfo } from 'shared/types/songinfo';
 export async function apiGetSongList(): Promise<SongInfo[] | undefined> {
   const result = await apiFetch('GET', 'songlist');
   if (!isGetSongListResponseBody(result)) return undefined;
-  return result.songList;
+  return result.songList.sort((a, b) => a.title.localeCompare(b.title));
 }

@@ -1,6 +1,6 @@
-import { useComputed } from '@preact/signals';
-import { useContext } from 'preact/hooks';
-import { JSX } from 'preact/jsx-runtime';
+import { useComputed } from '@preact/signals-react';
+import { Box, Flex, Heading, Text, TextField } from '@radix-ui/themes';
+import { ChangeEvent, useContext } from 'react';
 import { LeftMenuPublishButton } from 'src/components/leftmenupublishbutton';
 import { updateCurrSongInfo } from 'src/state/functions/song';
 import { StateContext } from 'src/state/statecontext';
@@ -13,33 +13,54 @@ export function LeftMenu() {
 
   const visibleId = song.info.id === 'welcome' ? '' : song.info.id;
 
-  const onTitleInput = (e: JSX.TargetedInputEvent<HTMLInputElement>) =>
-    updateCurrSongInfo({ title: e.currentTarget.value });
+  const onTitleInput = (e: ChangeEvent<HTMLInputElement>) =>
+    updateCurrSongInfo({ title: e.target.value }, true);
 
-  const onArtistInput = (e: JSX.TargetedInputEvent<HTMLInputElement>) =>
-    updateCurrSongInfo({ artist: e.currentTarget.value });
+  const onArtistInput = (e: ChangeEvent<HTMLInputElement>) =>
+    updateCurrSongInfo({ artist: e.target.value }, true);
 
   return (
-    <div class="bg-bg-0 border-r-bg-4 flex h-full w-[25%] max-w-64 flex-col border-r-1 p-4 pt-2">
-      <h2 class="my-1 w-full text-center text-lg">Song Info</h2>
-      <label>ID:</label>
-      <input class="vanilla-input mb-3 w-full" value={visibleId} readonly disabled></input>
-      <label>Title:</label>
-      <input
-        class="vanilla-input mb-3 w-full"
-        value={song.info.title}
-        onInput={onTitleInput}
-        disabled={disabled}
-      ></input>
-      <label>Artist:</label>
-      <input
-        class="vanilla-input w-full"
-        value={song.info.artist}
-        onInput={onArtistInput}
-        disabled={disabled}
-      ></input>
-      <div class="flex-grow"></div>
+    <Flex
+      id="left-menu"
+      p="4"
+      direction="column"
+      width="25vw"
+      maxWidth="256px"
+      style={{ borderRight: 'var(--editor-border)' }}
+    >
+      <Heading align="center" as="h2" weight="regular" size="4">
+        Song Info
+      </Heading>
+      <Box mb="3">
+        <Text as="label" htmlFor="id-input">
+          ID:
+        </Text>
+        <TextField.Root id="id-input" value={visibleId} readOnly disabled />
+      </Box>
+      <Box mb="3">
+        <Text as="label" htmlFor="title-input">
+          Title:
+        </Text>
+        <TextField.Root
+          id="title-input"
+          value={song.info.title}
+          onInput={onTitleInput}
+          disabled={disabled.value}
+        />
+      </Box>
+      <Box mb="3">
+        <Text as="label" htmlFor="artist-input">
+          Artist:
+        </Text>
+        <TextField.Root
+          id="artist-input"
+          value={song.info.artist}
+          onInput={onArtistInput}
+          disabled={disabled.value}
+        />
+      </Box>
+      <Box flexGrow="1" />
       <LeftMenuPublishButton />
-    </div>
+    </Flex>
   );
 }
