@@ -1,4 +1,4 @@
-import { Mode } from "src/types/mode";
+import { Mode } from "src/enums/mode";
 import { Note } from "src/types/note"
 
 /**
