@@ -33,7 +33,7 @@ export function UserCircle(props: UserCircleProps) {
         <Box p="6px" width="100%" height="100%">
           <Box width="100%" height="100%" asChild>
             <IconButton radius="full" className="user-circle-button">
-              <UserIcon color="var(--gray-12)" />
+              <UserIcon color="var(--gray-12)" height="100%" width="100%" />
             </IconButton>
           </Box>
         </Box>

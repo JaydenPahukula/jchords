@@ -8,7 +8,6 @@ export function switchTab(index: number) {
 }
 
 export function newTab(newSong?: Song) {
-  console.log('newTab');
   const isNew = newSong === undefined;
   if (newSong === undefined) newSong = makeNewSong();
   state.tabIndex.value = state.tabs.value.length;

@@ -9,8 +9,8 @@ export function CustomIcon(props: CustomIconProps) {
   return (
     <svg
       className="icon"
-      width="15"
-      height="15"
+      width="16px"
+      height="16px"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

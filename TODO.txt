@@ -7,6 +7,8 @@ small stuff
 - make dialogs close when clicked outside
 - replace delete song icon
 - fix icon framework
+- fix scrolling on editor tablist
+- tablist scroll so new tab is in view
 
 big stuff
 - add edit account page

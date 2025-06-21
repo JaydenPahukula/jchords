@@ -1,4 +1,5 @@
 import { useComputed } from '@preact/signals-react';
+import { Box, Button, ButtonProps, Flex } from '@radix-ui/themes';
 import { useContext } from 'react';
 import { OpenFolderIcon } from 'shared/components/icons/openfoldericon';
 import { PlusCircleIcon } from 'shared/components/icons/pluscircleicon';
@@ -8,6 +9,14 @@ import { showDialog } from 'src/state/functions/showdialog';
 import { newTab } from 'src/state/functions/tabs';
 import { StateContext } from 'src/state/statecontext';
 
+const ToolbarButton = (props: ButtonProps) => (
+  <Box height="28px" px="2" asChild>
+    <Button className="toolbar-button" color="gray" {...props}>
+      {props.children}
+    </Button>
+  </Box>
+);
+
 export function Toolbar() {
   const state = useContext(StateContext);
 
@@ -16,44 +25,26 @@ export function Toolbar() {
   );
 
   return (
-    <div className="bg-bg-0 border-b-bg-4 flex h-9 gap-2 border-b-1 px-2 py-1">
-      <button
-        onClick={() => newTab()}
-        className="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
-      >
-        <div className="h-full p-[7px] pr-[5px]">
-          <PlusCircleIcon />
-        </div>
+    <Flex gap="2" align="center" px="2" style={{ borderBottom: '1px solid var(--border-color)' }}>
+      <ToolbarButton onClick={() => newTab()}>
+        <PlusCircleIcon />
         <p className="mr-2 whitespace-nowrap">New Song</p>
-      </button>
-      <button
-        onClick={() => showDialog(DialogType.OpenSong)}
-        className="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
-      >
-        <div className="h-full p-[7px] pr-[5px]">
-          <OpenFolderIcon />
-        </div>
+      </ToolbarButton>
+      <ToolbarButton onClick={() => showDialog(DialogType.OpenSong)}>
+        <OpenFolderIcon />
         <p className="mr-2 whitespace-nowrap">Open Song</p>
-      </button>
-      <button
-        onClick={() => showDialog(DialogType.Import)}
-        className="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
-      >
-        <div className="h-full p-[7px] pr-[5px]">
-          <UploadIcon />
-        </div>
+      </ToolbarButton>
+      <ToolbarButton onClick={() => showDialog(DialogType.Import)}>
+        <UploadIcon />
         <p className="mr-2 whitespace-nowrap">Import</p>
-      </button>
-      <button
+      </ToolbarButton>
+      <ToolbarButton
         disabled={deleteButtonDisabled.value}
         onClick={() => showDialog(DialogType.DialogConfirmation)}
-        className="not-disabled:hover:bg-bg-button not-disabled:active:bg-bg-button-hover flex items-center rounded-md not-disabled:cursor-pointer"
       >
-        <div className="h-full p-[7px] pr-[5px]">
-          <UploadIcon />
-        </div>
+        <UploadIcon />
         <p className="mr-2 whitespace-nowrap">Delete</p>
-      </button>
-    </div>
+      </ToolbarButton>
+    </Flex>
   );
 }

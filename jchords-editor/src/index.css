@@ -1,21 +1,48 @@
 body {
   margin: 0;
+  --border-color: var(--gray-6);
 }
 
 #title-row {
   background-color: var(--gray-6);
 }
 
-.icon {
-  height: 100%;
-  width: 100%;
-  flex-shrink: 0;
+.no-scrollbar::-webkit-scrollbar {
+  display: hidden;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .user-circle-button {
-  background: var(--gray-1);
+  background: var(--color-background);
 }
-
 .user-circle-button:hover {
   outline: 6px solid var(--gray-4);
+}
+
+.tab {
+  background: var(--gray-3);
+}
+.tab[data-state='active'],
+.tab:active {
+  background: var(--color-background) !important; /* TODO fix this idk */
+}
+.tab:hover {
+  background: var(--gray-2);
+}
+
+.toolbar-button {
+  background: transparent;
+  color: var(--gray-12);
+}
+.toolbar-button:disabled {
+  color: var(--gray-10);
+}
+.toolbar-button:hover:enabled {
+  background: var(--gray-3);
+}
+.toolbar-button:active {
+  background: red;
 }

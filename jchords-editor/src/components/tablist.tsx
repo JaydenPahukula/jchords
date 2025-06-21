@@ -1,6 +1,5 @@
-import { useSignalEffect } from '@preact/signals-react';
 import * as Tabs from '@radix-ui/react-tabs';
-import { Flex, Grid } from '@radix-ui/themes';
+import { Box, Flex, Grid, IconButton, Text } from '@radix-ui/themes';
 import { useContext, useEffect, useRef } from 'react';
 import { PlusIcon } from 'shared/components/icons/plusicon';
 import { XIcon } from 'shared/components/icons/xicon';
@@ -20,40 +19,51 @@ export function TabList() {
     return () => ref.current?.removeEventListener('wheel', handler);
   }, []);
 
-  useSignalEffect(() => {
-    console.log(state.tabs.value.length);
-  });
+  function onValueChange(val: string) {
+    let index = parseInt(val);
+    if (Number.isNaN(index)) index = 0;
+    state.tabIndex.value = index;
+  }
 
   return (
-    <Flex ref={ref} className="self-end" height="32px">
-      <Tabs.Root>
-        <Tabs.List>
+    <Tabs.Root value={state.tabIndex.toString()} onValueChange={onValueChange} asChild>
+      <Tabs.List asChild>
+        <Flex pl="4" ref={ref} overflowX="scroll" className="no-scrollbar self-end" height="32px">
           {state.tabs.value.map(({ song, modified }, index) => (
             <Tabs.Trigger key={index} value={index.toString()} asChild>
-              <Grid>
-                <p className="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
+              <Grid
+                className="tab"
+                display="inline-grid"
+                columns="128px 28px"
+                height="32px"
+                mr="2"
+                align="center"
+              >
+                <Text truncate ml="2" style={{ cursor: 'default' }}>
                   {(modified ? '* ' : '') + song.info.title}
-                </p>
-                <button
-                  onClick={(e) => {
-                    closeTab(index);
-                    e.stopPropagation();
-                  }}
-                  className="hover:bg-bg-button active:bg-bg-button-hover m-[6px] ml-0.5 cursor-pointer rounded-sm p-[3.5px]"
-                >
-                  <XIcon />
-                </button>
+                </Text>
+                <Box m="10px" p="3px" asChild>
+                  <IconButton
+                    color="gray"
+                    variant="ghost"
+                    onClick={(e) => {
+                      closeTab(index);
+                      e.stopPropagation();
+                    }}
+                  >
+                    <XIcon color="var(--gray-12)" />
+                  </IconButton>
+                </Box>
               </Grid>
             </Tabs.Trigger>
           ))}
-        </Tabs.List>
-      </Tabs.Root>
-      <button
-        onClick={() => newTab()}
-        className="bg-bg-2 hover:bg-bg-0 mr-4 w-8 shrink-0 cursor-pointer p-[9.5px]"
-      >
-        <PlusIcon />
-      </button>
-    </Flex>
+          <Box mr="4" p="9.5px" width="32px" asChild>
+            <IconButton radius="none" onClick={() => newTab()} className="tab">
+              <PlusIcon color="var(--gray-12)" />
+            </IconButton>
+          </Box>
+        </Flex>
+      </Tabs.List>
+    </Tabs.Root>
   );
 }
