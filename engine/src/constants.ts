@@ -21,5 +21,5 @@ export const allowedTimeSignatures = [
   '12/8',
 ];
 
-export const sectionLabelMarker = ">";
-export const barSeparator = "|";
+export const sectionLabelMarker = '>';
+export const barSeparator = '|';

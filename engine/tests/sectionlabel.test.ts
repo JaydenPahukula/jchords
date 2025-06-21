@@ -1,11 +1,8 @@
-
-import { ParserError } from 'src/classes/parsererror';
 import { barSeparator, sectionLabelMarker } from 'src/constants';
 import { isSectionLabel, parseSectionLabel } from 'src/functions/parser/parsesectionlabel';
-import { describe, test, expect } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 describe('isSectionLabel()', () => {
-
   test('plain', () => {
     expect(isSectionLabel(`${sectionLabelMarker}Chorus`)).toBe(true);
   });
@@ -23,7 +20,7 @@ describe('isSectionLabel()', () => {
   });
 
   test('missing marker', () => {
-    expect(isSectionLabel("intro")).toBe(false);
+    expect(isSectionLabel('intro')).toBe(false);
   });
 
   test('multi-word', () => {
@@ -44,19 +41,17 @@ describe('isSectionLabel()', () => {
 });
 
 describe('parseSectionLabel()', () => {
-
   test('plain', () => {
     const result = parseSectionLabel(`${sectionLabelMarker}Chorus`);
-    expect(result.label).toBe("Chorus");
+    expect(result.label).toBe('Chorus');
     expect(result.renderBarSeparators).toBe(false);
   });
 
   test('with bar separator', () => {
     const result = parseSectionLabel(`${sectionLabelMarker}${barSeparator}Outro`);
-    expect(result.label).toBe("Outro");
+    expect(result.label).toBe('Outro');
     expect(result.renderBarSeparators).toBe(true);
   });
 
-  test('invalid', () => {
-  });
+  test('invalid', () => {});
 });

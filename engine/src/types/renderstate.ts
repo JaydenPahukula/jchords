@@ -1,4 +1,1 @@
-
-export type RenderState = {
-
-};
+export type RenderState = {};

@@ -1,5 +1,5 @@
-import { RenderOptions } from "src/types/renderopts";
+import { RenderOptions } from 'src/types/renderopts';
 
 export function renderSong(input: string, config: RenderOptions): string {
-  throw new Error("Not implemented");
+  throw new Error('Not implemented');
 }

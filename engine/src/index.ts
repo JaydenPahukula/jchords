@@ -1,1 +1,1 @@
-export { renderSong } from "src/functions/render/rendersong";
+export { renderSong } from 'src/functions/render/rendersong';
