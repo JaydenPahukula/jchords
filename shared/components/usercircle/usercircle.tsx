@@ -31,10 +31,14 @@ export function UserCircle(props: UserCircleProps) {
   return (
     <Popover.Root open={isMenuOpen.value} onOpenChange={onOpenChange}>
       <Box flexShrink="0" mr="1" width="48px" height="48px" p="6px">
-        <Popover.Trigger className="asdfasdf">
-          <Box width="100%" height="100%" asChild>
+        <Popover.Trigger>
+          <Box width="100%" height="100%" overflow="hidden" asChild>
             <IconButton radius="full" className="user-circle-button">
-              <UserIcon color="var(--gray-12)" height="100%" width="100%" />
+              {props.user?.photoURL ? (
+                <img height="100%" width="100%" src={props.user.photoURL} />
+              ) : (
+                <UserIcon color="var(--gray-12)" height="100%" width="100%" />
+              )}
             </IconButton>
           </Box>
         </Popover.Trigger>
