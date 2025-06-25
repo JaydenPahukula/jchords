@@ -3,7 +3,7 @@
 .radix-themes {
   --cursor-button: pointer;
   --cursor-checkbox: pointer;
-  --cursor-disabled: default;
+  --cursor-disabled: not-allowed;
   --cursor-link: pointer;
   --cursor-menu-item: pointer;
   --cursor-radio: pointer;

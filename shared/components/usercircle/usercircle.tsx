@@ -37,7 +37,7 @@ export function UserCircle(props: UserCircleProps) {
               {props.user?.photoURL ? (
                 <img height="100%" width="100%" src={props.user.photoURL} />
               ) : (
-                <UserIcon color="var(--gray-12)" height="100%" width="100%" />
+                <UserIcon color="var(--gray-9)" height="100%" width="100%" />
               )}
             </IconButton>
           </Box>
