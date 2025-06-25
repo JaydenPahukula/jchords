@@ -1,12 +1,11 @@
 small stuff
 - api request body type (why is it JSON string?)
-- add icons to growls
+- add initials for users without profile picture
 - spruce up deleteconfirmationdialog
 - make enter work for log in dialog
 - make dialogs close when clicked outside
 - replace delete song icon
 - fix icon framework
-- fix scrolling on editor tablist
 - tablist scroll so new tab is in view
 - react signals safe idk
 - add view password option

@@ -28,14 +28,13 @@ export function TabList() {
   return (
     <Tabs.Root value={state.tabIndex.toString()} onValueChange={onValueChange} asChild>
       <Tabs.List asChild>
-        <Flex pl="4" ref={ref} overflowX="scroll" className="no-scrollbar self-end" height="32px">
+        <Flex pl="4" ref={ref} overflowX="scroll" className="no-scrollbar self-end" height="30px">
           {state.tabs.value.map(({ song, modified }, index) => (
             <Tabs.Trigger key={index} value={index.toString()} asChild>
               <Grid
                 className="tab"
                 display="inline-grid"
                 columns="128px 28px"
-                height="32px"
                 mr="2"
                 align="center"
                 style={{ cursor: 'pointer' }}
