@@ -1,6 +1,7 @@
-import { parseSectionLabel } from 'src/functions/parser/parsesectionlabel';
-import { parseTimeSignature } from 'src/functions/parser/parsetimesignature';
-import { ParsedLine } from 'src/types/parsedline';
+import { RepeatChordsLine } from 'src/parser/lines/repeatchordsline';
+import { SectionLabelLine } from 'src/parser/lines/sectionlabelline';
+import { TimeSignatureLine } from 'src/parser/lines/timesignatureline';
+import { ParsedLine } from 'src/parser/parsedline';
 
 export function parseSong(src: string): ParsedLine[] {
   return src
@@ -12,10 +13,12 @@ export function parseSong(src: string): ParsedLine[] {
 function parseLine(line: string, lineNum: number): ParsedLine | null {
   line = line.trimEnd();
 
-  // order of precedence of line types
+  // order of precedence for trying line types
   const parseOrder: ((line: string, lineNum?: number) => ParsedLine | null)[] = [
-    parseTimeSignature,
-    parseSectionLabel,
+    TimeSignatureLine.tryParse,
+    SectionLabelLine.tryParse,
+    ChordLine
+    RepeatChordsLine.tryParse,
   ];
 
   for (const parser of parseOrder) {

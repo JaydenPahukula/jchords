@@ -1,3 +1,7 @@
+export const sectionLabelSymbol = '#';
+export const repeatChordSymbol = '%';
+export const barSeparator = '|';
+
 export const allowedTimeSignatures = [
   '1/2',
   '2/2',
@@ -21,5 +25,14 @@ export const allowedTimeSignatures = [
   '12/8',
 ];
 
-export const sectionLabelMarker = '>';
-export const barSeparator = '|';
+export const sectionLabelShorthands: Record<string, string> = {
+  a: 'Adlib',
+  b: 'Bridge',
+  c: 'Chorus',
+  i: 'Intro',
+  o: 'Outro',
+  p: 'Pre-chorus',
+  s: 'Solo',
+  u: 'Interlude',
+  v: 'Verse',
+};
