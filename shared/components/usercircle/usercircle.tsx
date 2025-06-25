@@ -1,4 +1,4 @@
-import { useSignal } from '@preact-signals/safe-react';
+import { useSignal } from '@preact/signals-react';
 import { Box, Button, IconButton, Popover } from '@radix-ui/themes';
 import { User } from 'firebase/auth';
 import { growlManager } from 'shared/classes/growlmanager';

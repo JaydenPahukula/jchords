@@ -1,4 +1,4 @@
-import { useSignal } from '@preact-signals/safe-react';
+import { useSignal } from '@preact/signals-react';
 import { Box, IconButton, TextField } from '@radix-ui/themes';
 import { MouseEvent, RefAttributes, useEffect, useRef } from 'react';
 import { XIcon } from 'shared/components/icons/xicon';

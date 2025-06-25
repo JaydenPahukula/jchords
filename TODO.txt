@@ -4,7 +4,6 @@ small stuff
 - make enter work for log in dialog
 - fix icon framework
 - tablist scroll so new tab is in view
-- react signals safe idk
 - add view password option
 - disable open song dialog table
 

@@ -1,4 +1,4 @@
-import { useComputed, useSignal } from '@preact-signals/safe-react';
+import { useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Flex, Spinner, Switch, Table, Text } from '@radix-ui/themes';
 import { useContext, useEffect } from 'react';
 import { GenericDialog } from 'shared/components/dialogs/genericdialog';
