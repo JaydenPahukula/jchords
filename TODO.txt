@@ -1,15 +1,20 @@
 small stuff
+- split up css files
 - api request body type (why is it JSON string?)
-- add initials for users without profile picture
+- add initials for users without profile picture (radix avatar)
 - make enter work for log in dialog
 - fix icon framework
 - tablist scroll so new tab is in view
 - add view password option
 - disable open song dialog table
+- swipe guestures for growls
+- fix link
+- change deleteconfirmationdialog to radix alertdialog
 
 big stuff
+- check ipad support
 - add edit account page
-- replace ui library
+- add public/private songs
 
 later
 - fix package.json deps

@@ -1,4 +1,5 @@
-import { render } from 'preact';
+import { createRoot } from 'react-dom/client';
 import { App } from 'src/components/app';
+import 'src/index.css';
 
-render(<App />, document.body);
+createRoot(document.body).render(<App />);

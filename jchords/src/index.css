@@ -1,1 +1,28 @@
-../../shared/style/index.css
+@import '@radix-ui/themes/styles.css';
+
+.radix-themes {
+  --cursor-button: pointer;
+  --cursor-checkbox: pointer;
+  --cursor-disabled: not-allowed;
+  --cursor-link: pointer;
+  --cursor-menu-item: pointer;
+  --cursor-radio: pointer;
+  --cursor-slider-thumb: grab;
+  --cursor-slider-thumb-active: grabbing;
+  --cursor-switch: pointer;
+
+  --border: 1px solid var(--gray-6);
+}
+
+html,
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.user-circle-button {
+  background: var(--color-background);
+}
+.user-circle-button:hover {
+  outline: 6px solid var(--gray-4);
+}

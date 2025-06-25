@@ -96,6 +96,7 @@ export function LoginDialog(props: DialogProps) {
       </Dialog.Description>
       <TextFieldWithX
         type="email"
+        id="login-email-input"
         required
         disabled={submitLoading.value || googleLoading.value}
         title="Please enter a valid email address"
@@ -108,6 +109,7 @@ export function LoginDialog(props: DialogProps) {
       />
       <TextFieldWithX
         type="password"
+        id="login-password-input"
         required
         disabled={submitLoading.value || googleLoading.value}
         value={passwordInput.value}

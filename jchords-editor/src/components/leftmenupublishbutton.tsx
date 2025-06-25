@@ -1,12 +1,11 @@
 import { useSignal } from '@preact/signals-react';
 import { Button, Link } from '@radix-ui/themes';
-import { useContext } from 'react';
 import { growlManager } from 'shared/classes/growlmanager';
 import { DialogType } from 'shared/enums/dialogtype';
 import { Growl } from 'shared/types/growl';
 import { showDialog } from 'src/state/functions/showdialog';
 import { publishNewSong, saveSong } from 'src/state/functions/song';
-import { StateContext } from 'src/state/statecontext';
+import { useStateContext } from 'src/state/statecontext';
 
 const notSignedInGrowl: Growl = {
   description: (
@@ -28,7 +27,7 @@ const successGrowl: Growl = {
 };
 
 export function LeftMenuPublishButton() {
-  const state = useContext(StateContext);
+  const state = useStateContext();
   const loading = useSignal(false);
 
   const disabled = !state.isCurrSongModified.value;

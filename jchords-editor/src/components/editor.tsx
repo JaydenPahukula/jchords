@@ -26,7 +26,7 @@ export function Editor({ songSignal }: EditorProps) {
 
   return (
     <Grid columns="2" className="editor" overflow="hidden">
-      <Grid rows="auto 1fr" overflow="hidden" style={{ borderRight: 'var(--editor-border)' }}>
+      <Grid rows="auto 1fr" overflow="hidden" style={{ borderRight: 'var(--border)' }}>
         <Heading
           align="center"
           as="h2"
@@ -34,7 +34,7 @@ export function Editor({ songSignal }: EditorProps) {
           mt="1"
           weight="regular"
           truncate
-          style={{ borderBottom: 'var(--editor-border)' }}
+          style={{ borderBottom: 'var(--border)' }}
         >
           ChordMark Source
         </Heading>
@@ -67,7 +67,7 @@ export function Editor({ songSignal }: EditorProps) {
           mt="1"
           weight="regular"
           truncate
-          style={{ borderBottom: 'var(--editor-border)' }}
+          style={{ borderBottom: 'var(--border)' }}
         >
           Preview
         </Heading>

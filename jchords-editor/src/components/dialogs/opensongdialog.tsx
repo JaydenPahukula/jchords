@@ -1,6 +1,6 @@
 import { useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Flex, Spinner, Switch, Table, Text } from '@radix-ui/themes';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { GenericDialog } from 'shared/components/dialogs/genericdialog';
 import { DialogType } from 'shared/enums/dialogtype';
 import { apiGetSong } from 'shared/functions/api/endpoints/getsong';
@@ -8,10 +8,10 @@ import { apiGetSongList } from 'shared/functions/api/endpoints/getsonglist';
 import { DialogProps } from 'shared/types/dialog/dialogprops';
 import { SongInfo } from 'shared/types/songinfo';
 import { newTab } from 'src/state/functions/tabs';
-import { StateContext } from 'src/state/statecontext';
+import { useStateContext } from 'src/state/statecontext';
 
 export function OpenSongDialog(props: DialogProps) {
-  const state = useContext(StateContext);
+  const state = useStateContext();
 
   const songList = useSignal<SongInfo[]>([]);
   const songListLoadingState = useSignal<'done' | 'loading' | 'error'>('loading');

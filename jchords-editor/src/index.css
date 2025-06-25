@@ -11,7 +11,7 @@
   --cursor-slider-thumb-active: grabbing;
   --cursor-switch: pointer;
 
-  --editor-border: 1px solid var(--gray-6);
+  --border: 1px solid var(--gray-6);
 }
 
 html,

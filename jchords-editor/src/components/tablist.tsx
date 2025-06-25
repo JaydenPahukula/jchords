@@ -1,13 +1,13 @@
 import { Box, Flex, Grid, IconButton, Text } from '@radix-ui/themes';
 import { Tabs } from 'radix-ui';
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { PlusIcon } from 'shared/components/icons/plusicon';
 import { XIcon } from 'shared/components/icons/xicon';
 import { closeTab, newTab } from 'src/state/functions/tabs';
-import { StateContext } from 'src/state/statecontext';
+import { useStateContext } from 'src/state/statecontext';
 
 export function TabList() {
-  const state = useContext(StateContext);
+  const state = useStateContext();
   const ref = useRef<HTMLDivElement>(null);
 
   // for sideways scrolling

@@ -1,29 +1,25 @@
-import Router, { Route } from 'preact-router';
-import { DialogManager } from 'shared/components/dialogs/dialogmanager';
+import { Theme } from '@radix-ui/themes';
+import { StrictMode } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router';
+import { GrowlProvider } from 'shared/components/growls/growlprovider';
+import { HomeLayout } from 'src/components/homepage/homelayout';
 import { HomePage } from 'src/components/homepage/homepage';
-import { SongPage } from 'src/components/songpage/songpage';
-import { dialogManifest } from 'src/dialogs/dialogmanifest';
-import { calcSize } from 'src/responsiveness/calcsize';
-import { initListeners } from 'src/state/functions/initlisteners';
-import { state } from 'src/state/state';
-import { StateContext } from 'src/state/statecontext';
 
 export function App() {
-  initListeners();
-
-  window.onresize = () => {
-    state.size.value = calcSize();
-  };
-
   return (
-    <>
-      <DialogManager signal={state.dialog} manifest={dialogManifest} />
-      <StateContext.Provider value={state}>
-        <Router>
-          <Route path="/" component={HomePage} />
-          <Route path="/song/:id" component={SongPage} />
-        </Router>
-      </StateContext.Provider>
-    </>
+    <StrictMode>
+      <Theme grayColor="slate" accentColor="gray">
+        <GrowlProvider>
+          <BrowserRouter>
+            <Routes>
+              {/* <Route path="/song/:id" element={<SongPage />} /> */}
+              <Route path="/" element={<HomeLayout />}>
+                <Route index element={<HomePage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </GrowlProvider>
+      </Theme>
+    </StrictMode>
   );
 }

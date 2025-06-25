@@ -94,6 +94,7 @@ export function CreateAccountDialog(props: DialogProps) {
       <Dialog.Description aria-describedby={undefined} />
       <TextFieldWithX
         type="email"
+        id="create-account-email-input"
         disabled={submitLoading.value}
         required
         title="Please enter a valid email address"
@@ -106,6 +107,7 @@ export function CreateAccountDialog(props: DialogProps) {
       />
       <TextFieldWithX
         type="password"
+        id="create-account-password-input"
         disabled={submitLoading.value}
         required
         value={passwordInput.value}
@@ -120,6 +122,7 @@ export function CreateAccountDialog(props: DialogProps) {
       </TextFieldWithX>
       <TextFieldWithX
         type="password"
+        id="create-account-confirm-password-input"
         disabled={submitLoading.value}
         required
         value={passwordInput2.value}

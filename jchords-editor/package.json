@@ -10,14 +10,14 @@
   },
   "devDependencies": {
     "@preact/signals-react-transform": "^0.5.2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",
     "vite": "^6.2.5"
   },
   "dependencies": {
     "@preact/signals-react": "^3.2.0",
     "@radix-ui/themes": "^3.2.1",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
     "chord-mark": "^0.17.0",
     "chord-mark-converters": "^0.17.0",
     "firebase": "^11.3.0",

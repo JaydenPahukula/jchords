@@ -1,12 +1,12 @@
 import { useComputed } from '@preact/signals-react';
 import { Box, Flex, Heading, Text, TextField } from '@radix-ui/themes';
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent } from 'react';
 import { LeftMenuPublishButton } from 'src/components/leftmenupublishbutton';
 import { updateCurrSongInfo } from 'src/state/functions/song';
-import { StateContext } from 'src/state/statecontext';
+import { useStateContext } from 'src/state/statecontext';
 
 export function LeftMenu() {
-  const state = useContext(StateContext);
+  const state = useStateContext();
   const disabled = useComputed(() => state.currSong.value === undefined);
 
   const song = state.currSong.value;
@@ -26,7 +26,7 @@ export function LeftMenu() {
       direction="column"
       width="25vw"
       maxWidth="256px"
-      style={{ borderRight: 'var(--editor-border)' }}
+      style={{ borderRight: 'var(--border)' }}
     >
       <Heading align="center" as="h2" weight="regular" size="4">
         Song Info

@@ -1,15 +1,25 @@
-import { useContext } from 'preact/hooks';
+import { useSignal } from '@preact/signals-react';
+import { Card, Flex, TextField } from '@radix-ui/themes';
 import { PlayIcon } from 'shared/components/icons/playicon';
-import { LoadingSpinner } from 'shared/components/loadingspinner/loadingspinner';
-import { LoadState } from 'shared/enums/loadstate';
-import { StateContext } from 'src/state/statecontext';
 
-export function HomeSongList() {
-  const state = useContext(StateContext);
+const enum LoadState {
+  Loading,
+  Loaded,
+  Error,
+}
 
-  switch (state.songListLoadState.value) {
-    case LoadState.None:
-      return <></>;
+export function SongList() {
+  const loadStateSignal = useSignal(LoadState.Loading);
+
+  return (
+    <Flex p="4">
+      <Card>
+        <TextField.Root></TextField.Root>
+      </Card>
+    </Flex>
+  );
+
+  switch (loadStateSignal.value) {
     case LoadState.Loading:
       return (
         <div class="w-10 pt-12">

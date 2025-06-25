@@ -1,9 +1,9 @@
 import { Box, Flex, Heading } from '@radix-ui/themes';
-import { CSSProperties, useContext } from 'react';
+import { CSSProperties } from 'react';
 import { UserCircle } from 'shared/components/usercircle/usercircle';
 import { TabList } from 'src/components/tablist';
 import { showDialog } from 'src/state/functions/showdialog';
-import { StateContext } from 'src/state/statecontext';
+import { useStateContext } from 'src/state/statecontext';
 
 const leftGradientStyle: CSSProperties = {
   position: 'absolute',
@@ -21,7 +21,7 @@ const rightGradientStyle: CSSProperties = {
 };
 
 export function TitleRow() {
-  const { user } = useContext(StateContext);
+  const { user } = useStateContext();
 
   return (
     <Flex height="48px" id="title-row" align="end" width="100%">
@@ -36,7 +36,7 @@ export function TitleRow() {
         <div style={rightGradientStyle} />
         <Box className="absolute right-0 h-full w-4 bg-[linear-gradient(270deg,var(--color-bg-4),transparent)]" />
       </Flex>
-      <UserCircle user={user.value} showDialog={showDialog} />
+      <UserCircle user={user.value} showDialog={showDialog} width="48px" />
     </Flex>
   );
 }

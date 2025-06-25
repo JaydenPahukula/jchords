@@ -70,9 +70,9 @@ export function ImportDialog(props: DialogProps) {
           className="editor"
           overflow="hidden"
           mb="3"
-          style={{ border: 'var(--editor-border' }}
+          style={{ border: 'var(--border' }}
         >
-          <Grid rows="auto 1fr" overflow="hidden" style={{ borderRight: 'var(--editor-border)' }}>
+          <Grid rows="auto 1fr" overflow="hidden" style={{ borderRight: 'var(--border)' }}>
             <Heading
               align="center"
               as="h2"
@@ -80,7 +80,7 @@ export function ImportDialog(props: DialogProps) {
               mt="1"
               weight="regular"
               truncate
-              style={{ borderBottom: 'var(--editor-border)' }}
+              style={{ borderBottom: 'var(--border)' }}
             >
               Import
             </Heading>
@@ -112,7 +112,7 @@ export function ImportDialog(props: DialogProps) {
               mt="1"
               weight="regular"
               truncate
-              style={{ borderBottom: 'var(--editor-border)' }}
+              style={{ borderBottom: 'var(--border)' }}
             >
               ChordMark Preview
             </Heading>

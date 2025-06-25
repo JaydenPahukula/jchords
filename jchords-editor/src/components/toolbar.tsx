@@ -1,6 +1,5 @@
 import { useComputed } from '@preact/signals-react';
 import { Box, Button, ButtonProps, Flex } from '@radix-ui/themes';
-import { useContext } from 'react';
 import { OpenFolderIcon } from 'shared/components/icons/openfoldericon';
 import { PlusCircleIcon } from 'shared/components/icons/pluscircleicon';
 import { TrashIcon } from 'shared/components/icons/trashicon';
@@ -8,7 +7,7 @@ import { UploadIcon } from 'shared/components/icons/uploadicon';
 import { DialogType } from 'shared/enums/dialogtype';
 import { showDialog } from 'src/state/functions/showdialog';
 import { newTab } from 'src/state/functions/tabs';
-import { StateContext } from 'src/state/statecontext';
+import { useStateContext } from 'src/state/statecontext';
 
 const ToolbarButton = (props: ButtonProps) => (
   <Box height="28px" px="2" asChild>
@@ -19,20 +18,14 @@ const ToolbarButton = (props: ButtonProps) => (
 );
 
 export function Toolbar() {
-  const state = useContext(StateContext);
+  const state = useStateContext();
 
   const deleteButtonDisabled = useComputed(
     () => state.isCurrSongNew.value || state.currSong.value.info.author !== state.user.value?.uid,
   );
 
   return (
-    <Flex
-      height="40px"
-      gap="2"
-      align="center"
-      px="2"
-      style={{ borderBottom: 'var(--editor-border)' }}
-    >
+    <Flex height="40px" gap="2" align="center" px="2" style={{ borderBottom: 'var(--border)' }}>
       <ToolbarButton onClick={() => newTab()}>
         <PlusCircleIcon />
         <p className="mr-2 whitespace-nowrap">New Song</p>
