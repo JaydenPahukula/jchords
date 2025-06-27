@@ -1,3 +1,5 @@
+import { ParserError } from 'src/classes/parsererror';
+import { ChordLine } from 'src/parser/lines/chordline';
 import { RepeatChordsLine } from 'src/parser/lines/repeatchordsline';
 import { SectionLabelLine } from 'src/parser/lines/sectionlabelline';
 import { TimeSignatureLine } from 'src/parser/lines/timesignatureline';
@@ -14,10 +16,10 @@ function parseLine(line: string, lineNum: number): ParsedLine | null {
   line = line.trimEnd();
 
   // order of precedence for trying line types
-  const parseOrder: ((line: string, lineNum?: number) => ParsedLine | null)[] = [
+  const parseOrder: ((line: string, lineNum: number) => ParsedLine | null)[] = [
     TimeSignatureLine.tryParse,
     SectionLabelLine.tryParse,
-    ChordLine
+    ChordLine.tryParse,
     RepeatChordsLine.tryParse,
   ];
 
@@ -26,5 +28,5 @@ function parseLine(line: string, lineNum: number): ParsedLine | null {
     if (result !== null) return result;
   }
 
-  throw new Error('Unrecognized line type');
+  throw new ParserError('Unrecognized line type', lineNum);
 }

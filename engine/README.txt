@@ -2,5 +2,7 @@ JChords Engine
 
 Based heavily on ChordMark by Christophe Noël (https://github.com/no-chris/chord-mark/),
 but with the following changes:
-	- Rendering bar separators and chord durations is now optional and opt-in per
-	section using a `|` symbol following the section label symbol (e.g `#|Chorus`)
+  - Chord lines with a following lyric line do not render bar separators or
+  chord durations at all.
+  - Bar separators are horizontally aligned across chord lines, but 
+  unlike ChordMark, the alignment does not cross empty lines.

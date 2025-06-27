@@ -1,62 +1,54 @@
-import { barSeparator, sectionLabelShorthands, sectionLabelSymbol } from 'src/constants';
+import { sectionLabelShorthands, sectionLabelSymbol } from 'src/constants';
 import { SectionLabelLine } from 'src/parser/lines/sectionlabelline';
 import { describe, expect, test } from 'vitest';
 
 describe('Parse section label line', () => {
   test('plain', () => {
-    const result = SectionLabelLine.tryParse(`${sectionLabelSymbol}Chorus`);
+    const result = SectionLabelLine.tryParse(`${sectionLabelSymbol}Chorus`, 0);
     expect(result).not.toBeNull();
     expect(result!.label).toBe('Chorus');
-    expect(result!.renderBarSeparators).toBe(false);
-  });
-
-  test('with bar separator', () => {
-    const result = SectionLabelLine.tryParse(`${sectionLabelSymbol}${barSeparator}Chorus`);
-    expect(result).not.toBeNull();
-    expect(result!.label).toBe('Chorus');
-    expect(result!.renderBarSeparators).toBe(true);
   });
 
   test('capitalize', () => {
-    const result = SectionLabelLine.tryParse(`${sectionLabelSymbol}outro`);
+    const result = SectionLabelLine.tryParse(`${sectionLabelSymbol}outro`, 0);
     expect(result).not.toBeNull();
     expect(result!.label).toBe('Outro');
-    expect(result!.renderBarSeparators).toBe(false);
   });
 
   test('shorthands', () => {
     Object.keys(sectionLabelShorthands).forEach((abbreviation: string) => {
-      const result = SectionLabelLine.tryParse(sectionLabelSymbol + abbreviation);
+      const result = SectionLabelLine.tryParse(sectionLabelSymbol + abbreviation, 0);
       expect(result).not.toBeNull();
       expect(result!.label).toBe(sectionLabelShorthands[abbreviation]);
     });
   });
 
-  test('long random with bar separator', () => {
+  test('long random', () => {
     const result = SectionLabelLine.tryParse(
-      `${sectionLabelSymbol}${barSeparator}asdfjhaFHJNxcvKDKJNQOfasdfnpaoOpSCFNJKJziizN`,
+      `${sectionLabelSymbol}asdfjhaFHJNxcvKDKJNQOfasdfnpaoOpSCFNJKJziizN`,
+      0,
     );
     expect(result).not.toBeNull();
-    expect(result!.renderBarSeparators).toBe(true);
+    expect(result!.label).toBe('AsdfjhaFHJNxcvKDKJNQOfasdfnpaoOpSCFNJKJziizN');
   });
 
   test('missing marker', () => {
-    expect(SectionLabelLine.tryParse('Chorus')).toBeNull();
+    expect(SectionLabelLine.tryParse('Chorus', 0)).toBeNull();
   });
 
   test('multi-word', () => {
-    expect(SectionLabelLine.tryParse(`${sectionLabelSymbol}Chorus two`)).toBeNull();
+    expect(SectionLabelLine.tryParse(`${sectionLabelSymbol}Chorus two`, 0)).toBeNull();
   });
 
   test('empty label', () => {
-    expect(SectionLabelLine.tryParse(sectionLabelSymbol)).toBeNull();
+    expect(SectionLabelLine.tryParse(sectionLabelSymbol, 0)).toBeNull();
   });
 
   test('non-alpha character', () => {
-    expect(SectionLabelLine.tryParse(`${sectionLabelSymbol}Chorus2`)).toBeNull();
+    expect(SectionLabelLine.tryParse(`${sectionLabelSymbol}Chorus2`, 0)).toBeNull();
   });
 
-  test('space before bar separator', () => {
-    expect(SectionLabelLine.tryParse(`${sectionLabelSymbol} ${barSeparator}Chorus`)).toBeNull();
+  test('empty line', () => {
+    expect(SectionLabelLine.tryParse('', 0)).toBeNull();
   });
 });
