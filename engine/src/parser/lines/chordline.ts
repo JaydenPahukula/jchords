@@ -16,18 +16,16 @@ import { RenderState } from 'src/types/renderstate';
  * so we can parse the chords with respect to the key.
  */
 export class ChordLine implements ParsedLine {
-  lineNum: number;
   chords: (RawChord | SubBeatChordGroup)[];
 
   /** function to parse chords with */
   static chordSymbolParse = chordParserFactory({});
 
-  constructor(lineNum: number, chords: (RawChord | SubBeatChordGroup)[]) {
-    this.lineNum = lineNum;
+  constructor(chords: (RawChord | SubBeatChordGroup)[]) {
     this.chords = chords;
   }
 
-  static tryParse = (line: string, lineNum: number): ChordLine | null => {
+  static tryParse = (line: string): ChordLine | null => {
     let pos = 0;
 
     const chords: (RawChord | SubBeatChordGroup)[] = [];
@@ -113,7 +111,7 @@ export class ChordLine implements ParsedLine {
 
     if (chords.length == 0 || inSubBeatGroup) return null;
 
-    return new ChordLine(lineNum, chords);
+    return new ChordLine(chords);
   };
 
   render = (state: RenderState): string => {

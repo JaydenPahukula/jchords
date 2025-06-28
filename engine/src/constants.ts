@@ -4,6 +4,7 @@ export const barSeparator = '|';
 export const chordDurationSymbol = '.';
 export const subBeatChordGroupStartSymbol = '[';
 export const subBeatChordGroupEndSymbol = ']';
+export const keyDeclarationKeyword = 'key';
 
 export const allowedTimeSignatures = [
   '1/2',

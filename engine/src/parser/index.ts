@@ -16,7 +16,7 @@ function parseLine(line: string, lineNum: number): ParsedLine | null {
   line = line.trimEnd();
 
   // order of precedence for trying line types
-  const parseOrder: ((line: string, lineNum: number) => ParsedLine | null)[] = [
+  const parseOrder: ((line: string) => ParsedLine | null)[] = [
     TimeSignatureLine.tryParse,
     SectionLabelLine.tryParse,
     ChordLine.tryParse,
@@ -24,7 +24,7 @@ function parseLine(line: string, lineNum: number): ParsedLine | null {
   ];
 
   for (const parser of parseOrder) {
-    const result = parser(line, lineNum);
+    const result = parser(line);
     if (result !== null) return result;
   }
 

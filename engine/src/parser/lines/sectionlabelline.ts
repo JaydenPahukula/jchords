@@ -3,15 +3,13 @@ import { ParsedLine } from 'src/parser/parsedline';
 import { RenderState } from 'src/types/renderstate';
 
 export class SectionLabelLine implements ParsedLine {
-  lineNum: number;
   label: string;
 
-  constructor(lineNum: number, label: string) {
-    this.lineNum = lineNum;
+  constructor(label: string) {
     this.label = label;
   }
 
-  static tryParse = (line: string, lineNum: number): SectionLabelLine | null => {
+  static tryParse = (line: string): SectionLabelLine | null => {
     const match = line.match(new RegExp(`^${sectionLabelSymbol}([a-zA-Z]+)$`));
     if (match === null || match[1] === undefined) return null;
 
@@ -24,7 +22,7 @@ export class SectionLabelLine implements ParsedLine {
     // capitalize first letter
     label = label.charAt(0).toUpperCase() + label.slice(1);
 
-    return new SectionLabelLine(lineNum, label);
+    return new SectionLabelLine(label);
   };
 
   render = (state: RenderState): string => {
