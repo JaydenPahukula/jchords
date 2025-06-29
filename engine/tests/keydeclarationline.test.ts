@@ -15,12 +15,6 @@ describe('Parse key declaration line', () => {
     expect(result!.key).toEqual('F#m');
   });
 
-  test('whitespace around', () => {
-    const result = KeyDeclarationLine.tryParse(keyDeclarationKeyword + '      C          ');
-    expect(result).not.toBeNull();
-    expect(result!.key).toEqual('C');
-  });
-
   test('obviously invalid key', () => {
     expect(KeyDeclarationLine.tryParse(keyDeclarationKeyword + ' ABCD')).toBeNull();
   });

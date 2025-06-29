@@ -14,11 +14,7 @@ export class KeyDeclarationLine implements ParsedLine {
   }
 
   static tryParse = (line: string): KeyDeclarationLine | null => {
-    /*if (!line.startsWith(keyDeclarationKeyword + ' ')) return null;
-    const key = line.slice(keyDeclarationKeyword.length + 1).trim();
-
-    if (key.length > 3) return null;*/
-    const match = line.match(new RegExp(`^${keyDeclarationKeyword}\\s+(\\w{1,3})$`));
+    const match = line.match(new RegExp(`^${keyDeclarationKeyword}\\s+([\\w#]{1,3})$`));
     if (match === null || match[1] == null) return null;
 
     return new KeyDeclarationLine(match[1]);

@@ -2,7 +2,7 @@ import { repeatChordSymbol } from 'src/constants';
 import { RepeatChordsLine } from 'src/parser/lines/repeatchordsline';
 import { describe, expect, test } from 'vitest';
 
-describe('Parse section label line', () => {
+describe('Parse repeat chords line', () => {
   test('last line', () => {
     const result = RepeatChordsLine.tryParse(repeatChordSymbol);
     expect(result).not.toBeNull();
