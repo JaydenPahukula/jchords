@@ -5,7 +5,8 @@ import {
   subBeatChordGroupEndSymbol,
   subBeatChordGroupStartSymbol,
 } from 'src/constants';
-import { ParsedLine } from 'src/parser/parsedline';
+import { LineType, ParsedLine } from 'src/engine/parsedline';
+import { RenderOptions } from 'src/types/renderopts';
 import { RenderState } from 'src/types/renderstate';
 
 /**
@@ -16,6 +17,8 @@ import { RenderState } from 'src/types/renderstate';
  * so we can parse the chords with respect to the key.
  */
 export class ChordLine implements ParsedLine {
+  type = LineType.Chord;
+
   chords: (RawChord | SubBeatChordGroup)[];
 
   /** function to parse chords with */
@@ -114,7 +117,12 @@ export class ChordLine implements ParsedLine {
     return new ChordLine(chords);
   };
 
-  render = (state: RenderState): string => {
+  render = (state: RenderState, opts: RenderOptions): string => {
+    // remembering this for repeat chord lines
+    state.lastLastChordLine = state.lastChordLine;
+    state.lastChordLine = this;
+
+    // TODO
     return '';
   };
 }

@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JChords engine sandbox</title>
+  </head>
+  <body style="display: grid; grid-template-columns: 1fr 1fr; height: 100vh">
+    <div>
+      <p>Input <button id="render-button">Render</button></p>
+      <textarea id="input-text-field" style="width: 90%; min-height: 80%"></textarea>
+    </div>
+    <div>
+      <p>Output</p>
+      <div id="output-container" style="width: 100%; border: 1px black solid"></div>
+    </div>
+    <script type="module">
+      console.debug('Initializing...');
+      import { renderSong } from './main.ts';
+
+      document.getElementById('render-button')?.addEventListener('click', () => {
+        const input = document.getElementById('input-text-field').value;
+        const output = renderSong(input);
+        document.getElementById('output-container').innerHTML = output;
+      });
+      console.debug('Initialized');
+    </script>
+  </body>
+</html>

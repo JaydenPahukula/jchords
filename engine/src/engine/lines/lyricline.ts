@@ -1,8 +1,11 @@
 import { chordPositionMarker } from 'src/constants';
-import { ParsedLine } from 'src/parser/parsedline';
+import { LineType, ParsedLine } from 'src/engine/parsedline';
+import { RenderOptions } from 'src/types/renderopts';
 import { RenderState } from 'src/types/renderstate';
 
 export class LyricLine implements ParsedLine {
+  type = LineType.Lyric;
+
   lyrics: string;
   chordPositions: number[];
 
@@ -28,7 +31,7 @@ export class LyricLine implements ParsedLine {
     return new LyricLine(lineWithoutMarkers, chordPositions);
   };
 
-  render(state: RenderState): string {
+  render(state: RenderState, opts: RenderOptions): string {
     throw new Error('Method not implemented.');
   }
 }

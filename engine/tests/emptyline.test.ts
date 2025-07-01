@@ -1,4 +1,4 @@
-import { EmptyLine } from 'src/parser/lines/emptyline';
+import { EmptyLine } from 'src/engine/lines/emptyline';
 import { describe, expect, test } from 'vitest';
 
 describe('Parse empty line', () => {

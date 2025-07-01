@@ -1,8 +1,11 @@
 import { allowedTimeSignatures } from 'src/constants';
-import { ParsedLine } from 'src/parser/parsedline';
+import { LineType, ParsedLine } from 'src/engine/parsedline';
+import { RenderOptions } from 'src/types/renderopts';
 import { RenderState } from 'src/types/renderstate';
 
 export class TimeSignatureLine implements ParsedLine {
+  type = LineType.TimeSignature;
+
   numerator: number;
   denominator: number;
 
@@ -20,7 +23,7 @@ export class TimeSignatureLine implements ParsedLine {
     return new TimeSignatureLine(parseInt(matches[1]), parseInt(matches[2]));
   };
 
-  render = (state: RenderState): string => {
+  render = (state: RenderState, opts: RenderOptions): string => {
     return '';
   };
 }

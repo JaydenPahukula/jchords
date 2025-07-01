@@ -1,4 +1,4 @@
-import { TimeSignatureLine } from 'src/parser/lines/timesignatureline';
+import { TimeSignatureLine } from 'src/engine/lines/timesignatureline';
 import { describe, expect, test } from 'vitest';
 
 describe('Parse time signature line', () => {

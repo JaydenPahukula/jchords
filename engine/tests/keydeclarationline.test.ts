@@ -1,5 +1,5 @@
 import { keyDeclarationKeyword } from 'src/constants';
-import { KeyDeclarationLine } from 'src/parser/lines/keydeclarationline';
+import { KeyDeclarationLine } from 'src/engine/lines/keydeclarationline';
 import { describe, expect, test } from 'vitest';
 
 describe('Parse key declaration line', () => {

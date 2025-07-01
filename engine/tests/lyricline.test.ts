@@ -1,5 +1,5 @@
 import { chordPositionMarker } from 'src/constants';
-import { LyricLine } from 'src/parser/lines/lyricline';
+import { LyricLine } from 'src/engine/lines/lyricline';
 import { describe, expect, test } from 'vitest';
 
 describe('Parse lyric line', () => {

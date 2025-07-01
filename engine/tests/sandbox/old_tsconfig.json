@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "es2020",
+    "lib": [
+      "dom",
+      "es2020"
+    ],
+    "moduleResolution": "bundler",
+    "outDir": "./dist",
+    "paths": {
+      "src/*": [
+        "./dist/src/*"
+      ]
+    },
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+  },
+  "include": [
+    "./script.ts",
+    "../../src/**/*",
+    "../../src/*"
+  ],
+}

@@ -1,5 +1,5 @@
 import { repeatChordSymbol } from 'src/constants';
-import { RepeatChordsLine } from 'src/parser/lines/repeatchordsline';
+import { RepeatChordsLine } from 'src/engine/lines/repeatchordsline';
 import { describe, expect, test } from 'vitest';
 
 describe('Parse repeat chords line', () => {

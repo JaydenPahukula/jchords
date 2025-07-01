@@ -1,4 +1,4 @@
-import { ChordLine } from 'src/parser/lines/chordline';
+import { ChordLine } from 'src/engine/lines/chordline';
 import { describe, expect, test } from 'vitest';
 
 describe('Parse chord line', () => {

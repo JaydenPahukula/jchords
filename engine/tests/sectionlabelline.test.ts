@@ -1,5 +1,5 @@
 import { sectionLabelShorthands, sectionLabelSymbol } from 'src/constants';
-import { SectionLabelLine } from 'src/parser/lines/sectionlabelline';
+import { SectionLabelLine } from 'src/engine/lines/sectionlabelline';
 import { describe, expect, test } from 'vitest';
 
 describe('Parse section label line', () => {

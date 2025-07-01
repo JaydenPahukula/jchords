@@ -41,3 +41,7 @@ export const sectionLabelShorthands: Record<string, string> = {
   u: 'Interlude',
   v: 'Verse',
 };
+
+export const songClassAttr = 'jc-song';
+export const chordLineClassAttr = 'jc-chord-line';
+export const errorClassAttr = 'jc-error';
