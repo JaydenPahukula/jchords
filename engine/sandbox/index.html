@@ -7,22 +7,19 @@
   <body style="display: grid; grid-template-columns: 1fr 1fr; height: 100vh">
     <div>
       <p>Input <button id="render-button">Render</button></p>
-      <textarea id="input-text-field" style="width: 90%; min-height: 80%"></textarea>
+      <textarea id="input-text-field" style="width: 90%; min-height: 500px"></textarea>
     </div>
     <div>
       <p>Output</p>
-      <div id="output-container" style="width: 100%; border: 1px black solid"></div>
+      <div id="output-container" style="border: 1px black dotted"></div>
     </div>
     <script type="module">
-      console.debug('Initializing...');
-      import { renderSong } from './main.ts';
-
+      import { renderSong } from './index.ts';
       document.getElementById('render-button')?.addEventListener('click', () => {
         const input = document.getElementById('input-text-field').value;
         const output = renderSong(input);
         document.getElementById('output-container').innerHTML = output;
       });
-      console.debug('Initialized');
     </script>
   </body>
 </html>

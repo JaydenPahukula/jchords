@@ -1,0 +1,10 @@
+{
+  "name": "jchords-engine-sandbox",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "vite": "^7.0.0"
+  },
+  "dependencies": {}
+}

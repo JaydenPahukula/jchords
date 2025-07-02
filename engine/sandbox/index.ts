@@ -1,6 +1,7 @@
-import { render } from '../../src/engine';
+// @ts-ignore
+import { render } from 'jchords-engine';
 
-export function renderSong(input: string) {
+export function renderSong(input: string): String {
   console.debug('Rendering');
 
   try {
@@ -19,6 +20,6 @@ export function renderSong(input: string) {
       transpose: 0,
     });
   } catch (e) {
-    return 'ERROR';
+    return '<p style="color: red;">Failed to render:<br />' + e + '</p>\n';
   }
 }

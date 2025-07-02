@@ -2,8 +2,11 @@
   "name": "jchords-engine",
   "type": "module",
   "scripts": {
-    "tests": "vitest"
+    "tests": "vitest",
+    "sandbox": "cd sandbox && npm install && npx vite"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "devDependencies": {
     "concurrently": "^9.2.0",
     "http-server": "^14.1.1",
