@@ -1,4 +1,4 @@
-import { batch } from '@preact/signals';
+import { batch } from '@preact/signals-react';
 import { Accidental } from 'shared/enums/accidental';
 import { calcTransposeValue } from 'shared/functions/calctransposevalue';
 import { accidentalToCmAccidentalsType } from 'shared/functions/converters/accidentaltocmaccidentalstype';

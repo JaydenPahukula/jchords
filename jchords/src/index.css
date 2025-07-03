@@ -12,6 +12,8 @@
   --cursor-switch: pointer;
 
   --border: 1px solid var(--gray-6);
+
+  --chart-font: Roboto Mono, Courier New, monospace;
 }
 
 html,
@@ -25,4 +27,36 @@ body {
 }
 .user-circle-button:hover {
   outline: 6px solid var(--gray-4);
+}
+
+#song-page {
+  background: var(--gray-6);
+}
+
+#song-header {
+  background: #2e2e2e;
+  color: var(--gray-3);
+}
+
+.song-header-icon-button {
+  background: transparent;
+  color: var(--gray-3);
+}
+.song-header-icon-button:hover {
+  background: #fff1;
+  color: var(--gray-3);
+}
+.song-header-icon-button:active {
+  background: #fff2;
+  color: var(--gray-1);
+}
+
+.cmLine {
+  font-family: var(--chart-font);
+  line-height: 20px;
+  margin: 0;
+}
+
+.cmSectionLabel {
+  font-weight: bold;
 }

@@ -1,23 +1,31 @@
-// @ts-expect-error TODO add chord-mark type definitions
-import { renderSong } from 'chord-mark';
-import { useContext } from 'preact/hooks';
-import { StateContext } from 'src/state/statecontext';
+import { Box, Heading, Text } from '@radix-ui/themes';
+// @ts-expect-error chord-mark does not have types
+import { parseSong, renderSong } from 'chord-mark';
+import { cmRenderOptions } from 'shared/types/cm/cmrenderoptions';
+import { Song } from 'shared/types/song';
 
-export function Chart() {
-  const { currSong, renderOptions } = useContext(StateContext);
+interface ChartProps {
+  song: Song;
+  renderOptions: cmRenderOptions;
+}
 
+export function Chart({ song, renderOptions }: ChartProps) {
   return (
-    <div
-      id="chart"
-      class="bg-bg-0 mb-20 box-border w-full rounded-3xl p-10 pb-16 font-mono !shadow-md lg:w-auto lg:min-w-[48rem]"
+    <Box
+      p="40px"
+      minWidth="min(100%, 750px)"
+      style={{
+        borderRadius: 'var(--radius-6)',
+        background: 'var(--gray-1)',
+      }}
     >
-      <h2 class="text-3xl font-bold">{currSong.value.info.title}</h2>
-      <h3 class="text-lg">{currSong.value.info.artist}</h3>
-      <br />
-      <pre
-        class="w-full max-w-3xl leading-tight"
-        dangerouslySetInnerHTML={{ __html: renderSong(currSong.value.parsed, renderOptions.value) }}
-      />
-    </div>
+      <Heading as="h1" mb="1" size="7" style={{ fontFamily: 'var(--chart-font)' }}>
+        {song.info.title}
+      </Heading>
+      <Text size="4" style={{ fontFamily: 'var(--chart-font)' }}>
+        {song.info.artist}
+      </Text>
+      <pre dangerouslySetInnerHTML={{ __html: renderSong(parseSong(song.text), renderOptions) }} />
+    </Box>
   );
 }

@@ -19,3 +19,4 @@ big stuff
 later
 - fix package.json deps
 - replace radix with custom ui lib
+- dark mode

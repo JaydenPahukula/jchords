@@ -1,29 +1,73 @@
-import { LoadState } from 'shared/enums/loadstate';
-import { SongHeader } from 'src/components/songpage/header/songheader';
-import { SongPageContent } from 'src/components/songpage/songpagecontent';
-import { onSongPageLoad } from 'src/state/functions/onsongpageload';
-import { StateContext } from 'src/state/statecontext';
+import { batch, useSignal } from '@preact/signals-react';
+import { Flex, Grid, Heading, Spinner } from '@radix-ui/themes';
+
+import { useEffect } from 'react';
+import { useParams } from 'react-router';
+import { HomeIcon } from 'shared/components/icons/homeicon';
+import { DialogType } from 'shared/enums/dialogtype';
+import { apiGetSong } from 'shared/functions/api/endpoints/getsong';
+import { cmRenderOptions } from 'shared/types/cm/cmrenderoptions';
+import { Song } from 'shared/types/song';
+import { Chart } from 'src/components/songpage/chart';
+import { HeaderIconLink } from 'src/components/songpage/headericonbutton';
+
+const defaultRenderOptions: cmRenderOptions = {
+  accidentalsType: 'auto',
+  transposeValue: 0,
+  printBarSeparators: 'grids',
+  symbolType: 'chord',
+};
+
+type SongPageParams = {
+  songId: string;
+};
 
 export function SongPage() {
-  const { currSongLoadState, currSong } = useContext(StateContext);
+  const { songId } = useParams<SongPageParams>();
+  if (songId === undefined) throw new Error('songId is undefined');
 
-  useEffect(() => onSongPageLoad(id), []);
+  const dialogSignal = useSignal<DialogType>(DialogType.None);
+  const songSignal = useSignal<Song | 'loading' | 'error'>('loading');
 
-  // page title
+  const song =
+    songSignal.value === 'loading' || songSignal.value === 'error' ? undefined : songSignal.value;
+
   useEffect(() => {
-    if (currSongLoadState.value === LoadState.Loaded && !!currSong.value.info.title) {
-      document.title = currSong.value.info.title + ' - JChords';
-    } else {
-      document.title = 'JChords';
-    }
-  }, [currSongLoadState.value]);
+    document.title = 'JChords';
+    batch(() => {
+      dialogSignal.value = DialogType.None;
+      songSignal.value = 'loading';
+    });
+    apiGetSong(songId).then((result) => {
+      if (result === undefined) {
+        songSignal.value = 'error';
+      } else {
+        songSignal.value = result;
+        document.title = result.info.title + ' - JChords';
+      }
+    });
+  }, [songId]);
 
   return (
-    <div id="songpage" class="bg-bg-4 flex h-screen w-full flex-col overflow-hidden">
-      <SongHeader />
-      <div class="flex grow flex-col items-center overflow-y-auto p-4">
-        <SongPageContent />
-      </div>
-    </div>
+    <Grid id="song-page" rows="min-content 1fr" height="100lvh">
+      <Flex id="song-header" align="center" height="52px" px="2" gap="2">
+        <Flex flexGrow="1" flexShrink="0" gap="2">
+          <HeaderIconLink icon={HomeIcon} href="/" />
+        </Flex>
+        <Heading as="h2" size="5" weight="bold" truncate>
+          {song?.info.title}
+        </Heading>
+        <Flex flexGrow="1" flexShrink="0" gap="2" justify="end">
+          {/* <HeaderIconButton icon={MusicNoteIcon} menu={<TransposeMenu />} /> */}
+        </Flex>
+      </Flex>
+      <Flex direction="column" align="center" p="4" pb="8" overflowY="auto">
+        {song === undefined ? (
+          <Spinner mx="auto" size="3" />
+        ) : (
+          <Chart song={song} renderOptions={defaultRenderOptions} />
+        )}
+      </Flex>
+    </Grid>
   );
 }

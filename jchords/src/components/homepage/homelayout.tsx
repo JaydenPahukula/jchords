@@ -41,13 +41,13 @@ export function HomeLayout() {
                 <Heading size="7">JChords</Heading>
               </Link>
               <UserCircle
-                user={auth.currentUser}
+                user={userSignal.value}
                 showDialog={() => (dialogSignal.value = DialogType.Login)}
                 width="52px"
               />
             </Flex>
           </Container>
-          <Container size="2" style={{ background: 'var(--gray-2)' }} overflowY="auto">
+          <Container size="2" style={{ background: 'var(--gray-3)' }} overflowY="auto">
             <Outlet />
           </Container>
         </Grid>

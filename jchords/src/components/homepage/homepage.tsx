@@ -47,7 +47,7 @@ export function HomePage() {
       ) : (
         songList.value.map((info) => (
           <Card key={info.id} mb="2" asChild>
-            <Box p="3">
+            <Box p="2">
               <Flex align="center">
                 <Box flexGrow="1" pl="1">
                   <Text truncate as="p" weight="medium" size="3">

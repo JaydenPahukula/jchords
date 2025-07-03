@@ -1,23 +1,25 @@
-import { useContext } from 'preact/hooks';
-import { JSX } from 'preact/jsx-runtime';
 import { Accidental } from 'shared/enums/accidental';
 import { Mode } from 'shared/enums/mode';
 import { calcKey } from 'shared/functions/calckey';
 import { cmAccidentalsTypeToAccidental } from 'shared/functions/converters/cmaccidentalstypetoaccidental';
 import { keyToString } from 'shared/functions/converters/keytostring';
+import { cmRenderOptions } from 'shared/types/cm/cmrenderoptions';
+import { ParsedSong } from 'shared/types/parsedsong';
 import { setAccidentalsType, setKey, setTransposeValue } from 'src/state/functions/transpose';
 import { updateRenderOptions } from 'src/state/functions/updaterenderoptions';
-import { StateContext } from 'src/state/statecontext';
 
 // prettier-ignore
 const majorKeyOptions = ['C','C#','Db','D','D#','Eb','E','F','F#','Gb','G','G#','Ab','A','A#','Bb','B'];
 const minorKeyOptions = majorKeyOptions.map((s) => s + 'm');
 
-export function TransposeMenu() {
-  const { currSong, renderOptions } = useContext(StateContext);
+interface TransposeMenuProps {
+  song: ParsedSong;
+  renderOptions: cmRenderOptions;
+  updateRenderOptions: (update: Partial<cmRenderOptions>) => void;
+}
 
-  const { defaultKey, defaultAccidental, mode } = currSong.value;
-  const renderOpts = renderOptions.value;
+export function TransposeMenu(props: TransposeMenuProps) {
+  const { defaultKey, defaultAccidental, mode } = props.song;
 
   function handleSymbolTypeChange(e: JSX.TargetedMouseEvent<HTMLSelectElement>) {
     const val = e.currentTarget.value;
@@ -28,11 +30,11 @@ export function TransposeMenu() {
     }
   }
 
-  const transposeDisabled = renderOpts.symbolType === 'roman';
+  const transposeDisabled = props.renderOptions.symbolType === 'roman';
 
   const defaultKeyString = keyToString(defaultKey, defaultAccidental, mode);
-  const currAccidental = cmAccidentalsTypeToAccidental(renderOpts.accidentalsType);
-  const currKey = calcKey(defaultKey, renderOpts.transposeValue);
+  const currAccidental = cmAccidentalsTypeToAccidental(props.renderOptions.accidentalsType);
+  const currKey = calcKey(defaultKey, props.renderOptions.transposeValue);
 
   const keyOptions = mode == Mode.Major ? majorKeyOptions : minorKeyOptions;
   function handleKeyChange(e: JSX.TargetedMouseEvent<HTMLSelectElement>) {
@@ -57,7 +59,11 @@ export function TransposeMenu() {
       <div class="border-fg-1 mb-4 flex flex-col gap-1 border-t pt-4">
         <label class="flex w-full justify-between gap-4">
           Symbol Type:
-          <select class="grow px-1" value={renderOpts.symbolType} onChange={handleSymbolTypeChange}>
+          <select
+            class="grow px-1"
+            value={props.renderOptions.symbolType}
+            onChange={handleSymbolTypeChange}
+          >
             <option value="chord">Chord</option>
             <option value="roman">Roman</option>
           </select>
@@ -87,7 +93,7 @@ export function TransposeMenu() {
           Transpose:
           <select
             class="grow px-1"
-            value={((renderOpts.transposeValue + 5) % 12) - 5}
+            value={((props.renderOptions.transposeValue + 5) % 12) - 5}
             disabled={transposeDisabled}
             onChange={handleTransposeChange}
           >
