@@ -11,7 +11,7 @@ export class EmptyLine implements ParsedLine {
   constructor() {}
 
   static tryParse = (line: string): EmptyLine | null => {
-    const match = line.match(/^\\s*$/);
+    const match = line.match(/^\s*$/);
     if (match) return new EmptyLine();
     return null;
   };
