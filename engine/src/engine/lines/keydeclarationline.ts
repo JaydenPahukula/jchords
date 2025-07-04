@@ -21,32 +21,29 @@ export class KeyDeclarationLine implements ParsedLine {
   original: string;
   static regex = new RegExp(`^${keyDeclarationKeyword}\\s+([A-Za-z#m]{1,4})$`, 'i');
 
-  constructor(key: Key | null, original: string) {
-    this.key = key;
+  constructor(original: string) {
     this.original = original;
-  }
 
-  static tryParse = (line: string): KeyDeclarationLine | null => {
-    const initialMatch = line.match(KeyDeclarationLine.regex);
-    if (initialMatch === null || initialMatch[1] === undefined) return null;
-
-    const originalString = initialMatch[1];
-    const match = originalString.match(/^([A-Ga-g][#b]?)(m?)$/);
+    const match = original.match(/^([A-Ga-g][#b]?)(m?)$/);
     if (
       match === null ||
       match[1] === undefined ||
       match[2] === undefined ||
       !(match[1] in noteMappings)
     )
-      return new KeyDeclarationLine(null, originalString);
-
-    return new KeyDeclarationLine(
-      {
+      this.key = null;
+    else
+      this.key = {
         note: noteMappings[match[1]]!,
         minor: match[2].length != 0,
-      },
-      originalString,
-    );
+      };
+  }
+
+  static tryParse = (line: string): KeyDeclarationLine | null => {
+    const match = line.match(KeyDeclarationLine.regex);
+    if (match === null || match[1] === undefined) return null;
+
+    return new KeyDeclarationLine(match[1]);
   };
 
   render(state: RenderState, opts: RenderOptions): string {

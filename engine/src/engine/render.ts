@@ -23,6 +23,7 @@ export function render(src: string, opts: RenderOptions): string {
   let output = '';
   const state: RenderState = {
     key: undefined,
+    timeSignature: undefined,
     currentLine: 0,
     lines: parsedLines,
     lastChordLine: undefined,
@@ -34,13 +35,15 @@ export function render(src: string, opts: RenderOptions): string {
   output += '<!-- Start of JChords rendered song -->\n';
   output += `<div class="${songClassName}">\n`;
   output += `<p class="${sectionClassName}">\n`;
+
   parsedLines.map((line) => {
     output += line.render(state, opts);
     state.currentLine++;
   });
+
   output += '</p>\n';
   output += '</div>\n';
-  output += '<!-- End of JChords song -->\n';
+  output += '<!-- End of song -->\n';
 
   return output;
 }

@@ -5,6 +5,12 @@
     <title>JChords engine sandbox</title>
   </head>
   <style>
+    .jc-song {
+      padding: 1rem;
+    }
+    .jc-section {
+      margin: 0;
+    }
     .jc-error {
       color: red;
     }
@@ -24,7 +30,10 @@
     </div>
     <div>
       <p>Rendered output</p>
-      <div id="rendered-output-container" style="border: 1px black solid"></div>
+      <div
+        id="rendered-output-container"
+        style="border: 1px black solid; font-family: monospace"
+      ></div>
     </div>
     <script type="module">
       import { renderSong } from './index.ts';

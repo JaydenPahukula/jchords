@@ -1,4 +1,4 @@
-import { keyDeclarationKeyword, keyDeclarationLineClassName } from 'src/constants';
+import { errorClassName, keyDeclarationKeyword, keyDeclarationLineClassName } from 'src/constants';
 import { KeyDeclarationLine } from 'src/engine/lines/keydeclarationline';
 import { defaultRenderOptions } from 'src/index';
 import { Note } from 'src/types/note';
@@ -81,22 +81,21 @@ describe('Parse key declaration line', () => {
 });
 
 describe('Render key declaration line', () => {
-  const initialState = (): RenderState => {
-    return {
-      key: undefined,
-      currentLine: 0,
-      lines: [],
-      lastChordLine: undefined,
-      lastLastChordLine: undefined,
-      currentSection: undefined,
-    };
+  const initialState: RenderState = {
+    key: undefined,
+    timeSignature: undefined,
+    currentLine: 0,
+    lines: [],
+    lastChordLine: undefined,
+    lastLastChordLine: undefined,
+    currentSection: undefined,
   };
 
   test('plain', () => {
-    const line: KeyDeclarationLine = new KeyDeclarationLine({ note: Note.C, minor: false }, 'C');
+    const line: KeyDeclarationLine = new KeyDeclarationLine('C');
     const opts = defaultRenderOptions();
     const state = {
-      ...initialState(),
+      ...initialState,
       lines: [line],
     };
     const container = document.createElement('div');
@@ -106,21 +105,32 @@ describe('Render key declaration line', () => {
   });
 
   test('overwriting', () => {
-    const line1: KeyDeclarationLine = new KeyDeclarationLine(
-      { note: Note.FSharp, minor: true },
-      'F#m',
-    );
-    const line2: KeyDeclarationLine = new KeyDeclarationLine({ note: Note.D, minor: false }, 'D');
+    const line1: KeyDeclarationLine = new KeyDeclarationLine('F#m');
+    const line2: KeyDeclarationLine = new KeyDeclarationLine('D');
     const opts = defaultRenderOptions();
     const state = {
-      ...initialState(),
+      ...initialState,
       lines: [line1, line2],
       key: { note: Note.C, minor: false },
     };
-    let output = line1.render(state, opts);
+    line1.render(state, opts);
     expect(state.key).toEqual(line1.key);
 
-    output = line2.render(state, opts);
+    line2.render(state, opts);
     expect(state.key).toEqual(line2.key);
+  });
+
+  test('invalid chord', () => {
+    const line: KeyDeclarationLine = new KeyDeclarationLine('CD');
+    const opts = defaultRenderOptions();
+    const state = {
+      ...initialState,
+      lines: [line],
+    };
+    const container = document.createElement('div');
+    container.innerHTML = line.render(state, opts);
+
+    expect(container.querySelectorAll('.' + keyDeclarationLineClassName)).toHaveLength(1);
+    expect(container.querySelectorAll('.' + errorClassName).length).toBeTruthy();
   });
 });
