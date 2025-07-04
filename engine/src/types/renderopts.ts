@@ -19,5 +19,22 @@ export type RenderOptions = {
   // wrapping options?
 };
 
+export const defaultRenderOptions = (): RenderOptions => {
+  return {
+    accidentalsPreferrence: 'auto',
+    alignBars: true,
+    alignChordsWithLyrics: true,
+    chartType: 'all',
+    expandRepeatSecions: true,
+    renderNumerals: false,
+    simplifyChords: false,
+    showChordDurations: true,
+    showBarSeparators: true,
+    showSubBeatDelimiters: true,
+    showInlineTimeSignatures: true,
+    transpose: 0,
+  };
+};
+
 export type AccidentalsPreferrenceOptions = 'auto' | 'sharps' | 'flats';
 export type ChartTypeOptions = 'all' | 'lyrics' | 'chords' | 'first-lyric-line';

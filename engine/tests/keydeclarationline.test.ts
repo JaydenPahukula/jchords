@@ -1,6 +1,8 @@
-import { keyDeclarationKeyword } from 'src/constants';
+import { keyDeclarationKeyword, keyDeclarationLineClassName } from 'src/constants';
 import { KeyDeclarationLine } from 'src/engine/lines/keydeclarationline';
+import { defaultRenderOptions } from 'src/index';
 import { Note } from 'src/types/note';
+import { RenderState } from 'src/types/renderstate';
 import { describe, expect, test } from 'vitest';
 
 describe('Parse key declaration line', () => {
@@ -75,5 +77,50 @@ describe('Parse key declaration line', () => {
 
   test('empty line', () => {
     expect(KeyDeclarationLine.tryParse('')).toBeNull();
+  });
+});
+
+describe('Render key declaration line', () => {
+  const initialState = (): RenderState => {
+    return {
+      key: undefined,
+      currentLine: 0,
+      lines: [],
+      lastChordLine: undefined,
+      lastLastChordLine: undefined,
+      currentSection: undefined,
+    };
+  };
+
+  test('plain', () => {
+    const line: KeyDeclarationLine = new KeyDeclarationLine({ note: Note.C, minor: false }, 'C');
+    const opts = defaultRenderOptions();
+    const state = {
+      ...initialState(),
+      lines: [line],
+    };
+    const container = document.createElement('div');
+    container.innerHTML = line.render(state, opts);
+
+    expect(container.querySelectorAll('.' + keyDeclarationLineClassName)).toHaveLength(1);
+  });
+
+  test('overwriting', () => {
+    const line1: KeyDeclarationLine = new KeyDeclarationLine(
+      { note: Note.FSharp, minor: true },
+      'F#m',
+    );
+    const line2: KeyDeclarationLine = new KeyDeclarationLine({ note: Note.D, minor: false }, 'D');
+    const opts = defaultRenderOptions();
+    const state = {
+      ...initialState(),
+      lines: [line1, line2],
+      key: { note: Note.C, minor: false },
+    };
+    let output = line1.render(state, opts);
+    expect(state.key).toEqual(line1.key);
+
+    output = line2.render(state, opts);
+    expect(state.key).toEqual(line2.key);
   });
 });
