@@ -123,7 +123,7 @@ export class ChordLine implements ParsedLine {
     state.lastChordLine = this;
 
     // TODO
-    return '';
+    return '<!-- chord line todo -->\n';
   };
 }
 

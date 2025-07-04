@@ -1,4 +1,4 @@
-import { songClassAttr } from 'src/constants';
+import { sectionClassName, songClassName } from 'src/constants';
 import { ChordLine } from 'src/engine/lines/chordline';
 import { EmptyLine } from 'src/engine/lines/emptyline';
 import { KeyDeclarationLine } from 'src/engine/lines/keydeclarationline';
@@ -12,6 +12,9 @@ import { RenderError } from 'src/error';
 import { RenderOptions } from 'src/types/renderopts';
 import { RenderState } from 'src/types/renderstate';
 
+/**
+ *  Where the magic happens
+ */
 export function render(src: string, opts: RenderOptions): string {
   // parsing lines
   const rawLines = src.split('\n');
@@ -19,19 +22,25 @@ export function render(src: string, opts: RenderOptions): string {
 
   let output = '';
   const state: RenderState = {
+    key: undefined,
     currentLine: 0,
     lines: parsedLines,
-    lastChordLine: null,
-    lastLastChordLine: null,
+    lastChordLine: undefined,
+    lastLastChordLine: undefined,
+    currentSection: undefined,
   };
 
   // main rendering
-  output += `<p class="${songClassAttr}">`;
+  output += '<!-- Start of JChords rendered song -->\n';
+  output += `<div class="${songClassName}">\n`;
+  output += `<p class="${sectionClassName}">\n`;
   parsedLines.map((line) => {
     output += line.render(state, opts);
     state.currentLine++;
   });
-  output += '</p>';
+  output += '</p>\n';
+  output += '</div>\n';
+  output += '<!-- End of JChords song -->\n';
 
   return output;
 }

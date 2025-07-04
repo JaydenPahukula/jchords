@@ -1,6 +1,5 @@
-import { repeatChordSymbol } from 'src/constants';
+import { errorClassName, repeatChordSymbol } from 'src/constants';
 import { LineType, ParsedLine } from 'src/engine/parsedline';
-import { RenderError } from 'src/error';
 import { RenderOptions } from 'src/types/renderopts';
 import { RenderState } from 'src/types/renderstate';
 
@@ -21,13 +20,13 @@ export class RepeatChordsLine implements ParsedLine {
 
   render = (state: RenderState, opts: RenderOptions): string => {
     if (this.precedingLineNum === 1) {
-      if (state.lastChordLine === null)
-        throw new RenderError('No preceding chord lines', state.currentLine);
+      if (state.lastChordLine === undefined)
+        return `<span class="${errorClassName}">%<br /></span>\n`;
 
       return state.lastChordLine.render(state, opts);
     } else {
-      if (state.lastLastChordLine === null)
-        throw new RenderError('Not enough preceding chord lines', state.currentLine);
+      if (state.lastLastChordLine === undefined)
+        return `<span class="${errorClassName}">%%<br /></span>\n`;
 
       return state.lastLastChordLine.render(state, opts);
     }

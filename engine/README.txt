@@ -6,3 +6,6 @@ but with the following changes:
   chord durations at all.
   - Bar separators are horizontally aligned across chord lines, but 
   unlike ChordMark, the alignment does not cross empty lines.
+  - Key declaration is case-insensitive and whitespace-agnostic
+  - Better error reporting
+    - Invalid keys will be highlighted as an error, rather than being treated as lyrics

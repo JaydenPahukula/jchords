@@ -20,6 +20,6 @@ export function renderSong(input: string): String {
       transpose: 0,
     });
   } catch (e) {
-    return '<p style="color: red;">Failed to render:<br />' + e + '</p>\n';
+    return '<p style="color: red; font-style: italic;">Failed to render:<br />' + e + '</p>';
   }
 }

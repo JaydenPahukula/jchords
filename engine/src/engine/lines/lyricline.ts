@@ -32,6 +32,6 @@ export class LyricLine implements ParsedLine {
   };
 
   render(state: RenderState, opts: RenderOptions): string {
-    throw new Error('Method not implemented.');
+    return '<!-- lyric line TODO -->\n';
   }
 }

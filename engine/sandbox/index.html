@@ -4,21 +4,35 @@
     <meta charset="UTF-8" />
     <title>JChords engine sandbox</title>
   </head>
-  <body style="display: grid; grid-template-columns: 1fr 1fr; height: 100vh">
+  <style>
+    .jc-error {
+      color: red;
+    }
+    .jc-chord {
+      color: green;
+      font: bold;
+    }
+  </style>
+  <body style="display: grid; grid-template-columns: 1fr 1fr 1fr; column-gap: 1rem; height: 100vh">
     <div>
       <p>Input <button id="render-button">Render</button></p>
-      <textarea id="input-text-field" style="width: 90%; min-height: 500px"></textarea>
+      <textarea id="input-text-field" style="width: 100%; min-height: 500px"></textarea>
     </div>
     <div>
-      <p>Output</p>
-      <div id="output-container" style="border: 1px black dotted"></div>
+      <p>Raw output</p>
+      <div id="raw-output-container" style="border: 1px black dotted; font-family: monospace"></div>
+    </div>
+    <div>
+      <p>Rendered output</p>
+      <div id="rendered-output-container" style="border: 1px black solid"></div>
     </div>
     <script type="module">
       import { renderSong } from './index.ts';
       document.getElementById('render-button')?.addEventListener('click', () => {
         const input = document.getElementById('input-text-field').value;
         const output = renderSong(input);
-        document.getElementById('output-container').innerHTML = output;
+        document.getElementById('raw-output-container').innerText = output;
+        document.getElementById('rendered-output-container').innerHTML = output;
       });
     </script>
   </body>

@@ -1,3 +1,4 @@
+import { emptyLineClassName } from 'src/constants';
 import { LineType, ParsedLine } from 'src/engine/parsedline';
 import { RenderOptions } from 'src/types/renderopts';
 import { RenderState } from 'src/types/renderstate';
@@ -17,6 +18,6 @@ export class EmptyLine implements ParsedLine {
   };
 
   render(state: RenderState, opts: RenderOptions): string {
-    throw new Error('Method not implemented.');
+    return `<span class="${emptyLineClassName}"><br /></span>\n`;
   }
 }
