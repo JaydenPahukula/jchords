@@ -1,0 +1,8 @@
+.open-song-dialog-row:hover {
+  background: var(--gray-2);
+  cursor: pointer;
+}
+.open-song-dialog-row-selected {
+  background: var(--gray-3);
+  cursor: points;
+}

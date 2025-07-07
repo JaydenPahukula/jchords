@@ -1,26 +1,27 @@
 {
-  "hosting": [
-    {
-      "target": "jchords",
-      "public": "jchords/dist",
-      "rewrites": [
-        {
-          "source": "/api/{,/**}",
-          "function": {
-            "functionId": "api"
-          }
-        },
-        {
-          "source": "**",
-          "destination": "/index.html"
+  "hosting": {
+    "public": "jchords/dist",
+    "rewrites": [
+      {
+        "source": "/api/{,/**}",
+        "function": {
+          "functionId": "api"
         }
-      ]
-    },
-    {
-      "target": "jchords-editor",
-      "public": "jchords-editor/dist/"
-    }
-  ],
+      },
+      {
+        "source": "/song/**",
+        "destination": "/song/index.html"
+      },
+      {
+        "source": "/editor",
+        "destination": "/editor/index.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
   "firestore": {
     "rules": "firestore/firestore.rules"
   },

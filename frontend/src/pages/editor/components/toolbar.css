@@ -1,0 +1,10 @@
+.toolbar-button {
+  background: transparent !important;
+  color: var(--gray-12) !important;
+}
+.toolbar-button:disabled {
+  color: var(--gray-10) !important;
+}
+.toolbar-button:hover:enabled {
+  background: var(--gray-3) !important;
+}

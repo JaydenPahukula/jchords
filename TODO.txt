@@ -1,5 +1,6 @@
 small stuff
-- split up css files
+- fix index.htmls in frontend vite
+- look at eslint config and no-relative-import-paths
 - api request body type (why is it JSON string?)
 - add initials for users without profile picture (radix avatar)
 - make enter work for log in dialog
@@ -10,11 +11,14 @@ small stuff
 - swipe guestures for growls
 - fix link
 - change deleteconfirmationdialog to radix alertdialog
+- fix CSS important hacks
 
 big stuff
 - check ipad support
 - add edit account page
 - add public/private songs
+- liking songs
+- playlists
 
 later
 - fix package.json deps

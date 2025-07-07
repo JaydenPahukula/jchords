@@ -7,12 +7,10 @@
     "lint": "eslint",
     "lint-fix": "eslint --fix",
     "emulator": "firebase emulators:start --only 'auth,firestore,functions' --import=firestore/testdata --export-on-exit",
-    "dev-jchords": "npm run dev --prefix jchords/",
-    "dev-editor": "npm run dev --prefix jchords-editor/",
+    "dev-frontend": "npm run dev --prefix frontend/",
     "dev-backend": "npm run dev --prefix backend/",
-    "preview-jchords": "npm run preview --prefix jchords/",
-    "deploy-jchords": "npm run lint && npm run deploy --prefix jchords/",
-    "deploy-editor": "npm run lint && npm run deploy --prefix jchords-editor/",
+    "preview-frontend": "npm run preview --prefix frontend/",
+    "deploy-frontend": "npm run lint && npm run deploy --prefix frontend/",
     "deploy-backend": "npm run lint && npm run deploy --prefix backend/",
     "deploy-firestore-rules": "firebase deploy --only firestore:rules"
   },
@@ -26,9 +24,8 @@
     "typescript-eslint": "^8.27.0"
   },
   "workspaces": [
-    "jchords",
-    "jchords-editor",
     "backend",
+    "frontend",
     "shared"
   ]
 }

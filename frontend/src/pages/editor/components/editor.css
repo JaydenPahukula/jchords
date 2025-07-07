@@ -1,0 +1,8 @@
+.editor {
+  background: var(--gray-2);
+}
+
+.cmLine {
+  margin: 0;
+  font-size: 14px;
+}
