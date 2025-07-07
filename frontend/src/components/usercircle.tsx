@@ -5,11 +5,10 @@ import { logOut } from 'shared/functions/auth/logout';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { UserIcon } from 'src/components/icons/usericon';
 import 'src/components/usercircle.css';
-import { DialogType } from 'src/enums/dialogtype';
 
 interface UserCircleProps {
   user: User | null;
-  showDialog: (dialog: DialogType) => void;
+  openLoginDialog: () => void;
   width?: string;
 }
 
@@ -18,7 +17,7 @@ export function UserCircle(props: UserCircleProps) {
 
   function onOpenChange(open: boolean) {
     if (open && props.user === null) {
-      props.showDialog(DialogType.Login);
+      props.openLoginDialog();
     } else {
       isMenuOpen.value = open;
     }

@@ -42,7 +42,7 @@ export function HomeLayout() {
               </Link>
               <UserCircle
                 user={userSignal.value}
-                showDialog={() => (dialogSignal.value = DialogType.Login)}
+                openLoginDialog={() => (dialogSignal.value = DialogType.Login)}
                 width="52px"
               />
             </Flex>
