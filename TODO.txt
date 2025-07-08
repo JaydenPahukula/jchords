@@ -2,9 +2,7 @@ small stuff
 - fix index.htmls in frontend vite
 - look at eslint config and no-relative-import-paths
 - api request body type (why is it JSON string?)
-- add initials for users without profile picture (radix avatar)
 - make enter work for log in dialog
-- fix icon framework
 - tablist scroll so new tab is in view
 - add view password option
 - disable open song dialog table
@@ -15,10 +13,11 @@ small stuff
 
 big stuff
 - check ipad support
-- add edit account page
 - add public/private songs
 - liking songs
 - playlists
+- email verification
+- change profile picture
 
 later
 - fix package.json deps

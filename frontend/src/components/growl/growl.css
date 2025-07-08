@@ -1,0 +1,5 @@
+.growl {
+  background: var(--gray-1);
+  border-radius: 6px;
+  box-shadow: var(--shadow-3);
+}

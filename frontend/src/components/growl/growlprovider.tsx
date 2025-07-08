@@ -2,6 +2,7 @@ import { batch, computed, signal } from '@preact/signals-react';
 import { Box, Flex, IconButton } from '@radix-ui/themes';
 import { Toast } from 'radix-ui';
 import { ReactNode } from 'react';
+import 'src/components/growl/growl.css';
 import { XIcon } from 'src/components/icons/xicon';
 import { Growl } from 'src/types/growl/growl';
 
@@ -44,7 +45,9 @@ class GrowlManager {
 
 const growlManager = new GrowlManager();
 
-export const dispatchGrowl = growlManager.dispatchGrowl;
+export function dispatchGrowl(growl: Growl) {
+  growlManager.dispatchGrowl(growl);
+}
 
 interface GrowlProviderProps {
   children: ReactNode;

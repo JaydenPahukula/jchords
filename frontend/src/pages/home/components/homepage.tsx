@@ -28,7 +28,7 @@ export function HomePage() {
 
   return (
     <>
-      <Box width="100%" mt="4" mb="4" asChild>
+      <Box width="100%" mb="4" asChild>
         <TextField.Root placeholder="Search for a song..." size="3">
           <TextField.Slot>
             <SearchIcon />
