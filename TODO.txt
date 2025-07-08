@@ -10,6 +10,7 @@ small stuff
 - fix link
 - change deleteconfirmationdialog to radix alertdialog
 - fix CSS important hacks
+- fix loading state on createaccountdialog
 
 big stuff
 - check ipad support
@@ -20,6 +21,6 @@ big stuff
 - change profile picture
 
 later
-- fix package.json deps
+- FIGURE OUT STYLE!
 - replace radix with custom ui lib
 - dark mode

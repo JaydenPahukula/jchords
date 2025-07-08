@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router';
 import { logOut } from 'shared/functions/auth/logout';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { SignOutIcon } from 'src/components/icons/signouticon';
-import { TrashIcon } from 'src/components/icons/trashicon';
 import { TextFieldWithX } from 'src/components/textfieldwithx';
 import { UserAvatar } from 'src/components/useravatar';
+import { DeleteAccountButton } from 'src/pages/home/components/accountpage/deleteaccountbutton';
 import { useUserContext } from 'src/pages/home/state/user';
 
 export function AccountPage() {
@@ -49,11 +49,6 @@ export function AccountPage() {
     logOut();
     navigate('/');
     dispatchGrowl({ description: 'Signed out successfully' });
-  }
-
-  function deleteAccount() {
-    // TODO
-    dispatchGrowl({ description: 'TODO' });
   }
 
   return user === undefined ? (
@@ -113,10 +108,7 @@ export function AccountPage() {
           </Button>
         </Box>
         <Box mt="2">
-          <Button onClick={deleteAccount} color="red" variant="soft">
-            <TrashIcon />
-            Delete Account
-          </Button>
+          <DeleteAccountButton user={user} />
         </Box>
       </Box>
     </Card>
