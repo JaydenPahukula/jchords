@@ -1,17 +1,19 @@
-import { allowedTimeSignatures, errorClassName, timeSignatureLineClassName } from 'src/constants';
-import { LineType, ParsedLine } from 'src/engine/parsedline';
+import { allowedTimeSignatures } from 'src/constants';
+import { errorClassName, timeSignatureLineClassName } from 'src/constants/classes';
+import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderOptions } from 'src/types/renderopts';
-import { RenderState } from 'src/types/renderstate';
 import { TimeSignature } from 'src/types/timesignature';
 
 export class TimeSignatureLine implements ParsedLine {
   type = LineType.TimeSignature;
 
   ts: TimeSignature;
+  // is the time signature allowed
   valid: boolean;
 
   constructor(upper: number, lower: number) {
     this.ts = { upper: upper, lower: lower };
+
     // checking if time signature is valid
     this.valid = false;
     for (const allowedTimeSignature of allowedTimeSignatures) {
@@ -25,19 +27,18 @@ export class TimeSignatureLine implements ParsedLine {
     }
   }
 
-  static tryParse = (line: string): TimeSignatureLine | null => {
+  static tryParse = (line: string, state: ParseState): TimeSignatureLine | null => {
     const match = line.match(/^([0-9]{1,2})\/([0-9]{1,2})$/);
     if (match === null || match[1] == null || match[2] == null) return null;
 
     return new TimeSignatureLine(parseInt(match[1]), parseInt(match[2]));
   };
 
-  render = (state: RenderState, opts: RenderOptions): string => {
+  render = (opts: RenderOptions): string => {
     if (this.valid) {
-      state.timeSignature = this.ts;
       return `<span class="${timeSignatureLineClassName}">${this.ts.upper}/${this.ts.lower}<br /></span>`;
     } else {
-      return `<span class="${timeSignatureLineClassName}"><span class="${errorClassName}">${this.ts.upper}</span>/<span class="${errorClassName}">${this.ts.lower}</span><br /></span>\n`;
+      return `<span class="${timeSignatureLineClassName}"><span class="${errorClassName}">${this.ts.upper}</span>/<span class="${errorClassName}">${this.ts.lower}</span><br /></span>`;
     }
   };
 }

@@ -1,3 +1,4 @@
-export { render } from 'src/engine/render';
+export { parseSong } from 'src/engine/parse';
+export { renderSong } from 'src/engine/render';
 
-export * from 'src/types/renderopts';
+export type { RenderOptions } from 'src/types/renderopts';

@@ -1,4 +1,4 @@
-import { chordPositionMarker } from 'src/constants';
+import { chordPositionMarker } from 'src/constants/symbols';
 import { LyricLine } from 'src/engine/lines/lyricline';
 import { describe, expect, test } from 'vitest';
 

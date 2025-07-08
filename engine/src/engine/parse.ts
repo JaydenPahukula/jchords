@@ -1,0 +1,102 @@
+import { ChordLine } from 'src/engine/lines/chordline';
+import { EmptyLine } from 'src/engine/lines/emptyline';
+import { KeyDeclarationLine } from 'src/engine/lines/keydeclarationline';
+import { LyricLine } from 'src/engine/lines/lyricline';
+import { RepeatChordsLine } from 'src/engine/lines/repeatchordsline';
+import { SectionLabelLine } from 'src/engine/lines/sectionlabelline';
+import { TimeSignatureLine } from 'src/engine/lines/timesignatureline';
+import { ParserError, RenderError } from 'src/error';
+import { Key } from 'src/types/key';
+import { ParsedSong } from 'src/types/parsedsong';
+import { RenderOptions } from 'src/types/renderopts';
+import { TimeSignature } from 'src/types/timesignature';
+
+/**
+ * Parses a whole song, returning a `ParsedSong` object which can be used to render
+ */
+export function parseSong(source: string): ParsedSong {
+  const rawLines = source.split('\n');
+
+  const state: ParseState = { ...getDefaultParseState() };
+  rawLines.forEach((line: string, lineNum: number) => {
+    state.lineNum = lineNum;
+    const parsedLine = parseLine(line, state);
+    state.previousLines.push(parsedLine);
+  });
+  const parsedLines: ParsedLine[] = state.previousLines;
+
+  if (state.firstKey === undefined) throw new ParserError('No key was defined');
+
+  return {
+    startingKey: state.firstKey,
+    lines: parsedLines,
+  };
+}
+
+/**
+ * Parses a single line
+ */
+function parseLine(line: string, state: ParseState): ParsedLine {
+  line = line.trimEnd();
+
+  // order of precedence for trying line types
+  const parseOrder: ((line: string, state: ParseState) => ParsedLine | null)[] = [
+    TimeSignatureLine.tryParse,
+    KeyDeclarationLine.tryParse,
+    SectionLabelLine.tryParse,
+    ChordLine.tryParse,
+    RepeatChordsLine.tryParse,
+    EmptyLine.tryParse,
+    LyricLine.tryParse,
+  ];
+
+  for (const parser of parseOrder) {
+    const result = parser(line, state);
+    if (result !== null) return result;
+  }
+
+  throw new RenderError('Unrecognized line type', state.lineNum);
+}
+
+/**
+ * Parser state, values to keep track of while incrementally parsing lines
+ */
+export type ParseState = {
+  lineNum: number;
+  previousLines: ParsedLine[];
+  key: Key | undefined;
+  timeSignature: TimeSignature | undefined;
+  firstKey: Key | undefined;
+  lastChordLine: ChordLine | undefined;
+  lastLastChordLine: ChordLine | undefined;
+};
+
+export const getDefaultParseState = (): ParseState => {
+  return {
+    lineNum: 0,
+    previousLines: [],
+    key: undefined,
+    timeSignature: undefined,
+    firstKey: undefined,
+    lastChordLine: undefined,
+    lastLastChordLine: undefined,
+  };
+};
+
+/**
+ * A parsed line, which has all the info
+ */
+export interface ParsedLine {
+  type: LineType;
+  render(opts: RenderOptions): string;
+}
+
+export enum LineType {
+  Chord,
+  Empty,
+  KeyDeclaration,
+  Lyric,
+  RepeatChords,
+  SectionLabel,
+  TimeSignature,
+}

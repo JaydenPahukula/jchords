@@ -1,13 +1,13 @@
-import { ChordParseFailure, chordParserFactory } from 'chord-symbol';
+import { Chord, ChordParseFailure, chordParserFactory, chordRendererFactory } from 'chord-symbol';
+import { chordLineClassName } from 'src/constants/classes';
 import {
   chordDurationSymbol,
   repeatChordSymbol,
   subBeatChordGroupEndSymbol,
   subBeatChordGroupStartSymbol,
-} from 'src/constants';
-import { LineType, ParsedLine } from 'src/engine/parsedline';
+} from 'src/constants/symbols';
+import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderOptions } from 'src/types/renderopts';
-import { RenderState } from 'src/types/renderstate';
 
 /**
  * Represents a parsed chord line
@@ -19,22 +19,24 @@ import { RenderState } from 'src/types/renderstate';
 export class ChordLine implements ParsedLine {
   type = LineType.Chord;
 
-  chords: (RawChord | SubBeatChordGroup)[];
+  chords: (ChordWithDuration | SubBeatChordGroup)[];
+  originalLine: string;
 
-  /** function to parse chords with */
-  static chordSymbolParse = chordParserFactory({});
-
-  constructor(chords: (RawChord | SubBeatChordGroup)[]) {
+  constructor(chords: (ChordWithDuration | SubBeatChordGroup)[], originalLine: string) {
     this.chords = chords;
+    this.originalLine = originalLine;
   }
 
-  static tryParse = (line: string): ChordLine | null => {
+  static tryParse = (line: string, state: ParseState): ChordLine | null => {
     let pos = 0;
-
-    const chords: (RawChord | SubBeatChordGroup)[] = [];
+    const chords: (ChordWithDuration | SubBeatChordGroup)[] = [];
     let inSubBeatGroup = false;
-    let subBeatGroup: string[] = [];
+    let subBeatGroup: Chord[] = [];
     let lastChord: string | null = null;
+
+    const chordParseFunction = chordParserFactory({
+      key: (state.key as string) ?? undefined,
+    });
 
     // parsing char by char
     while (pos < line.length) {
@@ -47,8 +49,9 @@ export class ChordLine implements ParsedLine {
         return null;
       } else if (currentChar == subBeatChordGroupStartSymbol) {
         // start of sub beat group
-        if (inSubBeatGroup) return null;
-        else {
+        if (inSubBeatGroup) {
+          return null;
+        } else {
           inSubBeatGroup = true;
           lastChord = null;
           subBeatGroup = [];
@@ -58,7 +61,7 @@ export class ChordLine implements ParsedLine {
         if (!inSubBeatGroup) return null;
         else {
           inSubBeatGroup = false;
-          if (subBeatGroup.length > 1) {
+          if (subBeatGroup.length >= 2) {
             chords.push(subBeatGroup as SubBeatChordGroup);
           } else return null;
         }
@@ -80,10 +83,11 @@ export class ChordLine implements ParsedLine {
           // retrieve last chord to repeat
           if (lastChord === null) return null;
           currentString = lastChord;
-        } else {
-          const maybeChord = ChordLine.chordSymbolParse(currentString);
-          if ((maybeChord as ChordParseFailure).error !== undefined) return null; // not a chord
         }
+
+        const maybeChord = chordParseFunction(currentString);
+        if ((maybeChord as ChordParseFailure).error !== undefined) return null; // not a chord
+        const chord = maybeChord as Chord;
 
         // parse duration
         let duration;
@@ -93,18 +97,15 @@ export class ChordLine implements ParsedLine {
           duration++;
         }
 
-        if (duration !== undefined && inSubBeatGroup) {
-          return null; // cant define durations in a sub beat group
-        }
+        if (duration !== undefined && inSubBeatGroup) return null; // cant define durations in a sub beat group
 
         if (inSubBeatGroup) {
-          subBeatGroup.push(currentString);
+          subBeatGroup.push(chord);
         } else {
-          const newChord = {
-            chord: currentString,
+          chords.push({
+            chord: chord,
             duration: duration,
-          };
-          chords.push(newChord);
+          });
         }
         lastChord = currentString;
       }
@@ -114,27 +115,44 @@ export class ChordLine implements ParsedLine {
 
     if (chords.length == 0 || inSubBeatGroup) return null;
 
-    return new ChordLine(chords);
+    const newLine = new ChordLine(chords, line);
+    state.lastLastChordLine = state.lastChordLine;
+    state.lastChordLine = newLine;
+    return newLine;
   };
 
-  render = (state: RenderState, opts: RenderOptions): string => {
-    // remembering this for repeat chord lines
-    state.lastLastChordLine = state.lastChordLine;
-    state.lastChordLine = this;
+  render = (opts: RenderOptions): string => {
+    let chordRenderFunction = chordRendererFactory({ printer: 'text', useShortNamings: true });
+    let output = `<span class="${chordLineClassName}">`;
+    for (const a of this.chords) {
+      if ((a as ChordWithDuration).chord !== undefined) {
+        const chord = a as ChordWithDuration;
+        output += chordRenderFunction(chord.chord);
+        if (chord.duration !== undefined) output += chordDurationSymbol.repeat(chord.duration);
+        output += ' ';
+      } else {
+        const group = a as SubBeatChordGroup;
+        output += subBeatChordGroupStartSymbol + ' ';
+        for (const chord of group) {
+          output += chordRenderFunction(chord);
+          output += ' ';
+        }
+        output += subBeatChordGroupEndSymbol + ' ';
+      }
+    }
 
-    // TODO
-    return '<!-- chord line todo -->\n';
+    output += `<br /></span>`;
+    return output;
   };
 }
 
 /**
- * A chord stored in a raw, unparsed format that has already been confirmed to be
- * a valid chord
+ * A chord that has been parsed by chord symbol, with duration information
  */
-type RawChord = {
-  chord: string;
+type ChordWithDuration = {
+  chord: Chord;
   duration: number | undefined;
 };
 
 /** Like a list of `RawChord`s, but with no durations */
-type SubBeatChordGroup = [string, string, ...string[]];
+type SubBeatChordGroup = [Chord, Chord, ...Chord[]];

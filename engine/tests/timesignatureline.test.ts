@@ -1,6 +1,6 @@
-import { errorClassName, timeSignatureLineClassName } from 'src/constants';
+import { errorClassName, timeSignatureLineClassName } from 'src/constants/classes';
 import { TimeSignatureLine } from 'src/engine/lines/timesignatureline';
-import { defaultRenderOptions } from 'src/types/renderopts';
+import { defaultRenderOptions, RenderOptions } from 'src/types/renderopts';
 import { RenderState } from 'src/types/renderstate';
 import { describe, expect, test } from 'vitest';
 
@@ -79,7 +79,7 @@ describe('Render time signature line', () => {
 
   test('plain', () => {
     const line: TimeSignatureLine = new TimeSignatureLine(4, 4);
-    const opts = { ...defaultRenderOptions() };
+    const opts: RenderOptions = { ...defaultRenderOptions };
     const state: RenderState = {
       ...initialState,
       lines: [line],
@@ -93,7 +93,7 @@ describe('Render time signature line', () => {
   test('overwriting', () => {
     const line1: TimeSignatureLine = new TimeSignatureLine(4, 4);
     const line2: TimeSignatureLine = new TimeSignatureLine(6, 8);
-    const opts = defaultRenderOptions();
+    const opts: RenderOptions = { ...defaultRenderOptions };
     const state: RenderState = {
       ...initialState,
       lines: [line1, line2],
@@ -109,8 +109,8 @@ describe('Render time signature line', () => {
 
   test('invalid time signature', () => {
     const line: TimeSignatureLine = new TimeSignatureLine(4, 7);
-    const opts = defaultRenderOptions();
-    const state = {
+    const opts: RenderOptions = { ...defaultRenderOptions };
+    const state: RenderState = {
       ...initialState,
       lines: [line],
     };

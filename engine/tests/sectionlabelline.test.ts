@@ -1,4 +1,5 @@
-import { sectionLabelShorthands, sectionLabelSymbol } from 'src/constants';
+import { sectionLabelShorthands } from 'src/constants';
+import { sectionLabelSymbol } from 'src/constants/symbols';
 import { SectionLabelLine } from 'src/engine/lines/sectionlabelline';
 import { describe, expect, test } from 'vitest';
 

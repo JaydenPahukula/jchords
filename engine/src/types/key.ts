@@ -1,6 +1,6 @@
-import { Note } from 'src/types/note';
+// TODO make this "encoded" or whatever
+export type Key = string;
 
-export type Key = {
-  note: Note;
-  minor: boolean;
-};
+export function keyToString(key: Key) {
+  return key as string;
+}

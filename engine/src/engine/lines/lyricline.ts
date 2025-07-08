@@ -1,7 +1,7 @@
-import { chordPositionMarker } from 'src/constants';
-import { LineType, ParsedLine } from 'src/engine/parsedline';
+import { lyricLineClassName } from 'src/constants/classes';
+import { chordPositionMarker } from 'src/constants/symbols';
+import { LineType, ParsedLine } from 'src/engine/parse';
 import { RenderOptions } from 'src/types/renderopts';
-import { RenderState } from 'src/types/renderstate';
 
 export class LyricLine implements ParsedLine {
   type = LineType.Lyric;
@@ -31,7 +31,7 @@ export class LyricLine implements ParsedLine {
     return new LyricLine(lineWithoutMarkers, chordPositions);
   };
 
-  render(state: RenderState, opts: RenderOptions): string {
-    return '<!-- lyric line TODO -->\n';
+  render(opts: RenderOptions): string {
+    return `<span class="${lyricLineClassName}">${this.lyrics}<br /></span>`;
   }
 }

@@ -1,6 +1,7 @@
-import { errorClassName, keyDeclarationKeyword, keyDeclarationLineClassName } from 'src/constants';
+import { errorClassName, keyDeclarationLineClassName } from 'src/constants/classes';
+import { keyDeclarationKeyword } from 'src/constants/symbols';
 import { KeyDeclarationLine } from 'src/engine/lines/keydeclarationline';
-import { defaultRenderOptions } from 'src/index';
+import { defaultRenderOptions, RenderOptions } from 'src/index';
 import { Note } from 'src/types/note';
 import { RenderState } from 'src/types/renderstate';
 import { describe, expect, test } from 'vitest';
@@ -13,7 +14,7 @@ describe('Parse key declaration line', () => {
       note: Note.C,
       minor: false,
     });
-    expect(result!.original).toEqual('C');
+    expect(result!.originalString).toEqual('C');
   });
 
   test('plain 2', () => {
@@ -23,7 +24,7 @@ describe('Parse key declaration line', () => {
       note: Note.FSharp,
       minor: true,
     });
-    expect(result!.original).toEqual('F#m');
+    expect(result!.originalString).toEqual('F#m');
   });
 
   test('flat', () => {
@@ -33,7 +34,7 @@ describe('Parse key declaration line', () => {
       note: Note.DSharp,
       minor: false,
     });
-    expect(result!.original).toEqual('Eb');
+    expect(result!.originalString).toEqual('Eb');
   });
 
   test('lowercase note', () => {
@@ -43,7 +44,7 @@ describe('Parse key declaration line', () => {
       note: Note.FSharp,
       minor: false,
     });
-    expect(result!.original).toEqual('gb');
+    expect(result!.originalString).toEqual('gb');
   });
 
   test('uppercase keyword', () => {
@@ -93,8 +94,9 @@ describe('Render key declaration line', () => {
 
   test('plain', () => {
     const line: KeyDeclarationLine = new KeyDeclarationLine('C');
-    const opts = defaultRenderOptions();
-    const state = {
+    expect(line.key).not.toBeNull();
+    const opts: RenderOptions = { ...defaultRenderOptions };
+    const state: RenderState = {
       ...initialState,
       lines: [line],
     };
@@ -104,11 +106,37 @@ describe('Render key declaration line', () => {
     expect(container.querySelectorAll('.' + keyDeclarationLineClassName)).toHaveLength(1);
   });
 
+  test('accidental preferences', () => {
+    const line1: KeyDeclarationLine = new KeyDeclarationLine('C#');
+    const line2: KeyDeclarationLine = new KeyDeclarationLine('Eb');
+    const opts: RenderOptions = { ...defaultRenderOptions };
+    const state: RenderState = {
+      ...initialState,
+      lines: [line1, line2],
+    };
+
+    opts.accidentalsPreferrence = 'sharps';
+    expect(line1.render(state, opts).includes('C#')).toBe(true);
+    opts.accidentalsPreferrence = 'flats';
+    expect(line1.render(state, opts).includes('Db')).toBe(true);
+    opts.accidentalsPreferrence = 'auto';
+    expect(line1.render(state, opts).includes('C#')).toBe(true);
+
+    opts.accidentalsPreferrence = 'sharps';
+    expect(line2.render(state, opts).includes('D#')).toBe(true);
+    opts.accidentalsPreferrence = 'flats';
+    expect(line2.render(state, opts).includes('Eb')).toBe(true);
+    opts.accidentalsPreferrence = 'auto';
+    expect(line2.render(state, opts).includes('Eb')).toBe(true);
+  });
+
   test('overwriting', () => {
     const line1: KeyDeclarationLine = new KeyDeclarationLine('F#m');
+    expect(line1.key).not.toBeNull();
     const line2: KeyDeclarationLine = new KeyDeclarationLine('D');
-    const opts = defaultRenderOptions();
-    const state = {
+    expect(line2.key).not.toBeNull();
+    const opts: RenderOptions = { ...defaultRenderOptions };
+    const state: RenderState = {
       ...initialState,
       lines: [line1, line2],
       key: { note: Note.C, minor: false },
@@ -122,8 +150,9 @@ describe('Render key declaration line', () => {
 
   test('invalid chord', () => {
     const line: KeyDeclarationLine = new KeyDeclarationLine('CD');
-    const opts = defaultRenderOptions();
-    const state = {
+    expect(line.key).toBeNull();
+    const opts: RenderOptions = { ...defaultRenderOptions };
+    const state: RenderState = {
       ...initialState,
       lines: [line],
     };

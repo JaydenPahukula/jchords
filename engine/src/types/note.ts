@@ -1,5 +1,3 @@
-import { RenderOptions } from 'src/types/renderopts';
-
 /**
  * A note in the 12 tone scale.
  *
@@ -24,16 +22,17 @@ export enum Note {
  * Converts a note into a string, taking into account render options. Uses the
  * original string to auto-choose accidental style if the preferrence is auto.
  */
-export function noteToString(note: Note, opts: RenderOptions, originalString?: string) {
-  if (
+export function noteToString(note: Note) {
+  /* if (
     opts.accidentalsPreferrence == 'flats' ||
     (opts.accidentalsPreferrence == 'auto' && originalString?.charAt(1) === 'b')
   ) {
     return noteNamesFlat[note];
   } else {
     return noteNames[note];
-  }
+  }*/
+  return noteNamesSharp[note];
 }
 
-const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-const noteNamesFlat = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+const noteNamesSharp = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+//const noteNamesFlat = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];

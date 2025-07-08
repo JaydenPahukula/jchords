@@ -1,34 +1,24 @@
-import { errorClassName, repeatChordSymbol } from 'src/constants';
-import { LineType, ParsedLine } from 'src/engine/parsedline';
+import { repeatChordSymbol } from 'src/constants/symbols';
+import { ChordLine } from 'src/engine/lines/chordline';
+import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
+import { RenderError } from 'src/error';
 import { RenderOptions } from 'src/types/renderopts';
-import { RenderState } from 'src/types/renderstate';
 
 export class RepeatChordsLine implements ParsedLine {
   type = LineType.RepeatChords;
 
-  precedingLineNum: 1 | 2;
-
-  constructor(precedingLineNum: 1 | 2) {
-    this.precedingLineNum = precedingLineNum;
-  }
-
-  static tryParse = (line: string): RepeatChordsLine | null => {
-    if (line === repeatChordSymbol) return new RepeatChordsLine(1);
-    else if (line == repeatChordSymbol.repeat(2)) return new RepeatChordsLine(2);
-    else return null;
+  static tryParse = (line: string, state: ParseState): ChordLine | null => {
+    if (line === repeatChordSymbol && state.lastChordLine !== undefined) {
+      return new ChordLine(state.lastChordLine.chords, state.lastChordLine.originalLine);
+    } else if (
+      line === repeatChordSymbol + repeatChordSymbol &&
+      state.lastLastChordLine !== undefined
+    ) {
+      return new ChordLine(state.lastLastChordLine.chords, state.lastLastChordLine.originalLine);
+    } else return null;
   };
 
-  render = (state: RenderState, opts: RenderOptions): string => {
-    if (this.precedingLineNum === 1) {
-      if (state.lastChordLine === undefined)
-        return `<span class="${errorClassName}">%<br /></span>\n`;
-
-      return state.lastChordLine.render(state, opts);
-    } else {
-      if (state.lastLastChordLine === undefined)
-        return `<span class="${errorClassName}">%%<br /></span>\n`;
-
-      return state.lastLastChordLine.render(state, opts);
-    }
+  render = (opts: RenderOptions): string => {
+    throw new RenderError('Tried to render repeat chords line (should be unreachable)');
   };
 }
