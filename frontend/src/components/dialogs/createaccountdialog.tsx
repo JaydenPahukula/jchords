@@ -1,5 +1,6 @@
 import { batch, useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Text } from '@radix-ui/themes';
+import { FormEvent } from 'react';
 import { CreateAccountResult } from 'shared/enums/createaccountresult';
 import { createAccount } from 'shared/functions/auth/createaccount';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
@@ -63,7 +64,8 @@ export function CreateAccountDialog(props: DialogProps) {
 
   const errorMessage = useComputed(() => getErrorMessage(errorState.value));
 
-  function submit() {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     if (mismatch.value) {
       errorState.value = 'mismatch';
       return;
@@ -92,57 +94,59 @@ export function CreateAccountDialog(props: DialogProps) {
         Create Account
       </Dialog.Title>
       <Dialog.Description aria-describedby={undefined} />
-      <TextFieldWithX
-        type="email"
-        id="create-account-email-input"
-        disabled={submitLoading.value}
-        required
-        title="Please enter a valid email address"
-        value={emailInput.value}
-        onInput={(e) => (emailInput.value = e.currentTarget.value)}
-        placeholder="Email"
-        onXClicked={() => (emailInput.value = '')}
-        size="3"
-        mb="5"
-      />
-      <TextFieldWithX
-        type="password"
-        id="create-account-password-input"
-        disabled={submitLoading.value}
-        required
-        value={passwordInput.value}
-        onInput={(e) => (passwordInput.value = e.currentTarget.value)}
-        onClick={selectContent}
-        placeholder="Password"
-        onXClicked={() => (passwordInput.value = '')}
-        size="3"
-        mb="5"
-      >
-        <LockIcon />
-      </TextFieldWithX>
-      <TextFieldWithX
-        type="password"
-        id="create-account-confirm-password-input"
-        disabled={submitLoading.value}
-        required
-        value={passwordInput2.value}
-        onInput={(e) => (passwordInput2.value = e.currentTarget.value)}
-        onClick={selectContent}
-        placeholder="Confirm Password"
-        onXClicked={() => (passwordInput2.value = '')}
-        size="3"
-        mb="3"
-      >
-        <LockIcon />
-      </TextFieldWithX>
-      <Text size="3" color="red">
-        {errorMessage}
-      </Text>
-      <Box mt="3" width="100%" asChild>
-        <Button size="3" variant="surface" disabled={submitButtonDisabled.value} onClick={submit}>
-          Create Account
-        </Button>
-      </Box>
+      <form onSubmit={onSubmit}>
+        <TextFieldWithX
+          type="email"
+          id="create-account-email-input"
+          disabled={submitLoading.value}
+          required
+          title="Please enter a valid email address"
+          value={emailInput.value}
+          onInput={(e) => (emailInput.value = e.currentTarget.value)}
+          placeholder="Email"
+          onXClicked={() => (emailInput.value = '')}
+          size="3"
+          mb="5"
+        />
+        <TextFieldWithX
+          type="password"
+          id="create-account-password-input"
+          disabled={submitLoading.value}
+          required
+          value={passwordInput.value}
+          onInput={(e) => (passwordInput.value = e.currentTarget.value)}
+          onClick={selectContent}
+          placeholder="Password"
+          onXClicked={() => (passwordInput.value = '')}
+          size="3"
+          mb="5"
+        >
+          <LockIcon />
+        </TextFieldWithX>
+        <TextFieldWithX
+          type="password"
+          id="create-account-confirm-password-input"
+          disabled={submitLoading.value}
+          required
+          value={passwordInput2.value}
+          onInput={(e) => (passwordInput2.value = e.currentTarget.value)}
+          onClick={selectContent}
+          placeholder="Confirm Password"
+          onXClicked={() => (passwordInput2.value = '')}
+          size="3"
+          mb="3"
+        >
+          <LockIcon />
+        </TextFieldWithX>
+        <Text size="3" color="red">
+          {errorMessage}
+        </Text>
+        <Box mt="3" width="100%" asChild>
+          <Button size="3" variant="surface" disabled={submitButtonDisabled.value} type="submit">
+            Create Account
+          </Button>
+        </Box>
+      </form>
     </GenericDialog>
   );
 }

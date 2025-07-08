@@ -1,6 +1,6 @@
 import { batch, useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Flex, Separator, Text } from '@radix-ui/themes';
-import { useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { LogInResult } from 'shared/enums/loginresult';
 import { logIn } from 'shared/functions/auth/login';
 import { logInWithGoogle } from 'shared/functions/auth/loginwithgoogle';
@@ -42,7 +42,8 @@ export function LoginDialog(props: DialogProps) {
 
   const errorMessage = useComputed(() => getErrorMessage(errorState.value));
 
-  function submit() {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     errorState.value = 'loading';
     logIn(emailInput.value, passwordInput.value).then((result) => {
       batch(() => {
@@ -94,48 +95,50 @@ export function LoginDialog(props: DialogProps) {
           create an account
         </Text>
       </Dialog.Description>
-      <TextFieldWithX
-        type="email"
-        id="login-email-input"
-        required
-        disabled={submitLoading.value || googleLoading.value}
-        title="Please enter a valid email address"
-        value={emailInput.value}
-        onInput={(e) => (emailInput.value = e.currentTarget.value)}
-        placeholder="Email"
-        onXClicked={() => (emailInput.value = '')}
-        size="3"
-        mb="5"
-      />
-      <TextFieldWithX
-        type="password"
-        id="login-password-input"
-        required
-        disabled={submitLoading.value || googleLoading.value}
-        value={passwordInput.value}
-        onInput={(e) => (passwordInput.value = e.currentTarget.value)}
-        onClick={selectContent}
-        placeholder="Password"
-        onXClicked={() => (passwordInput.value = '')}
-        size="3"
-        mb="3"
-      >
-        <LockIcon />
-      </TextFieldWithX>
-      <Text size="3" color="red">
-        {errorMessage}
-      </Text>
-      <Box mt="3" width="100%" asChild>
-        <Button
+      <form onSubmit={onSubmit}>
+        <TextFieldWithX
+          type="email"
+          id="login-email-input"
+          required
+          disabled={submitLoading.value || googleLoading.value}
+          title="Please enter a valid email address"
+          value={emailInput.value}
+          onInput={(e) => (emailInput.value = e.currentTarget.value)}
+          placeholder="Email"
+          onXClicked={() => (emailInput.value = '')}
           size="3"
-          onClick={submit}
-          loading={submitLoading.value}
-          variant="surface"
-          disabled={submitDisabled.value}
+          mb="5"
+        />
+        <TextFieldWithX
+          type="password"
+          id="login-password-input"
+          required
+          disabled={submitLoading.value || googleLoading.value}
+          value={passwordInput.value}
+          onInput={(e) => (passwordInput.value = e.currentTarget.value)}
+          onClick={selectContent}
+          placeholder="Password"
+          onXClicked={() => (passwordInput.value = '')}
+          size="3"
+          mb="3"
         >
-          Sign In
-        </Button>
-      </Box>
+          <LockIcon />
+        </TextFieldWithX>
+        <Text size="3" color="red">
+          {errorMessage}
+        </Text>
+        <Box mt="3" width="100%" asChild>
+          <Button
+            size="3"
+            type="submit"
+            loading={submitLoading.value}
+            variant="surface"
+            disabled={submitDisabled.value}
+          >
+            Sign In
+          </Button>
+        </Box>
+      </form>
       <Flex my="3" align="center">
         <Separator size="4" decorative={true} />
         <Text mx="2">OR</Text>
