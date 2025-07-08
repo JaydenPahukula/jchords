@@ -1,7 +1,7 @@
 import { FirebaseError } from '@firebase/util';
 import { AuthErrorCodes, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { LogInResult } from 'shared/enums/loginresult';
-import { auth } from 'shared/firebase/auth';
+import { auth } from 'src/firebase/auth';
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
@@ -11,6 +11,7 @@ export async function logInWithGoogle(): Promise<LogInResult> {
     await signInWithPopup(auth, googleProvider);
     return LogInResult.Success;
   } catch (error) {
+    console.log(error);
     switch ((error as FirebaseError).code) {
       case AuthErrorCodes.INVALID_EMAIL:
       case AuthErrorCodes.USER_DELETED:

@@ -1,7 +1,7 @@
 import { FirebaseError } from '@firebase/util';
 import { AuthErrorCodes, signInWithEmailAndPassword } from 'firebase/auth';
 import { LogInResult } from 'shared/enums/loginresult';
-import { auth } from 'shared/firebase/auth';
+import { auth } from 'src/firebase/auth';
 
 export async function logIn(email: string, password: string): Promise<LogInResult> {
   try {

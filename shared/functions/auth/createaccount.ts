@@ -1,7 +1,7 @@
 import { FirebaseError } from '@firebase/util';
 import { AuthErrorCodes, createUserWithEmailAndPassword } from 'firebase/auth';
 import { CreateAccountResult } from 'shared/enums/createaccountresult';
-import { auth } from 'shared/firebase/auth';
+import { auth } from 'src/firebase/auth';
 
 export async function createAccount(email: string, password: string): Promise<CreateAccountResult> {
   try {

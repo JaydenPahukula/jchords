@@ -12,15 +12,12 @@ export class TimeSignatureLine implements ParsedLine {
   valid: boolean;
 
   constructor(upper: number, lower: number) {
-    this.ts = { upper: upper, lower: lower };
+    this.ts = [upper, lower];
 
     // checking if time signature is valid
     this.valid = false;
     for (const allowedTimeSignature of allowedTimeSignatures) {
-      if (
-        allowedTimeSignature.upper === this.ts.upper &&
-        allowedTimeSignature.lower === this.ts.lower
-      ) {
+      if (allowedTimeSignature[0] === this.ts[0] && allowedTimeSignature[1] === this.ts[1]) {
         this.valid = true;
         break;
       }
@@ -36,9 +33,9 @@ export class TimeSignatureLine implements ParsedLine {
 
   render = (opts: RenderOptions): string => {
     if (this.valid) {
-      return `<span class="${timeSignatureLineClassName}">${this.ts.upper}/${this.ts.lower}<br /></span>`;
+      return `<span class="${timeSignatureLineClassName}">${this.ts[0]}/${this.ts[1]}<br /></span>`;
     } else {
-      return `<span class="${timeSignatureLineClassName}"><span class="${errorClassName}">${this.ts.upper}</span>/<span class="${errorClassName}">${this.ts.lower}</span><br /></span>`;
+      return `<span class="${timeSignatureLineClassName}"><span class="${errorClassName}">${this.ts[0]}</span>/<span class="${errorClassName}">${this.ts[1]}</span><br /></span>`;
     }
   };
 }

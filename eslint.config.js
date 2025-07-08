@@ -5,7 +5,7 @@ import tseslint from 'typescript-eslint';
 
 // list of workspaces with a src/ directory, so that no-relative-import-paths
 // can correctly fix relative paths
-const workspaces = ['backend', 'jchords'];
+const workspaces = ['backend', 'frontend'];
 
 export default defineConfig([
   // general config

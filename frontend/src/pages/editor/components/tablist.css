@@ -1,0 +1,10 @@
+.tab {
+  background: var(--gray-3) !important;
+}
+.tab[data-state='active'],
+.tab:active {
+  background: var(--color-background) !important; /* TODO fix this idk */
+}
+.tab:hover {
+  background: var(--gray-2) !important;
+}

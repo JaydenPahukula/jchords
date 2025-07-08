@@ -1,5 +1,25 @@
+small stuff
+- fix index.htmls in frontend vite
+- look at eslint config and no-relative-import-paths
 - api request body type (why is it JSON string?)
-- make dialog render on show instead of page load
-- add icons to growls
-- spruce up deleteconfirmationdialog
-- find proper method enum
+- tablist scroll so new tab is in view
+- add view password option
+- disable open song dialog table
+- swipe guestures for growls
+- fix link
+- change deleteconfirmationdialog to radix alertdialog
+- fix CSS important hacks
+- fix loading state on createaccountdialog
+
+big stuff
+- check ipad support
+- add public/private songs
+- liking songs
+- playlists
+- email verification
+- change profile picture
+
+later
+- FIGURE OUT STYLE!
+- replace radix with custom ui lib
+- dark mode

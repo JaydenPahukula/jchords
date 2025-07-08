@@ -14,17 +14,10 @@
                 ]
             },
             {
-                "name": "jchords dev",
+                "name": "frontend dev",
                 "autoExecuteCommands": true,
                 "commands": [
-                    "npm run dev-jchords"
-                ]
-            },
-            {
-                "name": "jchords-editor dev",
-                "autoExecuteCommands": true,
-                "commands": [
-                    "npm run dev-editor"
+                    "npm run dev-frontend"
                 ]
             },
             {
