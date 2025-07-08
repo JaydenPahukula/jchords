@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ]
+    },
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "outDir": "dist",
+    // TEMP
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "sandbox/*",
+  ]
+}
