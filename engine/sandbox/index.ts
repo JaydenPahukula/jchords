@@ -1,7 +1,7 @@
 // @ts-ignore
 import { parseSong, renderSong } from 'jchords-engine';
 
-export function render(input: string): String {
+export function render(input: string): string {
   console.debug('Rendering');
 
   try {

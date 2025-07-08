@@ -122,7 +122,7 @@ export class ChordLine implements ParsedLine {
   };
 
   render = (opts: RenderOptions): string => {
-    let chordRenderFunction = chordRendererFactory({ printer: 'text', useShortNamings: true });
+    const chordRenderFunction = chordRendererFactory({ printer: 'text', useShortNamings: true });
     let output = `<span class="${chordLineClassName}">`;
     for (const a of this.chords) {
       if ((a as ChordWithDuration).chord !== undefined) {
