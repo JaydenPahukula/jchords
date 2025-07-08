@@ -1,7 +1,6 @@
-import { emptyLineClassName } from 'src/constants';
-import { LineType, ParsedLine } from 'src/engine/parsedline';
+import { emptyLineClassName } from 'src/constants/classes';
+import { LineType, ParsedLine } from 'src/engine/parse';
 import { RenderOptions } from 'src/types/renderopts';
-import { RenderState } from 'src/types/renderstate';
 
 /**
  * Represents an empty line (or line full of whitespace)
@@ -17,7 +16,7 @@ export class EmptyLine implements ParsedLine {
     return null;
   };
 
-  render(state: RenderState, opts: RenderOptions): string {
-    return `<span class="${emptyLineClassName}"><br /></span>\n`;
+  render(opts: RenderOptions): string {
+    return `<span class="${emptyLineClassName}"><br /></span>`;
   }
 }

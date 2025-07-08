@@ -1,71 +1,23 @@
-import { sectionClassName, songClassName } from 'src/constants';
-import { ChordLine } from 'src/engine/lines/chordline';
-import { EmptyLine } from 'src/engine/lines/emptyline';
-import { KeyDeclarationLine } from 'src/engine/lines/keydeclarationline';
-import { LyricLine } from 'src/engine/lines/lyricline';
-import { RepeatChordsLine } from 'src/engine/lines/repeatchordsline';
-import { SectionLabelLine } from 'src/engine/lines/sectionlabelline';
-import { TimeSignatureLine } from 'src/engine/lines/timesignatureline';
-
-import { ParsedLine } from 'src/engine/parsedline';
-import { RenderError } from 'src/error';
+import { ParsedLine } from 'src/engine/parse';
+import { ParsedSong } from 'src/types/parsedsong';
 import { RenderOptions } from 'src/types/renderopts';
-import { RenderState } from 'src/types/renderstate';
+import { sectionClassName, songClassName } from '../constants/classes';
 
-/**
- *  Where the magic happens
- */
-export function render(src: string, opts: RenderOptions): string {
-  // parsing lines
-  const rawLines = src.split('\n');
-  const parsedLines = rawLines.map(parseLine);
-
+export function renderSong(song: ParsedSong, opts: RenderOptions): string {
   let output = '';
-  const state: RenderState = {
-    key: undefined,
-    timeSignature: undefined,
-    currentLine: 0,
-    lines: parsedLines,
-    lastChordLine: undefined,
-    lastLastChordLine: undefined,
-    currentSection: undefined,
-  };
 
   // main rendering
   output += '<!-- Start of JChords rendered song -->\n';
-  output += `<div class="${songClassName}">\n`;
-  output += `<p class="${sectionClassName}">\n`;
+  output += `<div class="${songClassName}">`;
+  output += `<p class="${sectionClassName}">`;
 
-  parsedLines.map((line) => {
-    output += line.render(state, opts);
-    state.currentLine++;
+  song.lines.map((line: ParsedLine) => {
+    output += line.render(opts);
   });
 
-  output += '</p>\n';
-  output += '</div>\n';
-  output += '<!-- End of song -->\n';
+  output += '</p>';
+  output += '</div>';
+  output += '\n<!-- End of JChords rendered song -->\n';
 
   return output;
-}
-
-function parseLine(line: string, lineNum: number): ParsedLine {
-  line = line.trimEnd();
-
-  // order of precedence for trying line types
-  const parseOrder: ((line: string) => ParsedLine | null)[] = [
-    TimeSignatureLine.tryParse,
-    KeyDeclarationLine.tryParse,
-    SectionLabelLine.tryParse,
-    ChordLine.tryParse,
-    RepeatChordsLine.tryParse,
-    EmptyLine.tryParse,
-    LyricLine.tryParse,
-  ];
-
-  for (const parser of parseOrder) {
-    const result = parser(line);
-    if (result !== null) return result;
-  }
-
-  throw new RenderError('Unrecognized line type', lineNum);
 }

@@ -5,7 +5,8 @@ Run `npm run tests` to run tests
 Run `npm run sandbox` for a quick and dirty sandbox for testing the rendering.
 
 TODO
-  - a lot
+  - parse with context
+  - unnamed sections
 
 Based heavily on ChordMark by Christophe Noël (https://github.com/no-chris/chord-mark/),
 but with the following changes:
@@ -16,3 +17,4 @@ but with the following changes:
   - Key declaration is case-insensitive and whitespace-agnostic
   - Better error reporting
     - Invalid keys will be highlighted as an error, rather than being treated as lyrics
+  - unnamed sections
