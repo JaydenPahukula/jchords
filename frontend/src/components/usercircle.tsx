@@ -1,5 +1,5 @@
 import { useSignal } from '@preact/signals-react';
-import { Box, Button, Flex, IconButton, Popover, Text } from '@radix-ui/themes';
+import { Box, Button, Flex, IconButton, Inset, Popover, Text } from '@radix-ui/themes';
 import { User } from 'firebase/auth';
 import { Link } from 'react-router';
 import { logOut } from 'shared/functions/auth/logout';
@@ -51,12 +51,17 @@ export function UserCircle(props: UserCircleProps) {
           </Box>
         </Popover.Trigger>
       </Box>
-      <Popover.Content maxWidth="300px" minWidth="250px" asChild>
+      <Popover.Content maxWidth="300px" minWidth="250px">
         {props.user === null ? null : (
-          <Box p="0" overflow="hidden">
-            <Flex overflow="hidden" p="var(--popover-content-padding)" gap="3">
+          <>
+            <Flex overflow="hidden" gap="3">
               <UserAvatar size="4" user={props.user} />
-              <Flex direction="column" justify="center" overflow="hidden">
+              <Flex
+                direction="column"
+                justify="center"
+                overflow="hidden"
+                pb="var(--popover-content-padding)"
+              >
                 <Text truncate size="3" weight="medium">
                   {props.user.displayName ?? props.user.email}
                 </Text>
@@ -65,41 +70,43 @@ export function UserCircle(props: UserCircleProps) {
                 </Text>
               </Flex>
             </Flex>
-            <Box width="100%" asChild p="2">
-              <Button
-                radius="none"
-                variant="ghost"
-                size="3"
-                onClick={close}
-                style={{
-                  color: 'var(--gray-12)',
-                  borderTop: 'var(--border)',
-                  margin: '0',
-                  boxSizing: 'border-box',
-                }}
-                asChild
-              >
-                <Link to="/account">Account</Link>
-              </Button>
-            </Box>
-            <Box width="100%" asChild p="2">
-              <Button
-                radius="none"
-                variant="ghost"
-                size="3"
-                onClick={signOut}
-                style={{
-                  color: 'var(--gray-12)',
-                  borderTop: 'var(--border)',
-                  margin: '0',
-                  boxSizing: 'border-box',
-                }}
-              >
-                <SignOutIcon />
-                Sign Out
-              </Button>
-            </Box>
-          </Box>
+            <Inset side="bottom">
+              <Box width="100%" asChild p="2">
+                <Button
+                  radius="none"
+                  variant="ghost"
+                  size="3"
+                  onClick={close}
+                  style={{
+                    color: 'var(--gray-12)',
+                    borderTop: 'var(--border)',
+                    margin: '0',
+                    boxSizing: 'border-box',
+                  }}
+                  asChild
+                >
+                  <Link to="/account">Account</Link>
+                </Button>
+              </Box>
+              <Box width="100%" asChild p="2">
+                <Button
+                  radius="none"
+                  variant="ghost"
+                  size="3"
+                  onClick={signOut}
+                  style={{
+                    color: 'var(--gray-12)',
+                    borderTop: 'var(--border)',
+                    margin: '0',
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  <SignOutIcon />
+                  Sign Out
+                </Button>
+              </Box>
+            </Inset>
+          </>
         )}
       </Popover.Content>
     </Popover.Root>
