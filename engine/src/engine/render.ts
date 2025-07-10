@@ -8,15 +8,13 @@ export function renderSong(song: ParsedSong, opts: RenderOptions): string {
 
   // main rendering
   output += '<!-- Start of JChords rendered song -->\n';
-  output += `<div class="${songClassName}">`;
-  output += `<p class="${sectionClassName}">`;
+  output += `<div class="${songClassName}"><pre class="${sectionClassName}">`;
 
   song.lines.map((line: ParsedLine) => {
     output += line.render(opts);
   });
 
-  output += '</p>';
-  output += '</div>';
+  output += '</pre></div>';
   output += '\n<!-- End of JChords rendered song -->\n';
 
   return output;

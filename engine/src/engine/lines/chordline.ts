@@ -6,6 +6,7 @@ import {
   subBeatChordGroupEndSymbol,
   subBeatChordGroupStartSymbol,
 } from 'src/constants/symbols';
+import { LyricLine } from 'src/engine/lines/lyricline';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderOptions } from 'src/types/renderopts';
 
@@ -21,10 +22,15 @@ export class ChordLine implements ParsedLine {
 
   chords: (ChordWithDuration | SubBeatChordGroup)[];
   originalLine: string;
+  /** Undefined if there isn't a following lyric line */
+  lyrics: LyricLine | undefined;
 
   constructor(chords: (ChordWithDuration | SubBeatChordGroup)[], originalLine: string) {
     this.chords = chords;
     this.originalLine = originalLine;
+
+    this.lyrics = undefined;
+    // ^ lyric line parsing can change this value
   }
 
   static tryParse = (line: string, state: ParseState): ChordLine | null => {
@@ -123,22 +129,57 @@ export class ChordLine implements ParsedLine {
 
   render = (opts: RenderOptions): string => {
     const chordRenderFunction = chordRendererFactory({ printer: 'text', useShortNamings: true });
+
+    //const hasLyrics = this.associatedLyrics !== undefined;
     let output = `<span class="${chordLineClassName}">`;
-    for (const a of this.chords) {
-      if ((a as ChordWithDuration).chord !== undefined) {
-        const chord = a as ChordWithDuration;
-        output += chordRenderFunction(chord.chord);
-        if (chord.duration !== undefined) output += chordDurationSymbol.repeat(chord.duration);
-        output += ' ';
-      } else {
-        const group = a as SubBeatChordGroup;
-        output += subBeatChordGroupStartSymbol + ' ';
-        for (const chord of group) {
-          output += chordRenderFunction(chord);
-          output += ' ';
+
+    if (this.lyrics !== undefined) {
+      // align with lyrics
+
+      let currentPos = 0;
+      let accumulatedShift = 0; // how much the marker positions need to be shifted due to expanding them to fit the chords
+      for (let i = 0; i < this.chords.length; i++) {
+        const chordOrGroup = this.chords[i]!;
+
+        // moving chord to its assigned position
+        const assignedPos = this.lyrics.markers[i];
+        if (assignedPos !== undefined) {
+          while (assignedPos + accumulatedShift > currentPos) {
+            output += ' ';
+            currentPos += 1;
+          }
         }
-        output += subBeatChordGroupEndSymbol + ' ';
+
+        if ((chordOrGroup as ChordWithDuration).chord !== undefined) {
+          const chord = chordOrGroup as ChordWithDuration;
+          const chordString = chordRenderFunction(chord.chord);
+          output += chordString + ' ';
+          currentPos += chordString.length + 1;
+        } else {
+          const group = chordOrGroup as SubBeatChordGroup;
+          output += subBeatChordGroupStartSymbol + ' ';
+          currentPos += subBeatChordGroupStartSymbol.length + 1;
+          for (const chord of group) {
+            const chordString = chordRenderFunction(chord);
+            output += chordString + ' ';
+            currentPos += chordString.length + 1;
+          }
+          output += subBeatChordGroupEndSymbol + ' ';
+          currentPos += subBeatChordGroupEndSymbol.length + 1;
+        }
+
+        // checking if space needs to be added in the lyric line
+        if (assignedPos !== undefined && this.lyrics.markers[i + 1] !== undefined) {
+          const distToNextMarker = this.lyrics.markers[i + 1]! + accumulatedShift - currentPos;
+          if (distToNextMarker < 0) {
+            // grow the width of this marker in the lyric line
+            this.lyrics.markerWidths[i] = -distToNextMarker;
+            accumulatedShift += -distToNextMarker;
+          }
+        }
       }
+    } else {
+      // align with TS
     }
 
     output += `<br /></span>`;
