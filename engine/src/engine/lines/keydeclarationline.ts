@@ -1,6 +1,7 @@
 import { chordClassName, errorClassName, keyDeclarationLineClassName } from 'src/constants/classes';
 import { keyDeclarationKeyword } from 'src/constants/symbols';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
+import { RenderState } from 'src/engine/render';
 import { Key } from 'src/types/key';
 import { Note } from 'src/types/note';
 import { RenderOptions } from 'src/types/renderopts';
@@ -40,7 +41,7 @@ export class KeyDeclarationLine implements ParsedLine {
     return parsed;
   };
 
-  render(opts: RenderOptions): string {
+  render(opts: RenderOptions, state: RenderState): string {
     if (this.key == null) {
       return `<span class="${keyDeclarationLineClassName}">key:&nbsp<span class="${errorClassName}">${this.originalString}</span><br /></span>`;
     } else {
