@@ -3,6 +3,7 @@ import { Box, Heading, Text } from '@radix-ui/themes';
 import { parseSong, renderSong } from 'chord-mark';
 import { cmRenderOptions } from 'shared/types/cm/cmrenderoptions';
 import { Song } from 'shared/types/song';
+import 'src/pages/song/chart.css';
 
 interface ChartProps {
   song: Song;

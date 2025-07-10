@@ -8,6 +8,7 @@ import { DialogType } from 'src/enums/dialogtype';
 import { apiGetSong } from 'src/functions/api/endpoints/getsong';
 import { Chart } from 'src/pages/song/chart';
 import { HeaderIconLink } from 'src/pages/song/headericonbutton';
+import 'src/pages/song/songpage.css';
 
 const defaultRenderOptions: cmRenderOptions = {
   accidentalsType: 'auto',

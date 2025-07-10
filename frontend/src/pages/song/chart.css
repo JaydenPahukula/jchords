@@ -1,0 +1,9 @@
+.cmLine {
+  font-family: var(--chart-font);
+  line-height: 20px;
+  margin: 0;
+}
+
+.cmSectionLabel {
+  font-weight: bold;
+}

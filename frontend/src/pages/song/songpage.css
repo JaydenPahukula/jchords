@@ -1,0 +1,21 @@
+#song-page {
+  background: var(--gray-6);
+}
+
+#song-header {
+  background: #2e2e2e;
+  color: var(--gray-3);
+}
+
+.song-header-icon-button {
+  background: transparent !important;
+  color: var(--gray-3);
+}
+.song-header-icon-button:hover {
+  background: #fff1 !important;
+  color: var(--gray-3);
+}
+.song-header-icon-button:active {
+  background: #fff2 !important;
+  color: var(--gray-1);
+}
