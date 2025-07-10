@@ -2,21 +2,20 @@
   "name": "jchords-engine",
   "type": "module",
   "scripts": {
+    "build": "tsc && tsc-alias",
     "tests": "vitest",
     "sandbox": "cd sandbox && npm install && npx vite"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
-    "concurrently": "^9.2.0",
     "http-server": "^14.1.1",
-    "jsdom": "^26.1.0",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3",
     "vite": "^7.0.0",
     "vitest": "^3.2.3"
   },
   "dependencies": {
     "chord-symbol": "^4.0.0"
-  },
-  "exports": "./src/index.ts"
+  }
 }

@@ -3,19 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "src/*": [
-        "./src/*"
-      ]
+      "src/*": ["./src/*"]
     },
     "esModuleInterop": true,
-    "isolatedModules": true,
     "outDir": "dist",
+    "declaration": true,
     // TEMP
     "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noUnusedParameters": false
   },
-  "compileOnSave": true,
-  "exclude": [
-    "sandbox/*",
-  ]
+  "include": ["src/**/*"]
 }
