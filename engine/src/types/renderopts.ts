@@ -4,13 +4,13 @@
 export type RenderOptions = {
   // accidentalsPreferrence: AccidentalsPreferrenceOptions; // todo
   // alignBars: boolean; // todo
-  // alignChordsWithLyrics: boolean; // todo
+  alignChordsWithLyrics: boolean;
   // auto repeat?
   // chartType: ChartTypeOptions; // todo
   // expandRepeatSecions: boolean; // todo
   // renderNumerals: boolean; // todo
   // simplifyChords: boolean; // todo
-  // showChordDurations: boolean; // todo
+  showChordDurations: boolean;
   // showBarSeparators: boolean; // todo
   // showSubBeatDelimiters: boolean; // todo
   // showInlineTimeSignatures: boolean; // todo
@@ -20,18 +20,18 @@ export type RenderOptions = {
 };
 
 export const defaultRenderOptions: RenderOptions = Object.freeze({
-  accidentalsPreferrence: 'auto',
-  alignBars: true,
+  // accidentalsPreferrence: 'auto',
+  // alignBars: true,
   alignChordsWithLyrics: true,
-  chartType: 'all',
-  expandRepeatSecions: true,
-  renderNumerals: false,
-  simplifyChords: false,
+  // chartType: 'all',
+  // expandRepeatSecions: true,
+  // renderNumerals: false,
+  // simplifyChords: false,
   showChordDurations: true,
-  showBarSeparators: true,
-  showSubBeatDelimiters: true,
-  showInlineTimeSignatures: true,
-  transpose: 0,
+  // showBarSeparators: true,
+  // showSubBeatDelimiters: true,
+  // showInlineTimeSignatures: true,
+  // transpose: 0,
 });
 
 export type AccidentalsPreferrenceOptions = 'auto' | 'sharps' | 'flats';

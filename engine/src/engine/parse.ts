@@ -5,7 +5,8 @@ import { LyricLine } from 'src/engine/lines/lyricline';
 import { RepeatChordsLine } from 'src/engine/lines/repeatchordsline';
 import { SectionLabelLine } from 'src/engine/lines/sectionlabelline';
 import { TimeSignatureLine } from 'src/engine/lines/timesignatureline';
-import { ParserError, RenderError } from 'src/error';
+import { RenderState } from 'src/engine/render';
+import { RenderError } from 'src/error';
 import { Key } from 'src/types/key';
 import { ParsedSong } from 'src/types/parsedsong';
 import { RenderOptions } from 'src/types/renderopts';
@@ -23,13 +24,12 @@ export function parseSong(source: string): ParsedSong {
     const parsedLine = parseLine(line, state);
     state.previousLines.push(parsedLine);
   });
-  const parsedLines: ParsedLine[] = state.previousLines;
-
-  if (state.firstKey === undefined) throw new ParserError('No key was defined');
+  state.barAlignmentGroups.push(state.currentBarAlignmentGroup);
 
   return {
     startingKey: state.firstKey,
-    lines: parsedLines,
+    lines: state.previousLines,
+    barAlignmentGroups: state.barAlignmentGroups,
   };
 }
 
@@ -69,6 +69,9 @@ export type ParseState = {
   firstKey: Key | undefined;
   lastChordLine: ChordLine | undefined;
   lastLastChordLine: ChordLine | undefined;
+  // For aligning bar widths of non-lyric-aligned chords per group. Empty lines separate groups
+  currentBarAlignmentGroup: ChordLine[];
+  barAlignmentGroups: ChordLine[][];
 };
 
 export const getDefaultParseState = (): ParseState => {
@@ -80,6 +83,8 @@ export const getDefaultParseState = (): ParseState => {
     firstKey: undefined,
     lastChordLine: undefined,
     lastLastChordLine: undefined,
+    currentBarAlignmentGroup: [],
+    barAlignmentGroups: [],
   };
 };
 
@@ -88,7 +93,7 @@ export const getDefaultParseState = (): ParseState => {
  */
 export interface ParsedLine {
   type: LineType;
-  render(opts: RenderOptions): string;
+  render(opts: RenderOptions, state: RenderState): string;
 }
 
 export enum LineType {

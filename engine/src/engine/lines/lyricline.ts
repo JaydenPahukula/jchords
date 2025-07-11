@@ -2,6 +2,7 @@ import { lyricLineClassName } from 'src/constants/classes';
 import { chordPositionMarker } from 'src/constants/symbols';
 import { ChordLine } from 'src/engine/lines/chordline';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
+import { RenderState } from 'src/engine/render';
 import { RenderOptions } from 'src/types/renderopts';
 
 export class LyricLine implements ParsedLine {
@@ -41,7 +42,7 @@ export class LyricLine implements ParsedLine {
     return newLine;
   };
 
-  render(opts: RenderOptions): string {
+  render(opts: RenderOptions, state: RenderState): string {
     let output = `<span class="${lyricLineClassName}">`;
     //output += `\n\n<!--\nmarker widths: ${this.markerWidths}\n-->\n\n`;
     let currentPos = 0;
