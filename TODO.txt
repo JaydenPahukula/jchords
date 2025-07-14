@@ -10,6 +10,7 @@ small stuff
 - change deleteconfirmationdialog to radix alertdialog
 - fix CSS important hacks
 - fix loading state on createaccountdialog
+- transpose icon
 
 big stuff
 - check ipad support

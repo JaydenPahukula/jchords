@@ -1,13 +1,12 @@
 import { batch, useSignal } from '@preact/signals-react';
-import { Flex, Grid, Heading, Spinner } from '@radix-ui/themes';
+import { Flex, Grid, Spinner } from '@radix-ui/themes';
 import { useEffect } from 'react';
 import { cmRenderOptions } from 'shared/types/cm/cmrenderoptions';
 import { Song } from 'shared/types/song';
-import { HomeIcon } from 'src/components/icons/homeicon';
 import { DialogType } from 'src/enums/dialogtype';
 import { apiGetSong } from 'src/functions/api/endpoints/getsong';
 import { Chart } from 'src/pages/song/chart';
-import { HeaderIconLink } from 'src/pages/song/headericonbutton';
+import { SongHeader } from 'src/pages/song/header/songheader';
 import 'src/pages/song/songpage.css';
 
 const defaultRenderOptions: cmRenderOptions = {
@@ -45,15 +44,7 @@ export function SongPage() {
 
   return (
     <Grid id="song-page" rows="min-content 1fr" height="100lvh">
-      <Flex id="song-header" align="center" height="52px" px="2" gap="2">
-        <Flex flexGrow="1" flexShrink="0" gap="2">
-          <HeaderIconLink icon={HomeIcon} href="/" />
-        </Flex>
-        <Heading as="h2" size="5" weight="bold" truncate>
-          {song?.info.title}
-        </Heading>
-        <Flex flexGrow="1" flexShrink="0" gap="2" justify="end"></Flex>
-      </Flex>
+      <SongHeader song={song} />
       <Flex direction="column" align="center" p="4" pb="8" overflowY="auto">
         {song === undefined ? (
           <Spinner mx="auto" size="3" />
