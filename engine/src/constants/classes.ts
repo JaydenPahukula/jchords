@@ -10,3 +10,4 @@ export const lyricLineClassName = 'jc-lyric-line';
 export const sectionLabelLineClassName = 'jc-section-label';
 export const timeSignatureLineClassName = 'jc-time-signature';
 export const errorClassName = 'jc-error';
+export const formatterClassName = 'jc-format';
