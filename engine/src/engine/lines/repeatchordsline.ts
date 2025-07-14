@@ -2,7 +2,6 @@ import { repeatChordSymbol } from 'src/constants/symbols';
 import { ChordLine } from 'src/engine/lines/chordline';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
-import { RenderError } from 'src/error';
 import { RenderOptions } from 'src/types/renderopts';
 
 export class RepeatChordsLine implements ParsedLine {
@@ -30,6 +29,6 @@ export class RepeatChordsLine implements ParsedLine {
   };
 
   render = (opts: RenderOptions, state: RenderState): string => {
-    throw new RenderError('Tried to render repeat chords line (should be unreachable)');
+    return ''; // should be unreachable
   };
 }

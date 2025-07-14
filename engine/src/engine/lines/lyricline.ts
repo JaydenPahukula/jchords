@@ -49,8 +49,8 @@ export class LyricLine implements ParsedLine {
     for (let i = 0; i < this.markers.length; i++) {
       const markerPos = this.markers[i]!;
       const markerWidth = this.markerWidths[i]!;
-      output += this.lyrics.slice(currentPos, markerPos + 1);
       output += ' '.repeat(markerWidth);
+      output += this.lyrics.slice(currentPos, markerPos + 1);
       currentPos = markerPos + 1;
     }
     output += this.lyrics.slice(currentPos);

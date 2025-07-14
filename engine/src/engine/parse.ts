@@ -6,7 +6,6 @@ import { RepeatChordsLine } from 'src/engine/lines/repeatchordsline';
 import { SectionLabelLine } from 'src/engine/lines/sectionlabelline';
 import { TimeSignatureLine } from 'src/engine/lines/timesignatureline';
 import { RenderState } from 'src/engine/render';
-import { RenderError } from 'src/error';
 import { Key } from 'src/types/key';
 import { ParsedSong } from 'src/types/parsedsong';
 import { RenderOptions } from 'src/types/renderopts';
@@ -47,15 +46,13 @@ function parseLine(line: string, state: ParseState): ParsedLine {
     ChordLine.tryParse,
     RepeatChordsLine.tryParse,
     EmptyLine.tryParse,
-    LyricLine.tryParse,
   ];
 
   for (const parser of parseOrder) {
     const result = parser(line, state);
     if (result !== null) return result;
   }
-
-  throw new RenderError('Unrecognized line type', state.lineNum);
+  return LyricLine.tryParse(line, state);
 }
 
 /**
