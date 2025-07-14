@@ -42,6 +42,7 @@ export function ImportDialog(props: DialogProps) {
     };
     newTab(song, true, true);
     props.changeDialog(DialogType.None);
+    inputText.value = '';
   }
 
   return (

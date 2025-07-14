@@ -1,6 +1,5 @@
-import { useComputed, useSignal } from '@preact/signals-react';
+import { useComputed, useSignal, useSignalEffect } from '@preact/signals-react';
 import { Box, Button, Dialog, Flex, Spinner, Switch, Table, Text } from '@radix-ui/themes';
-import { useEffect } from 'react';
 import { SongInfo } from 'shared/types/songinfo';
 import { GenericDialog } from 'src/components/dialogs/genericdialog';
 import { DialogType } from 'src/enums/dialogtype';
@@ -34,7 +33,7 @@ export function OpenSongDialog(props: DialogProps) {
     () => selectedIndex.value === undefined || submitState.value === 'loading',
   );
 
-  useEffect(() => {
+  useSignalEffect(() => {
     if (props.open.value) {
       // fetch data when the dialog is opened
       songListLoadingState.value = 'loading';
@@ -51,7 +50,7 @@ export function OpenSongDialog(props: DialogProps) {
       // clear selection when closed
       selectedIndex.value = undefined;
     }
-  }, [props.open.value]);
+  });
 
   function submit() {
     const id = selectedSongId.value;
