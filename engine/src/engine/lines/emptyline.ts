@@ -1,4 +1,4 @@
-import { emptyLineClassName } from 'src/classes';
+import { emptyLineClassName, lineClassName } from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
 import { RenderOptions } from 'src/types/renderopts';
@@ -23,6 +23,6 @@ export class EmptyLine implements ParsedLine {
   };
 
   render(opts: RenderOptions, state: RenderState): string {
-    return `<span class="${emptyLineClassName}"><br /></span>`;
+    return `<span class="${lineClassName} ${emptyLineClassName}"><br /></span>`;
   }
 }

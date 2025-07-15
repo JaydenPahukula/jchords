@@ -19,10 +19,6 @@ npm run sandbox
 - improve chord rendering
   - make instrumental bars align
   - option to show `%` signs
-- Fix HTML output
-  - Pre block for song
-  - No section block
-  - Add `jc-line` class
 - Force lyric line symbol
 - Fix accidental rendering (Chord symbol seems to always default to sharps, disregarding the key or original accidental mark)
 

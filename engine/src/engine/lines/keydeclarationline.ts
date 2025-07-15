@@ -1,4 +1,9 @@
-import { chordClassName, errorClassName, keyDeclarationLineClassName } from 'src/classes';
+import {
+  chordClassName,
+  errorClassName,
+  keyDeclarationLineClassName,
+  lineClassName,
+} from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
 import { keyDeclarationKeyword } from 'src/symbols';
@@ -60,10 +65,10 @@ export class KeyDeclarationLine implements ParsedLine {
 
   render(opts: RenderOptions, state: RenderState): string {
     if (this.key == null) {
-      return `<span class="${keyDeclarationLineClassName}">key:&nbsp<span class="${errorClassName}">${this.originalString}</span><br /></span>`;
+      return `<span class="${lineClassName} ${keyDeclarationLineClassName}">key:&nbsp<span class="${errorClassName}">${this.originalString}</span><br /></span>`;
     } else {
       const renderedKey = this.key.render(opts.accidentalPreference, opts.transpose);
-      return `<span class="${keyDeclarationLineClassName}">key:&nbsp<span class="${chordClassName}">${renderedKey}</span><br /></span>`;
+      return `<span class="${lineClassName} ${keyDeclarationLineClassName}">key:&nbsp<span class="${chordClassName}">${renderedKey}</span><br /></span>`;
     }
   }
 }

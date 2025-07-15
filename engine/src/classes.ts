@@ -1,7 +1,7 @@
 // class names
 
 export const songClassName = 'jc-song';
-export const sectionClassName = 'jc-section';
+export const lineClassName = 'jc-line';
 export const chordClassName = 'jc-chord';
 export const chordLineClassName = 'jc-chord-line';
 export const emptyLineClassName = 'jc-empty-line';

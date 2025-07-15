@@ -1,4 +1,4 @@
-import { errorClassName, timeSignatureLineClassName } from 'src/classes';
+import { errorClassName, lineClassName, timeSignatureLineClassName } from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
 import { RenderOptions } from 'src/types/renderopts';
@@ -37,9 +37,9 @@ export class TimeSignatureLine implements ParsedLine {
 
   render = (opts: RenderOptions, state: RenderState): string => {
     if (this.valid) {
-      return `<span class="${timeSignatureLineClassName}">${this.ts[0]}/${this.ts[1]}<br /></span>`;
+      return `<span class="${lineClassName} ${timeSignatureLineClassName}">${this.ts[0]}/${this.ts[1]}<br /></span>`;
     } else {
-      return `<span class="${timeSignatureLineClassName}"><span class="${errorClassName}">${this.ts[0]}</span>/<span class="${errorClassName}">${this.ts[1]}</span><br /></span>`;
+      return `<span class="${lineClassName} ${timeSignatureLineClassName}"><span class="${errorClassName}">${this.ts[0]}</span>/<span class="${errorClassName}">${this.ts[1]}</span><br /></span>`;
     }
   };
 }
