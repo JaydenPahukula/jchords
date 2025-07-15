@@ -11,8 +11,11 @@ interface ChartProps {
 export function Chart({ song, renderOptions }: ChartProps) {
   return (
     <Box
-      p="40px"
-      minWidth="min(100%, 750px)"
+      flexShrink="0"
+      minWidth={{ sm: '700px' }}
+      mx="auto"
+      width="max-content"
+      p={{ initial: '20px', sm: '40px' }}
       style={{
         borderRadius: 'var(--radius-6)',
         background: 'var(--gray-1)',

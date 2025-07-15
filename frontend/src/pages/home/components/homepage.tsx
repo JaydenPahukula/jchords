@@ -5,13 +5,16 @@ import { SongInfo } from 'shared/types/songinfo';
 import { PlayIcon } from 'src/components/icons/playicon';
 import { SearchIcon } from 'src/components/icons/searchicon';
 import { DialogType } from 'src/enums/dialogtype';
+import { Size } from 'src/enums/size';
 import { apiGetSongList } from 'src/functions/api/endpoints/getsonglist';
+import { useSizeSignal } from 'src/hooks/usesizesignal';
 import { useDialogContext } from 'src/pages/home/state/dialog';
 
 export function HomePage() {
   const dialogSignal = useDialogContext();
 
   const songList = useSignal<SongInfo[] | 'loading' | 'error'>('loading');
+  const sizeSignal = useSizeSignal();
 
   useEffect(() => {
     // update title
@@ -48,7 +51,7 @@ export function HomePage() {
           <Card key={info.id} mb="2" asChild>
             <Box p="2">
               <Flex align="center">
-                <Box flexGrow="1" pl="1">
+                <Box flexGrow="1" overflow="hidden" pl="1">
                   <Text truncate as="p" weight="medium" size="3">
                     {info.title || '*No Title*'}
                   </Text>
@@ -56,12 +59,14 @@ export function HomePage() {
                     {info.artist || '*No Artist*'}
                   </Text>
                 </Box>
-                <Button size="3" variant="outline" asChild>
-                  <a href={'/song/' + info.id}>
-                    Open
-                    <PlayIcon height="20px" width="20px" />
-                  </a>
-                </Button>
+                <Box p={{ initial: '3', sm: '4' }} asChild>
+                  <Button size="3" variant="outline" asChild>
+                    <a href={'/song/' + info.id}>
+                      {sizeSignal.value >= Size.sm && 'Open'}
+                      <PlayIcon height="20px" width="20px" />
+                    </a>
+                  </Button>
+                </Box>
               </Flex>
             </Box>
           </Card>

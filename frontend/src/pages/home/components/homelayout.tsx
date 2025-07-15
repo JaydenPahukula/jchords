@@ -37,12 +37,14 @@ export function HomeLayout() {
             <Container
               size="3"
               id="header"
-              height="68px"
+              height={{ initial: '58px', sm: '68px' }}
               style={{ zIndex: '1', boxShadow: 'var(--shadow-4)' }}
             >
               <Flex height="100%" align="center" justify="between">
                 <Link to="/" style={{ color: 'var(--gray-12)', textDecorationLine: 'none' }}>
-                  <Heading size="7">JChords</Heading>
+                  <Heading size={{ initial: '6', sm: '7' }} mx="4">
+                    JChords
+                  </Heading>
                 </Link>
                 <UserCircle
                   user={userSignal.value ?? null}
@@ -51,7 +53,13 @@ export function HomeLayout() {
                 />
               </Flex>
             </Container>
-            <Container size="2" py="5" style={{ background: 'var(--gray-3)' }} overflowY="auto">
+            <Container
+              size="2"
+              py="5"
+              px="2"
+              style={{ background: 'var(--gray-3)' }}
+              overflowY="auto"
+            >
               <Outlet />
             </Container>
           </Grid>

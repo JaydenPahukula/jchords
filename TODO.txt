@@ -13,7 +13,6 @@ small stuff
 - transpose icon
 
 big stuff
-- check ipad support
 - add public/private songs
 - liking songs
 - playlists

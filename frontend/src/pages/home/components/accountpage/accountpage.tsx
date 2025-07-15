@@ -55,7 +55,7 @@ export function AccountPage() {
   return user === undefined ? (
     <Spinner mx="auto" my="6" size="3" />
   ) : (
-    <Card size="5">
+    <Card size={{ initial: '4', xs: '5' }}>
       <Flex align="center" gap="5" mb="4">
         <UserAvatar size="7" user={user} />
       </Flex>

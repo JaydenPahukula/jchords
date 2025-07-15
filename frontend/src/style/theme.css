@@ -13,13 +13,18 @@
 
   --border: 1px solid var(--gray-6);
 
-  --chart-font: Roboto Mono, Courier New, monospace;
+  /* --chart-font: monospace; */
+  --chart-font: 'Roboto Mono', 'Courier New', monospace;
 }
 
 html,
 body {
   margin: 0;
   overflow: hidden;
+}
+
+body {
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 *,

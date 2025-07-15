@@ -1,5 +1,5 @@
 import { batch, useSignal } from '@preact/signals-react';
-import { Flex, Grid, Spinner } from '@radix-ui/themes';
+import { Box, Grid, Spinner } from '@radix-ui/themes';
 import { RenderOptions } from 'engine';
 import { useEffect } from 'react';
 import { Song } from 'shared/types/song';
@@ -8,13 +8,6 @@ import { apiGetSong } from 'src/functions/api/endpoints/getsong';
 import { Chart } from 'src/pages/song/chart';
 import { SongHeader } from 'src/pages/song/header/songheader';
 import 'src/pages/song/songpage.css';
-
-// const defaultRenderOptions: RenderOptions = {
-//   accidentalsType: 'auto',
-//   transposeValue: 0,
-//   printBarSeparators: 'grids',
-//   symbolType: 'chord',
-// };
 
 const defaultRenderOptions: RenderOptions = {
   alignChordsWithLyrics: true,
@@ -48,15 +41,15 @@ export function SongPage() {
   }, [songId]);
 
   return (
-    <Grid id="song-page" rows="min-content 1fr" height="100lvh">
+    <Grid overflow="hidden" id="song-page" rows="min-content 1fr" height="100dvh">
       <SongHeader song={song} />
-      <Flex direction="column" align="center" p="4" pb="8" overflowY="auto">
-        {song === undefined ? (
-          <Spinner mx="auto" size="3" />
-        ) : (
+      {song === undefined ? (
+        <Spinner mx="auto" my="6" size="3" />
+      ) : (
+        <Box overflow="auto" p={{ initial: '2', sm: '4' }}>
           <Chart song={song} renderOptions={defaultRenderOptions} />
-        )}
-      </Flex>
+        </Box>
+      )}
     </Grid>
   );
 }
