@@ -192,7 +192,7 @@ export class ChordLine implements ParsedLine {
       }
       output += `<br /></span>`;
       return output;
-    } else if (opts.showChordDurations && this.timeSignature !== undefined) {
+    } else if (opts.showChordTimings && this.timeSignature !== undefined) {
       // align with duration
       let output = `<span class="${chordLineClassName}">`;
 

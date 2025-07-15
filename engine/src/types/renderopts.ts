@@ -10,7 +10,7 @@ export type RenderOptions = {
   // expandRepeatSecions: boolean; // todo
   // renderNumerals: boolean; // todo
   // simplifyChords: boolean; // todo
-  showChordDurations: boolean;
+  showChordTimings: boolean;
   // showBarSeparators: boolean; // todo
   // showSubBeatDelimiters: boolean; // todo
   // showInlineTimeSignatures: boolean; // todo
@@ -27,7 +27,7 @@ export const defaultRenderOptions: RenderOptions = Object.freeze({
   // expandRepeatSecions: true,
   // renderNumerals: false,
   // simplifyChords: false,
-  showChordDurations: true,
+  showChordTimings: true,
   // showBarSeparators: true,
   // showSubBeatDelimiters: true,
   // showInlineTimeSignatures: true,
