@@ -1,4 +1,4 @@
-import 'shared/types/declarations/vite-env.d.ts';
+import 'src/types/declarations/vite-env.d.ts';
 
 type HttpMethod = 'GET' | 'PUT' | 'PATCH' | 'DELETE';
 
