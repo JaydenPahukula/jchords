@@ -2,14 +2,14 @@ import { batch, useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Flex, Separator, Text } from '@radix-ui/themes';
 import { FormEvent, useEffect } from 'react';
 import { LogInResult } from 'shared/enums/loginresult';
-import { logIn } from 'shared/functions/auth/login';
-import { logInWithGoogle } from 'shared/functions/auth/loginwithgoogle';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
 import { GenericDialog } from 'src/components/dialogs/genericdialog';
 import { GoogleIcon } from 'src/components/icons/googleicon';
 import { LockIcon } from 'src/components/icons/lockicon';
 import { TextFieldWithX } from 'src/components/textfieldwithx';
 import { DialogType } from 'src/enums/dialogtype';
+import { logIn } from 'src/functions/auth/login';
+import { logInWithGoogle } from 'src/functions/auth/loginwithgoogle';
 import { DialogProps } from 'src/types/dialog/dialogprops';
 
 type ErrorState = null | LogInResult | 'loading';

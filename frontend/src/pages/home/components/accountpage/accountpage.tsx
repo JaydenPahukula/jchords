@@ -3,12 +3,13 @@ import { Box, Button, Card, Flex, Spinner, Text, TextField } from '@radix-ui/the
 import { updateProfile } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { logOut } from 'shared/functions/auth/logout';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { SignOutIcon } from 'src/components/icons/signouticon';
 import { TextFieldWithX } from 'src/components/textfieldwithx';
 import { UserAvatar } from 'src/components/useravatar';
+import { logOut } from 'src/functions/auth/logout';
 import { DeleteAccountButton } from 'src/pages/home/components/accountpage/deleteaccountbutton';
+import { VerifyEmailButton } from 'src/pages/home/components/accountpage/verifyemailbutton';
 import { useUserContext } from 'src/pages/home/state/user';
 
 export function AccountPage() {
@@ -88,19 +89,7 @@ export function AccountPage() {
           disabled
           value={user.email ?? ''}
         />
-        {/* {user.emailVerified ? (
-          <Text size="2" color="green" asChild>
-            <Flex align="center" gap="1">
-              <CheckCircleIcon height="14px" width="14px" />
-              Email verified
-            </Flex>
-          </Text>
-        ) : (
-          <Button onClick={verifyEmail}>
-            <MailIcon />
-            Verify Email
-          </Button>
-        )} */}
+        <VerifyEmailButton user={user} />
         <Box mt="6">
           <Button onClick={signOut} color="red" variant="soft">
             <SignOutIcon />

@@ -18,7 +18,7 @@ import 'src/pages/song/songpage.css';
 
 const defaultRenderOptions: RenderOptions = {
   alignChordsWithLyrics: true,
-  showChordDurations: false,
+  showChordDurations: true,
 };
 
 export function SongPage() {

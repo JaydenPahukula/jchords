@@ -2,12 +2,12 @@ import { useSignal } from '@preact/signals-react';
 import { Box, Button, Flex, IconButton, Inset, Popover, Text } from '@radix-ui/themes';
 import { User } from 'firebase/auth';
 import { Link } from 'react-router';
-import { logOut } from 'shared/functions/auth/logout';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { SignOutIcon } from 'src/components/icons/signouticon';
 import { UserIcon } from 'src/components/icons/usericon';
 import { UserAvatar } from 'src/components/useravatar';
 import 'src/components/usercircle.css';
+import { logOut } from 'src/functions/auth/logout';
 
 interface UserCircleProps {
   user: User | null;
