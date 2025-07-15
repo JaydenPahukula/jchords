@@ -1,7 +1,7 @@
 import { ParsedLine } from 'src/engine/parse';
 import { ParsedSong } from 'src/types/parsedsong';
 import { defaultRenderOptions, RenderOptions } from 'src/types/renderopts';
-import { sectionClassName, songClassName } from '../constants/classes';
+import { sectionClassName, songClassName } from '../classes';
 
 export function renderSong(song: ParsedSong, opts?: RenderOptions): string {
   if (opts === undefined) opts = defaultRenderOptions;

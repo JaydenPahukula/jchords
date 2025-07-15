@@ -1,9 +1,10 @@
-import { chordClassName, errorClassName, keyDeclarationLineClassName } from 'src/constants/classes';
-import { keyDeclarationKeyword } from 'src/constants/symbols';
+import { chordClassName, errorClassName, keyDeclarationLineClassName } from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
+import { keyDeclarationKeyword } from 'src/symbols';
+import { Accidental } from 'src/types/accidental';
 import { Key } from 'src/types/key';
-import { Note } from 'src/types/note';
+import { noteFromString } from 'src/types/note';
 import { RenderOptions } from 'src/types/renderopts';
 
 /**
@@ -15,18 +16,34 @@ export class KeyDeclarationLine implements ParsedLine {
   // key is null if the key string is invalid
   key: Key | null;
   originalString: string;
-  static parseRegex = new RegExp(`^${keyDeclarationKeyword}\\s+([A-Za-z#m]{1,4})$`, 'i');
+  // used to parse for what is roughly a chord
+  static parseRegex = new RegExp(`^${keyDeclarationKeyword}\\s+([A-Z#bm]{1,4})$`, 'i');
 
   constructor(original: string) {
     this.originalString = original;
 
-    const match = original.match(/^([A-Ga-g][#b]?m?)$/);
-    if (match === null || match[1] === undefined || !(match[1] in noteMappings)) this.key = null;
-    else this.key = match[1];
-    /* this.key = {
-        note: noteMappings[match[1]]!,
-        minor: match[2].length != 0,
-      };*/
+    const match = original.match(/^([A-G][#b]?)(m?)$/);
+    console.log(match);
+    if (match === null || match[1] === undefined || match[2] === undefined) {
+      this.key = null;
+    } else {
+      const noteString = match[1];
+      let originalAccidental: Accidental | undefined;
+      if (noteString.length == 2 && noteString.endsWith('#')) {
+        originalAccidental = 'sharp';
+      } else if (noteString.length == 2 && noteString.endsWith('b')) {
+        originalAccidental = 'flat';
+      }
+
+      const note = noteFromString(noteString);
+      const minor = match[2].length > 0;
+      if (note !== null) {
+        this.key = new Key(note, minor, originalAccidental);
+      } else {
+        this.key = null;
+      }
+    }
+    console.log(this.key);
   }
 
   static tryParse = (line: string, state: ParseState): KeyDeclarationLine | null => {
@@ -45,44 +62,8 @@ export class KeyDeclarationLine implements ParsedLine {
     if (this.key == null) {
       return `<span class="${keyDeclarationLineClassName}">key:&nbsp<span class="${errorClassName}">${this.originalString}</span><br /></span>`;
     } else {
-      return `<span class="${keyDeclarationLineClassName}">key:&nbsp<span class="${chordClassName}">${this.key}</span><br /></span>`;
+      const renderedKey = this.key.render(opts.accidentalPreference, opts.transpose);
+      return `<span class="${keyDeclarationLineClassName}">key:&nbsp<span class="${chordClassName}">${renderedKey}</span><br /></span>`;
     }
   }
 }
-
-const noteMappings: { [key: string]: Note } = {
-  c: Note.C,
-  C: Note.C,
-  'c#': Note.CSharp,
-  'C#': Note.CSharp,
-  db: Note.CSharp,
-  Db: Note.CSharp,
-  d: Note.D,
-  D: Note.D,
-  'd#': Note.DSharp,
-  'D#': Note.DSharp,
-  eb: Note.DSharp,
-  Eb: Note.DSharp,
-  e: Note.E,
-  E: Note.E,
-  f: Note.F,
-  F: Note.F,
-  'f#': Note.FSharp,
-  'F#': Note.FSharp,
-  gb: Note.FSharp,
-  Gb: Note.FSharp,
-  g: Note.G,
-  G: Note.G,
-  'g#': Note.GSharp,
-  'G#': Note.GSharp,
-  ab: Note.GSharp,
-  Ab: Note.GSharp,
-  a: Note.A,
-  A: Note.A,
-  'a#': Note.ASharp,
-  'A#': Note.ASharp,
-  bb: Note.ASharp,
-  Bb: Note.ASharp,
-  b: Note.B,
-  B: Note.B,
-};

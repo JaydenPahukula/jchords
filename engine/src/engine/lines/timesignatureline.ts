@@ -1,9 +1,8 @@
-import { allowedTimeSignatures } from 'src/constants';
-import { errorClassName, timeSignatureLineClassName } from 'src/constants/classes';
+import { errorClassName, timeSignatureLineClassName } from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
 import { RenderOptions } from 'src/types/renderopts';
-import { TimeSignature } from 'src/types/timesignature';
+import { ALLOWED_TIME_SIGNATURES, TimeSignature } from 'src/types/timesignature';
 
 export class TimeSignatureLine implements ParsedLine {
   type = LineType.TimeSignature;
@@ -25,7 +24,7 @@ export class TimeSignatureLine implements ParsedLine {
 
     // checking if time signature is valid
     let valid = false;
-    for (const allowedTimeSignature of allowedTimeSignatures) {
+    for (const allowedTimeSignature of ALLOWED_TIME_SIGNATURES) {
       if (allowedTimeSignature[0] === ts[0] && allowedTimeSignature[1] === ts[1]) {
         valid = true;
         break;

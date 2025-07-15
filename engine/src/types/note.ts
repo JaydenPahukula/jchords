@@ -1,38 +1,56 @@
-/**
- * A note in the 12 tone scale.
- *
- * C = 0, C# = 1, D = 2, ...
- */
+import { Accidental } from 'src/types/accidental';
+
 export enum Note {
   C = 0,
-  CSharp = 1,
-  D = 2,
-  DSharp = 3,
-  E = 4,
-  F = 5,
-  FSharp = 6,
-  G = 7,
-  GSharp = 8,
-  A = 9,
-  ASharp = 10,
-  B = 11,
+  CSharp,
+  D,
+  DSharp,
+  E,
+  F,
+  FSharp,
+  G,
+  GSharp,
+  A,
+  ASharp,
+  B,
 }
 
-/**
- * Converts a note into a string, taking into account render options. Uses the
- * original string to auto-choose accidental style if the preferrence is auto.
- */
-export function noteToString(note: Note) {
-  /* if (
-    opts.accidentalsPreferrence == 'flats' ||
-    (opts.accidentalsPreferrence == 'auto' && originalString?.charAt(1) === 'b')
-  ) {
-    return noteNamesFlat[note];
+export function noteFromString(s: string): Note | null {
+  return STRING_NOTE_MAP.get(s) ?? null;
+}
+
+/** Renderes a note with preference for a given accidental, defaults to sharps */
+export function renderNote(note: Note, accidental?: Accidental): string {
+  if (accidental === 'flat') {
+    return noteStringsFlat[note] ?? '_';
   } else {
-    return noteNames[note];
-  }*/
-  return noteNamesSharp[note];
+    return noteStringsSharp[note] ?? '_';
+  }
 }
 
-const noteNamesSharp = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-//const noteNamesFlat = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+export function tranposeNote(note: Note, amount: number): Note {
+  return ((note.valueOf() + amount) % 12) as Note;
+}
+
+const STRING_NOTE_MAP = new Map<string, Note>([
+  ['C', Note.C],
+  ['C#', Note.CSharp],
+  ['D', Note.D],
+  ['D#', Note.DSharp],
+  ['Db', Note.CSharp],
+  ['E', Note.E],
+  ['Eb', Note.DSharp],
+  ['F', Note.F],
+  ['F#', Note.FSharp],
+  ['G', Note.G],
+  ['G#', Note.GSharp],
+  ['Gb', Note.FSharp],
+  ['A', Note.A],
+  ['A#', Note.ASharp],
+  ['Ab', Note.GSharp],
+  ['B', Note.B],
+  ['Bb', Note.ASharp],
+]);
+
+const noteStringsFlat = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+const noteStringsSharp = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];

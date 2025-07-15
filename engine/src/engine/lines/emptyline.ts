@@ -1,4 +1,4 @@
-import { emptyLineClassName } from 'src/constants/classes';
+import { emptyLineClassName } from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
 import { RenderOptions } from 'src/types/renderopts';

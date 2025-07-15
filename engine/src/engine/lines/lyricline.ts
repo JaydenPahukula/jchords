@@ -1,8 +1,8 @@
-import { lyricLineClassName } from 'src/constants/classes';
-import { chordPositionMarker } from 'src/constants/symbols';
+import { lyricLineClassName } from 'src/classes';
 import { ChordLine } from 'src/engine/lines/chordline';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
+import { chordPositionMarker } from 'src/symbols';
 import { RenderOptions } from 'src/types/renderopts';
 
 export class LyricLine implements ParsedLine {
