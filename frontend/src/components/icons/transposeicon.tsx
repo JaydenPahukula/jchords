@@ -1,5 +1,5 @@
-import { IconProps } from 'shared/types/iconprops';
 import { CustomIcon } from 'src/components/icons/customicon';
+import { IconProps } from 'src/types/iconprops';
 
 export const TransposeIcon = (props: IconProps) => (
   <CustomIcon viewBox="-2 -2 24 24" fill="currentColor" stroke="none" {...props}>

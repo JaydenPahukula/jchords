@@ -1,5 +1,5 @@
-import { IconProps } from 'shared/types/iconprops';
 import { CustomIcon } from 'src/components/icons/customicon';
+import { IconProps } from 'src/types/iconprops';
 
 export const MusicNoteIcon = (props: IconProps) => (
   <CustomIcon fill="currentColor" stroke="none" viewBox="-2 -3 62 61" {...props}>

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { IconProps } from 'shared/types/iconprops';
+import { IconProps } from 'src/types/iconprops';
 
 interface CustomIconProps extends IconProps {
   children?: ReactNode;

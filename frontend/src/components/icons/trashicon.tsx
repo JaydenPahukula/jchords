@@ -1,5 +1,5 @@
-import { IconProps } from 'shared/types/iconprops';
 import { CustomIcon } from 'src/components/icons/customicon';
+import { IconProps } from 'src/types/iconprops';
 
 export const TrashIcon = (props: IconProps) => (
   <CustomIcon {...props}>

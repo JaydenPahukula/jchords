@@ -1,5 +1,5 @@
-import { IconProps } from 'shared/types/iconprops';
 import { CustomIcon } from 'src/components/icons/customicon';
+import { IconProps } from 'src/types/iconprops';
 
 export const GearIcon = (props: IconProps) => (
   <CustomIcon fill={props.color} stroke="none" viewBox="-1 0 19 19" {...props}>
