@@ -2,7 +2,11 @@
   background: var(--gray-2);
 }
 
-.cmLine {
-  margin: 0;
+.jc-song {
   font-size: 14px;
+  line-height: 20px;
+}
+
+.jc-section {
+  margin: 0;
 }

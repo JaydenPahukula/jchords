@@ -1,7 +1,6 @@
 import { ReadonlySignal, useComputed } from '@preact/signals-react';
-import { Box, Grid, Heading, Text } from '@radix-ui/themes';
-// @ts-expect-error TODO add type definitions to chord-mark
-import { parseSong, renderSong } from 'chord-mark';
+import { Box, Grid, Heading } from '@radix-ui/themes';
+import { parseSong, RenderOptions, renderSong } from 'engine';
 import { ChangeEvent, useRef } from 'react';
 import { Song } from 'shared/types/song';
 import { useMatchScrollEffect } from 'src/hooks/usematchscrolleffect';
@@ -12,14 +11,21 @@ interface EditorProps {
   songSignal: ReadonlySignal<Song | undefined>;
 }
 
+const defaultRenderOptions: RenderOptions = {
+  alignChordsWithLyrics: true,
+  showChordDurations: false,
+};
+
 export function Editor({ songSignal }: EditorProps) {
   const sourceRef = useRef<HTMLTextAreaElement>(null);
-  const previewRef = useRef<HTMLPreElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
   useMatchScrollEffect(sourceRef, previewRef);
 
   const disabled = useComputed(() => songSignal.value === undefined);
 
-  const rendered = useComputed<string>(() => renderSong(parseSong(songSignal.value?.text)));
+  const rendered = useComputed<string>(() =>
+    renderSong(parseSong(songSignal.value?.text ?? ''), defaultRenderOptions),
+  );
 
   function onInput(e: ChangeEvent<HTMLTextAreaElement>) {
     updateCurrSong({ text: e.target.value });
@@ -73,9 +79,7 @@ export function Editor({ songSignal }: EditorProps) {
           Preview
         </Heading>
         <Box p="2" overflow="auto" asChild>
-          <Text m="0" size="2" asChild>
-            <pre ref={previewRef} dangerouslySetInnerHTML={{ __html: rendered.value }} />
-          </Text>
+          <div ref={previewRef} dangerouslySetInnerHTML={{ __html: rendered.value }} />
         </Box>
       </Grid>
     </Grid>

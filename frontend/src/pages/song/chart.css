@@ -1,9 +1,14 @@
-.cmLine {
+.jc-song {
   font-family: var(--chart-font);
+  font-size: 16px;
   line-height: 20px;
+  margin-top: 8px;
+}
+
+.jc-section {
   margin: 0;
 }
 
-.cmSectionLabel {
+.jc-section-label {
   font-weight: bold;
 }

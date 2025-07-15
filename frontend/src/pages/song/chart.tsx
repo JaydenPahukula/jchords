@@ -1,13 +1,11 @@
 import { Box, Heading, Text } from '@radix-ui/themes';
-// @ts-expect-error chord-mark does not have types
-import { parseSong, renderSong } from 'chord-mark';
-import { cmRenderOptions } from 'shared/types/cm/cmrenderoptions';
+import { parseSong, RenderOptions, renderSong } from 'engine';
 import { Song } from 'shared/types/song';
 import 'src/pages/song/chart.css';
 
 interface ChartProps {
   song: Song;
-  renderOptions: cmRenderOptions;
+  renderOptions: RenderOptions;
 }
 
 export function Chart({ song, renderOptions }: ChartProps) {
@@ -26,7 +24,7 @@ export function Chart({ song, renderOptions }: ChartProps) {
       <Text size="4" style={{ fontFamily: 'var(--chart-font)' }}>
         {song.info.artist}
       </Text>
-      <pre dangerouslySetInnerHTML={{ __html: renderSong(parseSong(song.text), renderOptions) }} />
+      <div dangerouslySetInnerHTML={{ __html: renderSong(parseSong(song.text), renderOptions) }} />
     </Box>
   );
 }

@@ -1,14 +1,12 @@
 import { useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Flex, Grid, Heading, SegmentedControl, Text } from '@radix-ui/themes';
 import { useRef } from 'react';
-import { DialogProps } from 'src/types/dialog/dialogprops';
-// @ts-expect-error TODO
-import { convert2ChordMark } from 'chord-mark-converters/lib/chord-mark-converters.js';
 import { Song } from 'shared/types/song';
 import { GenericDialog } from 'src/components/dialogs/genericdialog';
 import { DialogType } from 'src/enums/dialogtype';
 import { useMatchScrollEffect } from 'src/hooks/usematchscrolleffect';
 import { newTab } from 'src/pages/editor/state/functions/tabs';
+import { DialogProps } from 'src/types/dialog/dialogprops';
 
 type InputFormat = 'auto' | 'chordPro' | 'chordsOverLyrics';
 
@@ -20,8 +18,9 @@ export function ImportDialog(props: DialogProps) {
   const inputFormat = useSignal<InputFormat>('auto');
   const inputText = useSignal<string>('');
 
-  const previewText = useComputed<string>(() =>
-    convert2ChordMark(inputText.value, { inputFormat: inputFormat.value }),
+  const previewText = useComputed<string>(
+    () => inputText.value,
+    // convert2ChordMark(inputText.value, { inputFormat: inputFormat.value }),
   );
 
   function onInputFormatChange(value: string) {
@@ -49,6 +48,7 @@ export function ImportDialog(props: DialogProps) {
     <GenericDialog {...props} closeButton width="1200px" height="80vh">
       <Flex direction="column" height="100%" width="100%">
         <Dialog.Title>Import Song</Dialog.Title>
+        <Text>THIS FUNCTIONALITY DOES NOT WORK</Text>
         <Dialog.Description aria-describedby={undefined} />
         <Flex as="span" mb="3" align="center" gap="2">
           <Text>Input format:</Text>

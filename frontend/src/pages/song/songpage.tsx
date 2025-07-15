@@ -1,7 +1,7 @@
 import { batch, useSignal } from '@preact/signals-react';
 import { Flex, Grid, Spinner } from '@radix-ui/themes';
+import { RenderOptions } from 'engine';
 import { useEffect } from 'react';
-import { cmRenderOptions } from 'shared/types/cm/cmrenderoptions';
 import { Song } from 'shared/types/song';
 import { DialogType } from 'src/enums/dialogtype';
 import { apiGetSong } from 'src/functions/api/endpoints/getsong';
@@ -9,11 +9,16 @@ import { Chart } from 'src/pages/song/chart';
 import { SongHeader } from 'src/pages/song/header/songheader';
 import 'src/pages/song/songpage.css';
 
-const defaultRenderOptions: cmRenderOptions = {
-  accidentalsType: 'auto',
-  transposeValue: 0,
-  printBarSeparators: 'grids',
-  symbolType: 'chord',
+// const defaultRenderOptions: RenderOptions = {
+//   accidentalsType: 'auto',
+//   transposeValue: 0,
+//   printBarSeparators: 'grids',
+//   symbolType: 'chord',
+// };
+
+const defaultRenderOptions: RenderOptions = {
+  alignChordsWithLyrics: true,
+  showChordDurations: false,
 };
 
 export function SongPage() {
