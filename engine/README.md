@@ -17,10 +17,10 @@ npm run sandbox
 ## TODO
 
 - improve chord rendering
-  - transposition
   - make instrumental bars align
   - option to show `%` signs
 - Force lyric line symbol
+- Fix accidental rendering (Chord symbol seems to always default to sharps, disregarding the key or original accidental mark)
 
 # Markup Language
 
@@ -44,10 +44,12 @@ Takes the a `ParsedSong` object produced by the [`parseSong`](#parsesong) functi
 
 Object supplied to the [`renderSong`](#rendersong) function to customize the output.
 
-| Field                   | Type      | Description                                                                                                                                          |
-| ----------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alignChordsWithLyrics` | `boolean` | Whether or not to align chords with the position markers (`_`) in the following lyric line if applicable.                                            |
-| `showChordDurations`    | `boolean` | Whether or not to render non-lyric aligned chords with symbols indicating their rhythm/duration, e.g. `\|` for separating bars or`.` for beat count. |
+| Field                   | Type                                | Description                                                                                                                                          |
+| ----------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accidentalPreference`  | `'flats' \| 'sharps' \| 'original'` | When rendering chords and keys, should the renderer prefer sharps, flats, or make its own decision.                                                  |
+| `alignChordsWithLyrics` | `boolean`                           | Whether or not to align chords with the position markers (`_`) in the following lyric line if applicable.                                            |
+| `showChordDurations`    | `boolean`                           | Whether or not to render non-lyric aligned chords with symbols indicating their rhythm/duration, e.g. `\|` for separating bars or`.` for beat count. |
+| `transpose`             | `number`                            | How many semitones up or down to transpose the song.                                                                                                 |
 
 ## Notes for documentation
 

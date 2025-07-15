@@ -1,7 +1,7 @@
-import { sectionLabelLineClassName } from 'src/constants/classes';
-import { sectionLabelSymbol } from 'src/constants/symbols';
+import { lineClassName, sectionLabelLineClassName } from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
+import { sectionLabelSymbol } from 'src/symbols';
 import { RenderOptions } from 'src/types/renderopts';
 
 export class SectionLabelLine implements ParsedLine {
@@ -27,6 +27,6 @@ export class SectionLabelLine implements ParsedLine {
   };
 
   render = (opts: RenderOptions, state: RenderState): string => {
-    return `<span class="${sectionLabelLineClassName}">${this.label}<br /></span>`;
+    return `<span class="${lineClassName} ${sectionLabelLineClassName}">${this.label}<br /></span>`;
   };
 }

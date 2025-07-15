@@ -1,9 +1,8 @@
-import { allowedTimeSignatures } from 'src/constants';
-import { errorClassName, timeSignatureLineClassName } from 'src/constants/classes';
+import { errorClassName, lineClassName, timeSignatureLineClassName } from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
 import { RenderOptions } from 'src/types/renderopts';
-import { TimeSignature } from 'src/types/timesignature';
+import { ALLOWED_TIME_SIGNATURES, TimeSignature } from 'src/types/timesignature';
 
 export class TimeSignatureLine implements ParsedLine {
   type = LineType.TimeSignature;
@@ -25,7 +24,7 @@ export class TimeSignatureLine implements ParsedLine {
 
     // checking if time signature is valid
     let valid = false;
-    for (const allowedTimeSignature of allowedTimeSignatures) {
+    for (const allowedTimeSignature of ALLOWED_TIME_SIGNATURES) {
       if (allowedTimeSignature[0] === ts[0] && allowedTimeSignature[1] === ts[1]) {
         valid = true;
         break;
@@ -38,9 +37,9 @@ export class TimeSignatureLine implements ParsedLine {
 
   render = (opts: RenderOptions, state: RenderState): string => {
     if (this.valid) {
-      return `<span class="${timeSignatureLineClassName}">${this.ts[0]}/${this.ts[1]}<br /></span>`;
+      return `<span class="${lineClassName} ${timeSignatureLineClassName}">${this.ts[0]}/${this.ts[1]}<br /></span>`;
     } else {
-      return `<span class="${timeSignatureLineClassName}"><span class="${errorClassName}">${this.ts[0]}</span>/<span class="${errorClassName}">${this.ts[1]}</span><br /></span>`;
+      return `<span class="${lineClassName} ${timeSignatureLineClassName}"><span class="${errorClassName}">${this.ts[0]}</span>/<span class="${errorClassName}">${this.ts[1]}</span><br /></span>`;
     }
   };
 }

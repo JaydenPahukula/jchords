@@ -1,7 +1,7 @@
-import { repeatChordSymbol } from 'src/constants/symbols';
 import { ChordLine } from 'src/engine/lines/chordline';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import { RenderState } from 'src/engine/render';
+import { repeatChordSymbol } from 'src/symbols';
 import { RenderOptions } from 'src/types/renderopts';
 
 export class RepeatChordsLine implements ParsedLine {

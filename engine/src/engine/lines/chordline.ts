@@ -1,15 +1,15 @@
 import { Chord, ChordParseFailure, chordParserFactory, chordRendererFactory } from 'chord-symbol';
-import { chordClassName, chordLineClassName, formatterClassName } from 'src/constants/classes';
+import { chordClassName, chordLineClassName, formatterClassName, lineClassName } from 'src/classes';
+import { LyricLine } from 'src/engine/lines/lyricline';
+import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
+import { RenderState } from 'src/engine/render';
 import {
   barSeparator,
   chordDurationSymbol,
   repeatChordSymbol,
   subBeatChordGroupEndSymbol,
   subBeatChordGroupStartSymbol,
-} from 'src/constants/symbols';
-import { LyricLine } from 'src/engine/lines/lyricline';
-import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
-import { RenderState } from 'src/engine/render';
+} from 'src/symbols';
 import { Key } from 'src/types/key';
 import { RenderOptions } from 'src/types/renderopts';
 import { TimeSignature } from 'src/types/timesignature';
@@ -57,7 +57,7 @@ export class ChordLine implements ParsedLine {
     let lastChord: string | null = null;
 
     const chordParseFunction = chordParserFactory({
-      key: (state.key as string) ?? undefined,
+      key: state.key?.render(),
     });
 
     // parsing char by char
@@ -149,7 +149,7 @@ export class ChordLine implements ParsedLine {
 
     if (this.lyrics !== undefined && opts.alignChordsWithLyrics) {
       // align with lyrics
-      let output = `<span class="${chordLineClassName}">`;
+      let output = `<span class="${lineClassName} ${chordLineClassName}">`;
 
       let currentPos = 0;
       let accumulatedShift = 0; // how much the marker positions need to be shifted due to expanding previous ones to fit the chords
@@ -192,9 +192,9 @@ export class ChordLine implements ParsedLine {
       }
       output += `<br /></span>`;
       return output;
-    } else if (opts.showChordDurations && this.timeSignature !== undefined) {
+    } else if (opts.showChordTimings && this.timeSignature !== undefined) {
       // align with duration
-      let output = `<span class="${chordLineClassName}">`;
+      let output = `<span class="${lineClassName} ${chordLineClassName}">`;
 
       const barSize = this.timeSignature[0];
       type ChordToRender = {
@@ -280,7 +280,7 @@ export class ChordLine implements ParsedLine {
 
   /** Fallback chord rendering, with no duration markers or alignment at all */
   simpleRender(opts: RenderOptions): string {
-    let output = `<span class="${chordLineClassName}">`;
+    let output = `<span class="${lineClassName} ${chordLineClassName}">`;
     this.renderedChords!.forEach((chord: string) => {
       output += `<span class="${chordClassName}">${chord}</span>  `;
     });
@@ -293,7 +293,12 @@ export class ChordLine implements ParsedLine {
    * is needed by other lines before rendering
    */
   prerenderChords(opts: RenderOptions) {
-    const chordRenderFunction = chordRendererFactory({ printer: 'text', useShortNamings: true });
+    const chordRenderFunction = chordRendererFactory({
+      printer: 'text',
+      useShortNamings: true,
+      transposeValue: opts.transpose,
+      accidental: opts.accidentalPreference,
+    });
     this.renderedChords = [];
 
     for (let i = 0; i < this.chords.length; i++) {
@@ -308,19 +313,6 @@ export class ChordLine implements ParsedLine {
             group.map(chordRenderFunction).join(' ') +
             subBeatChordGroupEndSymbol,
         );
-
-        /*for (let j = 0; j < group.length; j++) {
-          let rendered = chordRenderFunction(group[j]!);
-          if (
-            (this.lyrics === undefined || !opts.alignChordsWithLyrics) &&
-            opts.showChordDurations
-          ) {
-            // render sub beat symbols
-            if (j === 0) rendered = subBeatChordGroupStartSymbol + rendered;
-            if (j + 1 === group.length) rendered = rendered + subBeatChordGroupEndSymbol;
-          }
-          this.renderedChords.push(rendered);
-        }*/
       }
     }
   }

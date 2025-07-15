@@ -1,8 +1,10 @@
+import { AccidentalPreference } from 'src/types/accidental';
+
 /**
  * Represents the configuration settings passed into the renderer
  */
 export type RenderOptions = {
-  // accidentalsPreferrence: AccidentalsPreferrenceOptions; // todo
+  accidentalPreference: AccidentalPreference; // todo
   // alignBars: boolean; // todo
   alignChordsWithLyrics: boolean;
   // auto repeat?
@@ -10,29 +12,28 @@ export type RenderOptions = {
   // expandRepeatSecions: boolean; // todo
   // renderNumerals: boolean; // todo
   // simplifyChords: boolean; // todo
-  showChordDurations: boolean;
+  showChordTimings: boolean;
   // showBarSeparators: boolean; // todo
   // showSubBeatDelimiters: boolean; // todo
   // showInlineTimeSignatures: boolean; // todo
-  // transpose: number; // todo
+  transpose: number;
   // use short names?
   // wrapping options?
 };
 
 export const defaultRenderOptions: RenderOptions = Object.freeze({
-  // accidentalsPreferrence: 'auto',
+  accidentalPreference: 'original',
   // alignBars: true,
   alignChordsWithLyrics: true,
   // chartType: 'all',
   // expandRepeatSecions: true,
   // renderNumerals: false,
   // simplifyChords: false,
-  showChordDurations: true,
+  showChordTimings: true,
   // showBarSeparators: true,
   // showSubBeatDelimiters: true,
   // showInlineTimeSignatures: true,
-  // transpose: 0,
+  transpose: 0,
 });
 
-export type AccidentalsPreferrenceOptions = 'auto' | 'sharps' | 'flats';
 export type ChartTypeOptions = 'all' | 'lyrics' | 'chords' | 'first-lyric-line';
