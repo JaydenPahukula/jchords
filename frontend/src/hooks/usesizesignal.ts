@@ -1,4 +1,4 @@
-import { effect, signal, useComputed } from '@preact/signals-react';
+import { signal, useComputed } from '@preact/signals-react';
 import { Size } from 'src/enums/size';
 
 function getSize(): Size {
@@ -18,5 +18,3 @@ window.addEventListener('resize', () => {
 });
 
 export const useSizeSignal = () => useComputed(() => sizeSignal.value);
-
-effect(() => console.log(sizeSignal.value));

@@ -28,7 +28,6 @@ export class KeyDeclarationLine implements ParsedLine {
     this.originalString = original;
 
     const match = original.match(/^([A-G][#b]?)(m?)$/);
-    console.log(match);
     if (match === null || match[1] === undefined || match[2] === undefined) {
       this.key = null;
     } else {
@@ -48,7 +47,6 @@ export class KeyDeclarationLine implements ParsedLine {
         this.key = null;
       }
     }
-    console.log(this.key);
   }
 
   static tryParse = (line: string, state: ParseState): KeyDeclarationLine | null => {
