@@ -1,5 +1,5 @@
 import { Box, Heading, Text } from '@radix-ui/themes';
-import { RenderOptions } from 'engine';
+import { JCRenderOptions } from 'engine';
 import { ParsedSong } from 'shared/types/parsedsong';
 import 'src/pages/song/components/chart.css';
 
@@ -9,7 +9,7 @@ function calcFontSize(zoom: number): number {
 
 interface ChartProps {
   song: ParsedSong;
-  renderOptions: RenderOptions;
+  renderOptions: JCRenderOptions;
   zoom: number;
 }
 
