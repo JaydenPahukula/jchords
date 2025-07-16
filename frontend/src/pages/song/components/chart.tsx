@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from '@radix-ui/themes';
-import { parseSong, RenderOptions, renderSong } from 'engine';
-import { Song } from 'shared/types/song';
+import { RenderOptions } from 'engine';
+import { ParsedSong } from 'shared/types/parsedsong';
 import 'src/pages/song/components/chart.css';
 
 function calcFontSize(zoom: number): number {
@@ -8,7 +8,7 @@ function calcFontSize(zoom: number): number {
 }
 
 interface ChartProps {
-  song: Song;
+  song: ParsedSong;
   renderOptions: RenderOptions;
   zoom: number;
 }
@@ -41,7 +41,7 @@ export function Chart(props: ChartProps) {
       <div
         style={{ fontSize: `${fontSize}px` }}
         dangerouslySetInnerHTML={{
-          __html: renderSong(parseSong(props.song.text), props.renderOptions),
+          __html: props.song.rendered,
         }}
       />
     </Box>

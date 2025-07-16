@@ -5,8 +5,6 @@ interface ZoomMenuProps {
   zoomSignal: Signal<number>;
 }
 
-const tick = <div style={{ width: '1.5px', height: '6px', background: 'var(--gray-6)' }} />;
-
 export function ZoomMenu(props: ZoomMenuProps) {
   return (
     <Box width="200px">
@@ -32,7 +30,9 @@ export function ZoomMenu(props: ZoomMenuProps) {
         }}
       />
       <Flex justify="between" align="center" mt="2" px="6px">
-        {[...Array(9)].map(() => tick)}
+        {[...Array(9)].map((_, i) => (
+          <div key={i} style={{ width: '1.5px', height: '6px', background: 'var(--gray-6)' }} />
+        ))}
       </Flex>
     </Box>
   );

@@ -1,18 +1,15 @@
-import { batch, useSignal } from '@preact/signals-react';
+import { batch, useComputed, useSignal } from '@preact/signals-react';
 import { Box, Grid, Spinner } from '@radix-ui/themes';
-import { RenderOptions } from 'engine';
+import { defaultRenderOptions } from 'engine';
 import { useEffect } from 'react';
+import { parseSong } from 'shared/functions/parsesong';
+import { ParsedSong } from 'shared/types/parsedsong';
 import { Song } from 'shared/types/song';
 import { DialogType } from 'src/enums/dialogtype';
 import { apiGetSong } from 'src/functions/api/endpoints/getsong';
 import { Chart } from 'src/pages/song/components/chart';
 import { SongHeader } from 'src/pages/song/components/header/songheader';
 import 'src/pages/song/components/songpage.css';
-
-const defaultRenderOptions: RenderOptions = {
-  alignChordsWithLyrics: true,
-  showChordDurations: true,
-};
 
 export function SongPage() {
   const songId = window.location.pathname.match(/^\/song\/([A-Za-z0-9]+)/)?.[1];
@@ -22,8 +19,11 @@ export function SongPage() {
   const songSignal = useSignal<Song | 'loading' | 'error'>('loading');
   const zoomSignal = useSignal<number>(4); // [0,8]
 
-  const song =
-    songSignal.value === 'loading' || songSignal.value === 'error' ? undefined : songSignal.value;
+  const parsedSongSignal = useComputed<ParsedSong | undefined>(() => {
+    const song = songSignal.value;
+    if (song === 'loading' || song === 'error') return undefined;
+    return parseSong(song);
+  });
 
   useEffect(() => {
     document.title = 'JChords';
@@ -43,12 +43,16 @@ export function SongPage() {
 
   return (
     <Grid overflow="hidden" id="song-page" rows="min-content 1fr" height="100dvh">
-      <SongHeader song={song} zoomSignal={zoomSignal} />
-      {song === undefined ? (
+      <SongHeader song={parsedSongSignal.value} zoomSignal={zoomSignal} />
+      {parsedSongSignal.value === undefined ? (
         <Spinner mx="auto" my="6" size="3" />
       ) : (
         <Box overflow="auto" p={{ initial: '2', sm: '4' }}>
-          <Chart song={song} renderOptions={defaultRenderOptions} zoom={zoomSignal.value} />
+          <Chart
+            song={parsedSongSignal.value}
+            renderOptions={defaultRenderOptions}
+            zoom={zoomSignal.value}
+          />
         </Box>
       )}
     </Grid>

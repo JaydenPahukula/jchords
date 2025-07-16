@@ -1,6 +1,6 @@
 import { ReadonlySignal, useComputed } from '@preact/signals-react';
 import { Box, Grid, Heading } from '@radix-ui/themes';
-import { parseSong, RenderOptions, renderSong } from 'engine';
+import { defaultRenderOptions, parseSong, renderSong } from 'engine';
 import { ChangeEvent, useRef } from 'react';
 import { Song } from 'shared/types/song';
 import { useMatchScrollEffect } from 'src/hooks/usematchscrolleffect';
@@ -10,11 +10,6 @@ import { updateCurrSong } from 'src/pages/editor/state/functions/song';
 interface EditorProps {
   songSignal: ReadonlySignal<Song | undefined>;
 }
-
-const defaultRenderOptions: RenderOptions = {
-  alignChordsWithLyrics: true,
-  showChordDurations: false,
-};
 
 export function Editor({ songSignal }: EditorProps) {
   const sourceRef = useRef<HTMLTextAreaElement>(null);
