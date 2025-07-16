@@ -7,7 +7,7 @@ export default defineConfig([
   // general config
   {
     files: ['**/*.{ts,tsx}'],
-    ignores: ['**/dist/'],
+    ignores: ['**/dist/**'],
     plugins: {
       js: eslint,
       ts: tseslint,
@@ -25,7 +25,7 @@ export default defineConfig([
   // no relative paths
   ...['backend', 'frontend', 'engine'].map((root) => ({
     files: [`${root}/**/*.{ts,tsx}`],
-    ignores: ['**/dist/'],
+    ignores: ['**/dist/**'],
     plugins: {
       'no-relative-import-paths': noRelativeImportPaths,
     },
