@@ -1,75 +1,139 @@
-import { Accidental } from 'shared/enums/accidental';
-import { Mode } from 'shared/enums/mode';
-import { calcKey } from 'shared/functions/calckey';
-import { cmAccidentalsTypeToAccidental } from 'shared/functions/converters/cmaccidentalstypetoaccidental';
-import { keyToString } from 'shared/functions/converters/keytostring';
-import { cmRenderOptions } from 'shared/types/cm/cmrenderoptions';
+import { Signal } from '@preact/signals-react';
+import { Box, Flex, Heading, Select, Separator, Text } from '@radix-ui/themes';
+import { JCAccidental, JCKey, JCNote, JCRenderOptions } from 'engine';
+import { mod } from 'shared/functions/mod';
 import { ParsedSong } from 'shared/types/parsedsong';
-import { setAccidentalsType, setKey, setTransposeValue } from 'src/state/functions/transpose';
-import { updateRenderOptions } from 'src/state/functions/updaterenderoptions';
 
-// prettier-ignore
-const majorKeyOptions = ['C','C#','Db','D','D#','Eb','E','F','F#','Gb','G','G#','Ab','A','A#','Bb','B'];
-const minorKeyOptions = majorKeyOptions.map((s) => s + 'm');
+const majorKeyOptions: [string, JCNote, JCAccidental][] = [
+  ['C', JCNote.C, 'sharp'],
+  ['C#', JCNote.CSharp, 'sharp'],
+  ['Db', JCNote.CSharp, 'flat'],
+  ['D', JCNote.D, 'sharp'],
+  ['D#', JCNote.DSharp, 'sharp'],
+  ['Eb', JCNote.DSharp, 'flat'],
+  ['E', JCNote.E, 'sharp'],
+  ['F', JCNote.F, 'flat'],
+  ['F#', JCNote.FSharp, 'sharp'],
+  ['Gb', JCNote.FSharp, 'flat'],
+  ['G', JCNote.G, 'sharp'],
+  ['G#', JCNote.GSharp, 'sharp'],
+  ['Ab', JCNote.GSharp, 'flat'],
+  ['A', JCNote.A, 'sharp'],
+  ['A#', JCNote.ASharp, 'sharp'],
+  ['Bb', JCNote.ASharp, 'flat'],
+  ['B', JCNote.B, 'sharp'],
+];
+
+const minorKeyOptions: [string, JCNote, JCAccidental][] = majorKeyOptions.map(([s, note, acc]) => [
+  s + 'm',
+  note,
+  acc,
+]);
 
 interface TransposeMenuProps {
-  song: ParsedSong;
-  renderOptions: cmRenderOptions;
-  updateRenderOptions: (update: Partial<cmRenderOptions>) => void;
+  song: ParsedSong | undefined;
+  renderOptionsSignal: Signal<JCRenderOptions>;
 }
 
 export function TransposeMenu(props: TransposeMenuProps) {
-  const { defaultKey, defaultAccidental, mode } = props.song;
+  if (props.song === undefined) return <></>;
 
-  function handleSymbolTypeChange(e: JSX.TargetedMouseEvent<HTMLSelectElement>) {
-    const val = e.currentTarget.value;
-    if (val == 'chord' || val == 'roman') {
-      updateRenderOptions({
-        symbolType: val,
-      });
-    }
-  }
+  const defaultKey: JCKey = props.song.parsed.startingKey ?? new JCKey(JCNote.C, false, 'sharp');
+  const defaultKeyString = defaultKey.render();
 
-  const transposeDisabled = props.renderOptions.symbolType === 'roman';
+  const currTransposeVal = mod(props.renderOptionsSignal.value.transpose + 5, 12) - 5; // val is in [-5, 6]
+  const currAccidental: JCAccidental =
+    props.renderOptionsSignal.value.accidentalPreference === 'original'
+      ? 'sharp'
+      : props.renderOptionsSignal.value.accidentalPreference;
 
-  const defaultKeyString = keyToString(defaultKey, defaultAccidental, mode);
-  const currAccidental = cmAccidentalsTypeToAccidental(props.renderOptions.accidentalsType);
-  const currKey = calcKey(defaultKey, props.renderOptions.transposeValue);
+  const currKey: JCKey = new JCKey(
+    mod(defaultKey.note + currTransposeVal, 12) as JCNote,
+    defaultKey.minor,
+    currAccidental,
+  );
 
-  const keyOptions = mode == Mode.Major ? majorKeyOptions : minorKeyOptions;
-  function handleKeyChange(e: JSX.TargetedMouseEvent<HTMLSelectElement>) {
-    setKey(e.currentTarget.value);
+  const keyOptions = defaultKey?.minor ? minorKeyOptions : majorKeyOptions;
+  function handleKeyChange(value: string) {
+    const result = keyOptions.find(([s]) => s === value);
+    if (result === undefined) return;
+    const [_, note, acc] = result;
+    const transposeVal = mod(note - defaultKey.note, 12);
+    props.renderOptionsSignal.value = {
+      ...props.renderOptionsSignal.value,
+      transpose: transposeVal,
+      accidentalPreference: acc,
+    };
   }
 
   const transposeOptions = [6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5];
-  function handleTransposeChange(e: JSX.TargetedMouseEvent<HTMLSelectElement>) {
-    const n = parseInt(e.currentTarget.value);
+  function handleTransposeChange(value: string) {
+    const n = parseInt(value);
     if (Number.isNaN(n)) return;
-    setTransposeValue(n);
+    props.renderOptionsSignal.value = { ...props.renderOptionsSignal.value, transpose: n };
   }
 
-  function handleAccidentalsChange(e: JSX.TargetedMouseEvent<HTMLSelectElement>) {
-    const acc = e.currentTarget.value === 'flat' ? Accidental.Flat : Accidental.Sharp;
-    setAccidentalsType(acc);
+  function handleAccidentalsChange(value: string) {
+    if (value === 'flat' || value === 'sharp')
+      props.renderOptionsSignal.value = {
+        ...props.renderOptionsSignal.value,
+        accidentalPreference: value,
+      };
   }
 
   return (
-    <div class="bg-bg-0 text-fg-0 w-60 rounded-lg p-4 !shadow-lg">
-      <h2 class="mb-3 text-xl font-bold">Transpose</h2>
-      <div class="border-fg-1 mb-4 flex flex-col gap-1 border-t pt-4">
-        <label class="flex w-full justify-between gap-4">
-          Symbol Type:
-          <select
-            class="grow px-1"
-            value={props.renderOptions.symbolType}
-            onChange={handleSymbolTypeChange}
-          >
-            <option value="chord">Chord</option>
-            <option value="roman">Roman</option>
-          </select>
-        </label>
-      </div>
-      <div class="has-[:disabled]:text-fg-disabled border-fg-1 mb-5 flex flex-col gap-1 border-t pt-1">
+    <Box width="180px">
+      <Heading as="h2" size="5" mb="2">
+        Transpose
+      </Heading>
+      <Separator size="4" mb="2" />
+      <Heading as="h3" size="3" weight="medium" mb="1">
+        Automatic
+      </Heading>
+      <Flex align="center" justify="between" gap="2" mb="2">
+        <Text as="label" htmlFor="automatic-key-select">
+          Key:{' '}
+        </Text>
+        <Select.Root value={currKey.render()} onValueChange={handleKeyChange}>
+          <Select.Trigger id="automatic-key-select" />
+          <Select.Content>
+            {...keyOptions.map(([s]) => (
+              <Select.Item value={s}>{s === defaultKeyString ? s + ' (default)' : s}</Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Root>
+      </Flex>
+      <Separator size="4" mb="2" />
+      <Heading as="h3" size="3" weight="medium" mb="1">
+        Manual
+      </Heading>
+      <Flex align="center" justify="between" gap="2" mb="1">
+        <Text as="label" htmlFor="transpose-val-select">
+          Transpose:{' '}
+        </Text>
+        <Select.Root value={currTransposeVal.toString()} onValueChange={handleTransposeChange}>
+          <Select.Trigger id="transpose-val-select" />
+          <Select.Content>
+            {...transposeOptions.map((val) => {
+              const s = val.toString();
+              return <Select.Item value={s}>{val >= 0 ? '+' + s : s}</Select.Item>;
+            })}
+          </Select.Content>
+        </Select.Root>
+      </Flex>
+      <Flex align="center" justify="between" gap="2">
+        <Text as="label" htmlFor="transpose-val-select">
+          Accidentals:{' '}
+        </Text>
+        <Select.Root value={currAccidental} onValueChange={handleAccidentalsChange}>
+          <Select.Trigger id="transpose-val-select" />
+          <Select.Content>
+            <Select.Item value={'sharp'}>Sharp</Select.Item>
+            <Select.Item value={'flat'}>Flat</Select.Item>
+          </Select.Content>
+        </Select.Root>
+      </Flex>
+      {/* <div class="has-[:disabled]:text-fg-disabled border-fg-1 mb-5 flex flex-col gap-1 border-t pt-1">
         <h3 class="text-lg font-normal">Automatic</h3>
         <label class="flex w-full justify-between gap-4">
           Key:
@@ -116,7 +180,7 @@ export function TransposeMenu(props: TransposeMenuProps) {
             <option value={'flat'}>Flat</option>
           </select>
         </label>
-      </div>
-    </div>
+      </div> */}
+    </Box>
   );
 }

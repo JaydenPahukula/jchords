@@ -29,7 +29,7 @@ export function renderNote(note: Note, accidental?: Accidental): string {
 }
 
 export function tranposeNote(note: Note, amount: number): Note {
-  return ((note.valueOf() + amount) % 12) as Note;
+  return ((((note.valueOf() + amount) % 12) + 12) % 12) as Note;
 }
 
 const STRING_NOTE_MAP = new Map<string, Note>([

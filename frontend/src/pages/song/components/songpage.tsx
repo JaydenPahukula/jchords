@@ -1,6 +1,6 @@
 import { batch, useComputed, useSignal } from '@preact/signals-react';
 import { Box, Grid, Spinner } from '@radix-ui/themes';
-import { defaultRenderOptions } from 'engine';
+import { defaultRenderOptions, JCRenderOptions } from 'engine';
 import { useEffect } from 'react';
 import { parseSong } from 'shared/functions/parsesong';
 import { ParsedSong } from 'shared/types/parsedsong';
@@ -16,13 +16,14 @@ export function SongPage() {
   if (songId === undefined) throw new Error('songId is undefined');
 
   const dialogSignal = useSignal<DialogType>(DialogType.None);
-  const songSignal = useSignal<Song | 'loading' | 'error'>('loading');
   const zoomSignal = useSignal<number>(4); // [0,8]
+  const renderOptionsSignal = useSignal<JCRenderOptions>(defaultRenderOptions);
 
+  const songSignal = useSignal<Song | 'loading' | 'error'>('loading');
   const parsedSongSignal = useComputed<ParsedSong | undefined>(() => {
     const song = songSignal.value;
     if (song === 'loading' || song === 'error') return undefined;
-    return parseSong(song);
+    return parseSong(song, renderOptionsSignal.value);
   });
 
   useEffect(() => {
@@ -43,7 +44,11 @@ export function SongPage() {
 
   return (
     <Grid overflow="hidden" id="song-page" rows="min-content 1fr" height="100dvh">
-      <SongHeader song={parsedSongSignal.value} zoomSignal={zoomSignal} />
+      <SongHeader
+        song={parsedSongSignal.value}
+        zoomSignal={zoomSignal}
+        renderOptionsSignal={renderOptionsSignal}
+      />
       {parsedSongSignal.value === undefined ? (
         <Spinner mx="auto" my="6" size="3" />
       ) : (
