@@ -1,8 +1,8 @@
-import { Box, IconButton, Popover } from '@radix-ui/themes';
-import { ReactElement } from 'react';
+import { IconButton, IconProps, Popover } from '@radix-ui/themes';
+import { FunctionComponent, ReactElement } from 'react';
 
 interface HeaderIconButtonProps {
-  children?: ReactElement;
+  icon: FunctionComponent<IconProps>;
   menu: ReactElement;
 }
 
@@ -11,18 +11,16 @@ export function HeaderIconButton(props: HeaderIconButtonProps) {
     <Popover.Root>
       <Popover.Trigger>
         <IconButton className="song-header-icon-button" size="3">
-          <Box height="34px" width="34px" asChild>
-            {props.children}
-          </Box>
+          <props.icon height="34px" width="34px" />
         </IconButton>
       </Popover.Trigger>
-      <Popover.Content asChild>{props.menu}</Popover.Content>
+      <Popover.Content>{props.menu}</Popover.Content>
     </Popover.Root>
   );
 }
 
 interface HeaderIconLinkProps {
-  children?: ReactElement;
+  icon: FunctionComponent<IconProps>;
   href: string;
 }
 
@@ -30,9 +28,7 @@ export function HeaderIconLink(props: HeaderIconLinkProps) {
   return (
     <IconButton className="song-header-icon-button" size="3" asChild>
       <a href={props.href}>
-        <Box height="34px" width="34px" asChild>
-          {props.children}
-        </Box>
+        <props.icon height="34px" width="34px" />
       </a>
     </IconButton>
   );

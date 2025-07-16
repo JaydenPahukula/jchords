@@ -1,0 +1,49 @@
+import { Box, Heading, Text } from '@radix-ui/themes';
+import { parseSong, RenderOptions, renderSong } from 'engine';
+import { Song } from 'shared/types/song';
+import 'src/pages/song/components/chart.css';
+
+function calcFontSize(zoom: number): number {
+  return Math.min(12 + zoom, 20);
+}
+
+interface ChartProps {
+  song: Song;
+  renderOptions: RenderOptions;
+  zoom: number;
+}
+
+export function Chart(props: ChartProps) {
+  const fontSize = calcFontSize(props.zoom);
+
+  return (
+    <Box
+      flexShrink="0"
+      minWidth={{ initial: '100%', sm: '700px' }}
+      mx="auto"
+      width="max-content"
+      p={{ initial: '20px', sm: '40px' }}
+      style={{
+        borderRadius: 'var(--radius-6)',
+        background: 'var(--gray-1)',
+      }}
+    >
+      <Heading
+        as="h1"
+        mb="1"
+        style={{ fontFamily: 'var(--chart-font)', fontSize: `${fontSize + 8}px` }}
+      >
+        {props.song.info.title}
+      </Heading>
+      <Text style={{ fontFamily: 'var(--chart-font)', fontSize: `${fontSize}px` }}>
+        {props.song.info.artist}
+      </Text>
+      <div
+        style={{ fontSize: `${fontSize}px` }}
+        dangerouslySetInnerHTML={{
+          __html: renderSong(parseSong(props.song.text), props.renderOptions),
+        }}
+      />
+    </Box>
+  );
+}
