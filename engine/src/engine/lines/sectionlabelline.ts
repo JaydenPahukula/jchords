@@ -20,9 +20,6 @@ export class SectionLabelLine implements ParsedLine {
 
     let label = match[1];
 
-    // capitalize first letter
-    label = label.charAt(0).toUpperCase() + label.slice(1);
-
     return new SectionLabelLine(label);
   };
 
