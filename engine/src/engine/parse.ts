@@ -76,7 +76,7 @@ export const getDefaultParseState = (): ParseState => {
     lineNum: 0,
     previousLines: [],
     key: undefined,
-    timeSignature: undefined,
+    timeSignature: [4, 4],
     firstKey: undefined,
     lastChordLine: undefined,
     lastLastChordLine: undefined,
