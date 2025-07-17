@@ -1,8 +1,4 @@
 small stuff
-- fix index.htmls in frontend vite
-- look at eslint config and no-relative-import-paths
-- api request body type (why is it JSON string?)
-- tablist scroll so new tab is in view
 - add view password option
 - disable open song dialog table
 - swipe guestures for growls
@@ -14,7 +10,6 @@ small stuff
 - make create account dialog look good
 
 big stuff
-- alert user before closing unsaved work
 - add public/private songs
 - liking songs
 - playlists
