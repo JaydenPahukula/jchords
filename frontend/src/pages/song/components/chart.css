@@ -3,6 +3,7 @@
   font-family: var(--chart-font);
 }
 
-.jc-section-label {
+.jc-section-label,
+.jc-key-line {
   font-weight: bold;
 }
