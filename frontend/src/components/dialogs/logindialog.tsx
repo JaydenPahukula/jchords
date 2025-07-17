@@ -89,7 +89,7 @@ export function LoginDialog(props: DialogProps) {
         or{' '}
         <Text
           tabIndex={0}
-          color="blue"
+          className="link"
           onClick={() => props.changeDialog(DialogType.CreateAccount)}
         >
           create an account

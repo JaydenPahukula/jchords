@@ -6,7 +6,6 @@ small stuff
 - add view password option
 - disable open song dialog table
 - swipe guestures for growls
-- fix link
 - change deleteconfirmationdialog to radix alertdialog
 - fix CSS important hacks
 - fix loading state on createaccountdialog

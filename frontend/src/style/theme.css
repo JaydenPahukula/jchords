@@ -34,3 +34,15 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+.link {
+  color: #0588f0;
+  text-decoration: none;
+  cursor: pointer;
+}
+.link:hover {
+  text-decoration: underline;
+}
+.link:active {
+  color: #0d74ce;
+}

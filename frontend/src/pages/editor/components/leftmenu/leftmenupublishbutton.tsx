@@ -1,5 +1,5 @@
 import { useSignal } from '@preact/signals-react';
-import { Button, Link } from '@radix-ui/themes';
+import { Button } from '@radix-ui/themes';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { DialogType } from 'src/enums/dialogtype';
 import { showDialog } from 'src/pages/editor/state/functions/showdialog';
@@ -10,9 +10,9 @@ import { Growl } from 'src/types/growl/growl';
 const notSignedInGrowl: Growl = {
   description: (
     <>
-      <Link color="blue" underline="always" onClick={() => showDialog(DialogType.Login)}>
+      <span className="link" onClick={() => showDialog(DialogType.Login)}>
         Sign in
-      </Link>{' '}
+      </span>{' '}
       to save your work
     </>
   ),
