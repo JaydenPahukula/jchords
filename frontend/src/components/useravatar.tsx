@@ -1,8 +1,7 @@
 import { Avatar, AvatarProps } from '@radix-ui/themes';
-import { User } from 'firebase/auth';
 
 interface UserAvatarProps extends Omit<AvatarProps, 'src' | 'fallback'> {
-  user: User;
+  user: { email?: string; displayName?: string; photoURL?: string };
 }
 
 export function UserAvatar({ user, ...props }: UserAvatarProps) {

@@ -1,6 +1,6 @@
 import { Grid } from '@radix-ui/themes';
 import { Editor } from 'src/pages/editor/components/editor';
-import { LeftMenu } from 'src/pages/editor/components/leftmenu';
+import { LeftMenu } from 'src/pages/editor/components/leftmenu/leftmenu';
 import { TitleRow } from 'src/pages/editor/components/titlerow';
 import { Toolbar } from 'src/pages/editor/components/toolbar';
 import { useStateContext } from 'src/pages/editor/state/statecontext';

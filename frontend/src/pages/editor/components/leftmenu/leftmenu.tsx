@@ -1,7 +1,8 @@
 import { useComputed } from '@preact/signals-react';
 import { Box, Flex, Heading, Text, TextField } from '@radix-ui/themes';
 import { ChangeEvent } from 'react';
-import { LeftMenuPublishButton } from 'src/pages/editor/components/leftmenupublishbutton';
+import { LeftMenuAuthorInfo } from 'src/pages/editor/components/leftmenu/leftmenuauthorinfo';
+import { LeftMenuPublishButton } from 'src/pages/editor/components/leftmenu/leftmenupublishbutton';
 import { updateCurrSongInfo } from 'src/pages/editor/state/functions/song';
 import { useStateContext } from 'src/pages/editor/state/statecontext';
 
@@ -59,6 +60,9 @@ export function LeftMenu() {
           disabled={disabled.value}
         />
       </Box>
+      {song.info.id === 'welcome' || song.info.id === '' || (
+        <LeftMenuAuthorInfo id={song.info.author} />
+      )}
       <Box flexGrow="1" />
       <LeftMenuPublishButton />
     </Flex>
