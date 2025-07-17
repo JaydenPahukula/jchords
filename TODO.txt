@@ -11,7 +11,6 @@ small stuff
 - fix CSS important hacks
 - fix loading state on createaccountdialog
 - fix usercircle link
-- tablist hover
 - publish permissions
 
 big stuff

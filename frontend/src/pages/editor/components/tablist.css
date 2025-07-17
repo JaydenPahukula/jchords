@@ -5,6 +5,6 @@
 .tab:active {
   background: var(--color-background) !important; /* TODO fix this idk */
 }
-.tab:hover {
+.tab:hover[data-state='inactive'] {
   background: var(--gray-2) !important;
 }
