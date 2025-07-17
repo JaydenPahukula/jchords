@@ -1,12 +1,17 @@
 import { FirebaseError } from '@firebase/util';
-import { AuthErrorCodes, createUserWithEmailAndPassword } from 'firebase/auth';
+import { AuthErrorCodes, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { CreateAccountResult } from 'shared/enums/createaccountresult';
 import { auth } from 'src/firebase/auth';
 
-export async function createAccount(email: string, password: string): Promise<CreateAccountResult> {
+export async function createAccount(
+  email: string,
+  password: string,
+  displayName: string,
+): Promise<CreateAccountResult> {
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000)); // for UI reasons
-    await createUserWithEmailAndPassword(auth, email, password);
+    const newUser = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(newUser.user, { displayName: displayName });
     return CreateAccountResult.Success;
   } catch (error) {
     switch ((error as FirebaseError).code) {

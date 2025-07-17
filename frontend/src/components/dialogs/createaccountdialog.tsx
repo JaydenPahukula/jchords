@@ -33,6 +33,7 @@ function getErrorMessage(errorState: ErrorState): string {
 
 export function CreateAccountDialog(props: DialogProps) {
   const emailInput = useSignal('');
+  const displayNameInput = useSignal('');
   const passwordInput = useSignal('');
   const passwordInput2 = useSignal('');
   const errorState = useSignal<ErrorState>(null);
@@ -55,6 +56,7 @@ export function CreateAccountDialog(props: DialogProps) {
   const submitButtonDisabled = useComputed<boolean>(
     () =>
       emailInput.value.length === 0 ||
+      displayNameInput.value.length === 0 ||
       passwordInput.value.length === 0 ||
       passwordInput2.value.length === 0 ||
       errorState.value === 'mismatch',
@@ -71,7 +73,7 @@ export function CreateAccountDialog(props: DialogProps) {
       return;
     }
     errorState.value = 'loading';
-    createAccount(emailInput.value, passwordInput.value).then((result) => {
+    createAccount(emailInput.value, passwordInput.value, displayNameInput.value).then((result) => {
       errorState.value = result;
       if (result === CreateAccountResult.Success) {
         props.changeDialog(DialogType.None); // close dialog
@@ -105,6 +107,18 @@ export function CreateAccountDialog(props: DialogProps) {
           onInput={(e) => (emailInput.value = e.currentTarget.value)}
           placeholder="Email"
           onXClicked={() => (emailInput.value = '')}
+          size="3"
+          mb="5"
+        />
+        <TextFieldWithX
+          type="text"
+          id="create-account-display-name-input"
+          disabled={submitLoading.value}
+          required
+          value={displayNameInput.value}
+          onInput={(e) => (displayNameInput.value = e.currentTarget.value)}
+          placeholder="Display Name"
+          onXClicked={() => (displayNameInput.value = '')}
           size="3"
           mb="5"
         />

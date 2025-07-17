@@ -12,6 +12,7 @@ small stuff
 - fix loading state on createaccountdialog
 - fix usercircle link
 - publish permissions
+- make create account dialog look good
 
 big stuff
 - alert user before closing unsaved work
