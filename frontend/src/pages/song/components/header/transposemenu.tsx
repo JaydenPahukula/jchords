@@ -44,7 +44,7 @@ export function TransposeMenu(props: TransposeMenuProps) {
   const currTransposeVal = mod(props.renderOptionsSignal.value.transpose + 5, 12) - 5; // val is in [-5, 6]
   const currAccidental: JCAccidental =
     props.renderOptionsSignal.value.accidentalPreference === 'original'
-      ? 'sharp'
+      ? (defaultKey.originalAccidental ?? 'sharp')
       : props.renderOptionsSignal.value.accidentalPreference;
 
   const currKey: JCKey = new JCKey(
