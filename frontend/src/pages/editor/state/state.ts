@@ -3,15 +3,25 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { Song } from 'shared/types/song';
 import { DialogType } from 'src/enums/dialogtype';
 import { auth } from 'src/firebase/auth';
+import { getStoredTabIndex, storeTabIndex } from 'src/pages/editor/state/storage/tabindex';
+import { getStoredTabs, storeTabs } from 'src/pages/editor/state/storage/tabs';
 import { welcomeSong } from 'src/pages/editor/state/welcomesong';
 import { Tab } from 'src/pages/editor/types/tab';
 
-const tabs = signal<Tab[]>([{ song: welcomeSong, new: true, modified: false }]);
-const tabIndex = signal<number>(0);
+const defaultTabs = [{ song: welcomeSong, new: true, modified: false }];
+const tabs = signal<Tab[]>(getStoredTabs() ?? defaultTabs);
+effect(() => storeTabs(tabs));
+
+const tabIndex = signal<number>(getStoredTabIndex() ?? 0);
+effect(() => storeTabIndex(tabIndex.value));
 
 const currTab = computed<Tab>(() => {
-  const tab = tabs.value[tabIndex.value];
-  if (tab === undefined) throw new Error(`state.tabIndex out of range`);
+  let tab = tabs.value[tabIndex.value];
+  if (tab === undefined) {
+    console.error('state.tabIndex out of range');
+    tab = tabs.value[0];
+    if (tab === undefined) throw new Error('No tabs are open!');
+  }
   return tab;
 });
 
