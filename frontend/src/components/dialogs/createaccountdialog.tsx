@@ -1,12 +1,12 @@
 import { batch, useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Text } from '@radix-ui/themes';
 import { FormEvent } from 'react';
-import { CreateAccountResult } from 'shared/enums/createaccountresult';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
 import { GenericDialog } from 'src/components/dialogs/genericdialog';
 import { ArrowLeftIcon } from 'src/components/icons/arrowlefticon';
 import { LockIcon } from 'src/components/icons/lockicon';
 import { TextFieldWithX } from 'src/components/textfieldwithx';
+import { CreateAccountResult } from 'src/enums/createaccountresult';
 import { DialogType } from 'src/enums/dialogtype';
 import { createAccount } from 'src/functions/auth/createaccount';
 import { useDebounce } from 'src/hooks/usedebounce';

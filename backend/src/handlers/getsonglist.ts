@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { GetSongListResponseBody } from 'shared/types/api/getsonglistresponsebody';
-import { isFirestoreSongDoc } from 'shared/types/firestore/firestoresongdoc';
 import { db } from 'src/firebase/firestore';
+import { isFirestoreSongDoc } from 'src/types/firestore/firestoresongdoc';
 
 export const getSongList: RequestHandler<{}, GetSongListResponseBody> = async (
   _request,

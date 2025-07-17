@@ -3,17 +3,9 @@
   "description": "Shared code between jchords and jchords editor",
   "private": true,
   "exports": {
-    "./components/*": "./components/*.tsx",
-    "./*": "./*.ts",
-    "./*.d.ts": "./*.d.ts",
-    "./*.json": "./*.json"
+    "./*": "./*.ts"
   },
   "dependencies": {
-    "@firebase/util": "^1.11.0",
-    "@preact/signals-react": "^3.2.0",
-    "@types/react": "^19.1.8",
-    "engine": "file:../engine",
-    "firebase": "^11.3.0",
-    "react": "^19.1.0"
+    "engine": "file:../engine"
   }
 }
