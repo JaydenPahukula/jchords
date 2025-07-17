@@ -60,7 +60,7 @@ export function GrowlProvider(props: GrowlProviderProps) {
       <Toast.Viewport asChild>
         <Flex direction="column" position="fixed" bottom="0" right="0" p="7" gap="5">
           {growlManager.growlList.value.map((growl) => (
-            <Toast.Root duration={10000} key={growl.id} onOpenChange={growl.onOpenChange} asChild>
+            <Toast.Root duration={5000} key={growl.id} onOpenChange={growl.onOpenChange} asChild>
               <Flex className="growl" align="center" p="4" pl="5" gap="4">
                 <Box>
                   <Toast.Title>{growl.title}</Toast.Title>
