@@ -21,6 +21,7 @@ big stuff
 - playlists
 - email verification
 - change profile picture
+- write welcome song
 
 later
 - FIGURE OUT STYLE!
