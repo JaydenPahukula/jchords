@@ -3,17 +3,8 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { Song } from 'shared/types/song';
 import { DialogType } from 'src/enums/dialogtype';
 import { auth } from 'src/firebase/auth';
+import { welcomeSong } from 'src/pages/editor/state/welcomesong';
 import { Tab } from 'src/pages/editor/types/tab';
-
-const welcomeSong: Song = {
-  info: {
-    id: 'welcome',
-    title: 'Welcome',
-    artist: '',
-    author: '',
-  },
-  text: 'this is the welcome song!',
-};
 
 const tabs = signal<Tab[]>([{ song: welcomeSong, new: true, modified: false }]);
 const tabIndex = signal<number>(0);
