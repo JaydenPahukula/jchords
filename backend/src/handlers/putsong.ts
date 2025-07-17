@@ -3,7 +3,7 @@ import { parseJSON } from 'shared/functions/jsonparse';
 import { isPutSongRequestBody } from 'shared/types/api/putsongrequestbody';
 import { PutSongResponseBody } from 'shared/types/api/putsongresponsebody';
 import { FirestoreSongDoc } from 'shared/types/firestore/firestoresongdoc';
-import { authenticate } from 'src/firebase/authenticate';
+import { authenticate } from 'src/firebase/auth';
 import { db } from 'src/firebase/firestore';
 
 export const putSong: RequestHandler<{}, PutSongResponseBody> = async (request, response) => {

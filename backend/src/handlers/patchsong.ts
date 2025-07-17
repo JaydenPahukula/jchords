@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import { parseJSON } from 'shared/functions/jsonparse';
 import { isPatchSongRequestBody } from 'shared/types/api/patchsongrequestbody';
 import { FirestoreSongDoc } from 'shared/types/firestore/firestoresongdoc';
-import { authenticate } from 'src/firebase/authenticate';
+import { authenticate } from 'src/firebase/auth';
 import { db } from 'src/firebase/firestore';
 
 export const patchSong: RequestHandler<{ id: string }> = async (request, response) => {

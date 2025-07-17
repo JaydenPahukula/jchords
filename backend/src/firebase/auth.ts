@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { getAuth } from 'firebase-admin/auth';
+import { getAuth, UserRecord } from 'firebase-admin/auth';
 import { app } from 'src/firebase/app';
 
 const auth = getAuth(app);
@@ -17,4 +17,13 @@ export async function authenticate(request: Request): Promise<string | undefined
       console.error('asdf', e);
       return undefined;
     });
+}
+
+export async function getUser(id: string): Promise<UserRecord | undefined> {
+  try {
+    return await auth.getUser(id);
+  } catch (e) {
+    console.error('Error getting user:\n', e);
+    return undefined;
+  }
 }
