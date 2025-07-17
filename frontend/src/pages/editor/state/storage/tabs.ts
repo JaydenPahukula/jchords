@@ -14,6 +14,5 @@ export function getStoredTabs(): Tab[] | undefined {
 }
 
 export const storeTabs = debounce((tabSignal: Signal<Tab[]>) => {
-  console.log('saving tabs');
   localStorage.setItem('editor-tabs', JSON.stringify(tabSignal.value));
 }, 3000);

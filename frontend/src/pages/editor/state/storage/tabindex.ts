@@ -1,3 +1,5 @@
+import { debounce } from 'shared/functions/debouce';
+
 export function getStoredTabIndex(): number | undefined {
   const result = localStorage.getItem('editor-tab-index');
   if (result === null) return undefined;
@@ -6,7 +8,6 @@ export function getStoredTabIndex(): number | undefined {
   return index;
 }
 
-export function storeTabIndex(index: number) {
-  console.log('storing tab', index);
+export const storeTabIndex = debounce((index: number) => {
   localStorage.setItem('editor-tab-index', index.toString());
-}
+}, 3000);
