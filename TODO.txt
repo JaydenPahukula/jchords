@@ -11,8 +11,11 @@ small stuff
 - fix CSS important hacks
 - fix loading state on createaccountdialog
 - fix usercircle link
+- tablist hover
+- publish permissions
 
 big stuff
+- alert user before closing unsaved work
 - add public/private songs
 - liking songs
 - playlists
@@ -23,3 +26,9 @@ later
 - FIGURE OUT STYLE!
 - replace radix with custom ui lib
 - dark mode
+
+engine
+- align bars
+- do not capitalize section headers
+- converters
+- transpose source
