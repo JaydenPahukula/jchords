@@ -35,6 +35,14 @@ body {
   box-sizing: border-box;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: hidden;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .link {
   color: #0588f0;
   text-decoration: none;
