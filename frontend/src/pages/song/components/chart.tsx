@@ -39,7 +39,7 @@ export function Chart(props: ChartProps) {
         {props.song.info.artist}
       </Text>
       <div
-        style={{ fontSize: `${fontSize}px` }}
+        style={{ fontSize: `${fontSize}px`, lineHeight: `${1.25 * fontSize}px` }}
         dangerouslySetInnerHTML={{
           __html: props.song.rendered,
         }}
