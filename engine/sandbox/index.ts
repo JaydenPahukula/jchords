@@ -1,15 +1,14 @@
-// @ts-ignore
-import { RenderOptions, defaultRenderOptions, parseSong, renderSong } from 'jchords-engine';
+import { JCRenderOptions, defaultRenderOptions, parseSong, renderSong } from 'engine';
 
 export function render(input: string): string {
   console.debug('Rendering');
 
   try {
     const parsed = parseSong(input);
-    const opts: RenderOptions = {
+    const opts: JCRenderOptions = {
       ...defaultRenderOptions,
       alignChordsWithLyrics: true,
-      showChordDurations: true,
+      showChordTimings: true,
     };
     return renderSong(parsed, opts);
   } catch (e) {

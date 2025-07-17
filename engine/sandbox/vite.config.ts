@@ -11,12 +11,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'jchords-engine': path.resolve(__dirname, '../src'),
+      engine: path.resolve(__dirname, '../src'),
       src: path.resolve(__dirname, '../src'),
     },
   },
   optimizeDeps: {
     // ensure Vite pre-bundles your engine for faster HMR
-    exclude: ['jchords-engine'],
+    exclude: ['engine'],
   },
 });
