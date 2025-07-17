@@ -17,14 +17,14 @@
                 "name": "frontend dev",
                 "autoExecuteCommands": true,
                 "commands": [
-                    "npm run dev-frontend"
+                    "cd frontend && npm run dev"
                 ]
             },
             {
                 "name": "backend dev",
                 "autoExecuteCommands": true,
                 "commands": [
-                    "npm run dev-backend"
+                    "cd backend && npm run dev"
                 ]
             },
             {

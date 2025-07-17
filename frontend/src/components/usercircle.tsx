@@ -1,7 +1,6 @@
 import { useSignal } from '@preact/signals-react';
 import { Box, Button, Flex, IconButton, Inset, Popover, Text } from '@radix-ui/themes';
 import { User } from 'firebase/auth';
-import { Link } from 'react-router';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { SignOutIcon } from 'src/components/icons/signouticon';
 import { UserIcon } from 'src/components/icons/usericon';
@@ -19,7 +18,7 @@ export function UserCircle(props: UserCircleProps) {
   const isMenuOpen = useSignal(false);
 
   function onOpenChange(open: boolean) {
-    if (open && props.user === null) {
+    if (open && !props.user) {
       props.openLoginDialog();
     } else {
       isMenuOpen.value = open;
@@ -52,7 +51,7 @@ export function UserCircle(props: UserCircleProps) {
         </Popover.Trigger>
       </Box>
       <Popover.Content maxWidth="300px" minWidth="250px">
-        {props.user === null ? null : (
+        {!props.user ? null : (
           <>
             <Flex overflow="hidden" gap="3">
               <UserAvatar size="4" user={props.user} />
@@ -85,7 +84,8 @@ export function UserCircle(props: UserCircleProps) {
                   }}
                   asChild
                 >
-                  <Link to="/account">Account</Link>
+                  {/* TODO fix this link */}
+                  <a href="/account">Account</a>
                 </Button>
               </Box>
               <Box width="100%" asChild p="2">
@@ -111,18 +111,4 @@ export function UserCircle(props: UserCircleProps) {
       </Popover.Content>
     </Popover.Root>
   );
-  // return isSignedIn ? (
-  //   <ExpandableMenuButton menu={<UserCircleMenu />}>
-  //     <div className="hover:outline-bg-button-hover active:outline-bg-button-active bg-bg-button cursor-pointer rounded-full outline-[6px] outline-transparent">
-  //       <UserIcon />
-  //     </div>
-  //   </ExpandableMenuButton>
-  // ) : (
-  //   <div
-  //     onClick={() => props.showDialog(DialogType.Login)}
-  //     className="hover:outline-bg-button-hover active:outline-bg-button-active bg-bg-button cursor-pointer rounded-full outline-[6px] outline-transparent"
-  //   >
-  //     <UserIcon />
-  //   </div>
-  // );
 }

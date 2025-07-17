@@ -1,5 +1,5 @@
 .user-circle-button {
-  background: var(--color-background) !important; // TODO fix this
+  background: var(--color-background) !important; /* TODO fix this */
 }
 .user-circle-button:hover {
   outline: 6px solid var(--gray-4);

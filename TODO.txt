@@ -10,7 +10,7 @@ small stuff
 - change deleteconfirmationdialog to radix alertdialog
 - fix CSS important hacks
 - fix loading state on createaccountdialog
-- transpose icon
+- fix usercircle link
 
 big stuff
 - add public/private songs

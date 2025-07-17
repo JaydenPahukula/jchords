@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "jchords/dist",
+    "public": "frontend/dist",
     "rewrites": [
       {
         "source": "/api/{,/**}",

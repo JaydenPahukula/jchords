@@ -1,7 +1,8 @@
-import { computed, signal } from '@preact/signals-react';
-import { User } from 'firebase/auth';
+import { computed, effect, signal } from '@preact/signals-react';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import { Song } from 'shared/types/song';
 import { DialogType } from 'src/enums/dialogtype';
+import { auth } from 'src/firebase/auth';
 import { Tab } from 'src/pages/editor/types/tab';
 
 const welcomeSong: Song = {
@@ -23,6 +24,14 @@ const currTab = computed<Tab>(() => {
   return tab;
 });
 
+const userSignal = signal<User | null | undefined>(undefined);
+onAuthStateChanged(auth, (user) => {
+  userSignal.value = user;
+});
+effect(() => {
+  console.log('user changed:', userSignal.value);
+});
+
 /** Global app state */
 export const state = {
   tabs: tabs,
@@ -31,6 +40,6 @@ export const state = {
   currSong: computed<Song>(() => currTab.value.song),
   isCurrSongNew: computed<boolean>(() => currTab.value.new),
   isCurrSongModified: computed<boolean>(() => currTab.value.modified),
-  user: signal<User | null>(null),
+  user: userSignal,
   dialog: signal<DialogType>(DialogType.None),
 };

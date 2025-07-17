@@ -1,12 +1,6 @@
 .jc-song {
   margin-top: 8px;
-}
-
-.jc-section {
   font-family: var(--chart-font);
-  font-style: normal;
-  font-variant: normal;
-  margin: 0;
 }
 
 .jc-section-label {
