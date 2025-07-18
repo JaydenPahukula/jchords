@@ -1,15 +1,15 @@
 import {
   generateInterfaceChecker,
   isString,
-  Optional,
+  NullOr,
 } from 'shared/functions/generateInterfaceChecker';
 
 export interface GetUserResponseBody {
-  displayName?: string;
-  photoURL?: string;
+  displayName: string | null;
+  photoURL: string | null;
 }
 
 export const isGetUserResponseBody = generateInterfaceChecker<GetUserResponseBody>({
-  displayName: Optional(isString),
-  photoURL: Optional(isString),
+  displayName: NullOr(isString),
+  photoURL: NullOr(isString),
 });

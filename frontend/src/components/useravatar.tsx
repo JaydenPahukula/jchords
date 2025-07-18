@@ -1,11 +1,12 @@
 import { Avatar, AvatarProps } from '@radix-ui/themes';
+import { UserInfo } from 'shared/types/userinfo';
 
 interface UserAvatarProps extends Omit<AvatarProps, 'src' | 'fallback'> {
-  user: { email?: string; displayName?: string; photoURL?: string };
+  user: UserInfo;
 }
 
 export function UserAvatar({ user, ...props }: UserAvatarProps) {
-  const letter = (user.displayName?.charAt(0) ?? user.email?.charAt(0))?.toUpperCase() ?? '_';
+  const letter = user.displayName?.charAt(0)?.toUpperCase() ?? '_';
 
   return (
     <Avatar

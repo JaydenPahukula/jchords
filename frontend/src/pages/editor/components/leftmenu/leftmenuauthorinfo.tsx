@@ -5,6 +5,11 @@ import { UserInfo } from 'shared/types/userinfo';
 import { UserAvatar } from 'src/components/useravatar';
 import { apiGetUser } from 'src/functions/api/endpoints/getuser';
 
+const emptyUserInfo: UserInfo = {
+  displayName: null,
+  photoURL: null,
+};
+
 interface LeftMenuAuthorInfoProps {
   id: string;
 }
@@ -30,7 +35,7 @@ export function LeftMenuAuthorInfo(props: LeftMenuAuthorInfoProps) {
       <Card size="1">
         <Flex align="center" justify="start" gap="3">
           <Skeleton loading={loading}>
-            <UserAvatar size="2" user={userInfo.value ?? {}} />
+            <UserAvatar size="2" user={userInfo.value ?? emptyUserInfo} />
           </Skeleton>
           <Skeleton loading={loading}>
             <Text size="2">{userInfo.value?.displayName ?? 'Anonymous'}</Text>

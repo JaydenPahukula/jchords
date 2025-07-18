@@ -12,7 +12,7 @@ export const getUser: RequestHandler<{ id: string }, GetUserResponseBody> = asyn
   if (user === undefined) return response.status(404).send();
 
   return response.status(200).json({
-    displayName: user.displayName,
-    photoURL: user.photoURL,
+    displayName: user.displayName ?? null,
+    photoURL: user.photoURL ?? null,
   });
 };
