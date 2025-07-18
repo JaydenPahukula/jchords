@@ -1,5 +1,6 @@
 export const sectionLabelSymbol = '#';
 export const repeatChordSymbol = '%';
+export const noChordSymbol = 'NC';
 export const barSeparator = '|';
 export const chordDurationSymbol = '.';
 export const subBeatChordGroupStartSymbol = '[';

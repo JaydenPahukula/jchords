@@ -7,8 +7,8 @@ export class BarAlignmentGroup {
   chordLines: ChordLine[];
   private barLengths: number[] | undefined;
 
-  constructor() {
-    this.chordLines = [];
+  constructor(chordLines: ChordLine[] = []) {
+    this.chordLines = chordLines;
     this.barLengths = undefined;
   }
 

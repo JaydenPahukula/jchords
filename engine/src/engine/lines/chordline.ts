@@ -10,6 +10,7 @@ import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
 import {
   barSeparator,
   chordDurationSymbol,
+  noChordSymbol,
   repeatChordSymbol,
   subBeatChordGroupEndSymbol,
   subBeatChordGroupStartSymbol,
@@ -54,8 +55,8 @@ export class ChordLine implements ParsedLine {
     let pos = 0;
     const chords: (ChordWithDuration | SubBeatChordGroup)[] = [];
     let inSubBeatGroup = false;
-    let subBeatGroup: Chord[] = [];
-    let lastChord: string | null = null;
+    let subBeatGroup: (Chord | null)[] = [];
+    let lastChord: Chord | null = null;
 
     const chordParseFunction = chordParserFactory({
       key: state.key?.render(),
@@ -102,15 +103,18 @@ export class ChordLine implements ParsedLine {
           currentString += line[pos];
         }
 
+        let chord: Chord | null;
         if (currentString === repeatChordSymbol) {
           // retrieve last chord to repeat
           if (lastChord === null) return null;
-          currentString = lastChord;
+          chord = lastChord;
+        } else if (currentString === noChordSymbol) {
+          chord = null;
+        } else {
+          const maybeChord = chordParseFunction(currentString);
+          if ((maybeChord as ChordParseFailure).error !== undefined) return null; // not a chord
+          chord = maybeChord as Chord;
         }
-
-        const maybeChord = chordParseFunction(currentString);
-        if ((maybeChord as ChordParseFailure).error !== undefined) return null; // not a chord
-        const chord = maybeChord as Chord;
 
         // parse duration
         let duration;
@@ -130,7 +134,7 @@ export class ChordLine implements ParsedLine {
             duration: duration,
           });
         }
-        lastChord = currentString;
+        lastChord = chord;
       }
 
       pos++;
@@ -138,9 +142,9 @@ export class ChordLine implements ParsedLine {
 
     if (chords.length == 0 || inSubBeatGroup) return null;
 
+    // success! creating new chordline
     if (state.currentBarAlignmentGroup === null)
       state.currentBarAlignmentGroup = new BarAlignmentGroup();
-
     const thisLine = new ChordLine(
       chords,
       state.timeSignature,
@@ -280,7 +284,8 @@ export class ChordLine implements ParsedLine {
       const chordOrGroup = this.chords[i]!;
       if ((chordOrGroup as ChordWithDuration).chord !== undefined) {
         const chord = chordOrGroup as ChordWithDuration;
-        this.renderedChords.push(chordRenderFunction(chord.chord));
+        const rendered = chord.chord !== null ? chordRenderFunction(chord.chord) : noChordSymbol;
+        this.renderedChords.push(rendered);
       } else {
         const group = chordOrGroup as SubBeatChordGroup;
         this.renderedChords.push(
@@ -406,10 +411,10 @@ export class ChordLine implements ParsedLine {
 }
 
 /**
- * A chord that has been parsed by chord symbol, with duration information
+ * A chord that has been parsed by chord symbol (or null, AKA NC), with duration information
  */
 type ChordWithDuration = {
-  chord: Chord;
+  chord: Chord | null;
   duration: number | undefined;
 };
 
