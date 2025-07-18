@@ -33,7 +33,7 @@ export function HomeLayout() {
       <DialogManager signal={dialogSignal} manifest={dialogManifest} />
       <DialogContext.Provider value={dialogSignal}>
         <UserContext.Provider value={userSignal}>
-          <Grid id="home-page" rows="min-content 1fr" height="100lvh">
+          <Grid id="home-page" rows="min-content 1fr" height="100dvh">
             <Container
               size="3"
               id="header"
