@@ -1,6 +1,5 @@
 import { lineClassName, sectionLabelLineClassName } from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
-import { RenderState } from 'src/engine/render';
 import { sectionLabelSymbol } from 'src/symbols';
 import { RenderOptions } from 'src/types/renderopts';
 
@@ -18,12 +17,13 @@ export class SectionLabelLine implements ParsedLine {
     const match = line.match(SectionLabelLine.regex);
     if (match === null || match[1] === undefined) return null;
 
-    let label = match[1];
+    // resetting bar width alignment groups
+    state.currentBarAlignmentGroup = null;
 
-    return new SectionLabelLine(label);
+    return new SectionLabelLine(match[1]);
   };
 
-  render = (opts: RenderOptions, state: RenderState): string => {
+  render = (opts: RenderOptions): string => {
     return `<span class="${lineClassName} ${sectionLabelLineClassName}">${this.label}<br /></span>`;
   };
 }

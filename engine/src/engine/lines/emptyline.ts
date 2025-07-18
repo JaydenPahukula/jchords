@@ -1,6 +1,5 @@
 import { emptyLineClassName, lineClassName } from 'src/classes';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
-import { RenderState } from 'src/engine/render';
 import { RenderOptions } from 'src/types/renderopts';
 
 /**
@@ -16,13 +15,12 @@ export class EmptyLine implements ParsedLine {
     if (!match) return null;
 
     // resetting bar width alignment groups
-    state.barAlignmentGroups.push(state.currentBarAlignmentGroup);
-    state.currentBarAlignmentGroup = [];
+    state.currentBarAlignmentGroup = null;
 
     return new EmptyLine();
   };
 
-  render(opts: RenderOptions, state: RenderState): string {
+  render(opts: RenderOptions): string {
     return `<span class="${lineClassName} ${emptyLineClassName}"><br /></span>`;
   }
 }

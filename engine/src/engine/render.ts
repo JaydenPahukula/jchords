@@ -8,18 +8,12 @@ export function renderSong(song: ParsedSong, opts?: RenderOptions): string {
 
   let output = '';
 
-  // prerendering chords to determine bar alignment group widths
-  for (const group of song.barAlignmentGroups) {
-    for (const chordLine of group) chordLine.prerenderChords(opts);
-  }
-
   // main rendering
   output += '<!-- Start of JChords rendered song -->\n';
   output += `<pre class="${songClassName}">`;
 
-  const state: RenderState = {};
   song.lines.map((line: ParsedLine) => {
-    output += line.render(opts, state);
+    output += line.render(opts);
   });
 
   output += '</pre>';
@@ -27,5 +21,3 @@ export function renderSong(song: ParsedSong, opts?: RenderOptions): string {
 
   return output;
 }
-
-export type RenderState = {};

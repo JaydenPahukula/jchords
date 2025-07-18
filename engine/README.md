@@ -1,11 +1,11 @@
 # JChords Engine
 
-The canonical JChords rendering engine. Based heavily on [ChordMark](https://github.com/no-chris/chord-mark/) by Christophe Noël, but with substantial changes.
+The canonical JChords rendering engine. Uses a custom sheet music [markup language](#markup-language), based heavily on [ChordMark](https://github.com/no-chris/chord-mark/) by Christophe Noël, but with substantial changes.
 
 To run tests:
 
 ```sh
-npm run sandbox
+npm run tests
 ```
 
 To spin up a quick and dirty sandbox for testing:
@@ -24,9 +24,40 @@ npm run sandbox
 
 # Markup Language
 
-TODO write this
+## Lyrics
 
-# Usage
+TODO
+
+## Chords
+
+TODO
+
+Tries three ways of rendering chords in the following order of precedence:
+
+1. If applicable, align them with the chord markers in a following lyric line
+1. Else if applicable, render them in bars with duration markers, aligning them by "groups" divided by empty lines
+1. Else just render the chords with no special alignment
+
+## Time Signatures
+
+The time signature of the song is used when showing chord lines that aren't associated with any lyrics. The default time signature of every song is 4/4, but it can be set/changed at any point in the song by writing the new time signature on a line by itself, like so...
+
+```
+4/4
+```
+
+or...
+
+```
+6/8
+```
+
+> [!NOTE]
+> Only relatively common time signatures are supported. See `src/types/timesignature.ts` to see all supported time signatures.
+
+##
+
+# API
 
 ## `parseSong`
 
@@ -50,13 +81,3 @@ Object supplied to the [`renderSong`](#rendersong) function to customize the out
 | `alignChordsWithLyrics` | `boolean`                           | Whether or not to align chords with the position markers (`_`) in the following lyric line if applicable.                                            |
 | `showChordDurations`    | `boolean`                           | Whether or not to render non-lyric aligned chords with symbols indicating their rhythm/duration, e.g. `\|` for separating bars or`.` for beat count. |
 | `transpose`             | `number`                            | How many semitones up or down to transpose the song.                                                                                                 |
-
-## Notes for documentation
-
-### Chord alignments
-
-Tries three ways of rendering chords in the following order of precedence:
-
-1. If applicable, align them with the chord markers in a following lyric line
-1. Else if applicable, render them in bars with duration markers, aligning them by "groups" divided by empty lines
-1. Else just render the chords with no special alignment

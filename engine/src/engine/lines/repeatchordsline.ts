@@ -1,6 +1,5 @@
 import { ChordLine } from 'src/engine/lines/chordline';
 import { LineType, ParsedLine, ParseState } from 'src/engine/parse';
-import { RenderState } from 'src/engine/render';
 import { repeatChordSymbol } from 'src/symbols';
 import { RenderOptions } from 'src/types/renderopts';
 
@@ -28,7 +27,7 @@ export class RepeatChordsLine implements ParsedLine {
     } else return null;
   };
 
-  render = (opts: RenderOptions, state: RenderState): string => {
+  render = (opts: RenderOptions): string => {
     return ''; // should be unreachable
   };
 }
