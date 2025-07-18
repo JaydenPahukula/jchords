@@ -19,9 +19,7 @@ export function LeftMenuAuthorInfo(props: LeftMenuAuthorInfoProps) {
 
   const loading = userInfo.value === undefined;
 
-  console.log('render');
   useEffect(() => {
-    console.log('useEffect');
     apiGetUser(props.id).then((result) => {
       userInfo.value = result;
     });
