@@ -1,6 +1,6 @@
 import { FirebaseError } from '@firebase/util';
 import { AuthErrorCodes, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { LogInResult } from 'shared/enums/loginresult';
+import { LogInResult } from 'src/enums/loginresult';
 import { auth } from 'src/firebase/auth';
 
 const googleProvider = new GoogleAuthProvider();

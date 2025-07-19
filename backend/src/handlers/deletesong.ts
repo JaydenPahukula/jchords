@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { authenticate } from 'src/firebase/authenticate';
+import { authenticate } from 'src/firebase/auth';
 import { db } from 'src/firebase/firestore';
 
 export const deleteSong: RequestHandler<{ id: string }> = async (request, response) => {

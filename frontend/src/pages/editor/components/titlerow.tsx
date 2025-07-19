@@ -39,7 +39,7 @@ export function TitleRow() {
         <Box className="absolute right-0 h-full w-4 bg-[linear-gradient(270deg,var(--color-bg-4),transparent)]" />
       </Flex>
       <UserCircle
-        user={user.value}
+        user={user.value ?? null}
         openLoginDialog={() => showDialog(DialogType.Login)}
         width="48px"
       />

@@ -1,21 +1,15 @@
 small stuff
-- fix index.htmls in frontend vite
-- look at eslint config and no-relative-import-paths
-- api request body type (why is it JSON string?)
-- tablist scroll so new tab is in view
 - add view password option
 - disable open song dialog table
 - swipe guestures for growls
-- fix link
 - change deleteconfirmationdialog to radix alertdialog
 - fix CSS important hacks
 - fix loading state on createaccountdialog
-- fix usercircle link
 - publish permissions
 - make create account dialog look good
+- make router nice
 
 big stuff
-- alert user before closing unsaved work
 - add public/private songs
 - liking songs
 - playlists
@@ -27,6 +21,7 @@ later
 - FIGURE OUT STYLE!
 - replace radix with custom ui lib
 - dark mode
+- state stuff
 
 engine
 - align bars

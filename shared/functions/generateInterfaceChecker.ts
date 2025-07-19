@@ -13,6 +13,11 @@ export const Optional =
   (x: unknown) =>
     typeof x === 'undefined' || check(x);
 
+export const NullOr =
+  <T>(check: TypeCheck<T>) =>
+  (x: unknown) =>
+    x === null || check(x);
+
 export const ArrayOf =
   <T>(check: TypeCheck<T>) =>
   (x: unknown) =>

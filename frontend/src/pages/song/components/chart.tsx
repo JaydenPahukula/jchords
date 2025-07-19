@@ -31,11 +31,12 @@ export function Chart(props: ChartProps) {
       <Heading
         as="h1"
         mb="1"
+        weight="bold"
         style={{ fontFamily: 'var(--chart-font)', fontSize: `${fontSize + 8}px` }}
       >
         {props.song.info.title}
       </Heading>
-      <Text style={{ fontFamily: 'var(--chart-font)', fontSize: `${fontSize}px` }}>
+      <Text weight="bold" style={{ fontFamily: 'var(--chart-font)', fontSize: `${fontSize}px` }}>
         {props.song.info.artist}
       </Text>
       <div

@@ -4,6 +4,7 @@ import { onRequest } from 'firebase-functions/v2/https';
 import { deleteSong } from 'src/handlers/deletesong';
 import { getSong } from 'src/handlers/getsong';
 import { getSongList } from 'src/handlers/getsonglist';
+import { getUser } from 'src/handlers/getuser';
 import { patchSong } from 'src/handlers/patchsong';
 import { putSong } from 'src/handlers/putsong';
 import { rootHandler } from 'src/handlers/root';
@@ -20,5 +21,7 @@ expressApp.put('/api/song', putSong);
 expressApp.get('/api/song/:id', getSong);
 expressApp.patch('/api/song/:id', patchSong);
 expressApp.delete('/api/song/:id', deleteSong);
+
+expressApp.get('/api/user/:id', getUser);
 
 export const api = onRequest(expressApp);

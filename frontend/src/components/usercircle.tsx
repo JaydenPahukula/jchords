@@ -1,6 +1,7 @@
-import { useSignal } from '@preact/signals-react';
+import { Signal, useSignal } from '@preact/signals-react';
 import { Box, Button, Flex, IconButton, Inset, Popover, Text } from '@radix-ui/themes';
 import { User } from 'firebase/auth';
+import { Link } from 'react-router';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { SignOutIcon } from 'src/components/icons/signouticon';
 import { UserIcon } from 'src/components/icons/usericon';
@@ -9,13 +10,14 @@ import 'src/components/usercircle.css';
 import { logOut } from 'src/functions/auth/logout';
 
 interface UserCircleProps {
-  user: User | null;
+  user: Signal<User | null | undefined>;
   openLoginDialog: () => void;
   width?: string;
 }
 
 export function UserCircle(props: UserCircleProps) {
   const isMenuOpen = useSignal(false);
+  const user = props.user.value;
 
   function onOpenChange(open: boolean) {
     if (open && !props.user) {
@@ -41,8 +43,8 @@ export function UserCircle(props: UserCircleProps) {
         <Popover.Trigger>
           <Box width="100%" height="100%" overflow="hidden" asChild>
             <IconButton radius="full" className="user-circle-button">
-              {props.user ? (
-                <UserAvatar height="100%" width="100%" user={props.user} />
+              {user ? (
+                <UserAvatar height="100%" width="100%" user={user} />
               ) : (
                 <UserIcon color="var(--gray-12)" height="100%" width="100%" />
               )}
@@ -51,10 +53,10 @@ export function UserCircle(props: UserCircleProps) {
         </Popover.Trigger>
       </Box>
       <Popover.Content maxWidth="300px" minWidth="250px">
-        {!props.user ? null : (
+        {!user ? null : (
           <>
             <Flex overflow="hidden" gap="3">
-              <UserAvatar size="4" user={props.user} />
+              <UserAvatar size="4" user={user} />
               <Flex
                 direction="column"
                 justify="center"
@@ -62,10 +64,10 @@ export function UserCircle(props: UserCircleProps) {
                 pb="var(--popover-content-padding)"
               >
                 <Text truncate size="3" weight="medium">
-                  {props.user.displayName ?? props.user.email}
+                  {user.displayName ?? user.email}
                 </Text>
                 <Text truncate size="2" weight="regular">
-                  {props.user.email}
+                  {user.email}
                 </Text>
               </Flex>
             </Flex>
@@ -84,8 +86,7 @@ export function UserCircle(props: UserCircleProps) {
                   }}
                   asChild
                 >
-                  {/* TODO fix this link */}
-                  <a href="/account">Account</a>
+                  <Link to="/account">Account</Link>
                 </Button>
               </Box>
               <Box width="100%" asChild p="2">

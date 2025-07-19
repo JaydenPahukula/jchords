@@ -1,5 +1,5 @@
 import { useSignal, useSignalEffect } from '@preact/signals-react';
-import { Container, Flex, Grid, Heading } from '@radix-ui/themes';
+import { Container, Flex, Grid, Heading, Text } from '@radix-ui/themes';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { Link, Outlet } from 'react-router';
 import { CreateAccountDialog } from 'src/components/dialogs/createaccountdialog';
@@ -33,7 +33,7 @@ export function HomeLayout() {
       <DialogManager signal={dialogSignal} manifest={dialogManifest} />
       <DialogContext.Provider value={dialogSignal}>
         <UserContext.Provider value={userSignal}>
-          <Grid id="home-page" rows="min-content 1fr" height="100lvh">
+          <Grid id="home-page" rows="min-content 1fr" height="100dvh">
             <Container
               size="3"
               id="header"
@@ -41,13 +41,23 @@ export function HomeLayout() {
               style={{ zIndex: '1', boxShadow: 'var(--shadow-4)' }}
             >
               <Flex height="100%" align="center" justify="between">
-                <Link to="/" style={{ color: 'var(--gray-12)', textDecorationLine: 'none' }}>
-                  <Heading size={{ initial: '6', sm: '7' }} mx="4">
-                    JChords
-                  </Heading>
-                </Link>
+                <Flex align="center" gap={{ sm: '2' }}>
+                  <Link to="/" style={{ color: 'var(--gray-12)', textDecorationLine: 'none' }}>
+                    <Heading size={{ initial: '6', sm: '7' }} mx="4">
+                      JChords
+                    </Heading>
+                  </Link>
+                  <Link
+                    to="/editor"
+                    style={{ color: 'var(--gray-12)', textDecorationLine: 'none' }}
+                  >
+                    <Text size="3" mx="4">
+                      Editor
+                    </Text>
+                  </Link>
+                </Flex>
                 <UserCircle
-                  user={userSignal.value ?? null}
+                  user={userSignal}
                   openLoginDialog={() => (dialogSignal.value = DialogType.Login)}
                   width="52px"
                 />

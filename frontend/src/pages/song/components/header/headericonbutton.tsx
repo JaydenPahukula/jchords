@@ -1,5 +1,6 @@
 import { IconButton, IconProps, Popover } from '@radix-ui/themes';
 import { FunctionComponent, ReactElement } from 'react';
+import { Link } from 'react-router';
 
 interface HeaderIconButtonProps {
   icon: FunctionComponent<IconProps>;
@@ -27,9 +28,9 @@ interface HeaderIconLinkProps {
 export function HeaderIconLink(props: HeaderIconLinkProps) {
   return (
     <IconButton className="song-header-icon-button" size="3" asChild>
-      <a href={props.href}>
+      <Link to={props.href}>
         <props.icon height="34px" width="34px" />
-      </a>
+      </Link>
     </IconButton>
   );
 }

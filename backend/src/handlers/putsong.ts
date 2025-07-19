@@ -2,9 +2,9 @@ import { RequestHandler } from 'express';
 import { parseJSON } from 'shared/functions/jsonparse';
 import { isPutSongRequestBody } from 'shared/types/api/putsongrequestbody';
 import { PutSongResponseBody } from 'shared/types/api/putsongresponsebody';
-import { FirestoreSongDoc } from 'shared/types/firestore/firestoresongdoc';
-import { authenticate } from 'src/firebase/authenticate';
+import { authenticate } from 'src/firebase/auth';
 import { db } from 'src/firebase/firestore';
+import { FirestoreSongDoc } from 'src/types/firestore/firestoresongdoc';
 
 export const putSong: RequestHandler<{}, PutSongResponseBody> = async (request, response) => {
   const uid = await authenticate(request);

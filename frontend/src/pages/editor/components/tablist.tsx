@@ -6,7 +6,6 @@ import { XIcon } from 'src/components/icons/xicon';
 import 'src/pages/editor/components/tablist.css';
 import { closeTab, newTab } from 'src/pages/editor/state/functions/tabs';
 import { useStateContext } from 'src/pages/editor/state/statecontext';
-import 'src/style/noscrollbar.css';
 
 export function TabList() {
   const state = useStateContext();
