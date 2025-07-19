@@ -20,7 +20,9 @@ export class SectionLabelLine implements ParsedLine {
     // resetting bar width alignment groups
     state.currentBarAlignmentGroup = null;
 
-    return new SectionLabelLine(match[1]);
+    let label: string = match[1];
+    label = label.trimStart();
+    return new SectionLabelLine(label);
   };
 
   render = (opts: RenderOptions): string => {
