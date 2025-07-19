@@ -5,7 +5,6 @@ small stuff
 - change deleteconfirmationdialog to radix alertdialog
 - fix CSS important hacks
 - fix loading state on createaccountdialog
-- fix usercircle link
 - publish permissions
 - make create account dialog look good
 - make router nice
@@ -22,6 +21,7 @@ later
 - FIGURE OUT STYLE!
 - replace radix with custom ui lib
 - dark mode
+- state stuff
 
 engine
 - align bars

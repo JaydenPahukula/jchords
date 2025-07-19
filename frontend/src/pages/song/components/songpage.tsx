@@ -11,9 +11,7 @@ import { Chart } from 'src/pages/song/components/chart';
 import { SongHeader } from 'src/pages/song/components/header/songheader';
 import 'src/pages/song/components/songpage.css';
 
-console.log('SongPage load');
 export function SongPage() {
-  console.log('SongPage render');
   const songId = window.location.pathname.match(/^\/song\/([A-Za-z0-9]+)/)?.[1];
   if (songId === undefined) throw new Error('songId is undefined');
 

@@ -17,9 +17,7 @@ const dialogManifest: DialogManifest = [
   { type: DialogType.CreateAccount, component: CreateAccountDialog },
 ];
 
-console.log('HomeLayout load');
 export function HomeLayout() {
-  console.log('HomeLayout render');
   const dialogSignal = useSignal<DialogType>(DialogType.None);
 
   const userSignal = useSignal<User | null | undefined>(undefined);
@@ -59,7 +57,7 @@ export function HomeLayout() {
                   </Link>
                 </Flex>
                 <UserCircle
-                  user={userSignal.value ?? null}
+                  user={userSignal}
                   openLoginDialog={() => (dialogSignal.value = DialogType.Login)}
                   width="52px"
                 />

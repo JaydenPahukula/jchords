@@ -12,9 +12,7 @@ import { DeleteAccountButton } from 'src/pages/home/components/accountpage/delet
 import { VerifyEmailButton } from 'src/pages/home/components/accountpage/verifyemailbutton';
 import { useUserContext } from 'src/pages/home/state/user';
 
-console.log('AccountPage load');
 export function AccountPage() {
-  console.log('AccountPage render');
   const navigate = useNavigate();
   const user = useUserContext().value;
 

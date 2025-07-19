@@ -8,9 +8,7 @@ import { dialogManifest } from 'src/pages/editor/dialogmanifest';
 import { state } from 'src/pages/editor/state/state';
 import { StateContext } from 'src/pages/editor/state/statecontext';
 
-console.log('EditorPage load');
 export function EditorPage() {
-  console.log('EditorPage render');
   return (
     <StateContext.Provider value={state}>
       <DialogManager signal={state.dialog} manifest={dialogManifest} />

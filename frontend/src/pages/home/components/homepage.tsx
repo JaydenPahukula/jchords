@@ -11,9 +11,7 @@ import { apiGetSongList } from 'src/functions/api/endpoints/getsonglist';
 import { useSizeSignal } from 'src/hooks/usesizesignal';
 import { useDialogContext } from 'src/pages/home/state/dialog';
 
-console.log('HomePage load');
 export function HomePage() {
-  console.log('HomePage render');
   const dialogSignal = useDialogContext();
 
   const songList = useSignal<SongInfo[] | 'loading' | 'error'>('loading');
