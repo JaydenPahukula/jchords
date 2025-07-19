@@ -1,6 +1,7 @@
 import { batch, useSignal } from '@preact/signals-react';
 import { Box, Button, Card, Flex, Spinner, Text, TextField } from '@radix-ui/themes';
 import { useEffect } from 'react';
+import { Link } from 'react-router';
 import { SongInfo } from 'shared/types/songinfo';
 import { PlayIcon } from 'src/components/icons/playicon';
 import { SearchIcon } from 'src/components/icons/searchicon';
@@ -10,7 +11,9 @@ import { apiGetSongList } from 'src/functions/api/endpoints/getsonglist';
 import { useSizeSignal } from 'src/hooks/usesizesignal';
 import { useDialogContext } from 'src/pages/home/state/dialog';
 
+console.log('HomePage load');
 export function HomePage() {
+  console.log('HomePage render');
   const dialogSignal = useDialogContext();
 
   const songList = useSignal<SongInfo[] | 'loading' | 'error'>('loading');
@@ -61,10 +64,10 @@ export function HomePage() {
                 </Box>
                 <Box p={{ initial: '3', sm: '4' }} asChild>
                   <Button size="3" variant="outline" asChild>
-                    <a href={'/song/' + info.id}>
+                    <Link to={'/song/' + info.id}>
                       {sizeSignal.value >= Size.sm && 'Open'}
                       <PlayIcon height="20px" width="20px" />
-                    </a>
+                    </Link>
                   </Button>
                 </Box>
               </Flex>

@@ -1,3 +1,4 @@
+import { batch } from '@preact/signals-react';
 import { Song } from 'shared/types/song';
 import { makeNewSong } from 'src/pages/editor/functions/makenewsong';
 import { state } from 'src/pages/editor/state/state';
@@ -10,11 +11,13 @@ export function switchTab(index: number) {
 export function newTab(newSong?: Song, modified?: boolean, isNew?: boolean) {
   isNew = isNew ?? newSong === undefined;
   if (newSong === undefined) newSong = makeNewSong();
-  state.tabIndex.value = state.tabs.value.length;
-  state.tabs.value = [
-    ...state.tabs.value,
-    { song: newSong, new: isNew, modified: modified ?? false },
-  ];
+  batch(() => {
+    state.tabIndex.value = state.tabs.value.length;
+    state.tabs.value = [
+      ...state.tabs.value,
+      { song: newSong, new: isNew, modified: modified ?? false },
+    ];
+  });
 }
 
 export function closeTab(index: number) {

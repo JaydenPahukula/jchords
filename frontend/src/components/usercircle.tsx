@@ -1,6 +1,7 @@
 import { useSignal } from '@preact/signals-react';
 import { Box, Button, Flex, IconButton, Inset, Popover, Text } from '@radix-ui/themes';
 import { User } from 'firebase/auth';
+import { Link } from 'react-router';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { SignOutIcon } from 'src/components/icons/signouticon';
 import { UserIcon } from 'src/components/icons/usericon';
@@ -84,8 +85,7 @@ export function UserCircle(props: UserCircleProps) {
                   }}
                   asChild
                 >
-                  {/* TODO fix this link */}
-                  <a href="/account">Account</a>
+                  <Link to="/account">Account</Link>
                 </Button>
               </Box>
               <Box width="100%" asChild p="2">

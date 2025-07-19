@@ -12,7 +12,7 @@ const defaultTabs = [{ song: welcomeSong, new: true, modified: false }];
 const tabs = signal<Tab[]>(getStoredTabs() ?? defaultTabs);
 effect(() => storeTabs(tabs));
 
-const tabIndex = signal<number>(getStoredTabIndex() ?? 0);
+const tabIndex = signal<number>(Math.min(getStoredTabIndex() ?? 0, tabs.value.length - 1));
 effect(() => storeTabIndex(tabIndex.value));
 
 const currTab = computed<Tab>(() => {

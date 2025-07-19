@@ -8,6 +8,7 @@ small stuff
 - fix usercircle link
 - publish permissions
 - make create account dialog look good
+- make router nice
 
 big stuff
 - add public/private songs

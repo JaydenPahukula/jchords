@@ -17,7 +17,9 @@ const dialogManifest: DialogManifest = [
   { type: DialogType.CreateAccount, component: CreateAccountDialog },
 ];
 
+console.log('HomeLayout load');
 export function HomeLayout() {
+  console.log('HomeLayout render');
   const dialogSignal = useSignal<DialogType>(DialogType.None);
 
   const userSignal = useSignal<User | null | undefined>(undefined);
