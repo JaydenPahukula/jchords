@@ -16,6 +16,7 @@ big stuff
 - email verification
 - change profile picture
 - write welcome song
+- hamburger menu for mobile homepage
 
 later
 - FIGURE OUT STYLE!

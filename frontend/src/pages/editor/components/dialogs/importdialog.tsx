@@ -2,7 +2,6 @@ import { useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Flex, Grid, Heading, SegmentedControl, Text } from '@radix-ui/themes';
 import { useRef } from 'react';
 import { Song } from 'shared/types/song';
-import { GenericDialog } from 'src/components/dialogs/genericdialog';
 import { DialogType } from 'src/enums/dialogtype';
 import { useMatchScrollEffect } from 'src/hooks/usematchscrolleffect';
 import { newTab } from 'src/pages/editor/state/functions/tabs';
@@ -45,7 +44,7 @@ export function ImportDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog {...props} closeButton width="1200px" height="80vh">
+    <Dialog {...props} closeButton width="1200px" height="80vh">
       <Flex direction="column" height="100%" width="100%">
         <Dialog.Title>Import Song</Dialog.Title>
         <Text>THIS FUNCTIONALITY DOES NOT WORK</Text>
@@ -135,6 +134,6 @@ export function ImportDialog(props: DialogProps) {
           </Button>
         </Flex>
       </Flex>
-    </GenericDialog>
+    </Dialog>
   );
 }

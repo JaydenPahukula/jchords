@@ -2,10 +2,9 @@ import { batch, useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Text } from '@radix-ui/themes';
 import { FormEvent } from 'react';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
-import { GenericDialog } from 'src/components/dialogs/genericdialog';
 import { ArrowLeftIcon } from 'src/components/icons/arrowlefticon';
 import { LockIcon } from 'src/components/icons/lockicon';
-import { TextFieldWithX } from 'src/components/textfieldwithx';
+import { TextField } from 'src/components/ui/textfield';
 import { CreateAccountResult } from 'src/enums/createaccountresult';
 import { DialogType } from 'src/enums/dialogtype';
 import { createAccount } from 'src/functions/auth/createaccount';
@@ -87,7 +86,7 @@ export function CreateAccountDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog
+    <Dialog
       {...props}
       closeButton
       otherButtons={[[<ArrowLeftIcon />, () => props.changeDialog(DialogType.Login)]]}
@@ -97,7 +96,7 @@ export function CreateAccountDialog(props: DialogProps) {
       </Dialog.Title>
       <Dialog.Description aria-describedby={undefined} />
       <form onSubmit={onSubmit}>
-        <TextFieldWithX
+        <TextField
           type="email"
           id="create-account-email-input"
           disabled={submitLoading.value}
@@ -110,7 +109,7 @@ export function CreateAccountDialog(props: DialogProps) {
           size="3"
           mb="5"
         />
-        <TextFieldWithX
+        <TextField
           type="text"
           id="create-account-display-name-input"
           disabled={submitLoading.value}
@@ -122,7 +121,7 @@ export function CreateAccountDialog(props: DialogProps) {
           size="3"
           mb="5"
         />
-        <TextFieldWithX
+        <TextField
           type="password"
           id="create-account-password-input"
           disabled={submitLoading.value}
@@ -136,8 +135,8 @@ export function CreateAccountDialog(props: DialogProps) {
           mb="5"
         >
           <LockIcon />
-        </TextFieldWithX>
-        <TextFieldWithX
+        </TextField>
+        <TextField
           type="password"
           id="create-account-confirm-password-input"
           disabled={submitLoading.value}
@@ -151,7 +150,7 @@ export function CreateAccountDialog(props: DialogProps) {
           mb="3"
         >
           <LockIcon />
-        </TextFieldWithX>
+        </TextField>
         <Text size="3" color="red">
           {errorMessage}
         </Text>
@@ -161,6 +160,6 @@ export function CreateAccountDialog(props: DialogProps) {
           </Button>
         </Box>
       </form>
-    </GenericDialog>
+    </Dialog>
   );
 }

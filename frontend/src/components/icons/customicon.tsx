@@ -1,16 +1,15 @@
-import { ReactNode } from 'react';
-import { IconProps } from 'src/types/iconprops';
+import { ReactNode, SVGProps } from 'react';
 
-interface CustomIconProps extends IconProps {
-  children?: ReactNode;
+interface CustomIconProps extends SVGProps<SVGSVGElement> {
+  children: ReactNode;
+  className?: string;
 }
 
 export function CustomIcon(props: CustomIconProps) {
+  const { children, className, ...svgProps } = props;
   return (
     <svg
-      className="icon"
-      width="16px"
-      height="16px"
+      className={`inline-block h-4 w-4 ${className}`}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -18,10 +17,9 @@ export function CustomIcon(props: CustomIconProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
-      style={{ color: props.color }}
+      {...svgProps}
     >
-      {props.children}
+      {children}
     </svg>
   );
 }

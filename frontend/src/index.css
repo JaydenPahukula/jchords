@@ -1,0 +1,77 @@
+@import '@radix-ui/themes/styles.css';
+@import 'tailwindcss';
+
+@theme {
+  --color-home-bg: rgb(240, 240, 242);
+
+  --color-gray-12: #1c1f23;
+  --color-gray-11: #2e2e2e;
+  --color-gray-8: #b9bbc6;
+  --color-gray-7: #cdced6;
+  --color-gray-6: #d9d9e0;
+  --color-gray-4: #e8e8e8;
+  --color-gray-3: #f0f0f3;
+  --color-gray-2: #f9f9fb;
+  --color-gray-1: #fdfdfe;
+}
+
+.radix-themes {
+  --cursor-button: pointer;
+  --cursor-checkbox: pointer;
+  --cursor-disabled: not-allowed;
+  --cursor-link: pointer;
+  --cursor-menu-item: pointer;
+  --cursor-radio: pointer;
+  --cursor-slider-thumb: grab;
+  --cursor-slider-thumb-active: grabbing;
+  --cursor-switch: pointer;
+
+  --border: 1px solid var(--gray-6);
+
+  --chart-font: 'Roboto Mono', 'Courier New', monospace;
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@utility link {
+  color: #0588f0;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: #0d74ce;
+  }
+}
+
+@utility card {
+  @apply bg-gray-1 border-gray-6 rounded-2xl border-1;
+}
+
+@utility button-0 {
+  @apply bg-gray-1 hover:bg-gray-3 active:bg-gray-4 flex flex-row items-center justify-center gap-2;
+}

@@ -2,10 +2,9 @@ import { batch, useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Dialog, Flex, Separator, Text } from '@radix-ui/themes';
 import { FormEvent, useEffect } from 'react';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
-import { GenericDialog } from 'src/components/dialogs/genericdialog';
 import { GoogleIcon } from 'src/components/icons/googleicon';
 import { LockIcon } from 'src/components/icons/lockicon';
-import { TextFieldWithX } from 'src/components/textfieldwithx';
+import { TextField } from 'src/components/ui/textfield';
 import { DialogType } from 'src/enums/dialogtype';
 import { LogInResult } from 'src/enums/loginresult';
 import { logIn } from 'src/functions/auth/login';
@@ -81,7 +80,7 @@ export function LoginDialog(props: DialogProps) {
   }, []);
 
   return (
-    <GenericDialog {...props} closeButton>
+    <Dialog {...props} closeButton>
       <Dialog.Title size="6" mb="1">
         Sign In
       </Dialog.Title>
@@ -96,7 +95,7 @@ export function LoginDialog(props: DialogProps) {
         </Text>
       </Dialog.Description>
       <form onSubmit={onSubmit}>
-        <TextFieldWithX
+        <TextField
           type="email"
           id="login-email-input"
           required
@@ -109,7 +108,7 @@ export function LoginDialog(props: DialogProps) {
           size="3"
           mb="5"
         />
-        <TextFieldWithX
+        <TextField
           type="password"
           id="login-password-input"
           required
@@ -123,7 +122,7 @@ export function LoginDialog(props: DialogProps) {
           mb="3"
         >
           <LockIcon />
-        </TextFieldWithX>
+        </TextField>
         <Text size="3" color="red">
           {errorMessage}
         </Text>
@@ -156,6 +155,6 @@ export function LoginDialog(props: DialogProps) {
           Sign in with Google
         </Button>
       </Box>
-    </GenericDialog>
+    </Dialog>
   );
 }

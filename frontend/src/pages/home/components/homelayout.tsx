@@ -1,5 +1,4 @@
 import { useSignal, useSignalEffect } from '@preact/signals-react';
-import { Container, Flex, Grid, Heading, Text } from '@radix-ui/themes';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { Link, Outlet } from 'react-router';
 import { CreateAccountDialog } from 'src/components/dialogs/createaccountdialog';
@@ -33,46 +32,35 @@ export function HomeLayout() {
       <DialogManager signal={dialogSignal} manifest={dialogManifest} />
       <DialogContext.Provider value={dialogSignal}>
         <UserContext.Provider value={userSignal}>
-          <Grid id="home-page" rows="min-content 1fr" height="100dvh">
-            <Container
-              size="3"
+          <div id="home-page" className="grid h-dvh grid-rows-[min-content_1fr]">
+            <div
               id="header"
-              height={{ initial: '58px', sm: '68px' }}
-              style={{ zIndex: '1', boxShadow: 'var(--shadow-4)' }}
+              className="bg-gray-1 z-10 flex h-15 w-full justify-center shadow-md sm:h-17"
             >
-              <Flex height="100%" align="center" justify="between">
-                <Flex align="center" gap={{ sm: '2' }}>
-                  <Link to="/" style={{ color: 'var(--gray-12)', textDecorationLine: 'none' }}>
-                    <Heading size={{ initial: '6', sm: '7' }} mx="4">
-                      JChords
-                    </Heading>
-                  </Link>
-                  <Link
-                    to="/editor"
-                    style={{ color: 'var(--gray-12)', textDecorationLine: 'none' }}
-                  >
-                    <Text size="3" mx="4">
+              <div id="header-content" className="w-full max-w-[900px]">
+                <div className="flex h-full items-center justify-between px-2">
+                  <div className="flex items-center gap-2 sm:gap-4">
+                    <Link to="/">
+                      <h1 className="mx-2 text-2xl font-bold sm:text-3xl">JChords</h1>
+                    </Link>
+                    <Link to="/editor" className="mx-2 text-base">
                       Editor
-                    </Text>
-                  </Link>
-                </Flex>
-                <UserCircle
-                  user={userSignal}
-                  openLoginDialog={() => (dialogSignal.value = DialogType.Login)}
-                  width="52px"
-                />
-              </Flex>
-            </Container>
-            <Container
-              size="2"
-              py="5"
-              px="2"
-              style={{ background: 'var(--gray-3)' }}
-              overflowY="auto"
-            >
-              <Outlet />
-            </Container>
-          </Grid>
+                    </Link>
+                  </div>
+                  <UserCircle
+                    user={userSignal}
+                    openLoginDialog={() => (dialogSignal.value = DialogType.Login)}
+                    className="w-10"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="bg-home-bg flex justify-center overflow-y-auto px-2 py-5">
+              <div className="w-full max-w-[700px]">
+                <Outlet />
+              </div>
+            </div>
+          </div>
         </UserContext.Provider>
       </DialogContext.Provider>
     </>

@@ -5,6 +5,5 @@
   "editor.useTabStops": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.preferences.importModuleSpecifier": "non-relative",
-  "tailwindCSS.experimental.configFile": "shared/style/index.css"
+  "javascript.preferences.importModuleSpecifier": "non-relative"
 }

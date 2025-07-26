@@ -1,6 +1,5 @@
 import { useSignal } from '@preact/signals-react';
 import { Button, Dialog, Flex } from '@radix-ui/themes';
-import { GenericDialog } from 'src/components/dialogs/genericdialog';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { DialogType } from 'src/enums/dialogtype';
 import { deleteSong } from 'src/pages/editor/state/functions/song';
@@ -27,7 +26,7 @@ export function DeleteConfirmationDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog {...props} closeButton width="450px">
+    <Dialog {...props} closeButton width="450px">
       <Dialog.Title>Delete Song</Dialog.Title>
       <Dialog.Description>
         Are you sure you want to delete this song? This cannot be undone.
@@ -42,6 +41,6 @@ export function DeleteConfirmationDialog(props: DialogProps) {
           Delete
         </Button>
       </Flex>
-    </GenericDialog>
+    </Dialog>
   );
 }

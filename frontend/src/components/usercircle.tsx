@@ -1,18 +1,17 @@
 import { Signal, useSignal } from '@preact/signals-react';
-import { Box, Button, Flex, IconButton, Inset, Popover, Text } from '@radix-ui/themes';
 import { User } from 'firebase/auth';
 import { Link } from 'react-router';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { SignOutIcon } from 'src/components/icons/signouticon';
-import { UserIcon } from 'src/components/icons/usericon';
-import { UserAvatar } from 'src/components/useravatar';
+import { Avatar } from 'src/components/ui/avatar';
+import { Popover } from 'src/components/ui/popover';
 import 'src/components/usercircle.css';
 import { logOut } from 'src/functions/auth/logout';
 
 interface UserCircleProps {
   user: Signal<User | null | undefined>;
   openLoginDialog: () => void;
-  width?: string;
+  className?: string;
 }
 
 export function UserCircle(props: UserCircleProps) {
@@ -20,7 +19,7 @@ export function UserCircle(props: UserCircleProps) {
   const user = props.user.value;
 
   function onOpenChange(open: boolean) {
-    if (open && !props.user) {
+    if (open && !props.user.value) {
       props.openLoginDialog();
     } else {
       isMenuOpen.value = open;
@@ -39,74 +38,35 @@ export function UserCircle(props: UserCircleProps) {
 
   return (
     <Popover.Root open={isMenuOpen.value} onOpenChange={onOpenChange}>
-      <Box flexShrink="0" mr="1" width={props.width} height={props.width} p="6px">
-        <Popover.Trigger>
-          <Box width="100%" height="100%" overflow="hidden" asChild>
-            <IconButton radius="full" className="user-circle-button">
-              {user ? (
-                <UserAvatar height="100%" width="100%" user={user} />
-              ) : (
-                <UserIcon color="var(--gray-12)" height="100%" width="100%" />
-              )}
-            </IconButton>
-          </Box>
-        </Popover.Trigger>
-      </Box>
-      <Popover.Content maxWidth="300px" minWidth="250px">
+      <Popover.Trigger asChild>
+        <button
+          className={`outline-gray-4 aspect-square overflow-hidden rounded-full bg-transparent hover:outline-6 ${props.className}`}
+        >
+          <Avatar user={user} />
+        </button>
+      </Popover.Trigger>
+      <Popover.Content className="max-w-[300px] p-0!">
         {!user ? null : (
           <>
-            <Flex overflow="hidden" gap="3">
-              <UserAvatar size="4" user={user} />
-              <Flex
-                direction="column"
-                justify="center"
-                overflow="hidden"
-                pb="var(--popover-content-padding)"
-              >
-                <Text truncate size="3" weight="medium">
+            <div className="flex gap-3 overflow-hidden p-4">
+              <Avatar user={user} className="!h-12 !w-12" />
+              <div className="flex flex-col justify-center overflow-hidden">
+                <div className="truncate text-base font-medium">
                   {user.displayName ?? user.email}
-                </Text>
-                <Text truncate size="2" weight="regular">
+                </div>
+                <div className="truncate text-sm">
                   {user.email}
-                </Text>
-              </Flex>
-            </Flex>
-            <Inset side="bottom">
-              <Box width="100%" asChild p="2">
-                <Button
-                  radius="none"
-                  variant="ghost"
-                  size="3"
-                  onClick={close}
-                  style={{
-                    color: 'var(--gray-12)',
-                    borderTop: 'var(--border)',
-                    margin: '0',
-                    boxSizing: 'border-box',
-                  }}
-                  asChild
-                >
-                  <Link to="/account">Account</Link>
-                </Button>
-              </Box>
-              <Box width="100%" asChild p="2">
-                <Button
-                  radius="none"
-                  variant="ghost"
-                  size="3"
-                  onClick={signOut}
-                  style={{
-                    color: 'var(--gray-12)',
-                    borderTop: 'var(--border)',
-                    margin: '0',
-                    boxSizing: 'border-box',
-                  }}
-                >
-                  <SignOutIcon />
-                  Sign Out
-                </Button>
-              </Box>
-            </Inset>
+                  {user.email}
+                </div>
+              </div>
+            </div>
+            <button className="border-t-gray-6 button-0 w-full border-t-1 p-2" onClick={close}>
+              <Link to="/account">Account</Link>
+            </button>
+            <button className="border-t-gray-6 button-0 w-full border-t-1 p-2" onClick={signOut}>
+              <SignOutIcon />
+              Sign Out
+            </button>
           </>
         )}
       </Popover.Content>

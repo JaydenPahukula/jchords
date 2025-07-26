@@ -1,12 +1,14 @@
 import { useComputed, useSignal } from '@preact/signals-react';
-import { Box, Button, Card, Flex, Spinner, Text, TextField } from '@radix-ui/themes';
+import { Box, Button, Text } from '@radix-ui/themes';
 import { updateProfile } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
+import { LockIcon } from 'src/components/icons/lockicon';
 import { SignOutIcon } from 'src/components/icons/signouticon';
-import { TextFieldWithX } from 'src/components/textfieldwithx';
-import { UserAvatar } from 'src/components/useravatar';
+import { Avatar } from 'src/components/ui/avatar';
+import LoadingSpinner from 'src/components/ui/loadingspinner';
+import { TextField } from 'src/components/ui/textfield';
 import { logOut } from 'src/functions/auth/logout';
 import { DeleteAccountButton } from 'src/pages/home/components/accountpage/deleteaccountbutton';
 import { VerifyEmailButton } from 'src/pages/home/components/accountpage/verifyemailbutton';
@@ -53,24 +55,24 @@ export function AccountPage() {
   }
 
   return user === undefined ? (
-    <Spinner mx="auto" my="6" size="3" />
+    <LoadingSpinner className="mx-auto my-8 w-12" />
   ) : (
-    <Card size={{ initial: '4', xs: '5' }}>
-      <Flex align="center" gap="5" mb="4">
-        <UserAvatar size="7" user={user} />
-      </Flex>
-      <Box maxWidth="400px">
-        <Text as="label" htmlFor="display-name-input" weight="medium">
+    <div className="card p-8 sm:p-12">
+      <div className="mb-4 flex items-center gap-5">
+        <Avatar user={user} className="!w-28" />
+      </div>
+      <div className="max-w-[400px]">
+        <label className="mb-1 font-medium" htmlFor="display-name-input">
           Display Name:
-        </Text>
-        <Flex mt="1" mb="3" gap="2">
-          <Box flexGrow="1">
-            <TextFieldWithX
-              id="display-name-input"
-              value={displayName.value}
-              onInput={(e) => (displayName.value = e.currentTarget.value)}
-            />
-          </Box>
+        </label>
+        <div className="mb-3 flex gap-2">
+          <TextField
+            xButton
+            leftIcons={[<LockIcon />]}
+            id="display-name-input"
+            value={displayName.value}
+            onInput={(e) => (displayName.value = e.currentTarget.value)}
+          />
           <Button
             loading={updateDisplayNameLoading.value}
             disabled={updateDisplayNameDisabled.value}
@@ -78,17 +80,11 @@ export function AccountPage() {
           >
             Update
           </Button>
-        </Flex>
+        </div>
         <Text as="label" htmlFor="account-page-email-input" weight="medium">
           Email:
         </Text>
-        <TextField.Root
-          id="account-page-email-input"
-          mt="1"
-          mb="2"
-          disabled
-          value={user.email ?? ''}
-        />
+        <TextField id="account-page-email-input" disabled value={user.email ?? ''} />
         <VerifyEmailButton user={user} />
         <Box mt="6">
           <Button onClick={signOut} color="red" variant="soft">
@@ -99,7 +95,7 @@ export function AccountPage() {
         <Box mt="2">
           <DeleteAccountButton user={user} />
         </Box>
-      </Box>
-    </Card>
+      </div>
+    </div>
   );
 }

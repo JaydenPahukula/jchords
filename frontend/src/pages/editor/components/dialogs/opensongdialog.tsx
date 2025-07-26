@@ -1,7 +1,6 @@
 import { useComputed, useSignal, useSignalEffect } from '@preact/signals-react';
 import { Box, Button, Dialog, Flex, Spinner, Switch, Table, Text } from '@radix-ui/themes';
 import { SongInfo } from 'shared/types/songinfo';
-import { GenericDialog } from 'src/components/dialogs/genericdialog';
 import { DialogType } from 'src/enums/dialogtype';
 import { apiGetSong } from 'src/functions/api/endpoints/getsong';
 import { apiGetSongList } from 'src/functions/api/endpoints/getsonglist';
@@ -72,7 +71,7 @@ export function OpenSongDialog(props: DialogProps) {
   }
 
   return (
-    <GenericDialog {...props} closeButton width="460px">
+    <Dialog {...props} closeButton width="460px">
       <Dialog.Title>Open Song</Dialog.Title>
       <Dialog.Description aria-describedby={undefined} />
       {state.user.value !== null && (
@@ -148,6 +147,6 @@ export function OpenSongDialog(props: DialogProps) {
           Open Song
         </Button>
       </Flex>
-    </GenericDialog>
+    </Dialog>
   );
 }
