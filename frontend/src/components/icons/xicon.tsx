@@ -1,9 +1,9 @@
-import { CustomIcon } from 'src/components/icons/util/customiconsvg';
+import { CustomIconSVG } from 'src/components/icons/util/customiconsvg';
 import { IconProps } from 'src/types/iconprops';
 
 export const XIcon = (props: IconProps) => (
-  <CustomIcon {...props}>
-    <line x1="0" y1="0" x2="24" y2="24"></line>
-    <line x1="0" y1="24" x2="24" y2="0"></line>
-  </CustomIcon>
+  <CustomIconSVG {...props}>
+    <line x1="1" y1="1" x2="23" y2="23"></line>
+    <line x1="1" y1="23" x2="23" y2="1"></line>
+  </CustomIconSVG>
 );

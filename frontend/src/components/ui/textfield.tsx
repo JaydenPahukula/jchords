@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
+import { InputHTMLAttributes, MouseEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import { XIcon } from 'src/components/icons/xicon';
 import { Button } from 'src/components/ui/button';
 
@@ -27,9 +27,9 @@ export function TextField(props: TextFieldProps) {
 
   const xVisible = xButton && focused && inputProps.value !== '';
 
-  function clear() {
-    console.log('clear');
-    if (ref.current !== null) {
+  function xOnMouseDown(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault(); // prevent input from losing focus
+    if (ref.current) {
       ref.current.value = '';
       ref.current.dispatchEvent(new Event('input', { bubbles: true }));
     }
@@ -46,7 +46,7 @@ export function TextField(props: TextFieldProps) {
         {...inputProps}
       />
       {xVisible && (
-        <Button onClick={clear}>
+        <Button onMouseDown={xOnMouseDown}>
           <XIcon />
         </Button>
       )}

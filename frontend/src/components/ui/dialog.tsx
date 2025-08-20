@@ -1,7 +1,7 @@
 import { Dialog as RadixDialog } from 'radix-ui';
 import { ArrowLeftIcon } from 'src/components/icons/arrowlefticon';
 import { XIcon } from 'src/components/icons/xicon';
-import { Button } from 'src/components/ui/button';
+import { IconButton } from 'src/components/ui/iconbutton';
 
 interface DialogContentProps extends RadixDialog.DialogContentProps {
   closeButton?: boolean;
@@ -25,9 +25,7 @@ function DialogContent(props: DialogContentProps) {
         )}
         {closeButton && (
           <RadixDialog.Close asChild>
-            <Button className="float-right -mt-2 -mr-2">
-              <XIcon className="h-5 w-5" />
-            </Button>
+            <IconButton className="float-right -mt-2 -mr-2" icon={XIcon} />
           </RadixDialog.Close>
         )}
         {dialogProps.children}

@@ -10,6 +10,7 @@ import { TextField } from 'src/components/ui/textfield';
 import { LogInResult } from 'src/enums/loginresult';
 import { logIn } from 'src/functions/auth/login';
 import { logInWithGoogle } from 'src/functions/auth/loginwithgoogle';
+import { bind } from 'src/functions/util/bind';
 import { DialogProps } from 'src/types/dialog/dialogprops';
 
 type ErrorState = null | LogInResult | 'loading';
@@ -31,6 +32,7 @@ export function LoginDialog({ children }: DialogProps) {
   const errorState = useSignal<ErrorState>(null);
   const googleLoading = useSignal(false);
   const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState('');
 
   const submitLoading = useComputed(() => errorState.value === 'loading');
   const submitDisabled = useComputed(
@@ -89,9 +91,11 @@ export function LoginDialog({ children }: DialogProps) {
         <Dialog.Description className="mb-4">
           or{' '}
           <CreateAccountDialog>
-            <Text tabIndex={0} className="link">
-              create an account
-            </Text>
+            <span>
+              <span onClick={() => setOpen(false)} tabIndex={0} className="link">
+                create an account
+              </span>
+            </span>
           </CreateAccountDialog>
         </Dialog.Description>
         <form onSubmit={onSubmit}>
@@ -101,8 +105,8 @@ export function LoginDialog({ children }: DialogProps) {
             required
             disabled={submitLoading.value || googleLoading.value}
             title="Please enter a valid email address"
-            value={emailInput.value}
-            onInput={(e) => (emailInput.value = e.currentTarget.value)}
+            value={email}
+            onInput={bind(setEmail)}
             placeholder="Email"
             className="mb-5"
             xButton

@@ -1,9 +1,9 @@
 import { IconProps } from '@radix-ui/themes';
-import { CustomIcon } from 'src/components/icons/util/customiconsvg';
+import { CustomIconSVG } from 'src/components/icons/util/customiconsvg';
 
 export const CheckCircleIcon = (props: IconProps) => (
-  <CustomIcon {...props}>
+  <CustomIconSVG {...props}>
     <circle cx="12" cy="12" r="12" />
     <polyline points="18,9 10,17 6,13" />
-  </CustomIcon>
+  </CustomIconSVG>
 );

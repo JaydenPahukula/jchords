@@ -9,17 +9,16 @@ interface CustomIconProps extends IconProps {
   stroke?: boolean;
 }
 
-export function CustomIcon({
+export function CustomIconSVG({
   children,
   className,
-  viewBox = '-1 -1 26 26',
-  // viewBox = '-2 -2 28 28',
+  viewBox = '-2 -2 28 28',
   fill = false,
   stroke = true,
 }: CustomIconProps) {
   return (
     <svg
-      className={`inline-block h-4 w-4 hover:outline-1 ${className}`}
+      className={`inline-block h-4 w-4 ${className}`}
       viewBox={viewBox}
       fill={fill ? 'currentColor' : 'none'}
       stroke={stroke ? 'currentColor' : 'none'}

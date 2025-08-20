@@ -1,7 +1,6 @@
 import { useSignal, useSignalEffect } from '@preact/signals-react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { Link, Outlet } from 'react-router';
-import { MagnifyingGlassPlusIcon } from 'src/components/icons/magnifyingglassplusicon';
 import { UserCircle } from 'src/components/usercircle';
 import { auth } from 'src/firebase/auth';
 import { UserContext } from 'src/pages/home/state/user';
@@ -31,7 +30,6 @@ export function HomeLayout() {
                 <Link to="/editor" className="mx-2 text-base">
                   Editor
                 </Link>
-                <MagnifyingGlassPlusIcon />
               </div>
               <UserCircle user={userSignal} />
             </div>
