@@ -1,10 +1,8 @@
 import { Box, Flex, Heading } from '@radix-ui/themes';
 import { CSSProperties } from 'react';
 import { UserCircle } from 'src/components/usercircle';
-import { DialogType } from 'src/enums/dialogtype';
 import { TabList } from 'src/pages/editor/components/tablist';
 import 'src/pages/editor/components/titlerow.css';
-import { showDialog } from 'src/pages/editor/state/functions/showdialog';
 import { useStateContext } from 'src/pages/editor/state/statecontext';
 
 const leftGradientStyle: CSSProperties = {
@@ -38,11 +36,7 @@ export function TitleRow() {
         <div style={rightGradientStyle} />
         <Box className="absolute right-0 h-full w-4 bg-[linear-gradient(270deg,var(--color-bg-4),transparent)]" />
       </Flex>
-      <UserCircle
-        user={user.value ?? null}
-        openLoginDialog={() => showDialog(DialogType.Login)}
-        width="48px"
-      />
+      <UserCircle user={user ?? null} />
     </Flex>
   );
 }

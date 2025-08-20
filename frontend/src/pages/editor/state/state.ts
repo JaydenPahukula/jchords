@@ -1,7 +1,6 @@
 import { computed, effect, signal } from '@preact/signals-react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { Song } from 'shared/types/song';
-import { DialogType } from 'src/enums/dialogtype';
 import { auth } from 'src/firebase/auth';
 import { getStoredTabIndex, storeTabIndex } from 'src/pages/editor/state/storage/tabindex';
 import { getStoredTabs, storeTabs } from 'src/pages/editor/state/storage/tabs';
@@ -42,5 +41,4 @@ export const state = {
   isCurrSongNew: computed<boolean>(() => currTab.value.new),
   isCurrSongModified: computed<boolean>(() => currTab.value.modified),
   user: userSignal,
-  dialog: signal<DialogType>(DialogType.None),
 };

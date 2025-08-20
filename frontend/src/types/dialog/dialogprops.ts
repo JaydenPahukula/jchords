@@ -1,9 +1,6 @@
-import { ReadonlySignal } from '@preact/signals-react';
-import { DialogType } from 'src/enums/dialogtype';
+import { ReactElement } from 'react';
 
 export interface DialogProps {
-  type: DialogType;
-  open: ReadonlySignal<boolean>;
-  close: () => void;
-  changeDialog: (dialog: DialogType) => void;
+  /** The trigger should go here */
+  children: ReactElement;
 }

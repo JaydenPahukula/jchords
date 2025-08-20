@@ -1,10 +1,10 @@
-import { CustomIcon } from 'src/components/icons/customicon';
+import { CustomIcon } from 'src/components/icons/util/customiconsvg';
 import { IconProps } from 'src/types/iconprops';
 
 export function SignOutIcon(props: IconProps) {
   return (
     <CustomIcon {...props}>
-      <path d="M11 8V6A3 3 0 0114 3H18A3 3 0 0121 6V18A3 3 0 0118 21H14A3 3 0 0111 18V16M17 12H3L7 8M3 12 7 16"></path>
+      <path d="M10 8V6A4 4 0 0114 2H20A4 4 0 0124 6V18A4 4 0 0120 22H14A4 4 0 0110 18V16M18 12H0L4 8M0 12 4 16"></path>
     </CustomIcon>
   );
 }

@@ -1,4 +1,4 @@
-import { CustomIcon } from 'src/components/icons/customicon';
+import { CustomIcon } from 'src/components/icons/util/customiconsvg';
 import { IconProps } from 'src/types/iconprops';
 
 export const MusicNoteIcon = (props: IconProps) => (

@@ -1,55 +1,50 @@
-import { Box, Flex, IconButton } from '@radix-ui/themes';
 import { Dialog as RadixDialog } from 'radix-ui';
+import { ArrowLeftIcon } from 'src/components/icons/arrowlefticon';
 import { XIcon } from 'src/components/icons/xicon';
+import { Button } from 'src/components/ui/button';
 
 interface DialogContentProps extends RadixDialog.DialogContentProps {
   closeButton?: boolean;
   backButton?: () => void;
 }
 
-export function DialogContent(props: DialogContentProps) {
+function DialogContent(props: DialogContentProps) {
   const { closeButton, backButton, ...dialogProps } = props;
-
-  function onOpenChange(open: boolean) {
-    if (open) changeDialog(props.type);
-    else close();
-  }
 
   return (
     <RadixDialog.Portal>
-      <RadixDialog.Overlay className="bg-black/20" />
-      <RadixDialog.Content width="384px" maxWidth="95vw" maxHeight="95vw" {...dialogProps}>
-        {otherButtons !== undefined && otherButtons.length > 0 && (
-          <Flex mt="-2" ml="-2" gap="2" mb="3">
-            {otherButtons.map(([button, onClick], index) => (
-              <IconButton key={index} variant="ghost" onClick={onClick}>
-                {button}
-              </IconButton>
-            ))}
-          </Flex>
+      <RadixDialog.Overlay className="fade-in fixed inset-0 bg-black/25" />
+      <RadixDialog.Content
+        className="pop-in bg-gray-1 fixed top-1/2 left-1/2 max-h-[95vh] w-sm max-w-[95vw] -translate-1/2 rounded-2xl p-8"
+        {...dialogProps}
+      >
+        {backButton && (
+          <button className="mt-[-2] mb-3 ml-[-2]">
+            <ArrowLeftIcon />
+          </button>
         )}
         {closeButton && (
-          <Box position="absolute" top="4" right="4" asChild>
-            <RadixDialog.Close>
-              <IconButton variant="ghost">
-                <XIcon />
-              </IconButton>
-            </RadixDialog.Close>
-          </Box>
+          <RadixDialog.Close asChild>
+            <Button className="float-right -mt-2 -mr-2">
+              <XIcon className="h-5 w-5" />
+            </Button>
+          </RadixDialog.Close>
         )}
-        <Box height="100%" width="100%">
-          {dialogProps.children}
-        </Box>
+        {dialogProps.children}
       </RadixDialog.Content>
     </RadixDialog.Portal>
   );
+}
+
+function DialogTitle({ className, ...props }: RadixDialog.DialogTitleProps) {
+  return <RadixDialog.Title className={`mb-1 text-2xl font-bold ${className}`} {...props} />;
 }
 
 export const Dialog = {
   Root: RadixDialog.Root,
   Trigger: RadixDialog.Trigger,
   Content: DialogContent,
-  Title: RadixDialog.Title,
+  Title: DialogTitle,
   Description: RadixDialog.Description,
   Close: RadixDialog.Close,
 };

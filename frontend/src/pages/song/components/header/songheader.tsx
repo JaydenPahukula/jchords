@@ -3,8 +3,8 @@ import { Flex, Heading } from '@radix-ui/themes';
 import { JCRenderOptions } from 'engine';
 import { ParsedSong } from 'shared/types/parsedsong';
 import { HomeIcon } from 'src/components/icons/homeicon';
+import { MagnifyingGlassPlusIcon } from 'src/components/icons/magnifyingglassplusicon';
 import { TransposeIcon } from 'src/components/icons/transposeicon';
-import { ZoomIcon } from 'src/components/icons/zoomicon';
 import {
   HeaderIconButton,
   HeaderIconLink,
@@ -29,7 +29,10 @@ export function SongHeader(props: SongHeaderProps) {
           {props.song?.info.title}
         </Heading>
         <Flex flexGrow="1" flexShrink="0" gap="2" justify="end">
-          <HeaderIconButton icon={ZoomIcon} menu={<ZoomMenu zoomSignal={props.zoomSignal} />} />
+          <HeaderIconButton
+            icon={MagnifyingGlassPlusIcon}
+            menu={<ZoomMenu zoomSignal={props.zoomSignal} />}
+          />
           <HeaderIconButton
             icon={TransposeIcon}
             menu={

@@ -1,11 +1,12 @@
 import { batch, useComputed, useSignal } from '@preact/signals-react';
-import { Box, Button, Dialog, Flex, Separator, Text } from '@radix-ui/themes';
-import { FormEvent, useEffect } from 'react';
+import { Box, Button, Flex, Separator, Text } from '@radix-ui/themes';
+import { FormEvent, useEffect, useState } from 'react';
 import { selectContent } from 'shared/functions/lambdas/selectcontent';
+import { CreateAccountDialog } from 'src/components/dialogs/createaccountdialog';
 import { GoogleIcon } from 'src/components/icons/googleicon';
 import { LockIcon } from 'src/components/icons/lockicon';
+import { Dialog } from 'src/components/ui/dialog';
 import { TextField } from 'src/components/ui/textfield';
-import { DialogType } from 'src/enums/dialogtype';
 import { LogInResult } from 'src/enums/loginresult';
 import { logIn } from 'src/functions/auth/login';
 import { logInWithGoogle } from 'src/functions/auth/loginwithgoogle';
@@ -24,11 +25,12 @@ function getErrorMessage(errorState: ErrorState): string {
   }
 }
 
-export function LoginDialog(props: DialogProps) {
+export function LoginDialog({ children }: DialogProps) {
   const emailInput = useSignal<string>('');
   const passwordInput = useSignal<string>('');
   const errorState = useSignal<ErrorState>(null);
   const googleLoading = useSignal(false);
+  const [open, setOpen] = useState(false);
 
   const submitLoading = useComputed(() => errorState.value === 'loading');
   const submitDisabled = useComputed(
@@ -48,7 +50,7 @@ export function LoginDialog(props: DialogProps) {
       batch(() => {
         errorState.value = result;
         if (result == LogInResult.Success) {
-          props.close();
+          setOpen(false);
           emailInput.value = '';
           passwordInput.value = '';
         }
@@ -62,7 +64,7 @@ export function LoginDialog(props: DialogProps) {
       batch(() => {
         googleLoading.value = false;
         if (result == LogInResult.Success) {
-          props.close();
+          setOpen(false);
           emailInput.value = '';
           passwordInput.value = '';
         }
@@ -70,7 +72,7 @@ export function LoginDialog(props: DialogProps) {
     });
   }
 
-  // override setTimeout for Firebase polling
+  // override setTimeout for Firebase polling (WARNING: SUPER JANKY)
   useEffect(() => {
     const originalSetTimeout = window.setTimeout;
     window.setTimeout = ((handler: TimerHandler, timeout?: number, ...args: any[]): number => {
@@ -80,81 +82,77 @@ export function LoginDialog(props: DialogProps) {
   }, []);
 
   return (
-    <Dialog {...props} closeButton>
-      <Dialog.Title size="6" mb="1">
-        Sign In
-      </Dialog.Title>
-      <Dialog.Description mb="4">
-        or{' '}
-        <Text
-          tabIndex={0}
-          className="link"
-          onClick={() => props.changeDialog(DialogType.CreateAccount)}
-        >
-          create an account
-        </Text>
-      </Dialog.Description>
-      <form onSubmit={onSubmit}>
-        <TextField
-          type="email"
-          id="login-email-input"
-          required
-          disabled={submitLoading.value || googleLoading.value}
-          title="Please enter a valid email address"
-          value={emailInput.value}
-          onInput={(e) => (emailInput.value = e.currentTarget.value)}
-          placeholder="Email"
-          onXClicked={() => (emailInput.value = '')}
-          size="3"
-          mb="5"
-        />
-        <TextField
-          type="password"
-          id="login-password-input"
-          required
-          disabled={submitLoading.value || googleLoading.value}
-          value={passwordInput.value}
-          onInput={(e) => (passwordInput.value = e.currentTarget.value)}
-          onClick={selectContent}
-          placeholder="Password"
-          onXClicked={() => (passwordInput.value = '')}
-          size="3"
-          mb="3"
-        >
-          <LockIcon />
-        </TextField>
-        <Text size="3" color="red">
-          {errorMessage}
-        </Text>
-        <Box mt="3" width="100%" asChild>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger asChild>{children}</Dialog.Trigger>
+      <Dialog.Content closeButton>
+        <Dialog.Title>Sign In</Dialog.Title>
+        <Dialog.Description className="mb-4">
+          or{' '}
+          <CreateAccountDialog>
+            <Text tabIndex={0} className="link">
+              create an account
+            </Text>
+          </CreateAccountDialog>
+        </Dialog.Description>
+        <form onSubmit={onSubmit}>
+          <TextField
+            type="email"
+            id="login-email-input"
+            required
+            disabled={submitLoading.value || googleLoading.value}
+            title="Please enter a valid email address"
+            value={emailInput.value}
+            onInput={(e) => (emailInput.value = e.currentTarget.value)}
+            placeholder="Email"
+            className="mb-5"
+            xButton
+          />
+          <TextField
+            type="password"
+            id="login-password-input"
+            required
+            disabled={submitLoading.value || googleLoading.value}
+            value={passwordInput.value}
+            onInput={(e) => (passwordInput.value = e.currentTarget.value)}
+            onClick={selectContent}
+            placeholder="Password"
+            className="mb-5"
+            rightIcon={<LockIcon />}
+            xButton
+          />
+          <Text size="3" color="red">
+            {errorMessage}
+          </Text>
+          <Box mt="3" width="100%" asChild>
+            <Button
+              size="3"
+              type="submit"
+              loading={submitLoading.value}
+              variant="surface"
+              disabled={submitDisabled.value}
+            >
+              Sign In
+            </Button>
+          </Box>
+        </form>
+        <Flex my="3" align="center">
+          <Separator size="4" decorative={true} />
+          <Text mx="2">OR</Text>
+          <Separator size="4" decorative={true} />
+        </Flex>
+        <Box width="100%" asChild>
           <Button
             size="3"
-            type="submit"
-            loading={submitLoading.value}
             variant="surface"
-            disabled={submitDisabled.value}
+            onClick={signInWithGoogle}
+            loading={googleLoading.value}
+            disabled={googleLoading.value || submitLoading.value}
           >
-            Sign In
+            <GoogleIcon />
+            Sign in with Google
           </Button>
         </Box>
-      </form>
-      <Flex my="3" align="center">
-        <Separator size="4" decorative={true} />
-        <Text mx="2">OR</Text>
-        <Separator size="4" decorative={true} />
-      </Flex>
-      <Box width="100%" asChild>
-        <Button
-          size="3"
-          variant="surface"
-          onClick={signInWithGoogle}
-          loading={googleLoading.value}
-          disabled={googleLoading.value || submitLoading.value}
-        >
-          <GoogleIcon />
-          Sign in with Google
-        </Button>
-      </Box>
-    </Dialog>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 }

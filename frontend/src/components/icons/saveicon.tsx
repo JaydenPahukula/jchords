@@ -1,8 +1,8 @@
-import { CustomIcon } from 'src/components/icons/customicon';
+import { CustomIcon } from 'src/components/icons/util/customiconsvg';
 import { IconProps } from 'src/types/iconprops';
 
 export const SaveIcon = (props: IconProps) => (
   <CustomIcon {...props}>
-    <path d="M2 4V20A3 3 0 005 23H19A3 3 0 0022 20V6L17 1H5A3 3 0 002 4M8 1V5A2 2 0 0010 7H14A2 2 0 0016 5V1M7 23V16A2 2 0 019 14H15A2 2 0 0117 16V23"></path>
+    <path d="M1 4V20A4 4 0 005 24H19A4 4 0 0023 20V6L17 0H5A4 4 0 001 4M8 0V5A2 2 0 0010 7H14A2 2 0 0016 5V0M7 24V16A2 2 0 019 14H15A2 2 0 0117 16V24"></path>
   </CustomIcon>
 );

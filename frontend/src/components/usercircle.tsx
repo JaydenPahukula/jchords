@@ -1,6 +1,7 @@
-import { Signal, useSignal } from '@preact/signals-react';
+import { Signal } from '@preact/signals-react';
 import { User } from 'firebase/auth';
 import { Link } from 'react-router';
+import { LoginDialog } from 'src/components/dialogs/logindialog';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { SignOutIcon } from 'src/components/icons/signouticon';
 import { Avatar } from 'src/components/ui/avatar';
@@ -10,25 +11,10 @@ import { logOut } from 'src/functions/auth/logout';
 
 interface UserCircleProps {
   user: Signal<User | null | undefined>;
-  openLoginDialog: () => void;
-  className?: string;
 }
 
 export function UserCircle(props: UserCircleProps) {
-  const isMenuOpen = useSignal(false);
   const user = props.user.value;
-
-  function onOpenChange(open: boolean) {
-    if (open && !props.user.value) {
-      props.openLoginDialog();
-    } else {
-      isMenuOpen.value = open;
-    }
-  }
-
-  function close() {
-    isMenuOpen.value = false;
-  }
 
   function signOut() {
     close();
@@ -36,15 +22,19 @@ export function UserCircle(props: UserCircleProps) {
     dispatchGrowl({ description: 'Signed out successfully' });
   }
 
-  return (
-    <Popover.Root open={isMenuOpen.value} onOpenChange={onOpenChange}>
-      <Popover.Trigger asChild>
-        <button
-          className={`outline-gray-4 aspect-square overflow-hidden rounded-full bg-transparent hover:outline-6 ${props.className}`}
-        >
-          <Avatar user={user} />
-        </button>
-      </Popover.Trigger>
+  const button = (
+    <button className="outline-gray-4 aspect-square w-10 overflow-hidden rounded-full bg-transparent hover:outline-6">
+      <Avatar user={user} />
+    </button>
+  );
+
+  return user === undefined ? (
+    button
+  ) : user === null ? (
+    <LoginDialog>{button}</LoginDialog>
+  ) : (
+    <Popover.Root>
+      <Popover.Trigger asChild>{button}</Popover.Trigger>
       <Popover.Content className="max-w-[300px] p-0!">
         {!user ? null : (
           <>

@@ -1,10 +1,10 @@
-import { CustomIcon } from 'src/components/icons/customicon';
+import { CustomIcon } from 'src/components/icons/util/customiconsvg';
 import { IconProps } from 'src/types/iconprops';
 
 export const UploadIcon = (props: IconProps) => (
   <CustomIcon {...props}>
-    <line x1="3" y1="22" x2="21" y2="22"></line>
-    <line x1="12" y1="16" x2="12" y2="2"></line>
-    <polyline points="5,9 12,2 19,9"></polyline>
+    <line x1="2" y1="24" x2="22" y2="24"></line>
+    <line x1="12" y1="17" x2="12" y2="0"></line>
+    <polyline points="4,8 12,0 20,8"></polyline>
   </CustomIcon>
 );

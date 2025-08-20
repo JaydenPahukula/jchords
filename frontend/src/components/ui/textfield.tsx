@@ -1,23 +1,22 @@
-import { useSignal } from '@preact/signals-react';
-import { InputHTMLAttributes, ReactNode, useEffect, useRef } from 'react';
+import { InputHTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
 import { XIcon } from 'src/components/icons/xicon';
+import { Button } from 'src/components/ui/button';
 
-interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children'> {
   xButton?: boolean;
-  leftIcons?: ReactNode[];
-  rightIcons?: ReactNode[];
+  rightIcon?: ReactNode;
 }
 
 export function TextField(props: TextFieldProps) {
-  const focused = useSignal(false);
+  const [focused, setFocused] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
 
-  const { xButton, leftIcons, rightIcons, className, ...inputProps } = props;
+  const { xButton, rightIcon, className, ...inputProps } = props;
 
   useEffect(() => {
     if (!xButton) return;
-    const onFocusHandler = () => (focused.value = true);
-    const onBlurHandler = () => (focused.value = false);
+    const onFocusHandler = () => setFocused(true);
+    const onBlurHandler = () => setFocused(false);
     ref.current?.addEventListener('focus', onFocusHandler);
     ref.current?.addEventListener('blur', onBlurHandler);
     return () => {
@@ -26,32 +25,32 @@ export function TextField(props: TextFieldProps) {
     };
   }, []);
 
-  const xVisible = focused.value && inputProps.value !== '';
+  const xVisible = xButton && focused && inputProps.value !== '';
+
+  function clear() {
+    console.log('clear');
+    if (ref.current !== null) {
+      ref.current.value = '';
+      ref.current.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  }
 
   return (
     <div
-      className="border-gray-6 outline-gray-8 text-gray-11 flex items-center gap-2 rounded-md border-1 px-2 py-1 has-focus-within:outline-1"
+      className={`border-gray-6 outline-gray-8 text-gray-11 flex items-center gap-2 rounded-md border-1 p-1 has-focus-within:outline-1 ${className}`}
       onClick={() => ref.current?.focus()}
     >
-      {...leftIcons ?? []}
       <input
         ref={ref}
-        className={`text-gray-12 border-none outline-none ${className}`}
+        className="text-gray-12 w-full shrink border-none px-2 py-1 outline-none"
         {...inputProps}
       />
-      {xButton && xVisible && <XIcon />}
-      {...rightIcons ?? []}
+      {xVisible && (
+        <Button onClick={clear}>
+          <XIcon />
+        </Button>
+      )}
+      {rightIcon && <div className="shrink-0">{rightIcon}</div>}
     </div>
   );
-
-  // <TextField.Root {...inputProps} ref={ref}>
-  //   <TextField.Slot side="right" gap="2">
-  //     <Box display={xVisible ? undefined : 'none'} asChild>
-  //       <IconButton variant="ghost" size="1" onMouseDown={onMouseDown}>
-  //         <XIcon />
-  //       </IconButton>
-  //     </Box>
-  //     {children}
-  //   </TextField.Slot>
-  // </TextField.Root>;
 }

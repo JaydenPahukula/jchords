@@ -1,17 +1,15 @@
-import { batch, useSignal } from '@preact/signals-react';
+import { useSignal } from '@preact/signals-react';
 import { Box, Button, Card, Flex, Spinner, Text, TextField } from '@radix-ui/themes';
 import { filter, FilterOptions } from 'fuzzy';
 import { useEffect } from 'react';
 import { Link } from 'react-router';
 import { SongInfo } from 'shared/types/songinfo';
+import { MagnifyingGlassIcon } from 'src/components/icons/magnifyingglassicon';
 import { PlayIcon } from 'src/components/icons/playicon';
-import { SearchIcon } from 'src/components/icons/searchicon';
-import { DialogType } from 'src/enums/dialogtype';
 import { Size } from 'src/enums/size';
 import { apiGetSongList } from 'src/functions/api/endpoints/getsonglist';
 import { useDebounce } from 'src/hooks/usedebounce';
 import { useSizeSignal } from 'src/hooks/usesizesignal';
-import { useDialogContext } from 'src/pages/home/state/dialog';
 
 const fuzzyOptions: FilterOptions<SongInfo> = {
   extract: (info) => info.title,
@@ -20,8 +18,6 @@ const fuzzyOptions: FilterOptions<SongInfo> = {
 };
 
 export function HomePage() {
-  const dialogSignal = useDialogContext();
-
   const searchText = useSignal('');
 
   const songList = useSignal<SongInfo[] | 'loading' | 'error'>('loading');
@@ -49,10 +45,7 @@ export function HomePage() {
 
   useEffect(() => {
     document.title = 'JChords';
-    batch(() => {
-      dialogSignal.value = DialogType.None;
-      songList.value = 'loading';
-    });
+    songList.value = 'loading';
     apiGetSongList().then((result) => {
       songList.value = result ?? 'error';
     });
@@ -68,7 +61,7 @@ export function HomePage() {
           onInput={(e) => (searchText.value = e.currentTarget.value)}
         >
           <TextField.Slot>
-            <SearchIcon />
+            <MagnifyingGlassIcon />
           </TextField.Slot>
         </TextField.Root>
       </Box>
@@ -83,7 +76,7 @@ export function HomePage() {
       ) : searchResults.value.length === 0 ? (
         <Flex direction="column" align="center" style={{ color: 'var(--gray-11)' }} p="4">
           <Box mb="6" mt="8" asChild>
-            <SearchIcon width="48px" height="48px" />
+            <MagnifyingGlassIcon className="h-12 w-12" />
           </Box>
           <Text size="5" weight="medium" mb="3">
             No Results Found

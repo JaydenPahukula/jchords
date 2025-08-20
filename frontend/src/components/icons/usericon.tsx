@@ -1,8 +1,8 @@
-import { CustomIcon } from 'src/components/icons/customicon';
+import { CustomIcon } from 'src/components/icons/util/customiconsvg';
 import { IconProps } from 'src/types/iconprops';
 
 export const UserIcon = (props: IconProps) => (
-  <CustomIcon fill="currentColor" stroke="none" viewBox="2 2 20 20" {...props}>
+  <CustomIcon fill stroke={false} viewBox="2 2 20 20" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
