@@ -1,31 +1,16 @@
-import { InputHTMLAttributes, MouseEvent, ReactNode, useEffect, useRef, useState } from 'react';
-import { XIcon } from 'src/components/icons/xicon';
-import { Button } from 'src/components/ui/button';
+import { InputHTMLAttributes, MouseEvent, useRef } from 'react';
+import { IconButton } from 'src/components/ui/iconbutton';
+import { LockIcon } from 'src/components/ui/icons/lockicon';
+import { XIcon } from 'src/components/ui/icons/xicon';
 
 interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children'> {
   xButton?: boolean;
-  rightIcon?: ReactNode;
 }
 
 export function TextField(props: TextFieldProps) {
-  const [focused, setFocused] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
 
-  const { xButton, rightIcon, className, ...inputProps } = props;
-
-  useEffect(() => {
-    if (!xButton) return;
-    const onFocusHandler = () => setFocused(true);
-    const onBlurHandler = () => setFocused(false);
-    ref.current?.addEventListener('focus', onFocusHandler);
-    ref.current?.addEventListener('blur', onBlurHandler);
-    return () => {
-      ref.current?.removeEventListener('focus', onFocusHandler);
-      ref.current?.removeEventListener('blur', onBlurHandler);
-    };
-  }, []);
-
-  const xVisible = xButton && focused && inputProps.value !== '';
+  const { xButton, className, ...inputProps } = props;
 
   function xOnMouseDown(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault(); // prevent input from losing focus
@@ -36,21 +21,23 @@ export function TextField(props: TextFieldProps) {
   }
 
   return (
-    <div
-      className={`border-gray-6 outline-gray-8 text-gray-11 flex items-center gap-2 rounded-md border-1 p-1 has-focus-within:outline-1 ${className}`}
-      onClick={() => ref.current?.focus()}
-    >
+    <div className={`my-text-field group ${className}`} onClick={() => ref.current?.focus()}>
       <input
         ref={ref}
-        className="text-gray-12 w-full shrink border-none px-2 py-1 outline-none"
+        tabIndex={0}
+        className="w-full shrink border-none p-1 pl-2 outline-none"
         {...inputProps}
       />
-      {xVisible && (
-        <Button onMouseDown={xOnMouseDown}>
-          <XIcon />
-        </Button>
+      {xButton && (
+        <IconButton
+          tabIndex={-1}
+          variant="subtle"
+          onMouseDown={xOnMouseDown}
+          icon={XIcon}
+          className={'group-not-has-focus:hidden'}
+        />
       )}
-      {rightIcon && <div className="shrink-0">{rightIcon}</div>}
+      {inputProps.type === 'password' && <LockIcon className="mx-2" />}
     </div>
   );
 }

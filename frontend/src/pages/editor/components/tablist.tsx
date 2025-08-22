@@ -1,8 +1,8 @@
 import { Box, Flex, Grid, IconButton, Text } from '@radix-ui/themes';
 import { Tabs } from 'radix-ui';
 import { useEffect, useRef } from 'react';
-import { PlusIcon } from 'src/components/icons/plusicon';
-import { XIcon } from 'src/components/icons/xicon';
+import { PlusIcon } from 'src/components/ui/icons/plusicon';
+import { XIcon } from 'src/components/ui/icons/xicon';
 import 'src/pages/editor/components/tablist.css';
 import { closeTab, newTab } from 'src/pages/editor/state/functions/tabs';
 import { useStateContext } from 'src/pages/editor/state/statecontext';

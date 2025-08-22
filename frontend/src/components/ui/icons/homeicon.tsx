@@ -1,4 +1,4 @@
-import { CustomIconSVG } from 'src/components/icons/util/customiconsvg';
+import { CustomIconSVG } from 'src/components/ui/icons/util/customiconsvg';
 import { FillableIconProps } from 'src/types/fillableiconprops';
 
 export const HomeIcon = (props: FillableIconProps) => (

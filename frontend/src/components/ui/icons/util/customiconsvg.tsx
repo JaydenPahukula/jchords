@@ -18,7 +18,7 @@ export function CustomIconSVG({
 }: CustomIconProps) {
   return (
     <svg
-      className={`inline-block h-4 w-4 ${className}`}
+      className={`my-icon ${className}`}
       viewBox={viewBox}
       fill={fill ? 'currentColor' : 'none'}
       stroke={stroke ? 'currentColor' : 'none'}

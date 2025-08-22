@@ -2,13 +2,13 @@ import { FunctionComponent } from 'react';
 import { Button, ButtonProps } from 'src/components/ui/button';
 import { IconProps } from 'src/types/iconprops';
 
-interface IconButtonProps extends Omit<ButtonProps, 'child'> {
+export interface IconButtonProps extends Omit<ButtonProps, 'children'> {
   icon: FunctionComponent<IconProps>;
 }
 
-export function IconButton({ icon: Icon, ...buttonProps }: IconButtonProps) {
+export function IconButton({ icon: Icon, className, ...buttonProps }: IconButtonProps) {
   return (
-    <Button {...buttonProps}>
+    <Button {...buttonProps} className={'my-icon-button ' + className}>
       <Icon />
     </Button>
   );

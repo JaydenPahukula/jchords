@@ -1,8 +1,8 @@
 import { useSignal } from '@preact/signals-react';
 import { Box, Button, Flex, Text } from '@radix-ui/themes';
 import { sendEmailVerification, User } from 'firebase/auth';
-import { CheckCircleIcon } from 'src/components/icons/checkcircleicon';
-import { MailIcon } from 'src/components/icons/mailicon';
+import { CheckCircleIcon } from 'src/components/ui/icons/checkcircleicon';
+import { MailIcon } from 'src/components/ui/icons/mailicon';
 
 const enum VerifyEmailState {
   None,

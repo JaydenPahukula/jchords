@@ -1,5 +1,5 @@
 import { UserInfo } from 'shared/types/userinfo';
-import { UserIcon } from 'src/components/icons/usericon';
+import { UserIcon } from 'src/components/ui/icons/usericon';
 
 interface UserAvatarProps {
   user?: UserInfo | null;

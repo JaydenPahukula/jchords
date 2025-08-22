@@ -1,4 +1,4 @@
-import { CustomIconSVG } from 'src/components/icons/util/customiconsvg';
+import { CustomIconSVG } from 'src/components/ui/icons/util/customiconsvg';
 import { IconProps } from 'src/types/iconprops';
 
 export const UploadIcon = (props: IconProps) => (

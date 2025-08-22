@@ -4,15 +4,46 @@
 @theme {
   --color-home-bg: rgb(240, 240, 242);
 
-  --color-gray-12: #1c1f23;
-  --color-gray-11: #2e2e2e;
-  --color-gray-8: #b9bbc6;
-  --color-gray-7: #cdced6;
-  --color-gray-6: #d9d9e0;
+  /* TODO make own colors */
+  --color-gray-1: #fcfcfc;
+  --color-gray-2: #f9f9f9;
+  --color-gray-3: #f0f0f0;
   --color-gray-4: #e8e8e8;
-  --color-gray-3: #f0f0f3;
-  --color-gray-2: #f9f9fb;
-  --color-gray-1: #fdfdfe;
+  --color-gray-5: #e0e0e0;
+  --color-gray-6: #d9d9d9;
+  --color-gray-7: #cecece;
+  --color-gray-8: #bbbbbb;
+  --color-gray-9: #8d8d8d;
+  --color-gray-10: #838383;
+  --color-gray-11: #2a2a2a;
+  --color-gray-12: #1b1b1b;
+
+  --color-blue-3: #e6f4fe;
+  --color-blue-10: #0588f0;
+  --color-blue-11: #0d74ce;
+  --color-blue-12: #113264;
+
+  --color-error-red: #d13415;
+
+  --color-link-blue: #0271e0;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply text-gray-12;
+  }
+}
+
+@layer components {
+  @import './components/ui/ui.css';
 }
 
 .radix-themes {
@@ -36,18 +67,6 @@ body {
   overflow: hidden;
 }
 
-*,
-*::before,
-*::after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-button {
-  cursor: pointer;
-}
-
 @utility no-scrollbar {
   &::-webkit-scrollbar {
     display: none;
@@ -57,7 +76,7 @@ button {
 }
 
 @utility link {
-  color: #0588f0;
+  color: var(--color-link-blue);
   text-decoration: none;
   cursor: pointer;
   &:hover {
@@ -70,36 +89,4 @@ button {
 
 @utility card {
   @apply bg-gray-1 border-gray-6 rounded-2xl border-1;
-}
-
-@utility button-0 {
-  @apply bg-gray-1 hover:bg-gray-3 active:bg-gray-4 flex flex-row items-center justify-center gap-2;
-}
-
-@utility fade-in {
-  animation: fadeIn 100ms ease-out;
-}
-
-@utility pop-in {
-  animation: scaleIn 100ms ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }

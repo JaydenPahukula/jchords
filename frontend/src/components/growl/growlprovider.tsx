@@ -3,7 +3,7 @@ import { Box, Flex, IconButton } from '@radix-ui/themes';
 import { Toast } from 'radix-ui';
 import { ReactNode } from 'react';
 import 'src/components/growl/growl.css';
-import { XIcon } from 'src/components/icons/xicon';
+import { XIcon } from 'src/components/ui/icons/xicon';
 import { Growl } from 'src/types/growl/growl';
 
 // Stores extra information about the growl for the manager

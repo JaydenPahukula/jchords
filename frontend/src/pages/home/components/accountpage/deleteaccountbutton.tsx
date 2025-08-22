@@ -2,7 +2,7 @@ import { useSignal } from '@preact/signals-react';
 import { AlertDialog, Button, Flex } from '@radix-ui/themes';
 import { deleteUser, User } from 'firebase/auth';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
-import { TrashIcon } from 'src/components/icons/trashicon';
+import { TrashIcon } from 'src/components/ui/icons/trashicon';
 
 interface DeleteAccountButtonProps {
   user: User;

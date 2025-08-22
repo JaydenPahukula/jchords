@@ -1,10 +1,10 @@
 import { Signal } from '@preact/signals-react';
 import { User } from 'firebase/auth';
 import { Link } from 'react-router';
-import { LoginDialog } from 'src/components/dialogs/logindialog';
+import { LoginDialogTrigger } from 'src/components/dialogs/logindialog/logindialogtrigger';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
-import { SignOutIcon } from 'src/components/icons/signouticon';
 import { Avatar } from 'src/components/ui/avatar';
+import { SignOutIcon } from 'src/components/ui/icons/signouticon';
 import { Popover } from 'src/components/ui/popover';
 import 'src/components/usercircle.css';
 import { logOut } from 'src/functions/auth/logout';
@@ -31,7 +31,7 @@ export function UserCircle(props: UserCircleProps) {
   return user === undefined ? (
     button
   ) : user === null ? (
-    <LoginDialog>{button}</LoginDialog>
+    <LoginDialogTrigger>{button}</LoginDialogTrigger>
   ) : (
     <Popover.Root>
       <Popover.Trigger asChild>{button}</Popover.Trigger>

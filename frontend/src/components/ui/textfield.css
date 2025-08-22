@@ -1,0 +1,3 @@
+.my-text-field {
+  @apply border-gray-6 outline-gray-8 text-gray-11 flex items-center gap-1 rounded-md border-1 p-1 has-focus:outline-1;
+}

@@ -2,9 +2,9 @@ import { Signal } from '@preact/signals-react';
 import { Flex, Heading } from '@radix-ui/themes';
 import { JCRenderOptions } from 'engine';
 import { ParsedSong } from 'shared/types/parsedsong';
-import { HomeIcon } from 'src/components/icons/homeicon';
-import { MagnifyingGlassPlusIcon } from 'src/components/icons/magnifyingglassplusicon';
-import { TransposeIcon } from 'src/components/icons/transposeicon';
+import { HomeIcon } from 'src/components/ui/icons/homeicon';
+import { MagnifyingGlassPlusIcon } from 'src/components/ui/icons/magnifyingglassplusicon';
+import { TransposeIcon } from 'src/components/ui/icons/transposeicon';
 import {
   HeaderIconButton,
   HeaderIconLink,

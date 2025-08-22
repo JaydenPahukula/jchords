@@ -1,5 +1,5 @@
 import { IconProps } from '@radix-ui/themes';
-import { CustomIconSVG } from 'src/components/icons/util/customiconsvg';
+import { CustomIconSVG } from 'src/components/ui/icons/util/customiconsvg';
 
 export const CheckCircleIcon = (props: IconProps) => (
   <CustomIconSVG {...props}>

@@ -1,9 +1,9 @@
 import { useComputed } from '@preact/signals-react';
 import { Box, Button, ButtonProps, Flex } from '@radix-ui/themes';
-import { OpenFolderIcon } from 'src/components/icons/openfoldericon';
-import { PlusCircleIcon } from 'src/components/icons/pluscircleicon';
-import { TrashIcon } from 'src/components/icons/trashicon';
-import { UploadIcon } from 'src/components/icons/uploadicon';
+import { OpenFolderIcon } from 'src/components/ui/icons/openfoldericon';
+import { PlusCircleIcon } from 'src/components/ui/icons/pluscircleicon';
+import { TrashIcon } from 'src/components/ui/icons/trashicon';
+import { UploadIcon } from 'src/components/ui/icons/uploadicon';
 import { DialogType } from 'src/enums/dialogtype';
 import 'src/pages/editor/components/toolbar.css';
 import { showDialog } from 'src/pages/editor/state/functions/showdialog';
