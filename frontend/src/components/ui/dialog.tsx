@@ -7,15 +7,12 @@ interface DialogContentProps extends Omit<RadixDialog.DialogContentProps, 'asChi
 }
 
 function DialogContent(props: DialogContentProps) {
-  const { closeButton, className, ...dialogProps } = props;
+  const { closeButton, ...dialogProps } = props;
 
   return (
     <RadixDialog.Portal>
-      <RadixDialog.Overlay className="fade-in fixed inset-0 bg-black/25" />
-      <RadixDialog.Content
-        className={`pop-in bg-gray-1 fixed top-1/2 left-1/2 max-h-[95vh] w-sm max-w-[95vw] -translate-1/2 overflow-hidden rounded-2xl p-8 focus:outline-none ${className}`}
-        {...dialogProps}
-      >
+      <RadixDialog.Overlay className="my-dialog-bg" />
+      <RadixDialog.Content {...dialogProps} className={'my-dialog ' + dialogProps.className}>
         {closeButton && (
           <RadixDialog.Close asChild>
             <IconButton variant="subtle" className="fixed top-4 right-4" icon={XIcon} />
@@ -28,7 +25,11 @@ function DialogContent(props: DialogContentProps) {
 }
 
 function DialogTitle({ className, ...props }: RadixDialog.DialogTitleProps) {
-  return <RadixDialog.Title className={`mb-1 text-2xl font-bold ${className}`} {...props} />;
+  return <RadixDialog.Title className={'my-dialog-title ' + className} {...props} />;
+}
+
+function DialogNoDescription() {
+  return <RadixDialog.Description aria-describedby={undefined} />;
 }
 
 export const Dialog = {
@@ -37,5 +38,6 @@ export const Dialog = {
   Content: DialogContent,
   Title: DialogTitle,
   Description: RadixDialog.Description,
+  NoDescription: DialogNoDescription,
   Close: RadixDialog.Close,
 };

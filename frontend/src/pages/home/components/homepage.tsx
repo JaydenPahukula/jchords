@@ -110,7 +110,7 @@ export function HomePage() {
                   <Button size="3" variant="outline" asChild>
                     <Link to={'/song/' + info.id}>
                       {sizeSignal.value >= Size.sm && 'Open'}
-                      <PlayIcon height="20px" width="20px" />
+                      <PlayIcon className="h-5 w-5" />
                     </Link>
                   </Button>
                 </Box>

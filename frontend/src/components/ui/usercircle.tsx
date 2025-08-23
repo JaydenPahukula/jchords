@@ -1,52 +1,41 @@
-import { Signal } from '@preact/signals-react';
-import { User } from 'firebase/auth';
+import { User as FirebaseUser } from 'firebase/auth';
 import { Link } from 'react-router';
-import { LoginDialogTrigger } from 'src/components/dialogs/logindialog/logindialogtrigger';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { Avatar } from 'src/components/ui/avatar';
 import { SignOutIcon } from 'src/components/ui/icons/signouticon';
 import { Popover } from 'src/components/ui/popover';
-import 'src/components/usercircle.css';
 import { logOut } from 'src/functions/auth/logout';
 
 interface UserCircleProps {
-  user: Signal<User | null | undefined>;
+  user: FirebaseUser;
 }
 
 export function UserCircle(props: UserCircleProps) {
-  const user = props.user.value;
-
   function signOut() {
     close();
     logOut();
     dispatchGrowl({ description: 'Signed out successfully' });
   }
 
-  const button = (
-    <button className="outline-gray-4 aspect-square w-10 overflow-hidden rounded-full bg-transparent hover:outline-6">
-      <Avatar user={user} />
-    </button>
-  );
-
-  return user === undefined ? (
-    button
-  ) : user === null ? (
-    <LoginDialogTrigger>{button}</LoginDialogTrigger>
-  ) : (
+  return (
     <Popover.Root>
-      <Popover.Trigger asChild>{button}</Popover.Trigger>
+      <Popover.Trigger asChild>
+        <button className="outline-gray-4 aspect-square h-10 w-10 overflow-hidden rounded-full bg-transparent hover:outline-6">
+          <Avatar user={props.user} className="h-full w-full" />
+        </button>
+      </Popover.Trigger>
       <Popover.Content className="max-w-[300px] p-0!">
-        {!user ? null : (
+        {!props.user ? null : (
           <>
             <div className="flex gap-3 overflow-hidden p-4">
-              <Avatar user={user} className="!h-12 !w-12" />
+              <Avatar user={props.user} className="h-12 w-12" />
               <div className="flex flex-col justify-center overflow-hidden">
                 <div className="truncate text-base font-medium">
-                  {user.displayName ?? user.email}
+                  {props.user.displayName ?? props.user.email}
                 </div>
                 <div className="truncate text-sm">
-                  {user.email}
-                  {user.email}
+                  {props.user.email}
+                  {props.user.email}
                 </div>
               </div>
             </div>

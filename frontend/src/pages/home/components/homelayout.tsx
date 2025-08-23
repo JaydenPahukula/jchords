@@ -1,21 +1,21 @@
-import { useSignal, useSignalEffect } from '@preact/signals-react';
 import { onAuthStateChanged, User } from 'firebase/auth';
+import { useState } from 'react';
 import { Link, Outlet } from 'react-router';
-import { UserCircle } from 'src/components/usercircle';
+import { LoginDialogTrigger } from 'src/components/dialogs/logindialog/logindialogtrigger';
+import { Button } from 'src/components/ui/button';
+import { UserCircle } from 'src/components/ui/usercircle';
 import { auth } from 'src/firebase/auth';
-import { UserContext } from 'src/pages/home/state/user';
+import { UserContext } from 'src/pages/home/state/usercontext';
 
 export function HomeLayout() {
-  const userSignal = useSignal<User | null | undefined>(undefined);
-  onAuthStateChanged(auth, (user) => {
-    userSignal.value = user;
-  });
-  useSignalEffect(() => {
-    console.log('user changed:', userSignal.value);
-  });
+  const [user, setUser] = useState<User | null | undefined>(undefined);
+
+  onAuthStateChanged(auth, setUser);
+
+  onAuthStateChanged(auth, (user) => console.log('user changed:', user));
 
   return (
-    <UserContext.Provider value={userSignal}>
+    <UserContext.Provider value={user}>
       <div id="home-page" className="grid h-dvh grid-rows-[min-content_1fr]">
         <div
           id="header"
@@ -31,7 +31,15 @@ export function HomeLayout() {
                   Editor
                 </Link>
               </div>
-              <UserCircle user={userSignal} />
+              {user ? (
+                <UserCircle user={user} />
+              ) : (
+                <LoginDialogTrigger>
+                  <Button variant="primary" className="rounded-full">
+                    Log In
+                  </Button>
+                </LoginDialogTrigger>
+              )}
             </div>
           </div>
         </div>

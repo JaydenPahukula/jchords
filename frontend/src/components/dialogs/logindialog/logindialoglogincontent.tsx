@@ -1,6 +1,4 @@
-import { batch } from '@preact/signals-react';
 import { FormEvent, useEffect, useState } from 'react';
-import { selectContent } from 'shared/functions/lambdas/selectcontent';
 import { Button } from 'src/components/ui/button';
 import { Dialog } from 'src/components/ui/dialog';
 import { IconButton } from 'src/components/ui/iconbutton';
@@ -14,8 +12,8 @@ import { bind } from 'src/functions/util/bind';
 
 type State = 'none' | 'loading' | 'googleloading' | LogInResult;
 
-function getErrorMessage(errorState: State): string | undefined {
-  switch (errorState) {
+function getErrorMessage(state: State): string | undefined {
+  switch (state) {
     case LogInResult.BadCredentials:
       return 'Invalid email or password';
     case LogInResult.Failed:
@@ -29,6 +27,8 @@ interface LoginDialogLoginContentProps {
   disabled: boolean;
   close: () => void;
   switchToCreateAccount: () => void;
+  /** Cursed hack to notify the parent when the height has changed for animation stuff */
+  recalcHeight: () => void;
 }
 
 export function LoginDialogLoginContent(props: LoginDialogLoginContentProps) {
@@ -36,41 +36,31 @@ export function LoginDialogLoginContent(props: LoginDialogLoginContentProps) {
   const [password, setPassword] = useState('');
   const [state, setState] = useState<State>('none');
 
-  const allDisabled = props.disabled || state === 'loading' || state === 'googleloading';
-  const submitDisabled = allDisabled || email.length === 0 || password.length === 0;
-
-  const errorMessage = getErrorMessage(state);
+  const formDisabled = props.disabled || state === 'loading' || state === 'googleloading';
+  const submitDisabled = formDisabled || email.length === 0 || password.length === 0;
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setState('loading');
     logIn(email, password).then((result) => {
-      batch(() => {
-        setState(result);
-        if (result == LogInResult.Success) {
-          props.close();
-          setEmail('');
-          setPassword('');
-        }
-      });
+      setState(result);
+      if (result == LogInResult.Success) {
+        props.close();
+      }
     });
   }
 
   function signInWithGoogle() {
     setState('googleloading');
     logInWithGoogle().then((result) => {
-      batch(() => {
-        setState(result);
-        if (result == LogInResult.Success) {
-          props.close();
-          setEmail('');
-          setPassword('');
-        }
-      });
+      setState(result);
+      if (result == LogInResult.Success) {
+        props.close();
+      }
     });
   }
 
-  // override setTimeout for Firebase polling (WARNING: SUPER JANKY)
+  // override setTimeout for Firebase polling (WARNING: MEGA JANK)
   useEffect(() => {
     const originalSetTimeout = window.setTimeout;
     window.setTimeout = ((handler: TimerHandler, timeout?: number, ...args: any[]): number => {
@@ -79,27 +69,30 @@ export function LoginDialogLoginContent(props: LoginDialogLoginContentProps) {
     }) as any; // this is to fix type error
   }, []);
 
+  useEffect(() => {
+    props.recalcHeight();
+  }, [state]);
+
   return (
     <>
       <div className="-mt-4 -mr-4 -mb-4 flex justify-end">
         <Dialog.Close asChild>
-          <IconButton variant="subtle" className="" icon={XIcon} />
+          <IconButton variant="subtle" className="" icon={XIcon} disabled={props.disabled} />
         </Dialog.Close>
       </div>
-      <Dialog.Title>Sign In</Dialog.Title>
+      <Dialog.Title className="mb-1">Sign In</Dialog.Title>
       <Dialog.Description className="mb-4">
         or{' '}
-        <span onClick={props.switchToCreateAccount} tabIndex={0} className="link">
+        <button onClick={props.switchToCreateAccount} disabled={props.disabled} className="link">
           create an account
-        </span>
+        </button>
       </Dialog.Description>
       <form onSubmit={onSubmit}>
         <TextField
           type="email"
           id="login-email-input"
           required
-          disabled={allDisabled}
-          title="Please enter a valid email address"
+          disabled={formDisabled}
           value={email}
           onInput={bind(setEmail)}
           placeholder="Email"
@@ -110,25 +103,25 @@ export function LoginDialogLoginContent(props: LoginDialogLoginContentProps) {
           type="password"
           id="login-password-input"
           required
-          disabled={allDisabled}
+          disabled={formDisabled}
           value={password}
           onInput={bind(setPassword)}
-          onClick={selectContent}
+          selectOnClick
           placeholder="Password"
-          className="mb-5"
+          className="mb-2"
           xButton
         />
-        {errorMessage && <p className="text-error-red">{errorMessage}</p>}
+        <p className="text-error-red">{getErrorMessage(state)}</p>
         <Button
           type="submit"
           loading={state === 'loading'}
           disabled={submitDisabled}
-          className="w-full"
+          className="mt-3 mb-3 w-full"
         >
           Sign In
         </Button>
       </form>
-      <div className="my-3 flex items-center">
+      <div className="mb-3 flex items-center">
         <div className="border-b-gray-8 h-0 grow border-b-1" />
         <p className="mx-4">OR</p>
         <div className="border-b-gray-8 h-0 grow border-b-1" />
@@ -137,7 +130,7 @@ export function LoginDialogLoginContent(props: LoginDialogLoginContentProps) {
         variant="secondary"
         onClick={signInWithGoogle}
         loading={state === 'googleloading'}
-        disabled={allDisabled}
+        disabled={formDisabled}
         className="w-full"
       >
         <GoogleIcon className="bg-gray-1 outline-gray-1 rounded-full outline-4" />

@@ -2,12 +2,10 @@ small stuff
 - add view password option
 - disable open song dialog table
 - swipe guestures for growls
-- change deleteconfirmationdialog to radix alertdialog
-- fix CSS important hacks
-- fix loading state on createaccountdialog
 - publish permissions
 - make create account dialog look good
 - make router nice
+- keep dialog state on close (make sure to clear data when form submitting)
 
 big stuff
 - add public/private songs

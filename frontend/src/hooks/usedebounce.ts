@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 /**
- * Preact hook to get the debounced version of a function
+ * React hook to get the debounced version of a function
  */
 export function useDebounce<T extends any[]>(
   callback: (...args: T) => void,

@@ -1,22 +1,21 @@
 import { useComputed, useSignal } from '@preact/signals-react';
 import { Box, Button, Text } from '@radix-ui/themes';
 import { updateProfile } from 'firebase/auth';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { Avatar } from 'src/components/ui/avatar';
-import { LockIcon } from 'src/components/ui/icons/lockicon';
 import { SignOutIcon } from 'src/components/ui/icons/signouticon';
 import LoadingSpinner from 'src/components/ui/loadingspinner';
 import { TextField } from 'src/components/ui/textfield';
 import { logOut } from 'src/functions/auth/logout';
 import { DeleteAccountButton } from 'src/pages/home/components/accountpage/deleteaccountbutton';
 import { VerifyEmailButton } from 'src/pages/home/components/accountpage/verifyemailbutton';
-import { useUserContext } from 'src/pages/home/state/user';
+import { UserContext } from 'src/pages/home/state/usercontext';
 
 export function AccountPage() {
   const navigate = useNavigate();
-  const user = useUserContext().value;
+  const user = useContext(UserContext);
 
   const displayName = useSignal(user?.displayName ?? '');
   const updateDisplayNameLoading = useSignal(false);
@@ -68,7 +67,6 @@ export function AccountPage() {
         <div className="mb-3 flex gap-2">
           <TextField
             xButton
-            leftIcons={[<LockIcon />]}
             id="display-name-input"
             value={displayName.value}
             onInput={(e) => (displayName.value = e.currentTarget.value)}

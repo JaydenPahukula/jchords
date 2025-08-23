@@ -1,7 +1,5 @@
-import { batch, useComputed, useSignal } from '@preact/signals-react';
-import { Box, Button, Text } from '@radix-ui/themes';
-import { FormEvent } from 'react';
-import { selectContent } from 'shared/functions/lambdas/selectcontent';
+import { FormEvent, useEffect, useState } from 'react';
+import { Button } from 'src/components/ui/button';
 import { Dialog } from 'src/components/ui/dialog';
 import { IconButton } from 'src/components/ui/iconbutton';
 import { ArrowLeftIcon } from 'src/components/ui/icons/arrowlefticon';
@@ -9,12 +7,13 @@ import { XIcon } from 'src/components/ui/icons/xicon';
 import { TextField } from 'src/components/ui/textfield';
 import { CreateAccountResult } from 'src/enums/createaccountresult';
 import { createAccount } from 'src/functions/auth/createaccount';
+import { bind } from 'src/functions/util/bind';
 import { useDebounce } from 'src/hooks/usedebounce';
 
-type ErrorState = null | CreateAccountResult | 'loading' | 'mismatch';
+type State = 'none' | 'mismatch' | 'loading' | CreateAccountResult;
 
-function getErrorMessage(errorState: ErrorState): string {
-  switch (errorState) {
+function getErrorMessage(state: State): string {
+  switch (state) {
     case CreateAccountResult.WeakPassword:
       return 'Please choose a stronger password';
     case CreateAccountResult.InvalidEmail:
@@ -34,59 +33,50 @@ interface LoginDialogCreateAccountFormProps {
   disabled: boolean;
   close: () => void;
   back: () => void;
+  recalcHeight: () => void;
 }
 
 export function LoginDialogCreateAccountForm(props: LoginDialogCreateAccountFormProps) {
-  const emailInput = useSignal('');
-  const displayNameInput = useSignal('');
-  const passwordInput = useSignal('');
-  const passwordInput2 = useSignal('');
-  const errorState = useSignal<ErrorState>(null);
+  const [email, setEmail] = useState('');
+  const [displayName, setDisplayName] = useState('');
+  const [password1, setPassword1] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [state, setState] = useState<State>('none');
 
-  const debounceMismatch = useDebounce(() => {
-    errorState.value = mismatch.value ? 'mismatch' : null;
-  });
+  const mismatch = password1.length > 0 && password2.length > 0 && password1 !== password2;
 
-  const mismatch = useComputed(() => {
-    const isMismatch =
-      passwordInput.value.length > 0 &&
-      passwordInput2.value.length > 0 &&
-      passwordInput.value !== passwordInput2.value;
-    if (!isMismatch) debounceMismatch();
-    else errorState.value = null;
-    return isMismatch;
-  });
-  if (mismatch.value) void 0; // mismatch signal breaks without this
+  const formDisabled = props.disabled || state === 'loading';
+  const submitDisabled =
+    formDisabled || email.length === 0 || password1.length === 0 || password2.length === 0;
 
-  const submitButtonDisabled = useComputed<boolean>(
-    () =>
-      emailInput.value.length === 0 ||
-      displayNameInput.value.length === 0 ||
-      passwordInput.value.length === 0 ||
-      passwordInput2.value.length === 0 ||
-      errorState.value === 'mismatch',
-  );
+  const debounceSetMismatch = useDebounce((setMismatch: boolean) => {
+    if (setMismatch) setState('mismatch');
+  }, 1000);
 
-  const submitLoading = useComputed(() => errorState.value === 'loading');
+  useEffect(() => {
+    if (mismatch) {
+      debounceSetMismatch(true);
+    } else {
+      debounceSetMismatch(false);
+      setState('none');
+    }
+  }, [mismatch]);
 
-  const errorMessage = useComputed(() => getErrorMessage(errorState.value));
+  useEffect(() => {
+    props.recalcHeight();
+  }, [state]);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (mismatch.value) {
-      errorState.value = 'mismatch';
+    if (mismatch) {
+      setState('mismatch');
       return;
     }
-    errorState.value = 'loading';
-    createAccount(emailInput.value, passwordInput.value, displayNameInput.value).then((result) => {
-      errorState.value = result;
+    setState('loading');
+    createAccount(email, password1, displayName).then((result) => {
+      setState(result);
       if (result === CreateAccountResult.Success) {
         props.close();
-        batch(() => {
-          emailInput.value = '';
-          passwordInput.value = '';
-          passwordInput2.value = '';
-        });
       }
     });
   }
@@ -94,65 +84,71 @@ export function LoginDialogCreateAccountForm(props: LoginDialogCreateAccountForm
   return (
     <>
       <div className="-mt-4 -mr-4 mb-2 -ml-4 flex justify-between">
-        <IconButton variant="subtle" icon={ArrowLeftIcon} onClick={props.back} />
+        <IconButton
+          variant="subtle"
+          icon={ArrowLeftIcon}
+          onClick={props.back}
+          disabled={props.disabled}
+        />
         <Dialog.Close asChild>
-          <IconButton variant="subtle" className="" icon={XIcon} />
+          <IconButton variant="subtle" className="" icon={XIcon} disabled={props.disabled} />
         </Dialog.Close>
       </div>
       <Dialog.Title className="-mt-2">Create Account</Dialog.Title>
-      <Dialog.Description aria-describedby={undefined} />
+      <Dialog.NoDescription />
       <form onSubmit={onSubmit}>
         <TextField
           type="email"
           id="create-account-email-input"
-          disabled={submitLoading.value}
+          disabled={formDisabled}
           required
-          title="Please enter a valid email address"
-          value={emailInput.value}
-          onInput={(e) => (emailInput.value = e.currentTarget.value)}
+          value={email}
+          onInput={bind(setEmail)}
           placeholder="Email"
           className="mb-5"
         />
         <TextField
           type="text"
           id="create-account-display-name-input"
-          disabled={submitLoading.value}
+          disabled={formDisabled}
           required
-          value={displayNameInput.value}
-          onInput={(e) => (displayNameInput.value = e.currentTarget.value)}
+          value={displayName}
+          onInput={bind(setDisplayName)}
           placeholder="Display Name"
           className="mb-5"
         />
         <TextField
           type="password"
           id="create-account-password-input"
-          disabled={submitLoading.value}
+          disabled={formDisabled}
           required
-          value={passwordInput.value}
-          onInput={(e) => (passwordInput.value = e.currentTarget.value)}
-          onClick={selectContent}
+          value={password1}
+          onInput={bind(setPassword1)}
+          selectOnClick
           placeholder="Password"
           className="mb-5"
         />
         <TextField
           type="password"
           id="create-account-confirm-password-input"
-          disabled={submitLoading.value}
+          disabled={formDisabled}
           required
-          value={passwordInput2.value}
-          onInput={(e) => (passwordInput2.value = e.currentTarget.value)}
-          onClick={selectContent}
+          value={password2}
+          onInput={bind(setPassword2)}
+          selectOnClick
           placeholder="Confirm Password"
-          className="mb-3"
+          className="mb-2"
         />
-        <Text size="3" color="red">
-          {errorMessage}
-        </Text>
-        <Box mt="3" width="100%" asChild>
-          <Button size="3" variant="surface" disabled={submitButtonDisabled.value} type="submit">
-            Create Account
-          </Button>
-        </Box>
+        <p className="text-error-red">{getErrorMessage(state)}</p>
+        <Button
+          variant="primary"
+          loading={state === 'loading'}
+          disabled={submitDisabled}
+          type="submit"
+          className="mt-3 w-full"
+        >
+          Create Account
+        </Button>
       </form>
     </>
   );

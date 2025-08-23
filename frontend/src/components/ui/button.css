@@ -1,5 +1,5 @@
 .my-button {
-  @apply min-w-8 rounded-md px-4 py-2 not-disabled:cursor-pointer disabled:cursor-not-allowed;
+  @apply min-w-8 cursor-pointer rounded-md px-4 py-2 disabled:cursor-not-allowed;
 }
 
 .my-button-primary {
