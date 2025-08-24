@@ -1,0 +1,15 @@
+.my-button {
+  @apply relative inline-block h-auto min-w-8 cursor-pointer rounded-lg px-[15px] py-2 disabled:cursor-not-allowed data-loading:cursor-wait;
+}
+
+.my-button-primary {
+  @apply bg-blue-10 text-gray-1 disabled:text-gray-8 disabled:bg-gray-3 not-disabled:not-data-loading:font-semibold not-disabled:not-data-loading:hover:brightness-96 not-disabled:not-data-loading:active:brightness-92;
+}
+
+.my-button-secondary {
+  @apply bg-gray-3 text-gray-12 disabled:text-gray-8 disabled:bg-gray-3 not-disabled:not-data-loading:hover:brightness-96 not-disabled:not-data-loading:active:brightness-92;
+}
+
+.my-button-subtle {
+  @apply bg-gray-1 not-disabled:not-data-loading:hover:bg-gray-3 not-disabled:not-data-loading:active:bg-blue-4 text-gray-12 disabled:text-gray-8;
+}

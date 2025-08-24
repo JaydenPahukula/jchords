@@ -1,10 +1,10 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { Button } from 'src/components/ui/button';
-import { Dialog } from 'src/components/ui/dialog';
-import { IconButton } from 'src/components/ui/iconbutton';
+import { Button } from 'src/components/ui/button/button';
+import { Dialog } from 'src/components/ui/dialog/dialog';
+import { IconButton } from 'src/components/ui/iconbutton/iconbutton';
 import { GoogleIcon } from 'src/components/ui/icons/googleicon';
 import { XIcon } from 'src/components/ui/icons/xicon';
-import { TextField } from 'src/components/ui/textfield';
+import { TextField } from 'src/components/ui/textfield/textfield';
 import { LogInResult } from 'src/enums/loginresult';
 import { logIn } from 'src/functions/auth/login';
 import { logInWithGoogle } from 'src/functions/auth/loginwithgoogle';

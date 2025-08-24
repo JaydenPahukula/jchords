@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, MouseEvent, useEffect, useRef } from 'react';
-import { IconButton } from 'src/components/ui/iconbutton';
+import { IconButton } from 'src/components/ui/iconbutton/iconbutton';
 import { LockIcon } from 'src/components/ui/icons/lockicon';
 import { XIcon } from 'src/components/ui/icons/xicon';
 

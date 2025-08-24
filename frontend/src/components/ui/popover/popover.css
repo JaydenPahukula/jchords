@@ -1,0 +1,3 @@
+.my-popover {
+  @apply bg-gray-1 overflow-hidden rounded-xl p-4 shadow-[0_0_32px_#00000030];
+}

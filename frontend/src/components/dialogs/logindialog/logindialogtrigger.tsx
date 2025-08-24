@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { LoginDialogCreateAccountForm } from 'src/components/dialogs/logindialog/logindialogcreateaccountformprops';
 import { LoginDialogLoginContent } from 'src/components/dialogs/logindialog/logindialoglogincontent';
-import { Dialog } from 'src/components/ui/dialog';
+import { Dialog } from 'src/components/ui/dialog/dialog';
 import { DialogProps } from 'src/types/dialog/dialogprops';
 
 export function LoginDialogTrigger({ children }: DialogProps) {

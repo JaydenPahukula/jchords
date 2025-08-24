@@ -1,8 +1,9 @@
-@import './avatar.css';
-@import './button.css';
-@import './dialog.css';
-@import './iconbutton.css'; /* must come after button! */
+@import './avatar/avatar.css';
+@import './button/button.css';
+@import './dialog/dialog.css';
+@import './iconbutton/iconbutton.css'; /* must come after button! */
 @import './icons/util/icon.css';
-@import './popover.css';
-@import './textfield.css';
-@import './usercircle.css';
+@import './loadingspinner/loadingspinner.css';
+@import './popover/popover.css';
+@import './textfield/textfield.css';
+@import './usercircle/usercircle.css';

@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { Button, ButtonProps } from 'src/components/ui/button';
+import { Button, ButtonProps } from 'src/components/ui/button/button';
 import { IconProps } from 'src/types/iconprops';
 
 export interface IconButtonProps extends Omit<ButtonProps, 'children'> {

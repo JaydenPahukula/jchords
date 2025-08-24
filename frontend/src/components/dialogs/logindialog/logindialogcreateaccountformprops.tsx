@@ -1,10 +1,10 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { Button } from 'src/components/ui/button';
-import { Dialog } from 'src/components/ui/dialog';
-import { IconButton } from 'src/components/ui/iconbutton';
+import { Button } from 'src/components/ui/button/button';
+import { Dialog } from 'src/components/ui/dialog/dialog';
+import { IconButton } from 'src/components/ui/iconbutton/iconbutton';
 import { ArrowLeftIcon } from 'src/components/ui/icons/arrowlefticon';
 import { XIcon } from 'src/components/ui/icons/xicon';
-import { TextField } from 'src/components/ui/textfield';
+import { TextField } from 'src/components/ui/textfield/textfield';
 import { CreateAccountResult } from 'src/enums/createaccountresult';
 import { createAccount } from 'src/functions/auth/createaccount';
 import { bind } from 'src/functions/util/bind';

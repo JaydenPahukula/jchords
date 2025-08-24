@@ -1,6 +1,6 @@
 import { Box, Flex, Heading } from '@radix-ui/themes';
 import { CSSProperties } from 'react';
-import { UserCircle } from 'src/components/ui/usercircle';
+import { UserCircle } from 'src/components/ui/usercircle/usercircle';
 import { TabList } from 'src/pages/editor/components/tablist';
 import 'src/pages/editor/components/titlerow.css';
 import { useStateContext } from 'src/pages/editor/state/statecontext';

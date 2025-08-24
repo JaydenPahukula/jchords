@@ -1,11 +1,13 @@
 import { useSignal } from '@preact/signals-react';
-import { Box, Button, Card, Flex, Spinner, Text, TextField } from '@radix-ui/themes';
 import { filter, FilterOptions } from 'fuzzy';
 import { useEffect } from 'react';
 import { Link } from 'react-router';
 import { SongInfo } from 'shared/types/songinfo';
+import { Button } from 'src/components/ui/button/button';
 import { MagnifyingGlassIcon } from 'src/components/ui/icons/magnifyingglassicon';
 import { PlayIcon } from 'src/components/ui/icons/playicon';
+import LoadingSpinner from 'src/components/ui/loadingspinner/loadingspinner';
+import { TextField } from 'src/components/ui/textfield/textfield';
 import { Size } from 'src/enums/size';
 import { apiGetSongList } from 'src/functions/api/endpoints/getsonglist';
 import { useDebounce } from 'src/hooks/usedebounce';
@@ -53,71 +55,51 @@ export function HomePage() {
 
   return (
     <>
-      <Box width="100%" mb="4" asChild>
-        <TextField.Root
-          placeholder="Search for a song..."
-          size="3"
-          value={searchText.value}
-          onInput={(e) => (searchText.value = e.currentTarget.value)}
-        >
-          <TextField.Slot>
-            <MagnifyingGlassIcon />
-          </TextField.Slot>
-        </TextField.Root>
-      </Box>
+      <TextField
+        className="w-full"
+        type="search"
+        placeholder="Search for a song..."
+        value={searchText.value}
+        onInput={(e) => (searchText.value = e.currentTarget.value)}
+      />
       {songList.value === 'loading' ? (
-        <Spinner mx="auto" my="6" size="3" />
+        <LoadingSpinner className="mx-auto my-6" />
       ) : songList.value === 'error' ? (
-        <Box width="100%" asChild>
-          <Text align="center" my="4" color="red">
-            Error loading songs{/* TODO: make this nicer */}
-          </Text>
-        </Box>
+        <p className="fill-error-red my-4 w-full text-center">
+          Error loading songs{/* TODO: make this nicer */}
+        </p>
       ) : searchResults.value.length === 0 ? (
-        <Flex direction="column" align="center" style={{ color: 'var(--gray-11)' }} p="4">
-          <Box mb="6" mt="8" asChild>
-            <MagnifyingGlassIcon className="h-12 w-12" />
-          </Box>
-          <Text size="5" weight="medium" mb="3">
-            No Results Found
-          </Text>
-          <Text size="3" align="center">
+        <div className="text-gray-11 flex flex-col items-center p-4">
+          <MagnifyingGlassIcon className="mt-8 mb-6 h-12 w-12" />
+          <p className="mb-3 text-xl font-medium">No Results Found</p>
+          <p>
             This song doesn't exist yet on JChords, try creating it yourself in the{' '}
             <Link to="/editor" className="link">
               editor
             </Link>
             !
-          </Text>
-        </Flex>
+          </p>
+        </div>
       ) : (
-        searchResults.value.map((info) => (
-          <Card key={info.id} mb="2" asChild>
-            <Box p="2">
-              <Flex align="center">
-                <Box flexGrow="1" overflow="hidden" pl="1">
-                  <Text
-                    truncate
-                    as="p"
-                    weight="medium"
-                    size="3"
-                    dangerouslySetInnerHTML={{ __html: info.title || '*No Title*' }}
-                  />
-                  <Text truncate as="p" size="2" color="gray">
-                    {info.artist || '*No Artist*'}
-                  </Text>
-                </Box>
-                <Box p={{ initial: '3', sm: '4' }} asChild>
-                  <Button size="3" variant="outline" asChild>
-                    <Link to={'/song/' + info.id}>
-                      {sizeSignal.value >= Size.sm && 'Open'}
-                      <PlayIcon className="h-5 w-5" />
-                    </Link>
-                  </Button>
-                </Box>
-              </Flex>
-            </Box>
-          </Card>
-        ))
+        <ol>
+          {searchResults.value.map((info) => (
+            <li className="card mb-2 flex items-center p-2" key={info.id}>
+              <div className="grow overflow-hidden pl-1">
+                <p
+                  className="truncate text-base font-medium"
+                  dangerouslySetInnerHTML={{ __html: info.title || '*No Title*' }}
+                />
+                <p className="text-gray-11 truncate text-sm">{info.artist || '*No Artist*'}</p>
+              </div>
+              <Button variant="subtle" className="p-3 sm:p-4">
+                <Link to={'/song/' + info.id}>
+                  {sizeSignal.value >= Size.sm && 'Open'}
+                  <PlayIcon className="h-5 w-5" />
+                </Link>
+              </Button>
+            </li>
+          ))}
+        </ol>
       )}
     </>
   );

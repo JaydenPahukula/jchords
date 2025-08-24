@@ -2,7 +2,7 @@ import { useSignal } from '@preact/signals-react';
 import { Box, Card, Flex, Skeleton, Text } from '@radix-ui/themes';
 import { useEffect } from 'react';
 import { UserInfo } from 'shared/types/userinfo';
-import { Avatar } from 'src/components/ui/avatar';
+import { Avatar } from 'src/components/ui/avatar/avatar';
 import { apiGetUser } from 'src/functions/api/endpoints/getuser';
 
 const emptyUserInfo: UserInfo = {

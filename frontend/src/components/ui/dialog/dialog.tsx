@@ -1,5 +1,5 @@
 import { Dialog as RadixDialog } from 'radix-ui';
-import { IconButton } from 'src/components/ui/iconbutton';
+import { IconButton } from 'src/components/ui/iconbutton/iconbutton';
 import { XIcon } from 'src/components/ui/icons/xicon';
 
 interface DialogContentProps extends Omit<RadixDialog.DialogContentProps, 'asChild'> {

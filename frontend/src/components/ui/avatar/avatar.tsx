@@ -7,7 +7,7 @@ interface UserAvatarProps {
 }
 
 export function Avatar(props: UserAvatarProps) {
-  const letter = props.user.displayName?.charAt(0)?.toUpperCase();
+  const letter = props.user.displayName?.trim().charAt(0)?.toUpperCase();
   return (
     <div className={'my-avatar ' + props.className}>
       {props.user.photoURL ? (
