@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
+const src = resolve(__dirname, 'src');
+
 export default defineConfig({
   plugins: [
     react({ babel: { plugins: [['module:@preact/signals-react-transform']] } }),
@@ -17,7 +19,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      src: '/src',
+      src: src,
+      '@theme': src + '/style/theme.css', // for css files
     },
   },
   envDir: resolve(__dirname, 'env'),

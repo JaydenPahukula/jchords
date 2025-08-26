@@ -1,6 +1,7 @@
-.user-circle-button {
-  background: var(--color-background) !important; /* TODO fix this */
-}
-.user-circle-button:hover {
-  outline: 6px solid var(--gray-4);
+@reference 'src/style/theme.css';
+
+@layer components {
+  .user-circle-button {
+    @apply outline-gray-2 bg-transparent outline-solid hover:outline-6;
+  }
 }

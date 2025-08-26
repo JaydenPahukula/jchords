@@ -1,14 +1,14 @@
-import { useComputed, useSignal } from '@preact/signals-react';
-import { Box, Button, Text } from '@radix-ui/themes';
 import { updateProfile } from 'firebase/auth';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { Avatar } from 'src/components/ui/avatar/avatar';
+import { Button } from 'src/components/ui/button/button';
 import { SignOutIcon } from 'src/components/ui/icons/signouticon';
 import LoadingSpinner from 'src/components/ui/loadingspinner/loadingspinner';
 import { TextField } from 'src/components/ui/textfield/textfield';
 import { logOut } from 'src/functions/auth/logout';
+import { bind } from 'src/functions/util/bind';
 import { DeleteAccountButton } from 'src/pages/home/components/accountpage/deleteaccountbutton';
 import { VerifyEmailButton } from 'src/pages/home/components/accountpage/verifyemailbutton';
 import { UserContext } from 'src/pages/home/state/usercontext';
@@ -17,33 +17,30 @@ export function AccountPage() {
   const navigate = useNavigate();
   const user = useContext(UserContext);
 
-  const displayName = useSignal(user?.displayName ?? '');
-  const updateDisplayNameLoading = useSignal(false);
-  const updateDisplayNameDisabled = useComputed(
-    () =>
-      updateDisplayNameLoading.value ||
-      displayName.value === '' ||
-      displayName.value === user?.displayName,
-  );
+  const [displayName, setDisplayName] = useState('');
+  const [updateDisplayNameLoading, setUpdateDisplayNameLoading] = useState(false);
+  const updateDisplayNameDisabled =
+    updateDisplayNameLoading || displayName === '' || displayName === user?.displayName;
 
   useEffect(() => {
     if (user === null) navigate('/');
-    if (user) displayName.value = user.displayName ?? '';
+    if (user) setDisplayName(user.displayName ?? '');
   }, [user]);
 
   if (user === null) return null;
 
   function updateDisplayName() {
-    if (updateDisplayNameDisabled.value || !user) return;
-    updateDisplayNameLoading.value = true;
-    updateProfile(user, { displayName: displayName.value })
+    if (updateDisplayNameDisabled || !user) return;
+    setUpdateDisplayNameLoading(true);
+    updateProfile(user, { displayName: displayName })
       .then(() => {
-        updateDisplayNameLoading.value = false;
         dispatchGrowl({ description: 'Updated successfully' });
       })
       .catch(() => {
-        updateDisplayNameLoading.value = false;
         dispatchGrowl({ description: 'Failed to update, try again later' });
+      })
+      .finally(() => {
+        setUpdateDisplayNameLoading(false);
       });
   }
 
@@ -52,47 +49,49 @@ export function AccountPage() {
     navigate('/');
     dispatchGrowl({ description: 'Signed out successfully' });
   }
-
   return user === undefined ? (
-    <LoadingSpinner className="mx-auto my-8 w-12" />
+    <LoadingSpinner className="mx-auto my-8 h-10 w-10" />
   ) : (
-    <div className="card p-8 sm:p-12">
+    <div className="card m-2 p-8 sm:p-12">
       <div className="mb-4 flex items-center gap-5">
-        <Avatar user={user} className="!w-28" />
+        <Avatar user={user} className="h-28 w-28 rounded-3xl" />
       </div>
       <div className="max-w-[400px]">
-        <label className="mb-1 font-medium" htmlFor="display-name-input">
+        <label className="mb-1 inline-block text-lg" htmlFor="display-name-input">
           Display Name:
         </label>
-        <div className="mb-3 flex gap-2">
+        <div className="mb-3 flex w-full max-w-sm gap-2">
           <TextField
             xButton
             id="display-name-input"
-            value={displayName.value}
-            onInput={(e) => (displayName.value = e.currentTarget.value)}
+            value={displayName}
+            onInput={bind(setDisplayName)}
+            className="w-full"
           />
           <Button
-            loading={updateDisplayNameLoading.value}
-            disabled={updateDisplayNameDisabled.value}
+            loading={updateDisplayNameLoading}
+            disabled={updateDisplayNameDisabled}
             onClick={updateDisplayName}
           >
             Update
           </Button>
         </div>
-        <Text as="label" htmlFor="account-page-email-input" weight="medium">
+        <label className="mb-1 inline-block text-lg" htmlFor="account-page-email-input">
           Email:
-        </Text>
-        <TextField id="account-page-email-input" disabled value={user.email ?? ''} />
+        </label>
+        <TextField
+          id="account-page-email-input"
+          readOnly
+          value={user.email ?? ''}
+          className="w-full max-w-sm"
+        />
         <VerifyEmailButton user={user} />
-        <Box mt="6">
-          <Button onClick={signOut} color="red" variant="soft">
-            <SignOutIcon />
-            Sign Out
-          </Button>
-        </Box>
-        <Box mt="2">
-          <DeleteAccountButton user={user} />
-        </Box>
+        <Button onClick={signOut} color="red" variant="danger">
+          <SignOutIcon />
+          Sign Out
+        </Button>
+
+        <DeleteAccountButton user={user} />
       </div>
     </div>
   );

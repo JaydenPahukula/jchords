@@ -1,3 +1,7 @@
-.my-loading-spinner {
-  @apply box-border aspect-square h-5 w-5 animate-spin rounded-full border-3 border-[currentColor] border-t-[transparent];
+@reference 'src/style/theme.css';
+
+@layer components {
+  .my-loading-spinner {
+    @apply box-border aspect-square h-5 w-5 animate-spin rounded-full border-3 border-[currentColor] border-t-[transparent];
+  }
 }

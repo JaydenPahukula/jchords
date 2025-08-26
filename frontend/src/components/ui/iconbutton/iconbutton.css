@@ -1,3 +1,7 @@
-.my-icon-button {
-  @apply p-2;
+@reference 'src/style/theme.css';
+
+@layer components {
+  .my-icon-button {
+    @apply p-2;
+  }
 }

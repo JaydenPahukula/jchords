@@ -1,3 +1,7 @@
-.my-text-field {
-  @apply border-gray-6 outline-gray-8 text-gray-11 bg-gray-1 flex items-center gap-1 rounded-md border-1 p-1 has-focus:outline-1;
+@reference 'src/style/theme.css';
+
+@layer components {
+  .my-text-field {
+    @apply border-gray-6 outline-gray-8 text-gray-12 bg-gray-1 data-readonly:bg-gray-2 data-readonly:text-gray-11 flex items-center rounded-lg border-1 p-1 not-data-readonly:has-focus:outline-1;
+  }
 }

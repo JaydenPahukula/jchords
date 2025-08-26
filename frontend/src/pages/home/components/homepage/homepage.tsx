@@ -8,10 +8,8 @@ import { MagnifyingGlassIcon } from 'src/components/ui/icons/magnifyingglassicon
 import { PlayIcon } from 'src/components/ui/icons/playicon';
 import LoadingSpinner from 'src/components/ui/loadingspinner/loadingspinner';
 import { TextField } from 'src/components/ui/textfield/textfield';
-import { Size } from 'src/enums/size';
 import { apiGetSongList } from 'src/functions/api/endpoints/getsonglist';
 import { useDebounce } from 'src/hooks/usedebounce';
-import { useSizeSignal } from 'src/hooks/usesizesignal';
 
 const fuzzyOptions: FilterOptions<SongInfo> = {
   extract: (info) => info.title,
@@ -43,8 +41,6 @@ export function HomePage() {
     }
   }, [songList.value, searchText.value]);
 
-  const sizeSignal = useSizeSignal();
-
   useEffect(() => {
     document.title = 'JChords';
     songList.value = 'loading';
@@ -54,18 +50,20 @@ export function HomePage() {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-col gap-2 p-2">
       <TextField
         className="w-full"
         type="search"
+        id="song-search-bar"
         placeholder="Search for a song..."
         value={searchText.value}
         onInput={(e) => (searchText.value = e.currentTarget.value)}
+        xButton
       />
       {songList.value === 'loading' ? (
         <LoadingSpinner className="mx-auto my-6" />
       ) : songList.value === 'error' ? (
-        <p className="fill-error-red my-4 w-full text-center">
+        <p className="fill-red-11 my-4 w-full text-center">
           Error loading songs{/* TODO: make this nicer */}
         </p>
       ) : searchResults.value.length === 0 ? (
@@ -91,16 +89,14 @@ export function HomePage() {
                 />
                 <p className="text-gray-11 truncate text-sm">{info.artist || '*No Artist*'}</p>
               </div>
-              <Button variant="subtle" className="p-3 sm:p-4">
-                <Link to={'/song/' + info.id}>
-                  {sizeSignal.value >= Size.sm && 'Open'}
-                  <PlayIcon className="h-5 w-5" />
-                </Link>
+              <Button asLink to={'/song/' + info.id} variant="secondary">
+                <span>Open</span>
+                <PlayIcon className="h-3 w-3" />
               </Button>
             </li>
           ))}
         </ol>
       )}
-    </>
+    </div>
   );
 }

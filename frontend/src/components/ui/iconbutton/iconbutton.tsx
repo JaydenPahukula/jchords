@@ -8,6 +8,7 @@ export interface IconButtonProps extends Omit<ButtonProps, 'children'> {
 
 export function IconButton({ icon: Icon, className, ...buttonProps }: IconButtonProps) {
   return (
+    // @ts-expect-error see button.tsx
     <Button {...buttonProps} className={'my-icon-button ' + className}>
       <Icon />
     </Button>

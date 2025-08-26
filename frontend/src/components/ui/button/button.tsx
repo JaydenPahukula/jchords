@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from 'react';
 import { Link, LinkProps } from 'react-router';
 import LoadingSpinner from 'src/components/ui/loadingspinner/loadingspinner';
 
-type ButtonVariant = 'primary' | 'secondary' | 'subtle';
+type ButtonVariant = 'primary' | 'secondary' | 'subtle' | 'danger';
 
 interface CommonButtonProps {
   variant?: ButtonVariant;
@@ -17,7 +17,7 @@ interface ButtonLinkProps extends CommonButtonProps, LinkProps {
   asLink: true;
 }
 
-type ButtonProps = ButtonButtonProps | ButtonLinkProps;
+export type ButtonProps = ButtonButtonProps | ButtonLinkProps;
 
 export function Button(props: ButtonProps) {
   const { asLink, variant = 'primary', loading, children, ...other } = props;
@@ -32,7 +32,10 @@ export function Button(props: ButtonProps) {
       className={`my-button my-button-${variant} group ${other.className ?? ''}`}
       data-loading={loading || undefined}
     >
-      <div aria-hidden={loading} className="flex items-center gap-2 group-data-loading:invisible">
+      <div
+        aria-hidden={loading}
+        className="flex items-center justify-center gap-2 group-data-loading:invisible"
+      >
         {children}
       </div>
       <div

@@ -1,6 +1,5 @@
 import { User as FirebaseUser } from 'firebase/auth';
 import { useState } from 'react';
-import { Link } from 'react-router';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
 import { Avatar } from 'src/components/ui/avatar/avatar';
 import { Button } from 'src/components/ui/button/button';
@@ -41,16 +40,19 @@ export function UserCircle(props: UserCircleProps) {
           </div>
         </div>
         <Button
+          asLink
+          to="/account"
           variant="subtle"
           className="border-t-gray-6 w-full rounded-none border-t-1"
           onClick={() => setOpen(false)}
         >
-          <Link to="/account">Account</Link>
+          Account
         </Button>
         <Button
           variant="subtle"
           className="border-t-gray-6 w-full rounded-none border-t-1"
           onClick={signOut}
+          loading={signOutLoading}
         >
           <SignOutIcon />
           Sign Out

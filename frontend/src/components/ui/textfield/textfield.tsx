@@ -1,6 +1,7 @@
 import { InputHTMLAttributes, MouseEvent, useEffect, useRef } from 'react';
 import { IconButton } from 'src/components/ui/iconbutton/iconbutton';
 import { LockIcon } from 'src/components/ui/icons/lockicon';
+import { MagnifyingGlassIcon } from 'src/components/ui/icons/magnifyingglassicon';
 import { XIcon } from 'src/components/ui/icons/xicon';
 
 interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children'> {
@@ -28,7 +29,12 @@ export function TextField(props: TextFieldProps) {
   }, [ref.current]);
 
   return (
-    <div className={`my-text-field group ${className}`} onClick={() => ref.current?.focus()}>
+    <div
+      data-readonly={inputProps.readOnly || undefined}
+      className={`my-text-field group ${className}`}
+      onClick={() => ref.current?.focus()}
+    >
+      {inputProps.type === 'search' && <MagnifyingGlassIcon className="m-2 mr-1 h-4 w-4" />}
       <input
         ref={ref}
         tabIndex={0}
@@ -41,7 +47,7 @@ export function TextField(props: TextFieldProps) {
           variant="subtle"
           onMouseDown={xOnMouseDown}
           icon={XIcon}
-          className={'group-not-has-focus:hidden'}
+          className="ml-1 group-not-has-focus:hidden"
         />
       )}
       {inputProps.type === 'password' && <LockIcon className="mx-2" />}

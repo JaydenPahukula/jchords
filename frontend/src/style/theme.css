@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-gray-1: #fcfcfc;
+  --color-gray-2: #f9f9f9;
+  --color-gray-3: #f0f0f0;
+  --color-gray-4: #e8e8e8;
+  --color-gray-5: #e0e0e0;
+  --color-gray-6: #d9d9d9;
+  --color-gray-7: #cecece;
+  --color-gray-8: #bbbbbb;
+  --color-gray-9: #8d8d8d;
+  --color-gray-10: #838383;
+  --color-gray-11: #646464;
+  --color-gray-12: #1b1b1b;
+
+  --color-blue-3: #e6f4fe;
+  --color-blue-4: #d5efff;
+  --color-blue-10: #0588f0;
+  --color-blue-11: #0d74ce;
+  --color-blue-12: #113264;
+
+  --color-red-9: #e54d2e;
+  --color-red-11: #d13415;
+
+  --color-link-blue: #0271e0;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  input[type='search']::-webkit-search-decoration,
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-results-button,
+  input[type='search']::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+
+  html {
+    @apply text-gray-12;
+  }
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@utility link {
+  color: var(--color-link-blue);
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: #0d74ce;
+  }
+}
+
+@utility card {
+  @apply bg-gray-1 border-gray-6 rounded-lg border-1;
+}
+
+@utility fade-in {
+  animation: fadeIn 100ms ease-out;
+}
+
+@utility pop-in {
+  animation: scaleIn 100ms ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

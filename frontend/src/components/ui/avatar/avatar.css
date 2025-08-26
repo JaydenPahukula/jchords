@@ -1,3 +1,7 @@
-.my-avatar {
-  @apply bg-blue-4 text-blue-11 flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg text-xl font-medium;
+@reference 'src/style/theme.css';
+
+@layer components {
+  .my-avatar {
+    @apply bg-blue-4 text-blue-11 flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg text-xl font-medium select-none;
+  }
 }

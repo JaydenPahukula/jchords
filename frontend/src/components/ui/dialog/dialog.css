@@ -1,11 +1,15 @@
-.my-dialog {
-  @apply pop-in bg-gray-1 fixed top-1/2 left-1/2 max-h-[95vh] w-sm max-w-[95vw] -translate-1/2 overflow-hidden rounded-2xl p-8 focus:outline-none;
-}
+@reference 'src/style/theme.css';
 
-.my-dialog-bg {
-  @apply fade-in fixed inset-0 bg-black/25;
-}
+@layer components {
+  .my-dialog {
+    @apply pop-in bg-gray-1 fixed top-1/2 left-1/2 z-40 max-h-[95vh] w-sm max-w-[95vw] -translate-1/2 overflow-hidden rounded-2xl p-8 focus:outline-none;
+  }
 
-.my-dialog-title {
-  @apply mb-3 text-2xl font-bold;
+  .my-dialog-bg {
+    @apply fade-in fixed inset-0 z-30 bg-black/25;
+  }
+
+  .my-dialog-title {
+    @apply mb-3 text-2xl font-bold;
+  }
 }

@@ -1,3 +1,7 @@
-.my-icon {
-  @apply inline-block h-4 w-4 shrink-0;
+@reference 'src/style/theme.css';
+
+@layer components {
+  .my-icon {
+    @apply inline-block h-4 w-4 shrink-0;
+  }
 }

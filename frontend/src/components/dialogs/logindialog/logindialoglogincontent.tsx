@@ -111,7 +111,7 @@ export function LoginDialogLoginContent(props: LoginDialogLoginContentProps) {
           className="mb-2"
           xButton
         />
-        <p className="text-error-red">{getErrorMessage(state)}</p>
+        <p className="text-red-11">{getErrorMessage(state)}</p>
         <Button
           type="submit"
           loading={state === 'loading'}

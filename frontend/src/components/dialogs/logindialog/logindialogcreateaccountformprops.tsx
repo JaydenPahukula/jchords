@@ -139,7 +139,7 @@ export function LoginDialogCreateAccountForm(props: LoginDialogCreateAccountForm
           placeholder="Confirm Password"
           className="mb-2"
         />
-        <p className="text-error-red">{getErrorMessage(state)}</p>
+        <p className="text-red-11">{getErrorMessage(state)}</p>
         <Button
           variant="primary"
           loading={state === 'loading'}

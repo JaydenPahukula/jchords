@@ -1,4 +1,4 @@
 .vite
 .vscode/sessions.json
 dist
-testdata
+firestore
