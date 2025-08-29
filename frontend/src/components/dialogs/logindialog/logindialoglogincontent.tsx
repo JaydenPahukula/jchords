@@ -77,7 +77,9 @@ export function LoginDialogLoginContent(props: LoginDialogLoginContentProps) {
     <>
       <div className="-mt-4 -mr-4 -mb-4 flex justify-end">
         <Dialog.Close asChild>
-          <IconButton variant="subtle" className="" icon={XIcon} disabled={props.disabled} />
+          <IconButton variant="subtle" className="" disabled={props.disabled}>
+            <XIcon />
+          </IconButton>
         </Dialog.Close>
       </div>
       <Dialog.Title className="mb-1">Sign In</Dialog.Title>

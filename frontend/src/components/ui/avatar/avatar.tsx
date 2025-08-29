@@ -19,7 +19,7 @@ export function Avatar(props: UserAvatarProps) {
       style={{ fontSize: ref.current ? Math.trunc(ref.current.clientHeight * 0.5) : undefined }}
     >
       {props.user.photoURL ? (
-        <img className="h-full w-full object-cover" src={props.user.photoURL} />
+        <img className="size-full object-cover" src={props.user.photoURL} />
       ) : (
         (letter ?? <UserIcon />)
       )}

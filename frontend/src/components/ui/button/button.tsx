@@ -9,11 +9,13 @@ interface CommonButtonProps {
   loading?: boolean;
 }
 
-interface ButtonButtonProps extends CommonButtonProps, ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonButtonProps
+  extends CommonButtonProps,
+    ButtonHTMLAttributes<HTMLButtonElement> {
   asLink?: false;
 }
 
-interface ButtonLinkProps extends CommonButtonProps, LinkProps {
+export interface ButtonLinkProps extends CommonButtonProps, LinkProps {
   asLink: true;
 }
 
@@ -38,12 +40,11 @@ export function Button(props: ButtonProps) {
       >
         {children}
       </div>
-      <div
-        aria-hidden={!loading}
-        className="absolute inset-0 flex items-center justify-center not-group-data-loading:hidden group-data-loading:visible"
-      >
-        <LoadingSpinner />
-      </div>
+      {loading && (
+        <div className="visible absolute inset-0 flex items-center justify-center">
+          <LoadingSpinner className="size-6" />
+        </div>
+      )}
     </Component>
   );
 }

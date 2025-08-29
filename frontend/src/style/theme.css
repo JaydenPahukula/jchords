@@ -12,6 +12,7 @@
   --color-gray-9: #8d8d8d;
   --color-gray-10: #838383;
   --color-gray-11: #646464;
+  --color-gray-11_5: #2b2b2b; /* song header */
   --color-gray-12: #1b1b1b;
 
   --color-blue-3: #e6f4fe;
@@ -23,7 +24,10 @@
   --color-red-9: #e54d2e;
   --color-red-11: #d13415;
 
-  --color-link-blue: #0271e0;
+  --color-green-11: #2a7e3b;
+
+  --color-link: #0271e0;
+  --color-link-active: #155ca2;
 }
 
 @layer base {
@@ -61,15 +65,7 @@ body {
 }
 
 @utility link {
-  color: var(--color-link-blue);
-  text-decoration: none;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-  &:active {
-    color: #0d74ce;
-  }
+  @apply text-link active:text-link-active cursor-pointer decoration-0 hover:underline;
 }
 
 @utility card {

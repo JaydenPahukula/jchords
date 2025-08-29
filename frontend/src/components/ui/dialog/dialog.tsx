@@ -15,7 +15,9 @@ function DialogContent(props: DialogContentProps) {
       <RadixDialog.Content {...dialogProps} className={'my-dialog ' + dialogProps.className}>
         {closeButton && (
           <RadixDialog.Close asChild>
-            <IconButton variant="subtle" className="fixed top-4 right-4" icon={XIcon} />
+            <IconButton variant="subtle" className="fixed top-4 right-4">
+              <XIcon />
+            </IconButton>
           </RadixDialog.Close>
         )}
         {dialogProps.children}
@@ -24,8 +26,17 @@ function DialogContent(props: DialogContentProps) {
   );
 }
 
-function DialogTitle({ className, ...props }: RadixDialog.DialogTitleProps) {
-  return <RadixDialog.Title className={'my-dialog-title ' + className} {...props} />;
+function DialogTitle(props: RadixDialog.DialogTitleProps) {
+  return <RadixDialog.Title {...props} className={'my-dialog-title ' + (props.className ?? '')} />;
+}
+
+function DialogDescription(props: RadixDialog.DialogDescriptionProps) {
+  return (
+    <RadixDialog.Description
+      {...props}
+      className={'my-dialog-description ' + (props.className ?? '')}
+    />
+  );
 }
 
 function DialogNoDescription() {
@@ -37,7 +48,7 @@ export const Dialog = {
   Trigger: RadixDialog.Trigger,
   Content: DialogContent,
   Title: DialogTitle,
-  Description: RadixDialog.Description,
+  Description: DialogDescription,
   NoDescription: DialogNoDescription,
   Close: RadixDialog.Close,
 };

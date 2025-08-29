@@ -61,7 +61,7 @@ export function HomePage() {
         xButton
       />
       {songList.value === 'loading' ? (
-        <LoadingSpinner className="mx-auto my-6" />
+        <LoadingSpinner className="mx-auto my-6 size-8" />
       ) : songList.value === 'error' ? (
         <p className="fill-red-11 my-4 w-full text-center">
           Error loading songs{/* TODO: make this nicer */}
@@ -69,8 +69,8 @@ export function HomePage() {
       ) : searchResults.value.length === 0 ? (
         <div className="text-gray-11 flex flex-col items-center p-4">
           <MagnifyingGlassIcon className="mt-8 mb-6 h-12 w-12" />
-          <p className="mb-3 text-xl font-medium">No Results Found</p>
-          <p>
+          <p className="mb-3 text-center text-xl font-medium">No Results Found</p>
+          <p className="text-center">
             This song doesn't exist yet on JChords, try creating it yourself in the{' '}
             <Link to="/editor" className="link">
               editor
@@ -91,7 +91,7 @@ export function HomePage() {
               </div>
               <Button asLink to={'/song/' + info.id} variant="secondary">
                 <span>Open</span>
-                <PlayIcon className="h-3 w-3" />
+                <PlayIcon className="size-3" />
               </Button>
             </li>
           ))}

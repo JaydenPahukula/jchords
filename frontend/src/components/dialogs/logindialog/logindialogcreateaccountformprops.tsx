@@ -84,14 +84,13 @@ export function LoginDialogCreateAccountForm(props: LoginDialogCreateAccountForm
   return (
     <>
       <div className="-mt-4 -mr-4 mb-2 -ml-4 flex justify-between">
-        <IconButton
-          variant="subtle"
-          icon={ArrowLeftIcon}
-          onClick={props.back}
-          disabled={props.disabled}
-        />
+        <IconButton variant="subtle" onClick={props.back} disabled={props.disabled}>
+          <ArrowLeftIcon />
+        </IconButton>
         <Dialog.Close asChild>
-          <IconButton variant="subtle" className="" icon={XIcon} disabled={props.disabled} />
+          <IconButton variant="subtle" className="" disabled={props.disabled}>
+            <XIcon />
+          </IconButton>
         </Dialog.Close>
       </div>
       <Dialog.Title className="-mt-2">Create Account</Dialog.Title>

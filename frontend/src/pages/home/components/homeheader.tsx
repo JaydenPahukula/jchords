@@ -1,7 +1,5 @@
 import { useContext } from 'react';
 import { Link } from 'react-router';
-import { LoginDialogTrigger } from 'src/components/dialogs/logindialog/logindialogtrigger';
-import { Button } from 'src/components/ui/button/button';
 import { UserCircle } from 'src/components/ui/usercircle/usercircle';
 import { UserContext } from 'src/pages/home/state/usercontext';
 
@@ -12,7 +10,7 @@ export function HomeHeader() {
     <div className="bg-gray-1 border-b-gray-6 flex h-15 w-full justify-center border-b-1 sm:h-17">
       <div
         id="header-content"
-        className="flex h-full w-full max-w-[900px] items-center justify-between gap-2 px-2 sm:gap-4 sm:px-3"
+        className="flex size-full max-w-[900px] items-center justify-between gap-2 px-2 sm:gap-4 sm:px-3"
       >
         <Link to="/">
           <h1 className="mx-2 text-2xl font-bold sm:text-3xl">JChords</h1>
@@ -21,15 +19,7 @@ export function HomeHeader() {
           Editor
         </Link>
         <div className="grow"></div>
-        {user ? (
-          <UserCircle user={user} />
-        ) : (
-          <LoginDialogTrigger>
-            <Button variant="primary" className="rounded-full">
-              Log In
-            </Button>
-          </LoginDialogTrigger>
-        )}
+        {user === undefined ? <></> : <UserCircle user={user} />}
       </div>
     </div>
   );

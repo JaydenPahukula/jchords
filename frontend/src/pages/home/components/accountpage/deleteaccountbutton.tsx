@@ -1,7 +1,8 @@
-import { useSignal } from '@preact/signals-react';
-import { AlertDialog, Button, Flex } from '@radix-ui/themes';
 import { deleteUser, User } from 'firebase/auth';
+import { useState } from 'react';
 import { dispatchGrowl } from 'src/components/growl/growlprovider';
+import { AlertDialog } from 'src/components/ui/alertdialog/alertdialog';
+import { Button } from 'src/components/ui/button/button';
 import { TrashIcon } from 'src/components/ui/icons/trashicon';
 
 interface DeleteAccountButtonProps {
@@ -9,51 +10,45 @@ interface DeleteAccountButtonProps {
 }
 
 export function DeleteAccountButton(props: DeleteAccountButtonProps) {
-  const submitLoading = useSignal(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   function deleteAccount() {
-    submitLoading.value = true;
+    setSubmitLoading(true);
     deleteUser(props.user)
       .then(() => {
-        submitLoading.value = false;
         dispatchGrowl({ description: 'Deleted account successfully' });
       })
       .catch(() => {
-        submitLoading.value = false;
         dispatchGrowl({ description: 'Something went wrong. Try again later' });
-      });
+      })
+      .finally(() => setSubmitLoading(false));
   }
 
   return (
     <AlertDialog.Root>
-      <AlertDialog.Trigger>
-        <Button color="red" variant="soft">
+      <AlertDialog.Trigger asChild>
+        <Button variant="danger">
           <TrashIcon />
           Delete Account
         </Button>
       </AlertDialog.Trigger>
-      <AlertDialog.Content maxWidth="400px">
+      <AlertDialog.Content>
         <AlertDialog.Title>Delete Account</AlertDialog.Title>
-        <AlertDialog.Description mb="3">
+        <AlertDialog.Description>
           Are you sure you want to delete your account? This cannot be undone!
         </AlertDialog.Description>
-        <Flex justify="end" gap="3">
-          <AlertDialog.Cancel>
-            <Button color="gray" variant="soft">
+        <div className="flex justify-end gap-3">
+          <AlertDialog.Cancel asChild>
+            <Button color="gray" variant="secondary">
               Cancel
             </Button>
           </AlertDialog.Cancel>
-          <AlertDialog.Action>
-            <Button
-              color="red"
-              variant="solid"
-              onClick={deleteAccount}
-              loading={submitLoading.value}
-            >
+          <AlertDialog.Action asChild>
+            <Button color="red" variant="danger" onClick={deleteAccount} loading={submitLoading}>
               Delete Account
             </Button>
           </AlertDialog.Action>
-        </Flex>
+        </div>
       </AlertDialog.Content>
     </AlertDialog.Root>
   );

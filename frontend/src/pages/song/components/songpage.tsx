@@ -1,10 +1,10 @@
 import { batch, useComputed, useSignal } from '@preact/signals-react';
-import { Box, Grid, Spinner } from '@radix-ui/themes';
 import { defaultRenderOptions, JCRenderOptions } from 'engine';
 import { useEffect } from 'react';
 import { parseSong } from 'shared/functions/parsesong';
 import { ParsedSong } from 'shared/types/parsedsong';
 import { Song } from 'shared/types/song';
+import LoadingSpinner from 'src/components/ui/loadingspinner/loadingspinner';
 import { DialogType } from 'src/enums/dialogtype';
 import { apiGetSong } from 'src/functions/api/endpoints/getsong';
 import { Chart } from 'src/pages/song/components/chart';
@@ -43,23 +43,26 @@ export function SongPage() {
   }, [songId]);
 
   return (
-    <Grid overflow="hidden" id="song-page" rows="min-content 1fr" height="100dvh">
+    <div
+      id="song-page"
+      className="bg-gray-6 grid h-dvh grid-rows-[min-content_1fr] overflow-hidden"
+    >
       <SongHeader
         song={parsedSongSignal.value}
         zoomSignal={zoomSignal}
         renderOptionsSignal={renderOptionsSignal}
       />
       {parsedSongSignal.value === undefined ? (
-        <Spinner mx="auto" my="6" size="3" />
+        <LoadingSpinner className="mx-auto my-6 size-8" />
       ) : (
-        <Box overflow="auto" p={{ initial: '2', sm: '4' }}>
+        <div className="overflow-auto p-2 sm:p-4">
           <Chart
             song={parsedSongSignal.value}
             renderOptions={defaultRenderOptions}
             zoom={zoomSignal.value}
           />
-        </Box>
+        </div>
       )}
-    </Grid>
+    </div>
   );
 }

@@ -34,7 +34,7 @@ export function TextField(props: TextFieldProps) {
       className={`my-text-field group ${className}`}
       onClick={() => ref.current?.focus()}
     >
-      {inputProps.type === 'search' && <MagnifyingGlassIcon className="m-2 mr-1 h-4 w-4" />}
+      {inputProps.type === 'search' && <MagnifyingGlassIcon className="m-2 mr-1 size-4" />}
       <input
         ref={ref}
         tabIndex={0}
@@ -46,9 +46,10 @@ export function TextField(props: TextFieldProps) {
           tabIndex={-1}
           variant="subtle"
           onMouseDown={xOnMouseDown}
-          icon={XIcon}
           className="ml-1 group-not-has-focus:hidden"
-        />
+        >
+          <XIcon />
+        </IconButton>
       )}
       {inputProps.type === 'password' && <LockIcon className="mx-2" />}
     </div>

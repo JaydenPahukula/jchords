@@ -1,8 +1,8 @@
 @import './avatar/avatar.css';
 @import './button/button.css';
 @import './dialog/dialog.css';
-@import './iconbutton/iconbutton.css'; /* must come after button! */
 @import './icons/util/icon.css';
+@import './iconbutton/iconbutton.css'; /* must come after button AND icon! */
 @import './loadingspinner/loadingspinner.css';
 @import './popover/popover.css';
 @import './textfield/textfield.css';

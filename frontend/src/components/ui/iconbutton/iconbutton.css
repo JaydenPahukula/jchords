@@ -2,6 +2,6 @@
 
 @layer components {
   .my-icon-button {
-    @apply p-2;
+    @apply size-min p-2 *:size-full;
   }
 }

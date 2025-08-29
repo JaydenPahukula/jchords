@@ -1,7 +1,7 @@
 @reference 'src/style/theme.css';
 
 @layer components {
-  .my-icon {
-    @apply inline-block size-4 shrink-0;
+  .my-alert-dialog {
+    @apply w-lg;
   }
 }

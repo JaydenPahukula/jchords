@@ -50,49 +50,47 @@ export function AccountPage() {
     dispatchGrowl({ description: 'Signed out successfully' });
   }
   return user === undefined ? (
-    <LoadingSpinner className="mx-auto my-8 h-10 w-10" />
+    <LoadingSpinner className="mx-auto my-8 size-10" />
   ) : (
     <div className="card m-2 p-8 sm:p-12">
       <div className="mb-4 flex items-center gap-5">
-        <Avatar user={user} className="h-28 w-28 rounded-3xl" />
+        <Avatar user={user} className="size-28 rounded-3xl" />
       </div>
-      <div className="max-w-[400px]">
-        <label className="mb-1 inline-block text-lg" htmlFor="display-name-input">
-          Display Name:
-        </label>
-        <div className="mb-3 flex w-full max-w-sm gap-2">
-          <TextField
-            xButton
-            id="display-name-input"
-            value={displayName}
-            onInput={bind(setDisplayName)}
-            className="w-full"
-          />
-          <Button
-            loading={updateDisplayNameLoading}
-            disabled={updateDisplayNameDisabled}
-            onClick={updateDisplayName}
-          >
-            Update
-          </Button>
-        </div>
-        <label className="mb-1 inline-block text-lg" htmlFor="account-page-email-input">
-          Email:
-        </label>
+      <label className="mb-1 inline-block text-lg" htmlFor="display-name-input">
+        Display Name:
+      </label>
+      <div className="mb-3 flex w-full max-w-sm gap-2">
         <TextField
-          id="account-page-email-input"
-          readOnly
-          value={user.email ?? ''}
-          className="w-full max-w-sm"
+          xButton
+          id="display-name-input"
+          value={displayName}
+          onInput={bind(setDisplayName)}
+          className="w-full"
         />
-        <VerifyEmailButton user={user} />
-        <Button onClick={signOut} color="red" variant="danger">
-          <SignOutIcon />
-          Sign Out
+        <Button
+          loading={updateDisplayNameLoading}
+          disabled={updateDisplayNameDisabled}
+          onClick={updateDisplayName}
+        >
+          Update
         </Button>
-
-        <DeleteAccountButton user={user} />
       </div>
+      <label className="mb-1 inline-block text-lg" htmlFor="account-page-email-input">
+        Email:
+      </label>
+      <TextField
+        id="account-page-email-input"
+        readOnly
+        value={user.email ?? ''}
+        className="mb-2 w-full max-w-sm"
+      />
+      <VerifyEmailButton user={user} />
+      <Button onClick={signOut} variant="danger">
+        <SignOutIcon />
+        Sign Out
+      </Button>
+      <div className="border-b-gray-7 my-5 h-0 w-full border-b-1"></div>
+      <DeleteAccountButton user={user} />
     </div>
   );
 }

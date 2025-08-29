@@ -1,6 +1,6 @@
 import { useSignal } from '@preact/signals-react';
-import { Box, Button, Flex, Text } from '@radix-ui/themes';
 import { sendEmailVerification, User } from 'firebase/auth';
+import { Button } from 'src/components/ui/button/button';
 import { CheckCircleIcon } from 'src/components/ui/icons/checkcircleicon';
 import { MailIcon } from 'src/components/ui/icons/mailicon';
 
@@ -16,7 +16,7 @@ interface VerifyEmailButtonProps {
 }
 
 export function VerifyEmailButton(props: VerifyEmailButtonProps) {
-  const state = useSignal<VerifyEmailState>(VerifyEmailState.None);
+  const state = useSignal<VerifyEmailState>(VerifyEmailState.EmailSent);
 
   async function verifyEmail() {
     state.value = VerifyEmailState.Loading;
@@ -32,35 +32,30 @@ export function VerifyEmailButton(props: VerifyEmailButtonProps) {
   }
 
   return props.user.emailVerified ? (
-    <Text size="2" color="green" asChild>
-      <Flex align="center" gap="1">
-        <CheckCircleIcon height="14px" width="14px" />
-        Email verified
-      </Flex>
-    </Text>
+    <div className="text-green-11 flex items-center gap-1">
+      <CheckCircleIcon height="14px" width="14px" />
+      Email verified
+    </div>
   ) : (
-    <>
-      <Box>
-        <Button
-          onClick={verifyEmail}
-          loading={state.value === VerifyEmailState.Loading}
-          disabled={state.value === VerifyEmailState.Loading}
-        >
-          <MailIcon />
-          Verify Email
-        </Button>
-      </Box>
+    <div className="mb-4">
+      <Button
+        variant="primary"
+        onClick={verifyEmail}
+        loading={state.value === VerifyEmailState.Loading}
+        disabled={state.value === VerifyEmailState.Loading}
+      >
+        <MailIcon />
+        Verify Email
+      </Button>
       {state.value === VerifyEmailState.EmailSent ? (
-        <Text size="2" color="green">
-          Verification email sent
-        </Text>
+        <span className="text-green-11 mt-1 flex items-center gap-1 text-sm">
+          <CheckCircleIcon /> Verification email sent
+        </span>
       ) : state.value === VerifyEmailState.Error ? (
-        <Text size="2" color="red">
-          ERROR
-        </Text>
+        <span className="text-red-11 mt-1 text-sm">ERROR</span>
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 }

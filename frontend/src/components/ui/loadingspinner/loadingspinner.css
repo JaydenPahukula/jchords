@@ -2,6 +2,19 @@
 
 @layer components {
   .my-loading-spinner {
-    @apply box-border aspect-square h-5 w-5 animate-spin rounded-full border-3 border-[currentColor] border-t-[transparent];
+    @apply relative size-5 rounded-full;
+  }
+
+  .my-loading-spinner-bar {
+    @apply absolute top-0 left-1/2 h-1/4 w-1/10 origin-[50%_200%] -translate-x-1/2 animate-[spinner-fade_1.8s_ease-out_infinite] rounded-full bg-current;
+  }
+
+  @keyframes spinner-fade {
+    0% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 20%;
+    }
   }
 }
