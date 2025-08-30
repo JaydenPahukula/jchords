@@ -1,0 +1,19 @@
+@reference 'src/style/theme.css';
+
+@layer components {
+  .my-slider {
+    @apply relative flex h-4 w-full items-center select-none;
+  }
+
+  .my-slider-track {
+    @apply bg-gray-3 outline-gray-6 relative h-1/3 grow rounded-full outline-1;
+  }
+
+  .my-slider-range {
+    @apply bg-blue-10 absolute h-full rounded-full;
+  }
+
+  .my-slider-thumb {
+    @apply bg-gray-1 ring-gray-6 block size-4 cursor-grab rounded-full ring-1 outline-[#0002] hover:outline-6 focus-visible:outline-6 active:cursor-grabbing active:outline-6;
+  }
+}

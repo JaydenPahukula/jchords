@@ -8,15 +8,16 @@ import LoadingSpinner from 'src/components/ui/loadingspinner/loadingspinner';
 import { DialogType } from 'src/enums/dialogtype';
 import { apiGetSong } from 'src/functions/api/endpoints/getsong';
 import { Chart } from 'src/pages/song/components/chart';
-import { SongHeader } from 'src/pages/song/components/header/songheader';
+import { SongPageHeader } from 'src/pages/song/components/header/songpageheader';
 import 'src/pages/song/components/songpage.css';
+import { ChartZoom, DEFAULT_CHART_ZOOM } from 'src/types/chartzoom';
 
 export function SongPage() {
   const songId = window.location.pathname.match(/^\/song\/([A-Za-z0-9]+)/)?.[1];
   if (songId === undefined) throw new Error('songId is undefined');
 
   const dialogSignal = useSignal<DialogType>(DialogType.None);
-  const zoomSignal = useSignal<number>(4); // [0,8]
+  const zoomSignal = useSignal<ChartZoom>(DEFAULT_CHART_ZOOM);
   const renderOptionsSignal = useSignal<JCRenderOptions>(defaultRenderOptions);
 
   const songSignal = useSignal<Song | 'loading' | 'error'>('loading');
@@ -47,7 +48,7 @@ export function SongPage() {
       id="song-page"
       className="bg-gray-6 grid h-dvh grid-rows-[min-content_1fr] overflow-hidden"
     >
-      <SongHeader
+      <SongPageHeader
         song={parsedSongSignal.value}
         zoomSignal={zoomSignal}
         renderOptionsSignal={renderOptionsSignal}

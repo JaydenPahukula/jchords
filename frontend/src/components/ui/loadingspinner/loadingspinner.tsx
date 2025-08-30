@@ -2,6 +2,7 @@ interface LoadingSpinnerProps {
   className?: string;
 }
 
+/** Not recommended to have size > 6 */
 export default function LoadingSpinner(props: LoadingSpinnerProps) {
   return (
     <div className={'my-loading-spinner ' + props.className}>

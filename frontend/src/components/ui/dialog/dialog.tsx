@@ -12,7 +12,11 @@ function DialogContent(props: DialogContentProps) {
   return (
     <RadixDialog.Portal>
       <RadixDialog.Overlay className="my-dialog-bg" />
-      <RadixDialog.Content {...dialogProps} className={'my-dialog ' + dialogProps.className}>
+      <RadixDialog.Content
+        role="dialog"
+        {...dialogProps}
+        className={'my-dialog ' + dialogProps.className}
+      >
         {closeButton && (
           <RadixDialog.Close asChild>
             <IconButton variant="subtle" className="fixed top-4 right-4">

@@ -61,7 +61,7 @@ export function HomePage() {
         xButton
       />
       {songList.value === 'loading' ? (
-        <LoadingSpinner className="mx-auto my-6 size-8" />
+        <LoadingSpinner className="mx-auto my-6 size-6" />
       ) : songList.value === 'error' ? (
         <p className="fill-red-11 my-4 w-full text-center">
           Error loading songs{/* TODO: make this nicer */}

@@ -16,7 +16,7 @@ interface VerifyEmailButtonProps {
 }
 
 export function VerifyEmailButton(props: VerifyEmailButtonProps) {
-  const state = useSignal<VerifyEmailState>(VerifyEmailState.EmailSent);
+  const state = useSignal<VerifyEmailState>(VerifyEmailState.None);
 
   async function verifyEmail() {
     state.value = VerifyEmailState.Loading;

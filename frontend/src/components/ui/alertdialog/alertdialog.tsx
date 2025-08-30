@@ -8,6 +8,7 @@ function AlertDialogContent(props: AlertDialogContentProps) {
     <RadixAlertDialog.Portal>
       <RadixAlertDialog.Overlay className="my-dialog-bg" />
       <RadixAlertDialog.Content
+        role="alertdialog"
         {...props}
         className={'my-dialog my-alert-dialog ' + (props.className ?? '')}
       />

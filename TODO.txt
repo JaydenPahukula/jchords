@@ -1,5 +1,6 @@
 small stuff
 - add view password option
+- fix usercircle popover focus outline
 - disable open song dialog table
 - swipe guestures for growls
 - publish permissions

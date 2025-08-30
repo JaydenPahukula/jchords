@@ -34,10 +34,7 @@ export function Button(props: ButtonProps) {
       className={`my-button my-button-${variant} group ${other.className ?? ''}`}
       data-loading={loading || undefined}
     >
-      <div
-        aria-hidden={loading}
-        className="flex items-center justify-center gap-2 group-data-loading:invisible"
-      >
+      <div aria-hidden={loading ?? false} className="contents group-data-loading:invisible">
         {children}
       </div>
       {loading && (
