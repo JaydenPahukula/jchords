@@ -6,9 +6,8 @@ import { HomeIcon } from 'src/components/ui/icons/homeicon';
 import { MagnifyingGlassPlusIcon } from 'src/components/ui/icons/magnifyingglassplusicon';
 import { TransposeIcon } from 'src/components/ui/icons/transposeicon';
 import { Popover } from 'src/components/ui/popover/popover';
-import { HeaderIconButton } from 'src/pages/song/components/header/headericonbutton';
 import { TransposeMenu } from 'src/pages/song/components/header/transposemenu';
-import { ZoomPopoverContent } from 'src/pages/song/components/header/zoompopoovercontent';
+import { ZoomMenu } from 'src/pages/song/components/header/zoommenu';
 
 interface SongPageHeaderProps {
   song: ParsedSong | undefined;
@@ -36,12 +35,16 @@ export function SongPageHeader(props: SongPageHeaderProps) {
               <MagnifyingGlassPlusIcon />
             </IconButton>
           </Popover.Trigger>
-          <ZoomPopoverContent zoomSignal={props.zoomSignal} />
+          <ZoomMenu zoomSignal={props.zoomSignal} />
         </Popover.Root>
-        <HeaderIconButton
-          icon={TransposeIcon}
-          menu={<TransposeMenu song={props.song} renderOptionsSignal={props.renderOptionsSignal} />}
-        />
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <IconButton className="size-10 bg-transparent p-[6px] hover:bg-[#fff1] active:bg-[#fff2]">
+              <TransposeIcon />
+            </IconButton>
+          </Popover.Trigger>
+          <TransposeMenu song={props.song} renderOptionsSignal={props.renderOptionsSignal} />
+        </Popover.Root>
       </div>
     </div>
   );

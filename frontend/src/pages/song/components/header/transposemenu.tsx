@@ -1,8 +1,9 @@
 import { Signal } from '@preact/signals-react';
-import { Box, Flex, Heading, Select, Separator, Text } from '@radix-ui/themes';
+import { Flex, Heading, Select, Separator, Text } from '@radix-ui/themes';
 import { JCAccidental, JCKey, JCNote, JCRenderOptions } from 'engine';
 import { mod } from 'shared/functions/mod';
 import { ParsedSong } from 'shared/types/parsedsong';
+import { Popover } from 'src/components/ui/popover/popover';
 
 const majorKeyOptions: [string, JCNote, JCAccidental][] = [
   ['C', JCNote.C, 'sharp'],
@@ -82,7 +83,7 @@ export function TransposeMenu(props: TransposeMenuProps) {
   }
 
   return (
-    <Box width="180px">
+    <Popover.Content width="180px">
       <Heading as="h2" size="5" mb="2">
         Transpose
       </Heading>
@@ -133,54 +134,6 @@ export function TransposeMenu(props: TransposeMenuProps) {
           </Select.Content>
         </Select.Root>
       </Flex>
-      {/* <div class="has-[:disabled]:text-fg-disabled border-fg-1 mb-5 flex flex-col gap-1 border-t pt-1">
-        <h3 class="text-lg font-normal">Automatic</h3>
-        <label class="flex w-full justify-between gap-4">
-          Key:
-          <select
-            class="grow px-1"
-            value={keyToString(currKey, currAccidental, mode)}
-            disabled={transposeDisabled}
-            onChange={handleKeyChange}
-          >
-            {keyOptions.map((key) => (
-              <option key={key} value={key}>
-                {key === defaultKeyString ? `${key} (default)` : key}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <div class="has-[:disabled]:text-fg-disabled border-fg-1 mb-1 flex flex-col gap-1 border-t pt-1">
-        <h3 class="text-lg font-normal">Manual</h3>
-        <label class="flex w-full justify-between gap-4">
-          Transpose:
-          <select
-            class="grow px-1"
-            value={((props.renderOptions.transposeValue + 5) % 12) - 5}
-            disabled={transposeDisabled}
-            onChange={handleTransposeChange}
-          >
-            {transposeOptions.map((n) => (
-              <option key={n} value={n}>
-                {n >= 0 ? '+' + n : n}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label class="flex w-full justify-between gap-4">
-          Accidentals:
-          <select
-            class="grow px-1"
-            value={currAccidental == Accidental.Flat ? 'flat' : 'sharp'}
-            disabled={transposeDisabled}
-            onChange={handleAccidentalsChange}
-          >
-            <option value={'sharp'}>Sharp</option>
-            <option value={'flat'}>Flat</option>
-          </select>
-        </label>
-      </div> */}
-    </Box>
+    </Popover.Content>
   );
 }

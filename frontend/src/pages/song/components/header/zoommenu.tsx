@@ -4,11 +4,11 @@ import { Button } from 'src/components/ui/button/button';
 import { Popover } from 'src/components/ui/popover/popover';
 import { Slider } from 'src/components/ui/slider/slider';
 
-interface ZoomPopoverContentProps {
+interface ZoomMenuProps {
   zoomSignal: Signal<number>;
 }
 
-export function ZoomPopoverContent(props: ZoomPopoverContentProps) {
+export function ZoomMenu(props: ZoomMenuProps) {
   const titleId = 'zoom-menu-title-' + useId();
 
   return (

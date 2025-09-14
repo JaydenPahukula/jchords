@@ -2,7 +2,7 @@ import { CustomIconSVG } from 'src/components/ui/icons/util/customiconsvg';
 import { IconProps } from 'src/types/iconprops';
 
 export const TransposeIcon = (props: IconProps) => (
-  <CustomIconSVG viewBox="-4 -1 24 24" {...props}>
+  <CustomIconSVG viewBox="-5 -1 24 24" {...props}>
     <path
       fill="currentColor"
       strokeWidth="1"
