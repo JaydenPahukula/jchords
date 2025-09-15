@@ -1,10 +1,9 @@
-import { Box, Heading, Text } from '@radix-ui/themes';
 import { JCRenderOptions } from 'engine';
 import { ParsedSong } from 'shared/types/parsedsong';
 import 'src/pages/song/components/chart.css';
 
 function calcFontSize(zoom: number): number {
-  return Math.min(12 + zoom, 20);
+  return Math.min(Math.max(12 + Math.trunc(zoom), 12), 20);
 }
 
 interface ChartProps {
@@ -15,36 +14,21 @@ interface ChartProps {
 
 export function Chart(props: ChartProps) {
   const fontSize = calcFontSize(props.zoom);
+  const headerFontSize = fontSize + 8;
+  const lineHeight = 1.25 * fontSize;
+
+  console.log(props.song.parsed.startingKey);
 
   return (
-    <Box
-      flexShrink="0"
-      minWidth={{ initial: '100%', sm: '700px' }}
-      mx="auto"
-      width="max-content"
-      p={{ initial: '20px', sm: '40px' }}
-      style={{
-        borderRadius: 'var(--radius-6)',
-        background: 'var(--gray-1)',
-      }}
+    <div
+      className="bg-gray-1 chart font-chart min-h-full w-full max-w-[700px] min-w-max shrink-0 rounded-none p-6 sm:min-h-0 sm:rounded-3xl sm:p-10"
+      style={{ fontSize: fontSize + 'px', lineHeight: lineHeight + 'px' }}
     >
-      <Heading
-        as="h1"
-        mb="1"
-        weight="bold"
-        style={{ fontFamily: 'var(--chart-font)', fontSize: `${fontSize + 8}px` }}
-      >
+      <h1 className="mb-4 font-bold" style={{ fontSize: headerFontSize + 'px' }}>
         {props.song.info.title}
-      </Heading>
-      <Text weight="bold" style={{ fontFamily: 'var(--chart-font)', fontSize: `${fontSize}px` }}>
-        {props.song.info.artist}
-      </Text>
-      <div
-        style={{ fontSize: `${fontSize}px`, lineHeight: `${1.25 * fontSize}px` }}
-        dangerouslySetInnerHTML={{
-          __html: props.song.rendered,
-        }}
-      />
-    </Box>
+      </h1>
+      <p className="mb-2 font-bold">{props.song.info.artist}</p>
+      <div dangerouslySetInnerHTML={{ __html: props.song.rendered }}></div>
+    </div>
   );
 }

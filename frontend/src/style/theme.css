@@ -28,6 +28,8 @@
 
   --color-link: #0271e0;
   --color-link-active: #155ca2;
+
+  --font-chart: 'Roboto Mono', 'Courier New', monospace;
 }
 
 @layer base {

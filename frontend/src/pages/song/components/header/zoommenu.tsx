@@ -1,11 +1,11 @@
-import { Signal } from '@preact/signals-react';
 import { useId } from 'react';
 import { Button } from 'src/components/ui/button/button';
 import { Popover } from 'src/components/ui/popover/popover';
 import { Slider } from 'src/components/ui/slider/slider';
 
 interface ZoomMenuProps {
-  zoomSignal: Signal<number>;
+  zoom: number;
+  setZoom: (zoom: number) => void;
 }
 
 export function ZoomMenu(props: ZoomMenuProps) {
@@ -20,8 +20,8 @@ export function ZoomMenu(props: ZoomMenuProps) {
         <Button
           variant="secondary"
           className="px-2 py-1"
-          onClick={() => (props.zoomSignal.value = 4)}
-          disabled={props.zoomSignal.value === 4}
+          onClick={() => props.setZoom(4)}
+          disabled={props.zoom === 4}
         >
           Reset
         </Button>
@@ -29,9 +29,9 @@ export function ZoomMenu(props: ZoomMenuProps) {
       <Slider
         min={0}
         max={8}
-        value={[props.zoomSignal.value]}
+        value={[props.zoom]}
         onValueChange={([val]) => {
-          if (val !== undefined) props.zoomSignal.value = val;
+          if (val !== undefined) props.setZoom(val);
         }}
         aria-labelledby={titleId}
       />

@@ -1,9 +1,12 @@
-.jc-song {
-  margin-top: 8px;
-  font-family: var(--chart-font);
-}
+@import 'tailwindcss';
+@import 'src/style/theme.css';
 
-.jc-section-label,
-.jc-key-line {
-  font-weight: bold;
+@layer components {
+  .chart {
+    @apply bg-red-9;
+  }
+  .chart > .jc-chord-line,
+  .chart > .jc-section-label {
+    @apply font-bold;
+  }
 }

@@ -11,13 +11,17 @@ import { ZoomMenu } from 'src/pages/song/components/header/zoommenu';
 
 interface SongPageHeaderProps {
   song: ParsedSong | undefined;
-  zoomSignal: Signal<number>;
+  zoom: number;
+  setZoom: (zoom: number) => void;
   renderOptionsSignal: Signal<JCRenderOptions>;
 }
 
 export function SongPageHeader(props: SongPageHeaderProps) {
   return (
-    <div id="song-header" className="text-gray-1 bg-gray-11_5 flex h-13 items-center gap-2 px-2">
+    <div
+      id="song-header"
+      className="text-gray-1 bg-gray-11_5 flex h-13 w-full items-center gap-2 overflow-hidden px-2"
+    >
       <div className="flex shrink-0 grow gap-2">
         <IconButton
           asLink
@@ -27,7 +31,9 @@ export function SongPageHeader(props: SongPageHeaderProps) {
           <HomeIcon fill />
         </IconButton>
       </div>
-      <h1 className="truncate text-xl font-bold">{props.song?.info.title}</h1>
+      <h1 className="min-w-0 shrink truncate text-lg font-bold sm:text-xl">
+        {props.song?.info.title}
+      </h1>
       <div className="flex shrink-0 grow justify-end gap-2">
         <Popover.Root>
           <Popover.Trigger asChild>
@@ -35,7 +41,7 @@ export function SongPageHeader(props: SongPageHeaderProps) {
               <MagnifyingGlassPlusIcon />
             </IconButton>
           </Popover.Trigger>
-          <ZoomMenu zoomSignal={props.zoomSignal} />
+          <ZoomMenu zoom={props.zoom} setZoom={props.setZoom} />
         </Popover.Root>
         <Popover.Root>
           <Popover.Trigger asChild>

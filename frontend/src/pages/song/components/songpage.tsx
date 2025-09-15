@@ -1,23 +1,23 @@
-import { batch, useComputed, useSignal } from '@preact/signals-react';
+import { useComputed, useSignal } from '@preact/signals-react';
 import { defaultRenderOptions, JCRenderOptions } from 'engine';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { parseSong } from 'shared/functions/parsesong';
 import { ParsedSong } from 'shared/types/parsedsong';
 import { Song } from 'shared/types/song';
 import LoadingSpinner from 'src/components/ui/loadingspinner/loadingspinner';
-import { DialogType } from 'src/enums/dialogtype';
 import { apiGetSong } from 'src/functions/api/endpoints/getsong';
 import { Chart } from 'src/pages/song/components/chart';
 import { SongPageHeader } from 'src/pages/song/components/header/songpageheader';
 import 'src/pages/song/components/songpage.css';
-import { ChartZoom, DEFAULT_CHART_ZOOM } from 'src/types/chartzoom';
+
+export const DEFAULT_CHART_ZOOM = 4;
 
 export function SongPage() {
   const songId = window.location.pathname.match(/^\/song\/([A-Za-z0-9]+)/)?.[1];
   if (songId === undefined) throw new Error('songId is undefined');
 
-  const dialogSignal = useSignal<DialogType>(DialogType.None);
-  const zoomSignal = useSignal<ChartZoom>(DEFAULT_CHART_ZOOM);
+  /* Chart zoom goes from 0 to 8, with 4 being the default */
+  const [zoom, setZoom] = useState<number>(DEFAULT_CHART_ZOOM);
   const renderOptionsSignal = useSignal<JCRenderOptions>(defaultRenderOptions);
 
   const songSignal = useSignal<Song | 'loading' | 'error'>('loading');
@@ -29,10 +29,7 @@ export function SongPage() {
 
   useEffect(() => {
     document.title = 'JChords';
-    batch(() => {
-      dialogSignal.value = DialogType.None;
-      songSignal.value = 'loading';
-    });
+    songSignal.value = 'loading';
     apiGetSong(songId).then((result) => {
       if (result === undefined) {
         songSignal.value = 'error';
@@ -50,20 +47,17 @@ export function SongPage() {
     >
       <SongPageHeader
         song={parsedSongSignal.value}
-        zoomSignal={zoomSignal}
+        zoom={zoom}
+        setZoom={setZoom}
         renderOptionsSignal={renderOptionsSignal}
       />
-      {parsedSongSignal.value === undefined ? (
-        <LoadingSpinner className="mx-auto my-6 size-8" />
-      ) : (
-        <div className="overflow-auto p-2 sm:p-4">
-          <Chart
-            song={parsedSongSignal.value}
-            renderOptions={defaultRenderOptions}
-            zoom={zoomSignal.value}
-          />
-        </div>
-      )}
+      <div className="h-full flex-col items-center overflow-auto p-0 sm:flex sm:p-4">
+        {parsedSongSignal.value === undefined ? (
+          <LoadingSpinner className="mx-auto my-4 size-8" />
+        ) : (
+          <Chart song={parsedSongSignal.value} renderOptions={defaultRenderOptions} zoom={zoom} />
+        )}
+      </div>
     </div>
   );
 }
