@@ -5,6 +5,7 @@
 @import './iconbutton/iconbutton.css'; /* must come after button AND icon! */
 @import './loadingspinner/loadingspinner.css';
 @import './popover/popover.css';
+@import './select/select.css';
 @import './slider/slider.css';
 @import './textfield/textfield.css';
 @import './usercircle/usercircle.css';

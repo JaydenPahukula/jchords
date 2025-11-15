@@ -1,9 +1,10 @@
 import { Signal } from '@preact/signals-react';
-import { Flex, Heading, Select, Separator, Text } from '@radix-ui/themes';
 import { JCAccidental, JCKey, JCNote, JCRenderOptions } from 'engine';
+import { useId } from 'react';
 import { mod } from 'shared/functions/mod';
 import { ParsedSong } from 'shared/types/parsedsong';
 import { Popover } from 'src/components/ui/popover/popover';
+import { Select } from 'src/components/ui/select/select';
 
 const majorKeyOptions: [string, JCNote, JCAccidental][] = [
   ['C', JCNote.C, 'sharp'],
@@ -37,7 +38,7 @@ interface TransposeMenuProps {
 }
 
 export function TransposeMenu(props: TransposeMenuProps) {
-  if (props.song === undefined) return <></>;
+  const titleId = 'transpose-menu-title-' + useId();
 
   const defaultKey: JCKey = props.song.parsed.startingKey ?? new JCKey(JCNote.C, false, 'sharp');
   const defaultKeyString = defaultKey.render();
@@ -83,19 +84,15 @@ export function TransposeMenu(props: TransposeMenuProps) {
   }
 
   return (
-    <Popover.Content width="180px">
-      <Heading as="h2" size="5" mb="2">
+    <Popover.Content align="end" className="w-[250px]">
+      <h2 id={titleId} className="text-lg font-bold">
         Transpose
-      </Heading>
+      </h2>
       <Separator size="4" mb="2" />
-      <Heading as="h3" size="3" weight="medium" mb="1">
-        Automatic
-      </Heading>
-      <Flex align="center" justify="between" gap="2" mb="2">
-        <Text as="label" htmlFor="automatic-key-select">
-          Key:{' '}
-        </Text>
-        <Select.Root value={currKey.render()} onValueChange={handleKeyChange}>
+      <h3 className="text-md mb-1 font-medium">Automatic</h3>
+      <div className="mb-2 flex content-center justify-between gap-2">
+        <label htmlFor="automatic-key-select">Key: </label>
+        <Select value={currKey.render()} onValueChange={handleKeyChange} items={keyOptions.map(([s]))}>
           <Select.Trigger id="automatic-key-select" />
           <Select.Content>
             {...keyOptions.map(([s]) => (
@@ -103,7 +100,7 @@ export function TransposeMenu(props: TransposeMenuProps) {
             ))}
           </Select.Content>
         </Select.Root>
-      </Flex>
+      </div>
       <Separator size="4" mb="2" />
       <Heading as="h3" size="3" weight="medium" mb="1">
         Manual

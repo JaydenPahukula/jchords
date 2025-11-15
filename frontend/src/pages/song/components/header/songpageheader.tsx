@@ -22,7 +22,7 @@ export function SongPageHeader(props: SongPageHeaderProps) {
       id="song-header"
       className="text-gray-1 bg-gray-11_5 flex h-13 w-full items-center gap-2 overflow-hidden px-2"
     >
-      <div className="flex shrink-0 grow gap-2">
+      <div className="flex shrink-0 grow basis-0 gap-2">
         <IconButton
           asLink
           to="/"
@@ -34,7 +34,7 @@ export function SongPageHeader(props: SongPageHeaderProps) {
       <h1 className="min-w-0 shrink truncate text-lg font-bold sm:text-xl">
         {props.song?.info.title}
       </h1>
-      <div className="flex shrink-0 grow justify-end gap-2">
+      <div className="flex shrink-0 grow basis-0 justify-end gap-2">
         <Popover.Root>
           <Popover.Trigger asChild>
             <IconButton className="size-10 bg-transparent p-[6px] hover:bg-[#fff1] active:bg-[#fff2]">
