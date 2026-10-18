@@ -12,7 +12,7 @@
     "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3",
     "vite": "^7.0.0",
-    "vitest": "^3.2.3"
+    "vitest": "^5.0.2"
   },
   "dependencies": {
     "chord-symbol": "^4.0.0"
